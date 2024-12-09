@@ -70,10 +70,10 @@ const PricingWithMenu = () => {
   const [selectedPlan, setSelectedPlan] = useState(pricingPlans[2]);
 
   return (
-    <section className="container mx-auto pt-20" id="Pricing">
-      <h1 className="text-center text-[#2d2624] lg:text-[48px] text-[32px] font-black lg:leading-[60px] leading-10">
+    <section className="container mx-auto pt-10" id="Pricing">
+      {/* <h1 className="text-center text-[#2d2624] lg:text-[48px] text-[32px] font-black lg:leading-[60px] leading-10">
         Tiered pricing with <br /> bulk discounts
-      </h1>
+      </h1> */}
       <p className="lg:text-[24px] text-[18px] text-[#2d2624] my-6 text-center font-bold">
         Choose the perfect tier for your needs
       </p>
@@ -110,7 +110,7 @@ const PricingWithMenu = () => {
                 </p>
               )}
               <hr className="border-t border-t-gray-300 mb-3" />
-              <ul className="space-y-2">
+              <ul className="space-y-0">
                 {plan.features.map((feature, i) => (
                   <li key={i} className="flex p-2">
                     <span className="text-green-500 mr-2">✔</span>
