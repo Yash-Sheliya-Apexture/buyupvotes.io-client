@@ -10,7 +10,28 @@ const Ordertable = () => {
   const [debouncedQuery, setDebouncedQuery] = useState(""); // For debounce effect
   const [startDate, setStartDate] = useState(""); // Track start date
   const [endDate, setEndDate] = useState(""); // Track end date
-  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const totalPages = Math.ceil(tableData.length / rowsPerPage);
+  const paginatedData = tableData.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handleRowsPerPageChange = (e) => {
+    setRowsPerPage(parseInt(e.target.value));
+    setCurrentPage(1); // Reset to first page
+  };
+
   const tabs = [
     {
       label: "All",
@@ -338,8 +359,8 @@ const Ordertable = () => {
             </tr>
           </thead>
           <tbody>
-            {tableData.length > 0 ? (
-              tableData.map((row, index) => (
+            {paginatedData.length > 0 ? (
+              paginatedData.map((row, index) => (
                 <tr
                   key={index}
                   className={`border-b hover:bg-gray-100 ${
@@ -384,24 +405,40 @@ const Ordertable = () => {
 
       <div className="flex justify-end space-x-5 items-center p-4 bg-white border border-gray-border">
         <span className="text-sm text-sub-color">
-          Rows per page:{" "}
-          <select className="rounded-md text-sub-color outline-none text-small">
+          Rows per page:
+          <select
+            value={rowsPerPage}
+            onChange={handleRowsPerPageChange}
+            className="rounded-md text-sub-color outline-none text-small"
+          >
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="25">25</option>
           </select>
         </span>
-
-        <span className="text-sm text-sub-color">0-0 of 0</span>
+        <span className="text-sm text-sub-color">
+          {Math.min((currentPage - 1) * rowsPerPage + 1, tableData.length)}-
+          {Math.min(currentPage * rowsPerPage, tableData.length)} of{" "}
+          {tableData.length}
+        </span>
         <div className="flex items-center gap-2">
-          <button>
-            <FaChevronLeft className="size-5 text-light-gray" />
+          <button
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+            className={currentPage === 1 ? "opacity-50" : ""}
+          >
+            <FaChevronLeft className="size-5" />
           </button>
-          <button className="">
-            <FaChevronRight className="size-5 text-light-gray" />
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+            className={currentPage === totalPages ? "opacity-50" : ""}
+          >
+            <FaChevronRight className="size-5" />
           </button>
         </div>
       </div>
+
       {/* Pagination */}
     </div>
   );

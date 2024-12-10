@@ -16,7 +16,10 @@ const HeroSecrtion = () => {
               You have 100 upvotes remaining on your balance. Continue boosting
               your Reddit experience by placing an order!
             </p>
-            <Link to="/UpvoteOrder" className="px-6 py-1.5 bg-main-color text-white font-bold rounded-full">
+            <Link
+              to="/UpvoteOrder"
+              className="px-6 py-1.5 bg-main-color text-white font-bold rounded-full"
+            >
               Order Now
             </Link>
           </div>

@@ -13,6 +13,11 @@ const OrderComment = () => {
   const [errors, setErrors] = useState({ link: "", comment: "" });
   const [successMessage, setSuccessMessage] = useState(""); // Success message state
 
+  const [formData, setFormData] = useState({ speed: "", numberOfComments: "" });
+
+  const speeds = ["Slow", "Medium", "Fast", "Express"];
+  const numbers = Array.from({ length: 50 }, (_, i) => i + 1);
+
   // Validate URL function
   const validateURL = (url) => {
     const redditRegex = /^https?:\/\/(www\.)?reddit\.com\/.+$/;
@@ -180,62 +185,33 @@ const OrderComment = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-4 p-4 border-gray-border rounded-md bg-white shadow-md my-4">
-          {/* Number Input */}
-          <div className="flex w-[50%] flex-col relative">
-            <div className="flex relative">
-              <input
-                type="text"
-                className="w-full p-2 rounded-full border hover:border-black transition-all ease-in duration-200"
-                placeholder={selectedNumber ? "" : "Number Of Comments"}
-                value={selectedNumber}
-                readOnly
-                onClick={toggleDropdown}
+        <form className="">
+          <div className="flex items-center gap-4 p-4 border-gray-border rounded-md bg-white shadow-md my-4">
+            <div className="flex w-[50%] flex-col relative">
+              <Dropdown
+                options={numbers}
+                selectedValue={formData.numberOfComments}
+                onSelect={(value) =>
+                  setFormData({ ...formData, numberOfComments: value })
+                }
+                placeholder="Number of Comments"
+                error={errors.numberOfComments}
               />
-              <FaAngleDown className="absolute top-3 right-3 cursor-pointer" />
             </div>
 
-            <div
-              className={`absolute top-full left-0 w-full bg-white border-gray-100 z-10 rounded-medium shadow-md transition-all duration-300 ease-in-out ${
-                isDropdownOpen
-                  ? "scale-y-100 translate-y-0"
-                  : "scale-y-0 pointer-events-none"
-              }`}
-              style={{
-                backgroundImage: `url(${bluebackground})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-              }}
-            >
-              <ul className="py-2 max-h-40 overflow-y-scroll no-scrollbar">
-                {Array.from({ length: 50 }, (_, index) => index + 1).map(
-                  (number) => (
-                    <li
-                      key={number}
-                      onClick={() => handleSelect(number)}
-                      className="px-4 py-2 hover:bg-gray-hover cursor-pointer"
-                    >
-                      {number}
-                    </li>
-                  )
-                )}
-              </ul>
+            <div className="flex flex-col w-[50%]">
+              <div className="flex relative">
+                <input
+                  type="text"
+                  className="w-full p-2 rounded-full border hover:border-black transition-all ease-in duration-200"
+                  placeholder="1 minutes"
+                  disabled
+                />
+                <FaAngleDown className="absolute top-3 right-3" />
+              </div>
             </div>
           </div>
-          <div className="flex flex-col w-[50%]">
-            {/* Speed Input */}
-            <div className="flex relative">
-              <input
-                type="text"
-                className="w-full p-2 rounded-full border hover:border-black transition-all ease-in duration-200"
-                placeholder="Speed"
-                disabled
-              />
-              <FaAngleDown className="absolute top-3 right-3" />
-            </div>
-          </div>
-        </div>
+        </form>
 
         <div className="max-w-6xl mx-auto p-4 bg-white shadow-md rounded-lg border border-gray-border py-10">
           <h2 className="text-[20px] font-bold text-center text-[#2D2624] mb-4">

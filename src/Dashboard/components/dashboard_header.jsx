@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import rocket from "../../assets/Images/rocket-1.png";
 import { FaAngleDown } from "react-icons/fa6";
 import skybackground from "../../assets/Images/blue-background.png";
-// import axios from "axios"; // Import Axios
+import { space } from "postcss/lib/list";
 
 const Dashboard_header = () => {
-  const [showTooltip, setShowTooltip] = useState(false); // Tooltip state
-  const [showMenu, setShowMenu] = useState(false); // Menu toggle state for small screens
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [error, setError] = useState(null); // Define error state
-  const [user, setUser] = useState(null); // User state to store the user's data
-  const [loading, setLoading] = useState(true); // Add loading state to manage loading status
+  const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const navigate = useNavigate(); // Initialize navigate hook
+  const navigate = useNavigate();
 
-  // Access the API URL using Vite-specific syntax
-  const apiUrl = import.meta.env.VITE_API_BASE_URL; 
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
+  const dropdownRef = useRef(null); // Ref for the dropdown menu
 
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("authToken");
       if (token) {
         try {
-          setLoading(true); // Set loading to true when starting to fetch user data
+          setLoading(true);
           const response = await axios.get(`${apiUrl}/auth/user`, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -38,42 +39,42 @@ const Dashboard_header = () => {
         } catch (err) {
           setError("Error fetching user data");
         } finally {
-          setLoading(false); // Set loading to false after fetching is done
+          setLoading(false);
         }
       } else {
-        setLoading(false); // Set loading to false if there is no token
+        setLoading(false);
       }
     };
 
     fetchUserData();
+
+    // Add a click listener to close the dropdown if clicked outside
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
   }, [apiUrl]);
 
-  const toggleTooltip = () => {
-    setShowTooltip((prev) => !prev); // Toggle tooltip visibility
-  };
+  const toggleTooltip = () => setShowTooltip(!showTooltip);
+  const toggleMenu = () => setShowMenu(!showMenu);
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-  const toggleMenu = () => {
-    setShowMenu((prev) => !prev); // Toggle mobile menu
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  // Handle Sign Out
   const handleSignOut = () => {
-    // Clear the authentication token and user data from localStorage
     localStorage.removeItem("authToken");
-
-    // Redirect user to the login page after signing out
     navigate("/signin");
   };
 
   return (
-    /* Header Part Start */
     <section className="container relative flex items-center justify-end p-2 space-x-2 lg:space-x-4 lg:p-4">
       {/* Country Icon */}
-      <button className="relative" onClick={toggleTooltip}>
+      <button className="relative hidden  " onClick={toggleTooltip}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
@@ -122,9 +123,9 @@ const Dashboard_header = () => {
       )}
 
       {/* Icon Day */}
-      <span className="svg-color icon-set"></span>
+      {/* <span className="svg-color icon-set"></span> */}
 
-      <div className="relative">
+      <div className="relative" ref={dropdownRef}>
         {/* Dropdown Button */}
         <button
           className="px-6 py-2.5 rounded-full bg-[#FF5700] flex items-center relative focus:outline-none"
@@ -146,10 +147,8 @@ const Dashboard_header = () => {
           />
         </button>
 
-        {/* Dropdown Menu */}
-
         <div
-          className={`absolute overflow-hidden top-12 right-0 w-[100%] bg-gradient-to-t from-pink-100/50 bg-white rounded-[12px] border border-gray-200 z-10 transform transition-all duration-300 ease-in-out ${
+          className={`absolute overflow-hidden top-12 pb-2 right-0 w-full bg-gradient-to-r from-[#fef2f0af] shadow-md bg-white rounded-[14px] border border-gray-border z-10 transform transition-all duration-300 ease-in-out ${
             isDropdownOpen
               ? "opacity-100 scale-100 translate-y-0"
               : "opacity-0 scale-95 -translate-y-10 pointer-events-none"
@@ -161,35 +160,34 @@ const Dashboard_header = () => {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <ul className="text-sm text-[#2D2624]">
-            {/* Display User Info if Available */}
+          <ul className="text-sm text-[#2D2624] space-y-1">
             {user ? (
-              <li className="px-4 py-2 cursor-pointer">
-                <span>{user.firstName}</span>
-                <p>{user.email}</p>
+              <li className="px-4 py-2 cursor-pointer space-y-2">
+                <span className="text-sub-color font-medium text-[16px]">
+                  {user.firstName}
+                </span>
+                <p className="text-[#403633] font-medium text-[16px]">
+                  {user.email}
+                </p>
               </li>
             ) : (
-              <li className="px-4 py-2 cursor-pointer hover:bg-gray-100">
-                <span className="">firstName</span>
-                <p>email</p>
-              </li>
+              <span className="text-[#2D2624] font-medium text-small px-4">
+                No data found here
+              </span>
             )}
-            <hr className="border-t border-dashed " />
-            <li className="px-4 py-2 cursor-pointer hover:bg-[#919eab14] rounded-full">
-              <Link to="/" className="block">
-                Home
-              </Link>
+            <hr className="border-t border-dashed" />
+
+            <li className="px-4 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150">
+              <Link to="/">Home</Link>
             </li>
-            <li
-              className="px-4 py-2 cursor-pointer hover:bg-[#919eab14] rounded-full"
-              onClick={() => alert("Setting Menu")}
-            >
+            <li className="px-4 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150">
               Settings
             </li>
+
             <hr className="border-t border-dashed " />
             <li
-              className="px-4 py-2 hover:bg-gray-100 text-[#FF5630] font-bold cursor-pointer"
-              onClick={handleSignOut} // Handle sign out on click
+              className="px-4 py-2 hover:bg-[#919eab14] rounded-full transition-all ease-in duration-150 text-[#FF5D3A] font-black tracking-wide cursor-pointer"
+              onClick={handleSignOut}
             >
               Sign Out
             </li>
@@ -197,7 +195,6 @@ const Dashboard_header = () => {
         </div>
       </div>
     </section>
-    /* Header Part End */
   );
 };
 

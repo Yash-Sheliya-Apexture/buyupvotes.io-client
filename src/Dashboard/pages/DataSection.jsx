@@ -12,7 +12,7 @@ const DataSection = () => {
             <p className="text-xs text-para-color">Votes remaining</p>
           </div>
           <div className="text-main-color text-large">
-            <Link to="/FundPrice">
+            <Link to="FundPrice">
               <i className="fas fa-wallet hover:bg-gray-hover p-3 rounded-full transition-all ease-in duration-150"></i>
             </Link>
           </div>
@@ -25,7 +25,9 @@ const DataSection = () => {
             <p className="text-xs text-para-color">Total Orders</p>
           </div>
           <div className="text-main-color text-large">
-            <i className="fas fa-chart-line hover:bg-gray-hover p-3 rounded-full transition-all ease-in duration-150"></i>
+            <Link to="UpvoteOrder">
+              <i className="fas fa-chart-line hover:bg-gray-hover p-3 rounded-full transition-all ease-in duration-150"></i>
+            </Link>
           </div>
         </div>
 
@@ -36,7 +38,9 @@ const DataSection = () => {
             <p className="text-xs text-para-color">Orders in Progress</p>
           </div>
           <div className="text-main-color text-large">
-            <i className="fas fa-bolt hover:bg-gray-hover p-3 rounded-full transition-all ease-in duration-150"></i>
+            <Link to="UpvoteOrder">
+              <i className="fas fa-bolt hover:bg-gray-hover p-3 rounded-full transition-all ease-in duration-150"></i>
+            </Link>
           </div>
         </div>
 
@@ -46,7 +50,9 @@ const DataSection = () => {
             <p className="text-base font-bold text-sub-color mb-2">New Order</p>
           </div>
           <div className="text-main-color text-large">
-            <i className="fas fa-plus-circle hover:bg-gray-hover p-3 rounded-full transition-all ease-in duration-150"></i>
+            <Link to="OrderComment">
+              <i className="fas fa-plus-circle hover:bg-gray-hover p-3 rounded-full transition-all ease-in duration-150"></i>
+            </Link>
           </div>
         </div>
 
