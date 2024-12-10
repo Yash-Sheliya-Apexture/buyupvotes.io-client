@@ -115,7 +115,7 @@ const SideBar = () => {
         </div>
 
         {/* Sidebar Menu */}
-        <div className="h-[calc(100%-4rem)] overflow-y-auto scroll-smooth scrollbar-thin custom-scrollbar">
+        <div className="h-[calc(100%-4rem)] overflow-y-auto custom-scroll">
           <ul className="space-y-2.5 mt-5">
             {menuItems.map((item) => (
               <li
@@ -136,6 +136,13 @@ const SideBar = () => {
                     <span className="text-small">{item.label}</span>
                   )}
                 </Link>
+                <div
+                  className={`absolute left-0 top-0 h-full w-1 ${
+                    activeMenu === item.id
+                      ? "bg-main-color scale-y-100"
+                      : "bg-transparent scale-y-0"
+                  } transition-all duration-300`}
+                ></div>
               </li>
             ))}
           </ul>

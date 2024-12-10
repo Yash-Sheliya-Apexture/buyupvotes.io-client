@@ -20,7 +20,7 @@ const DashboardRoutes = () => {
           <Sidebar1 />
         </div>
 
-        <div className="w-[85%] px-3">
+        <div className="w-[80%] px-3">
           <Dashboard_header />
           <main className="">
             <Routes>

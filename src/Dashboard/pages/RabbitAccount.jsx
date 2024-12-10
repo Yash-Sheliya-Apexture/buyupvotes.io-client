@@ -1,10 +1,11 @@
 import React from "react";
 import char_1 from "../../assets/Images/character_1.png";
 
+
 const RabbitAccount = () => {
   return (
     <div className="container mx-auto mt-10">
-      <div className="flex justify-center items-center flex-col">
+      <div className="flex justify-center items-center flex-col relative">
         <h1 className="text-[40px] text-[#2D2624] font-bold mb-4">
           Coming Soon!
         </h1>
@@ -121,6 +122,7 @@ const RabbitAccount = () => {
               </linearGradient>
             </defs>
           </svg>
+          <img src={char_1} alt="Char_1" className="absolute top-60 h-48 right-96" />
         </div>
       </div>
     </div>
