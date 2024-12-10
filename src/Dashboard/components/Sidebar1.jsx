@@ -60,8 +60,13 @@ const SideBar = () => {
       label: "Buy Raddit Accounts",
       link: "/dashboard/RabbitAcc",
     },
-    { id: "faqs", icon: <MdContactPage />, label: "FAQ'S", link: "/" },
-    { id: "OTP", icon: <GoFileDirectoryFill />, label: "Blogs", link: "/" },
+    {
+      id: "FAQs",
+      icon: <MdContactPage />,
+      label: "FAQ'S",
+      link: "/dashboard/FAQ",
+    },
+    { id: "Blogs Data", icon: <GoFileDirectoryFill />, label: "Blogs", link: "/dashboard/Blogs" },
     { id: "API", icon: <IoTv />, label: "API (New)", link: "/" },
     {
       id: "Contact",
@@ -122,8 +127,8 @@ const SideBar = () => {
                 key={item.id}
                 className={`relative group rounded-base cursor-pointer ${
                   activeMenu === item.id
-                    ? "bg-[#FF570014] text-[#FF5700] font-bold"
-                    : "text-[#403633] hover:bg-[rgba(240,240,240,0.6)]"
+                    ? "bg-[#FF570014] text-main-color font-bold"
+                    : "text-active hover:bg-[rgba(240,240,240,0.6)]"
                 }`}
                 onClick={() => setActiveMenu(item.id)}
               >
@@ -147,8 +152,8 @@ const SideBar = () => {
             ))}
           </ul>
           {isSidebarExpanded && (
-            <div className="py-2">
-              <button className="w-full p-1.5 hover:shadow-Sidebar rounded-full border border-[#FF5700]">
+            <div className="p-2.5">
+              <button className="w-full p-1.5 hover:shadow-btnShadow duration-150  transition-all rounded-full border border-main-color text-main-color">
                 Add Funds
               </button>
             </div>

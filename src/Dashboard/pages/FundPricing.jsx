@@ -17,10 +17,10 @@ const FundPricing = () => {
       <div className="py-10">
         <div className="flex justify-center pb-4 space-x-8">
           <button
-            className={`flex items-center font-bold lg:text-[16px] text-[12px] lg:px-4 px-0 py-2 ${
+            className={`flex items-center font-bold lg:text-small text-xxs lg:px-4 px-0 py-2 ${
               selectedTab === "creditCard"
-                ? "text-[#FF5700] border-b-2 border-[#FF5700]"
-                : "text-gray-600 hover:text-[#FF5700]"
+                ? "text-main-color border-b-2 border-main-color"
+                : "text-gray-600 hover:text-main-color"
             }`}
             onClick={() => setSelectedTab("creditCard")}
           >
@@ -30,10 +30,10 @@ const FundPricing = () => {
             Credit Card
           </button>
           <button
-            className={`flex items-center font-bold lg:text-[16px] text-[14px] lg:px-4 px-0 py-2 ${
+            className={`flex items-center font-bold lg:text-small text-xs lg:px-4 px-0 py-2 ${
               selectedTab === "crypto"
-                ? "text-[#FF5700] border-b-2 border-[#FF5700]"
-                : "text-gray-600 hover:text-[#FF5700]"
+                ? "text-main-color border-b-2 border-main-color"
+                : "text-gray-600 hover:text-main-color"
             }`}
             onClick={() => setSelectedTab("crypto")}
           >
@@ -59,9 +59,9 @@ const FundPricing = () => {
         >
           {/* Credit Card Content */}
           <div className="flex items-center justify-center mt-4 text-center">
-            <p className="text-[#403633] lg:text-[20px] max-w-[400px]">
+            <p className="text-[#403633] lg:text-base max-w-[400px]">
               Enter your{" "}
-              <span className="text-[#FF5700] font-medium leading-10">
+              <span className="text-main-color font-medium leading-10">
                 deposit amount
               </span>{" "}
               using to Credit-Card many upvotes it will convert into:
@@ -81,9 +81,9 @@ const FundPricing = () => {
         >
           {/* Cryptocurrency Content */}
           <div className="flex items-center justify-center mt-4 text-center">
-            <p className="text-[#403633] lg:text-[20px] max-w-[400px]">
+            <p className="text-[#403633] lg:text-base max-w-[400px]">
               Enter your{" "}
-              <span className="text-[#FF5700] font-medium leading-10">
+              <span className="text-main-color font-medium leading-10">
                 deposit amount
               </span>{" "}
               using to Cryptocurrency upvotes it will convert into:
@@ -103,7 +103,7 @@ const FundPricing = () => {
           </div>
 
           {/* Button Section */}
-          <button className="px-4 py-2 bg-transparent border-2 border-[#FF5700] text-[#FF5700] font-bold rounded-r-full transition-all">
+          <button className="px-4 py-2 bg-transparent border-2 border-main-color text-main-color font-bold rounded-r-full transition-all">
             Calculate
           </button>
         </div>
@@ -117,14 +117,14 @@ const FundPricing = () => {
         </div>
 
         <div className="flex flex-col justify-center items-center space-y-4">
-          <h1 className="text-sub-color font-bold text-[20px]">
+          <h1 className="text-sub-color font-bold text-base">
             Have any questions?
           </h1>
-          <p className="text-sub-color font-medium text-[16px]">
+          <p className="text-sub-color font-medium text-small">
             Contact us and we'll get back to you as soon as possible.
           </p>
           <Link to="/Dashboard/ContactUs">
-            <button className="px-14 py-1 border border-[#FF5700] text-[#FF5700] font-bold rounded-full transition-all">
+            <button className="px-14 py-1 border border-main-color text-main-color font-bold rounded-full transition-all">
               Contact Us
             </button>
           </Link>

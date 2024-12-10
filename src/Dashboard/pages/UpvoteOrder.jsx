@@ -4,6 +4,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import Ordertable from "../pages/ordertable";
 import Breadcrumb from "../components/Breadcrumb";
 import Dropdown from "../components/Dropdown"; // Import reusable dropdown
+import Button from "../components/Button"; // Import reusable button
 
 const UpvoteOrder = () => {
   // Consolidated form state
@@ -129,9 +130,9 @@ const UpvoteOrder = () => {
       try {
         // Send form data to backend to save to Google Sheets
         const response = await fetch(`${apiUrl}/api/auth/submit-order`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
         });
@@ -143,7 +144,7 @@ const UpvoteOrder = () => {
           setSuccessMessage("There was an error submitting the order.");
         }
       } catch (error) {
-        console.error('Error submitting order:', error);
+        console.error("Error submitting order:", error);
         setSuccessMessage("There was an error submitting the order.");
       }
 
@@ -195,7 +196,9 @@ const UpvoteOrder = () => {
               <Dropdown
                 options={services}
                 selectedValue={formData.service}
-                onSelect={(value) => setFormData({ ...formData, service: value })}
+                onSelect={(value) =>
+                  setFormData({ ...formData, service: value })
+                }
                 placeholder="Service"
                 error={errors.service}
               />
@@ -208,8 +211,9 @@ const UpvoteOrder = () => {
                   placeholder="Link"
                   value={formData.link}
                   onChange={handleInputChange}
-                  className={`w-full border rounded-full p-2.5 ${errors.link ? "border-red-500" : "border-gray-300"
-                    } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
+                  className={`w-full border rounded-full p-2.5 ${
+                    errors.link ? "border-red-500" : "border-gray-300"
+                  } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
                 />
                 {errors.link && (
                   <p className="text-sm text-red-500">{errors.link}</p>
@@ -224,8 +228,9 @@ const UpvoteOrder = () => {
                   placeholder="Quantity"
                   value={formData.quantity}
                   onChange={handleInputChange}
-                  className={`w-full border rounded-full p-2.5 ${errors.quantity ? "border-red-500" : "border-gray-300"
-                    } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
+                  className={`w-full border rounded-full p-2.5 ${
+                    errors.quantity ? "border-red-500" : "border-gray-300"
+                  } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
                 />
                 {errors.quantity && (
                   <p className="text-sm text-red-500">{errors.quantity}</p>
@@ -250,12 +255,9 @@ const UpvoteOrder = () => {
 
               {/* Submit Button */}
               <div className="flex justify-center space-x-4">
-                <button
-                  type="submit"
-                  className="border border-main-color text-main-color px-14 py-2.5 hover:shadow-btnShadow transition-all duration-150 ease-in text-[14px] rounded-full font-bold"
-                >
+                <Button type="submit" onClick={handleSubmit}>
                   Submit Order
-                </button>
+                </Button>
               </div>
             </form>
           </div>
@@ -289,17 +291,16 @@ const UpvoteOrder = () => {
                 <hr className="w-[80%]" />
               </div>
               <p className="text-sm text-[#2D2624] font-medium leading-6">
-                Our upvotes/downvotes are the same as organic
-                upvotes/downvotes and will not get your account banned.
-                Unusual activity that results in users or moderators reporting
-                your account can still get you banned. Please choose your
-                order's upvote/downvote quantity wisely so as not to arouse
-                any suspicion.
+                Our upvotes/downvotes are the same as organic upvotes/downvotes
+                and will not get your account banned. Unusual activity that
+                results in users or moderators reporting your account can still
+                get you banned. Please choose your order's upvote/downvote
+                quantity wisely so as not to arouse any suspicion.
               </p>
               <p className="text-[14px] text-[#2D2624] font-semibold">
                 *Upvotes on posts/comments older than 24 hours are not
-                guaranteed to go through. Downvotes are similarly not
-                guaranteed regardless of post/comment age.
+                guaranteed to go through. Downvotes are similarly not guaranteed
+                regardless of post/comment age.
               </p>
             </div>
           </div>
@@ -309,8 +310,8 @@ const UpvoteOrder = () => {
       <div className="my-5">
         <p className="text-center underline text-light-red underline-offset-1 text-[18px]">
           Due to Reddit's updated security measures, upvotes on certain
-          subreddits are temporarily unavailable. If affected, the order will
-          be canceled and refunded.
+          subreddits are temporarily unavailable. If affected, the order will be
+          canceled and refunded.
         </p>
       </div>
 

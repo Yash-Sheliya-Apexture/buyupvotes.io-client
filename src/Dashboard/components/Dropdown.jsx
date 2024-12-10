@@ -80,7 +80,7 @@ const Dropdown = ({
               }}
               className={`p-2 my-1 text-sub-color cursor-pointer rounded-[10px] transition-all duration-150 ${
                 activeIndex === index
-                  ? "bg-[#919eb229] text-[#2D2624]" // Active item style
+                  ? "bg-[#919eb229] text-sub-color" // Active item style
                   : "hover:bg-[#f3f2f2]"
               }`}
             >

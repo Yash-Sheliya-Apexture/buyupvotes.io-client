@@ -72,7 +72,7 @@ const Dashboard_header = () => {
   };
 
   return (
-    <section className="container relative flex items-center justify-end p-2 space-x-2 lg:space-x-4 lg:p-4">
+    <section className="relative flex items-center justify-end p-2 space-x-2 lg:space-x-4 lg:p-4">
       {/* Country Icon */}
       <button className="relative hidden  " onClick={toggleTooltip}>
         <svg
@@ -97,7 +97,7 @@ const Dashboard_header = () => {
 
       {/* Tooltip */}
       {showTooltip && (
-        <div className="absolute right-80 top-14 bg-[#dceff5] border border-gray-300 rounded-[10px] px-4 py-1.5 z-10">
+        <div className="absolute right-80 top-14 bg-[#dceff5] border border-gray-300 rounded-medium px-4 py-1.5 z-10">
           <div className="flex justify-between ap-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +128,7 @@ const Dashboard_header = () => {
       <div className="relative" ref={dropdownRef}>
         {/* Dropdown Button */}
         <button
-          className="px-6 py-2.5 rounded-full bg-[#FF5700] flex items-center relative focus:outline-none"
+          className="px-6 py-2.5 rounded-full bg-main-color flex items-center relative focus:outline-none"
           onClick={toggleDropdown}
         >
           <img
@@ -160,33 +160,33 @@ const Dashboard_header = () => {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <ul className="text-sm text-[#2D2624] space-y-1">
+          <ul className="text-sm text-sub-color space-y-1">
             {user ? (
               <li className="px-4 py-2 cursor-pointer space-y-2">
-                <span className="text-sub-color font-medium text-[16px]">
+                <span className="text-sub-color font-medium text-small">
                   {user.firstName}
                 </span>
-                <p className="text-[#403633] font-medium text-[16px]">
+                <p className="text-active font-medium text-small">
                   {user.email}
                 </p>
               </li>
             ) : (
-              <span className="text-[#2D2624] font-medium text-small px-4">
+              <span className="text-sub-color font-medium text-small px-4">
                 No data found here
               </span>
             )}
             <hr className="border-t border-dashed" />
 
-            <li className="px-4 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150">
+            <li className="px-4 py-2 cursor-pointer hover:bg-brown-hover rounded-large transition-all ease-in duration-150">
               <Link to="/">Home</Link>
             </li>
-            <li className="px-4 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150">
+            <li className="px-4 py-2 cursor-pointer hover:bg-brown-hover rounded-large transition-all ease-in duration-150">
               Settings
             </li>
 
             <hr className="border-t border-dashed " />
             <li
-              className="px-4 py-2 hover:bg-[#919eab14] rounded-full transition-all ease-in duration-150 text-[#FF5D3A] font-black tracking-wide cursor-pointer"
+              className="px-4 py-2 hover:bg-brown-hover rounded-full transition-all ease-in duration-150 text-main-color font-black tracking-wide cursor-pointer"
               onClick={handleSignOut}
             >
               Sign Out
