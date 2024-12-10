@@ -16,7 +16,7 @@ const Dashboard_header = () => {
   const navigate = useNavigate(); // Initialize navigate hook
 
   // Access the API URL using Vite-specific syntax
-  const apiUrl = import.meta.env.VITE_API_BASE_URL; // Correct way to access Vite environment variables
+  const apiUrl = import.meta.env.VITE_API_BASE_URL; 
 
   useEffect(() => {
     const fetchUserData = async () => {
