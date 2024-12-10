@@ -107,9 +107,9 @@ const SideBar = () => {
             className={`relative ${isSidebarExpanded ? "" : "ml-auto"}`}
           >
             {isSidebarExpanded ? (
-              <FaAngleLeft className="text-gray-500 absolute top-0 p-1 size-6 lg:block hidden cursor-pointer border rounded-full" />
+              <FaAngleLeft className="text-gray-500 absolute top-0 left-0.5 backdrop-blur-sm p-1 size-6 lg:block hidden cursor-pointer border rounded-full" />
             ) : (
-              <FaAngleRight className="text-gray-500 absolute top-0 p-1 size-6 lg:block hidden cursor-pointer border rounded-full" />
+              <FaAngleRight className="text-gray-500 absolute top-0 left-0.5 p-1 size-6 backdrop-blur-sm lg:block hidden cursor-pointer border rounded-full" />
             )}
           </button>
         </div>

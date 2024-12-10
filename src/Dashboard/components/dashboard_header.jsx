@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import rocket from "../../assets/Images/rocket-1.png";
 import { FaAngleDown } from "react-icons/fa6";
 import skybackground from "../../assets/Images/blue-background.png";
+import { space } from "postcss/lib/list";
 
 const Dashboard_header = () => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -170,8 +171,10 @@ const Dashboard_header = () => {
                 </p>
               </li>
             ) : (
-            ""
-            )}  
+              <span className="text-[#2D2624] font-medium text-small px-4">
+                No data found here
+              </span>
+            )}
             <hr className="border-t border-dashed" />
 
             <li className="px-4 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150">
