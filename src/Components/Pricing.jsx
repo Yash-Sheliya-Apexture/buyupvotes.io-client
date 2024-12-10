@@ -70,10 +70,10 @@ const PricingWithMenu = () => {
   const [selectedPlan, setSelectedPlan] = useState(pricingPlans[2]);
 
   return (
-    <section className="container mx-auto pt-20" id="Pricing">
-      <h1 className="text-center text-[#2d2624] lg:text-[48px] text-[32px] font-black lg:leading-[60px] leading-10">
+    <section className="container pt-10 mx-auto" id="Pricing">
+      {/* <h1 className="text-center text-[#2d2624] lg:text-[48px] text-[32px] font-black lg:leading-[60px] leading-10">
         Tiered pricing with <br /> bulk discounts
-      </h1>
+      </h1> */}
       <p className="lg:text-[24px] text-[18px] text-[#2d2624] my-6 text-center font-bold">
         Choose the perfect tier for your needs
       </p>
@@ -109,11 +109,11 @@ const PricingWithMenu = () => {
                   {plan.discount}
                 </p>
               )}
-              <hr className="border-t border-t-gray-300 mb-3" />
-              <ul className="space-y-2">
+              <hr className="mb-3 border-t border-t-gray-300" />
+              <ul className="space-y-0">
                 {plan.features.map((feature, i) => (
                   <li key={i} className="flex p-2">
-                    <span className="text-green-500 mr-2">✔</span>
+                    <span className="mr-2 text-green-500">✔</span>
                     <span>{feature}</span>
                   </li>
                 ))}
@@ -126,7 +126,7 @@ const PricingWithMenu = () => {
       {/* Tablet/Small Screen Layout */}
       {/* Tablet/Small Screen Layout */}
       <div className="block lg:hidden">
-        <div className="flex overflow-x-auto md:space-x-12 space-x-4 pb-8 justify-center items-center">
+        <div className="flex items-center justify-center pb-8 space-x-4 overflow-x-auto md:space-x-12">
           {pricingPlans.map((plan, index) => (
             <button
               key={index}
@@ -144,7 +144,7 @@ const PricingWithMenu = () => {
           ))}
         </div>
 
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <div
             className={`border-4 border-[#FF5700] rounded-[26px] p-6 bg-white shadow-lg md:w-[60%] w-full ${
               selectedPlan.title === "Standard"
@@ -166,11 +166,11 @@ const PricingWithMenu = () => {
                 {selectedPlan.discount}
               </p>
             )}
-            <hr className="border-t border-t-gray-300 mb-3" />
+            <hr className="mb-3 border-t border-t-gray-300" />
             <ul className="space-y-2">
               {selectedPlan.features.map((feature, i) => (
                 <li key={i} className="flex p-2">
-                  <span className="text-green-500 mr-2">✔</span>
+                  <span className="mr-2 text-green-500">✔</span>
                   <span>{feature}</span>
                 </li>
               ))}

@@ -93,11 +93,11 @@ const OrderComment = () => {
   return (
     <div className="container">
       <div className="px-6">
-        <h1 className="text-sub-color font-bold text-basic mb-2">
+        <h1 className="mb-2 font-bold text-sub-color text-basic">
           Order Upvotes
         </h1>
-        <div className="flex space-x-4 items-center">
-          <div className="flex space-x-4 items-center">
+        <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4">
             <Breadcrumb items={breadcrumbs} />
           </div>
         </div>
@@ -105,19 +105,19 @@ const OrderComment = () => {
 
       <div className="p-4">
         {/* Instructions */}
-        <div className="border border-gray-border rounded-md p-4 bg-white shadow-md">
-          <h1 className="text-small font-semibold text-light-red underline underline-offset-1 mb-2">
+        <div className="p-4 bg-white border rounded-md shadow-md border-gray-border">
+          <h1 className="mb-2 font-semibold underline text-small text-light-red underline-offset-1">
             <u>Please read instructions carefully before placing an order:</u>
           </h1>
-          <p className="text-sub-color text-small font-normal leading-6 mb-4">
+          <p className="mb-4 font-normal leading-6 text-sub-color text-small">
             This service allows you to generate and automate Reddit comments
             using our extensive network of Reddit accounts. Each automated
             comment will deduct 10 upvotes from your balance.
           </p>
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center justify-between mb-4">
             {/* Left Side */}
             <div className="w-1/2">
-              <h3 className="font-medium text-small text-sub-color underline underline-offset-1">
+              <h3 className="font-medium underline text-small text-sub-color underline-offset-1">
                 Custom comments:{" "}
               </h3>
               <div className="flex items-center my-2 space-x-20">
@@ -132,7 +132,7 @@ const OrderComment = () => {
 
             {/* Right Side */}
             <div className="w-1/2">
-              <h3 className="font-medium text-small text-sub-color underline underline-offset-1">
+              <h3 className="font-medium underline text-small text-sub-color underline-offset-1">
                 Comment upvotes (per comment):
               </h3>
               <div className="flex items-center my-2 space-x-20">
@@ -146,33 +146,33 @@ const OrderComment = () => {
             </div>
           </div>
 
-          <div className="flex justify-center items-center mb-4">
+          <div className="flex items-center justify-center mb-4">
             <hr className="w-[80%] text-sub-color" />
           </div>
 
           <div className="flex mb-4">
-            <p className="text-sub-color text-small underline underline-offset-1 font-medium">
+            <p className="font-medium underline text-sub-color text-small underline-offset-1">
               Links can be inserted in the following format: &nbsp;
             </p>
-            <span className="text-sub-color font-black">
+            <span className="font-black text-sub-color">
               [link text](https://yourlink.com)
             </span>
           </div>
 
           <div className="flex mb-4">
-            <p className="text-sub-color text-small underline underline-offset-1 font-medium">
+            <p className="font-medium underline text-sub-color text-small underline-offset-1">
               To make a new line in the comment, include the text: &nbsp;
             </p>
-            <span className="text-sub-color font-black"> [newline]</span>
+            <span className="font-black text-sub-color"> [newline]</span>
           </div>
 
-          <p className="text-sub-color text-small font-medium mb-4">
+          <p className="mb-4 font-medium text-sub-color text-small">
             Comments are made with aged but low-karma accounts and{" "}
             <span className="font-black">are not guaranteed to go through</span>{" "}
             due to Reddit's spam filters or a subreddit's karma requirements.
           </p>
 
-          <p className="text-sub-color text-small font-medium mb-4">
+          <p className="mb-4 font-medium text-sub-color text-small">
             Due to the high amount of resources spent on making a comment,{" "}
             <span className="font-black">we do not provide refunds</span> for
             comment orders that do not go through. Please make sure to test this
@@ -180,19 +180,19 @@ const OrderComment = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-4 p-4 border-gray-border rounded-md bg-white shadow-md my-4">
+        <div className="flex items-center gap-4 p-4 my-4 bg-white rounded-md shadow-md border-gray-border">
           {/* Number Input */}
           <div className="flex w-[50%] flex-col relative">
-            <div className="flex relative">
+            <div className="relative flex">
               <input
                 type="text"
-                className="w-full p-2 rounded-full border hover:border-black transition-all ease-in duration-200"
+                className="w-full p-2 transition-all duration-200 ease-in border rounded-full hover:border-black"
                 placeholder={selectedNumber ? "" : "Number Of Comments"}
                 value={selectedNumber}
                 readOnly
                 onClick={toggleDropdown}
               />
-              <FaAngleDown className="absolute top-3 right-3 cursor-pointer" />
+              <FaAngleDown className="absolute cursor-pointer top-3 right-3" />
             </div>
 
             <div
@@ -208,13 +208,13 @@ const OrderComment = () => {
                 backgroundPosition: "center",
               }}
             >
-              <ul className="py-2 max-h-40 overflow-y-scroll no-scrollbar">
+              <ul className="py-2 overflow-y-scroll max-h-40 no-scrollbar">
                 {Array.from({ length: 50 }, (_, index) => index + 1).map(
                   (number) => (
                     <li
                       key={number}
                       onClick={() => handleSelect(number)}
-                      className="px-4 py-2 hover:bg-gray-hover cursor-pointer"
+                      className="px-4 py-2 cursor-pointer hover:bg-gray-hover"
                     >
                       {number}
                     </li>
@@ -225,10 +225,10 @@ const OrderComment = () => {
           </div>
           <div className="flex flex-col w-[50%]">
             {/* Speed Input */}
-            <div className="flex relative">
+            <div className="relative flex">
               <input
                 type="text"
-                className="w-full p-2 rounded-full border hover:border-black transition-all ease-in duration-200"
+                className="w-full p-2 transition-all duration-200 ease-in border rounded-full hover:border-black"
                 placeholder="Speed"
                 disabled
               />
@@ -237,7 +237,7 @@ const OrderComment = () => {
           </div>
         </div>
 
-        <div className="max-w-6xl mx-auto p-4 bg-white shadow-md rounded-lg border border-gray-border py-10">
+        <div className="max-w-6xl p-4 py-10 mx-auto bg-white border rounded-lg shadow-md border-gray-border">
           <h2 className="text-[20px] font-bold text-center text-[#2D2624] mb-4">
             Comment #1
           </h2>
@@ -286,7 +286,7 @@ const OrderComment = () => {
           </div>
 
           {/* Submit Button */}
-          <div className="flex justify-center space-x-4 mt-6">
+          <div className="flex justify-center mt-6 space-x-4">
             <button
               type="submit"
               onClick={handleSubmit}
@@ -296,9 +296,11 @@ const OrderComment = () => {
             </button>
           </div>
 
+
+                  
           {/* Success Message */}
           {successMessage && (
-            <div className="mt-4 text-center text-green-500 font-bold">
+            <div className="mt-4 font-bold text-center text-green-500">
               {successMessage}
             </div>
           )}

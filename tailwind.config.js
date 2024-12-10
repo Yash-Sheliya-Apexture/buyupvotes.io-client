@@ -10,7 +10,7 @@ export default {
         xs: { min: "320px" },
       },
       boxShadow: {
-        Sidebar: "0px 0px 20px 2px #00000036",
+        Sidebar: "0px 0px 12px 5px #00000036",
         base: "0px 2px 5px 1px #ff8700",
         btnShadow: "#FF5630 0px 0px 2px 1px",
       },

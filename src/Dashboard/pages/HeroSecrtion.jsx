@@ -7,23 +7,26 @@ const HeroSecrtion = () => {
   return (
     <>
       <div className="flex gap-6">
-        <div className="flex w-2/3 h-auto bg-light-brown rounded-large py-10 px-4 relative overflow-hidden">
+        <div className="relative flex w-2/3 h-auto px-4 py-10 overflow-hidden bg-light-brown rounded-large">
           <div className="p-6">
-            <h2 className="text-large font-black text-dark-green mb-2 flex items-center leading-10">
+            <h2 className="flex items-center mb-2 font-black leading-10 text-large text-dark-green">
               Welcome back, <br /> Rudra 👋
             </h2>
             <p className="text-[#477677] font-semibold mb-6 max-w-[300px]">
               You have 100 upvotes remaining on your balance. Continue boosting
               your Reddit experience by placing an order!
             </p>
-            <Link to="/UpvoteOrder" className="px-6 py-1.5 bg-main-color text-white font-bold rounded-full">
+            <Link
+              to="/UpvoteOrder"
+              className="px-6 py-1.5 bg-main-color text-white font-bold rounded-full"
+            >
               Order Now
             </Link>
           </div>
           <div className="flex">
-            <div className="absolute top-10 right-0">
+            <div className="absolute right-0 top-10">
               <svg
-                className="w-full h-full object-cover"
+                className="object-cover w-full h-full"
                 viewBox="0 0 480 360"
                 xmlns="http://www.w3.org/2000/svg"
               >
