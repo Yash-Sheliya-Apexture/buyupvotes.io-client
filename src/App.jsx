@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WebsiteRoutes from "./routes/WebsiteRoutes";
@@ -9,7 +8,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/*" element={<WebsiteRoutes />} /> {/* Default website routes */}
+        <Route path="/*" element={<WebsiteRoutes />} />{" "}
+        {/* Default website routes */}
         {/* Protected Dashboard Routes */}
         <Route
           path="/dashboard/*"

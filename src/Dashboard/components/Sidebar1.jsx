@@ -14,6 +14,7 @@ import { RiAccountBoxFill } from "react-icons/ri";
 import { GoFileDirectoryFill } from "react-icons/go";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import logo1 from "../../assets/Images/logo-mini.png";
+import Button from "../../Dashboard/components/Button";
 
 const SideBar = () => {
   const [activeMenu, setActiveMenu] = useState("Dashboard");
@@ -66,8 +67,13 @@ const SideBar = () => {
       label: "FAQ'S",
       link: "/dashboard/FAQ",
     },
-    { id: "Blogs Data", icon: <GoFileDirectoryFill />, label: "Blogs", link: "/dashboard/Blogs" },
-    { id: "API", icon: <IoTv />, label: "API (New)", link: "/" },
+    {
+      id: "Blogs Data",
+      icon: <GoFileDirectoryFill />,
+      label: "Blogs",
+      link: "/dashboard/BlogJson",
+    },
+    { id: "API", icon: <IoTv />, label: "API (New)", link: "/Api" },
     {
       id: "Contact",
       icon: <MdContacts />,
@@ -153,9 +159,9 @@ const SideBar = () => {
           </ul>
           {isSidebarExpanded && (
             <div className="p-2.5">
-              <button className="w-full p-1.5 hover:shadow-btnShadow duration-150  transition-all rounded-full border border-main-color text-main-color">
-                Add Funds
-              </button>
+              <Link to="/dashboard/FundPrice">
+                <Button>Add Funds</Button>
+              </Link>
             </div>
           )}
         </div>

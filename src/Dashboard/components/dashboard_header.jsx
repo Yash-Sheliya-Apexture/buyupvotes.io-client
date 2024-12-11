@@ -148,13 +148,13 @@ const Dashboard_header = () => {
         </button>
 
         <div
-          className={`absolute overflow-hidden top-12 pb-2 right-0 w-full bg-gradient-to-r from-[#fef2f0af] shadow-md bg-white rounded-[14px] border border-gray-border z-10 transform transition-all duration-300 ease-in-out ${
+          className={`absolute overflow-hidden top-12 pb-2 right-0 w-full shadow-md bg-white rounded-[14px] border border-gray-border z-10 transform transition-all duration-300 ease-in-out ${
             isDropdownOpen
               ? "opacity-100 scale-100 translate-y-0"
               : "opacity-0 scale-95 -translate-y-10 pointer-events-none"
           }`}
           style={{
-            backgroundImage: `${skybackground}`,
+            backgroundImage: `url(${skybackground})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
