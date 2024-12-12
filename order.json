@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "remainingVotes": 100,
+    "label": "Votes remaining",
+    "link": "FundPrice",
+    "icon": "fas fa-wallet"
+  },
+  {
+    "id": 2,
+    "remainingVotes": 0,
+    "label": "Total Orders",
+    "link": "UpvoteOrder",
+    "icon": "fas fa-chart-line"
+  },
+  {
+    "id": 3,
+    "remainingVotes": 0,
+    "label": "Orders in Progress",
+    "link": "UpvoteOrder",
+    "icon": "fas fa-bolt"
+  },
+  {
+    "id": 4,
+    "label": "New Order",
+    "link": "OrderComment",
+    "icon": "fas fa-plus-circle"
+  },
+  {
+    "id": 5,
+    "label": "Buy Reddit Accounts",
+    "link": null,
+    "icon": "fab fa-reddit"
+  },
+  {
+    "id": 6,
+    "label": "API Documentation",
+    "link": null,
+    "icon": "fas fa-code"
+  }
+]

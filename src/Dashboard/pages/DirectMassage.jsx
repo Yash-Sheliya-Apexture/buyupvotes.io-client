@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Breadcrumb from "../components/Breadcrumb";
 import CommentTable from "./CommentTable";
+import Button from "../components/Button";
 
 const DirectMassage = () => {
   const breadcrumbs = [
@@ -94,12 +95,7 @@ const DirectMassage = () => {
 
           {/* Submit Button */}
           <div className="flex justify-center items-center">
-            <button
-              onClick={handleSubmit}
-              className="w-fit px-16 py-1 text-[#FF5700] hover:shadow-btnShadow rounded-full border border-[#FF5700]"
-            >
-              Submit order
-            </button>
+            <Button onClick={handleSubmit}>Submit Order</Button>
           </div>
         </div>
 
@@ -169,7 +165,6 @@ const DirectMassage = () => {
 
       {/* Comment Tables */}
       <CommentTable />
-
     </section>
   );
 };

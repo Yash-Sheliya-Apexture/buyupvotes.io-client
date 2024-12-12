@@ -69,7 +69,7 @@ const Dashboard_header = () => {
     <section className="container relative flex items-center justify-end p-2 space-x-2 lg:space-x-4 lg:p-4">
       {/* Tooltip */}
       {showTooltip && (
-        <div className="absolute right-80 top-14 bg-[#dceff5] border border-gray-300 rounded-[10px] px-4 py-1.5 z-10">
+        <div className="absolute right-80 top-14 bg-[#dceff5] border border-gray-300 rounded-medium px-4 py-1.5 z-10">
           <div className="flex justify-between ap-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@ const Dashboard_header = () => {
       {/* Dropdown */}
       <div className="relative" ref={dropdownRef}>
         <button
-          className="px-6 py-2.5 rounded-full bg-[#FF5700] flex items-center relative focus:outline-none"
+          className="px-6 py-2.5 rounded-full bg-main-color flex items-center relative focus:outline-none"
           onClick={toggleDropdown}
         >
           <img
@@ -140,7 +140,7 @@ const Dashboard_header = () => {
                 </p>
               </div>
             ) : (
-              <span className="text-[#2D2624] font-medium text-small px-4">
+              <span className="text-sub-color font-medium text-small px-4">
                 No data found here
               </span>
             )}

@@ -1,24 +1,24 @@
 import React from "react";
 import char_1 from "../../assets/Images/character_1.png";
-
+import { Link } from "react-router-dom";
 
 const RabbitAccount = () => {
   return (
-    <div className="container mx-auto mt-10">
-      <div className="flex justify-center items-center flex-col relative">
-        <h1 className="text-[40px] text-[#2D2624] font-bold mb-4">
+    <div className="container mx-auto mt-10 relative">
+      <div className="flex justify-center items-center flex-col">
+        <h1 className="text-large text-[#2D2624] font-bold mb-4">
           Coming Soon!
         </h1>
-        <p className="text-center text-[18px] leading-9 text-[#2D2624] font-medium">
+        <p className="text-center text-[16px] leading-9 text-[#2D2624] font-medium">
           We are currently working hard on this page. <br />
           If you have any questions or requests, please{" "}
-          <span className="text-[#FF5700] underline underline-offset-1 font-bold cursor-pointer">
-            contact us.
+          <span className="text-[#FF5700] underline underline-offset-1 font-normal cursor-pointer">
+            <Link to="/Dashboard/ContactUs">contact us.</Link>
           </span>
         </p>
-        <div className="mt-14">
-          <svg
-            className="h-64"
+        <div className="mt-10">
+           <svg
+            className="h-60"
             viewBox="0 0 480 360"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -122,7 +122,11 @@ const RabbitAccount = () => {
               </linearGradient>
             </defs>
           </svg>
-          <img src={char_1} alt="Char_1" className="absolute top-60 h-48 right-96" />
+          <img
+            src={char_1}
+            alt="Char_1"
+            className="absolute top-52 h-44 right-[40%]"
+          />
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import Ordertable from "./Ordertable";
 import Breadcrumb from "../components/Breadcrumb";
 import Dropdown from "../components/Dropdown"; // Import reusable dropdown
-import axios from 'axios'; // Import Axios at the top
+import Button from "../components/Button"; // Import reusable button
 
 const UpvoteOrder = () => {
   // Consolidated form state
@@ -130,29 +130,23 @@ const handleSubmit = async (e) => {
       });
   
       try {
-        // Bearer token for authentication
-        const token = localStorage.getItem('authToken');  // Assuming your token is saved under 'authToken'
-  
-        // Send form data to backend to save to Google Sheets without userId
-        const response = await axios.post(
-          `http://localhost:5000/api/auth/submit-order`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`, // Add the Authorization header
-            },
-          }
-        );
-  
-        const data = response.data;
-        if (response.status === 200) {
+        // Send form data to backend to save to Google Sheets
+        const response = await fetch(`${apiUrl}/api/auth/submit-order`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
           setSuccessMessage(data.message); // Set success message
         } else {
           setSuccessMessage("There was an error submitting the order.");
         }
       } catch (error) {
-        console.error('Error submitting order:', error);
+        console.error("Error submitting order:", error);
         setSuccessMessage("There was an error submitting the order.");
       }
   
@@ -190,7 +184,7 @@ const handleSubmit = async (e) => {
   ];
 
   return (
-    <div className="container">
+    <div className="container mx-auto">
       {/* Form Content */}
       <div className="px-6">
         <h1 className="mb-2 font-bold text-sub-color text-basic">
@@ -209,7 +203,9 @@ const handleSubmit = async (e) => {
               <Dropdown
                 options={services}
                 selectedValue={formData.service}
-                onSelect={(value) => setFormData({ ...formData, service: value })}
+                onSelect={(value) =>
+                  setFormData({ ...formData, service: value })
+                }
                 placeholder="Service"
                 error={errors.service}
               />
@@ -222,8 +218,9 @@ const handleSubmit = async (e) => {
                   placeholder="Link"
                   value={formData.link}
                   onChange={handleInputChange}
-                  className={`w-full border rounded-full p-2.5 ${errors.link ? "border-red-500" : "border-gray-300"
-                    } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
+                  className={`w-full border rounded-full p-2.5 ${
+                    errors.link ? "border-red-500" : "border-gray-300"
+                  } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
                 />
                 {errors.link && (
                   <p className="text-sm text-red-500">{errors.link}</p>
@@ -238,8 +235,9 @@ const handleSubmit = async (e) => {
                   placeholder="Quantity"
                   value={formData.quantity}
                   onChange={handleInputChange}
-                  className={`w-full border rounded-full p-2.5 ${errors.quantity ? "border-red-500" : "border-gray-300"
-                    } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
+                  className={`w-full border rounded-full p-2.5 ${
+                    errors.quantity ? "border-red-500" : "border-gray-300"
+                  } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
                 />
                 {errors.quantity && (
                   <p className="text-sm text-red-500">{errors.quantity}</p>
@@ -264,12 +262,9 @@ const handleSubmit = async (e) => {
 
               {/* Submit Button */}
               <div className="flex justify-center space-x-4">
-                <button
-                  type="submit"
-                  className="border border-main-color text-main-color px-14 py-2.5 hover:shadow-btnShadow transition-all duration-150 ease-in text-[14px] rounded-full font-bold"
-                >
+                <Button type="submit" onClick={handleSubmit}>
                   Submit Order
-                </button>
+                </Button>
               </div>
             </form>
           </div>
@@ -303,17 +298,16 @@ const handleSubmit = async (e) => {
                 <hr className="w-[80%]" />
               </div>
               <p className="text-sm text-[#2D2624] font-medium leading-6">
-                Our upvotes/downvotes are the same as organic
-                upvotes/downvotes and will not get your account banned.
-                Unusual activity that results in users or moderators reporting
-                your account can still get you banned. Please choose your
-                order's upvote/downvote quantity wisely so as not to arouse
-                any suspicion.
+                Our upvotes/downvotes are the same as organic upvotes/downvotes
+                and will not get your account banned. Unusual activity that
+                results in users or moderators reporting your account can still
+                get you banned. Please choose your order's upvote/downvote
+                quantity wisely so as not to arouse any suspicion.
               </p>
               <p className="text-[14px] text-[#2D2624] font-semibold">
                 *Upvotes on posts/comments older than 24 hours are not
-                guaranteed to go through. Downvotes are similarly not
-                guaranteed regardless of post/comment age.
+                guaranteed to go through. Downvotes are similarly not guaranteed
+                regardless of post/comment age.
               </p>
             </div>
           </div>
@@ -322,8 +316,8 @@ const handleSubmit = async (e) => {
       <div className="my-5">
         <p className="text-center underline text-light-red underline-offset-1 text-[18px]">
           Due to Reddit's updated security measures, upvotes on certain
-          subreddits are temporarily unavailable. If affected, the order will
-          be canceled and refunded.
+          subreddits are temporarily unavailable. If affected, the order will be
+          canceled and refunded.
         </p>
       </div>
 

@@ -11,30 +11,45 @@ import DirectMassage from "../Dashboard/pages/DirectMassage";
 import FundPricing from "../Dashboard/pages/FundPricing";
 import ContactUs from "../Dashboard/pages/ContactUs";
 import RabbitAccount from "../Dashboard/pages/RabbitAccount";
+import FAQ from "../Dashboard/pages/FAQ";
+import BlogJson from "../Dashboard/pages/BlogJson";
+import BlogDetails from "../Dashboard/pages/BlogDetails";
+import Error404 from "../Dashboard/pages/Error404";
+import Account from "../Dashboard/pages/Account";
 
 const DashboardRoutes = () => {
   return (
-    <div className="">
-      <section className="flex">
-        <div className="w-[20%]">
-          <Sidebar1 />
-        </div>
+    <div className="min-h-screen flex">
+      {/* Left Sidebar */}
+      <div className="w-[250px]">
+        <Sidebar1 />
+      </div>
 
-        <div className="w-[80%] px-3">
-          <Dashboard_header />
-          <main className="">
-            <Routes>
-              <Route path="/" element={<DashboardHome />} />
-              <Route path="UpvoteOrder" element={<UpvoteOrder />} />
-              <Route path="OrderComment" element={<OrderComment />} />
-              <Route path="DirectMassage" element={<DirectMassage />} />
-              <Route path="FundPrice" element={<FundPricing />} />
-              <Route path="ContactUs" element={<ContactUs />} />
-              <Route path="RabbitAcc" element={<RabbitAccount />} />
-            </Routes>
-          </main>
-        </div>
-      </section>
+      {/* Right Content Area */}
+      <div className="flex-1">
+        <Dashboard_header />
+        <main className="mx-auto container w-full max-w-screen-xl p-4">
+          <Routes>
+            <Route path="*" element={<Error404 />} />
+            <Route path="/" element={<DashboardHome />} />
+            <Route path="UpvoteOrder" element={<UpvoteOrder />} />
+            <Route path="OrderComment" element={<OrderComment />} />
+            <Route path="DirectMassage" element={<DirectMassage />} />
+            <Route path="FundPrice" element={<FundPricing />} />
+            <Route path="ContactUs" element={<ContactUs />} />
+            <Route path="RabbitAcc" element={<RabbitAccount />} />
+            <Route path="FAQ" element={<FAQ />} />
+            {/* Nested Routes for BlogJson */}
+            <Route path="blogjson">
+              <Route index element={<BlogJson />} />{" "}
+              {/* Exact route for BlogJson */}
+              <Route path=":id" element={<BlogDetails />} />{" "}
+              {/* Dynamic route for BlogDetails */}
+            </Route>
+            <Route path="Account" element={<Account />} />
+          </Routes>
+        </main>
+      </div>
     </div>
   );
 };

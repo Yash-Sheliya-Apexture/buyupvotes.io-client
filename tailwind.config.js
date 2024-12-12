@@ -1,6 +1,8 @@
+const flowbite = require("flowbite-react/tailwind");
+
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", flowbite.content()],
   theme: {
     extend: {
       fontFamily: {
@@ -8,6 +10,9 @@ export default {
       },
       screens: {
         xs: { min: "320px" },
+      },
+      width: {
+        22: "88px",
       },
       boxShadow: {
         Sidebar: "0px 0px 12px 5px #00000036",
@@ -19,7 +24,7 @@ export default {
         "sub-color": "#2D2624",
         "gray-border": "#f3f4f6",
         "side-color": "#FF570014",
-        "active": "#403633",
+        active: "#403633",
         "background-active": "#f0f0f099",
         "light-brown": "#FDE6D9",
         "dark-green": "#004B50",
@@ -30,6 +35,7 @@ export default {
         "gray-light": "#F4F6F8",
         "light-red": "#B71D18",
         "border-color": "#e5e7eb",
+        "brown-hover": "#919eab14",
       },
       borderWidth: {
         1.5: "1.5px",
@@ -38,17 +44,20 @@ export default {
         xxs: "12px",
         xs: "14px",
         small: "16px",
+        medium: "18px",
         base: "20px",
         basic: "24px",
         large: "30px",
+        xlarge: "35px",
       },
       borderRadius: {
         base: "4px",
         large: "30px",
         small: "20px",
         medium: "10px",
+        xlarge: "40px",
       },
     },
   },
-  plugins: [require("tailwind-scrollbar")],
+  plugins: [require("tailwind-scrollbar"), flowbite.plugin()],
 };

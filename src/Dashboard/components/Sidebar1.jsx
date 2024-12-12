@@ -14,6 +14,7 @@ import { RiAccountBoxFill } from "react-icons/ri";
 import { GoFileDirectoryFill } from "react-icons/go";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import logo1 from "../../assets/Images/logo-mini.png";
+import Button from "../../Dashboard/components/Button";
 
 const SideBar = () => {
   const [activeMenu, setActiveMenu] = useState("Dashboard");
@@ -60,9 +61,19 @@ const SideBar = () => {
       label: "Buy Raddit Accounts",
       link: "/dashboard/RabbitAcc",
     },
-    { id: "faqs", icon: <MdContactPage />, label: "FAQ'S", link: "/" },
-    { id: "OTP", icon: <GoFileDirectoryFill />, label: "Blogs", link: "/" },
-    { id: "API", icon: <IoTv />, label: "API (New)", link: "/" },
+    {
+      id: "FAQs",
+      icon: <MdContactPage />,
+      label: "FAQ'S",
+      link: "/dashboard/FAQ",
+    },
+    {
+      id: "Blogs Data",
+      icon: <GoFileDirectoryFill />,
+      label: "Blogs",
+      link: "/dashboard/BlogJson",
+    },
+    { id: "API", icon: <IoTv />, label: "API (New)", link: "/Api" },
     {
       id: "Contact",
       icon: <MdContacts />,
@@ -73,7 +84,7 @@ const SideBar = () => {
       id: "Account",
       icon: <RiAccountBoxFill />,
       label: "Account",
-      link: "/settings",
+      link: "/dashboard/Account",
     },
   ];
 
@@ -122,8 +133,8 @@ const SideBar = () => {
                 key={item.id}
                 className={`relative group rounded-base cursor-pointer ${
                   activeMenu === item.id
-                    ? "bg-[#FF570014] text-[#FF5700] font-bold"
-                    : "text-[#403633] hover:bg-[rgba(240,240,240,0.6)]"
+                    ? "bg-[#FF570014] text-main-color font-bold"
+                    : "text-active hover:bg-[rgba(240,240,240,0.6)]"
                 }`}
                 onClick={() => setActiveMenu(item.id)}
               >
@@ -147,10 +158,10 @@ const SideBar = () => {
             ))}
           </ul>
           {isSidebarExpanded && (
-            <div className="py-2">
-              <button className="w-full p-1.5 hover:shadow-Sidebar rounded-full border border-[#FF5700]">
-                Add Funds
-              </button>
+            <div className="p-2.5">
+              <Link to="/dashboard/FundPrice">
+                <Button>Add Funds</Button>
+              </Link>
             </div>
           )}
         </div>

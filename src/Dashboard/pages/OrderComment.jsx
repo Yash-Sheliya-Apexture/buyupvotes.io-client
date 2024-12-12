@@ -4,6 +4,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import bluebackground from "../../assets/Images/cyan-blur.png";
 import Dropdown from "../components/Dropdown";
 import Breadcrumb from "../components/Breadcrumb";
+import Button from "../components/Button";
 
 const OrderComment = () => {
   const [selectedNumber, setSelectedNumber] = useState(""); // For storing the selected number
@@ -262,14 +263,8 @@ const OrderComment = () => {
           </div>
 
           {/* Submit Button */}
-          <div className="flex justify-center space-x-4 mt-6">
-            <button
-              type="submit"
-              onClick={handleSubmit}
-              className="border border-main-color text-main-color px-14 py-2.5 hover:shadow-btnShadow transition-all duration-150 ease-in text-[14px] rounded-full font-bold"
-            >
-              Submit Order
-            </button>
+          <div className="flex justify-center mt-6">
+            <Button onClick={handleSubmit}>Submit order</Button>
           </div>
 
           {/* Success Message */}
