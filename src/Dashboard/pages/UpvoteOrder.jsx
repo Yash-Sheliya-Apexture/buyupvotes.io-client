@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa6";
-import Ordertable from "../pages/ordertable";
+import Ordertable from "./Ordertable";
 import Breadcrumb from "../components/Breadcrumb";
 import Dropdown from "../components/Dropdown"; // Import reusable dropdown
 import Button from "../components/Button"; // Import reusable button
@@ -107,9 +107,11 @@ const UpvoteOrder = () => {
     return Object.values(newErrors).every((error) => error === "");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+  
     if (validateForm()) {
       // Reset form values
       setFormData({
@@ -118,7 +120,7 @@ const UpvoteOrder = () => {
         link: "",
         quantity: "",
       });
-
+  
       // Reset errors
       setErrors({
         service: "",
@@ -126,7 +128,7 @@ const UpvoteOrder = () => {
         link: "",
         quantity: "",
       });
-
+  
       try {
         // Send form data to backend to save to Google Sheets
         const response = await fetch(`${apiUrl}/api/auth/submit-order`, {
@@ -147,11 +149,16 @@ const UpvoteOrder = () => {
         console.error("Error submitting order:", error);
         setSuccessMessage("There was an error submitting the order.");
       }
-
+  
       // Clear success message after a few seconds
       setTimeout(() => setSuccessMessage(""), 2000);
     }
-  };
+};
+
+
+  
+  
+  
 
   const services = [
     "Post upvotes",
@@ -188,9 +195,9 @@ const UpvoteOrder = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center mt-5 bg-gray-50">
-        <div className="flex flex-wrap w-full max-w-5xl md:flex-nowrap md:space-y-0 md:space-x-8">
-          <div className="w-full md:w-[50%] bg-white p-6 border-gray-border shadow-md rounded-lg">
+      
+        <div className="flex w-full gap-10 mt-6">
+          <div className="w-full md:w-[50%] border rounded-2xl p-10">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Service Dropdown */}
               <Dropdown
@@ -263,7 +270,7 @@ const UpvoteOrder = () => {
           </div>
 
           {/* Right Section */}
-          <div className="w-full md:w-[50%] bg-white p-4 border-gray-border shadow-md rounded-lg">
+          <div className="w-full md:w-[50%] border rounded-2xl p-10">
             <p className="text-[16px] font-medium underline underline-offset-1 text-[#2D2624] mb-2">
               Upvotes & downvotes:
             </p>
@@ -305,7 +312,6 @@ const UpvoteOrder = () => {
             </div>
           </div>
         </div>
-      </div>
 
       <div className="my-5">
         <p className="text-center underline text-light-red underline-offset-1 text-[18px]">
