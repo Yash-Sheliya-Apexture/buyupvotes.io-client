@@ -18,7 +18,7 @@ const Sign_Up = () => {
   const navigate = useNavigate(); // Used for navigation after successful registration
 
   // Access the API URL using Vite-specific syntax
-  const apiUrl = import.meta.env.VITE_API_BASE_URL;
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;  // Correct way to access Vite environment variables
 
   // Validation Function
   const validate = () => {
@@ -64,7 +64,7 @@ const Sign_Up = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `${apiUrl}/auth/register`,  // Use the dynamic URL here from the environment variable
+        `${API_BASE_URL}/auth/register`,  // Use the dynamic URL here from the environment variable
         {
           firstName,
           lastName,

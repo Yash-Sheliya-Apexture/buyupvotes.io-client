@@ -1,24 +1,67 @@
+# Node.js dependencies
+node_modules/
+
+# Environment variables
+# .env
+
 # Logs
 logs
 *.log
 npm-debug.log*
-yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# OS generated files
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Build and production files
+build/
+dist/
+tmp/
+temp/
+public/ # If you generate static files in the client folder
+
+# Lock files
+# server/package-lock.json
+# client/package-lock.json
+# yarn.lock
+
+# Tailwind and PostCSS config (if you don’t want them to be tracked)
+# server/postcss.config.js
+# server/tailwind.config.js
+# client/postcss.config.js
+# client/tailwind.config.js
+
+# Coverage reports from testing
+coverage/
+
+# Output of 'npm pack'
+*.tgz
+
+# Optional npm cache directory
+.npm/
+
+# Ignore compiled JavaScript files
+*.js.map
+
+# Ignore other system files
+*.swp
+*.swo
+
+# Ignore bundled files
+*.bundle.js
+*.min.js
+*.gz
+
+# Ignore all unnecessary generated or build folders
+public/
+
+# Ignore other cache or temp files
+.cache/
+.pnp/
+.pnp.js
+.parcel-cache/

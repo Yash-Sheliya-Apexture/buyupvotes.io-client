@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        LatoFont: ["Lato", "serif"],
+        InterDisplay: ["InterDisplay", "sans-serif"],
       },
       screens: {
         xs: { min: "320px" },
