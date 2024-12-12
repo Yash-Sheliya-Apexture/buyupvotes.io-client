@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WebsiteRoutes from "./routes/WebsiteRoutes";
 import DashboardRoutes from "./routes/DashboardRoutes";
-// import ProtectedRoute from "./routes/ProtectedRoute"; // Import ProtectedRoute
+import ProtectedRoute from "./routes/ProtectedRoute"; // Import ProtectedRoute
 
 const App = () => {
   return (
@@ -14,8 +14,8 @@ const App = () => {
         <Route
           path="/dashboard/*"
           element={
-            // <ProtectedRoute element={<DashboardRoutes />} /> // Protecting dashboard
-            <DashboardRoutes />
+            <ProtectedRoute element={<DashboardRoutes />} /> // Protecting dashboard
+            // <DashboardRoutes />
           }
         />
       </Routes>

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Data from "../../assets/Images/nodata.svg"; // No data icon
 import { FiSearch } from "react-icons/fi";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import axios from "axios"; // Import Axios
+import { HiLink } from "react-icons/hi";
 
 const Ordertable = () => {
   const [activeTab, setActiveTab] = useState("All");
@@ -12,6 +14,17 @@ const Ordertable = () => {
   const [endDate, setEndDate] = useState(""); // Track end date
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [loading, setLoading] = useState(false); // Track loading state
+  const [error, setError] = useState(null); // Error state
+  const [tabCounts, setTabCounts] = useState({
+    All: 0,
+    Pending: 0,
+    "In Progress": 0,
+    Completed: 0,
+    Canceled: 0,
+  }); // To keep dynamic counts of each status
+
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const totalPages = Math.ceil(tableData.length / rowsPerPage);
   const paginatedData = tableData.slice(
@@ -32,220 +45,129 @@ const Ordertable = () => {
     setCurrentPage(1); // Reset to first page
   };
 
-  const tabs = [
-    {
-      label: "All",
-      count: 10,
-      color: "bg-[#919EAB29] text-para-color",
-      colors: "bg-black text-white",
-    },
-    {
-      label: "Pending",
-      count: 2,
-      color: "bg-[#FFAB0029] text-[#B76E00]",
-      colors: "bg-[#FFAB00] text-[#212B36]",
-    },
-    {
-      label: "In Progress",
-      count: 2,
-      color: "bg-[#22C55E29] text-[#118D57]",
-      colors: "bg-[#22C55E] text-white",
-    },
-    {
-      label: "Completed",
-      count: 3,
-      color: "bg-[#22C55E29] text-[#118D57]",
-      colors: "bg-[#22C55E] text-white",
-    },
-    {
-      label: "Partial",
-      count: 1,
-      color: "bg-[#919EAB29] text-para-color",
-      colors: "bg-sub-color text-white",
-    },
-    {
-      label: "Canceled",
-      count: 2,
-      color: "bg-[#FF563029] text-[#B71D18]",
-      colors: "bg-light-orange text-white",
-    },
-  ];
-
-  // Sample data (You can replace it with API data)
-  const sampleData = [
-    {
-      orderNumber: "101",
-      details: "iPhone 9",
-      progress: "50%",
-      date: "2024-12-05",
-      totalVotes: 100,
-      status: "In Progress",
-    },
-    {
-      orderNumber: "102",
-      details: "Samsung Universe 9",
-      progress: "100%",
-      date: "2024-12-04",
-      totalVotes: 200,
-      status: "Completed",
-    },
-    {
-      orderNumber: "103",
-      details: "OppoF19",
-      progress: "25%",
-      date: "2024-12-03",
-      totalVotes: 50,
-      status: "Pending",
-    },
-    {
-      orderNumber: "104",
-      details: "Huawei P30",
-      progress: "0%",
-      date: "2024-12-02",
-      totalVotes: 0,
-      status: "Canceled",
-    },
-    {
-      orderNumber: "105",
-      details: "MacBook Pro",
-      progress: "75%",
-      date: "2024-12-01",
-      totalVotes: 150,
-      status: "In Progress",
-    },
-    {
-      orderNumber: "106",
-      details: "Microsoft Surface Laptop 4",
-      progress: "100%",
-      date: "2024-11-30",
-      totalVotes: 300,
-      status: "Completed",
-    },
-    {
-      orderNumber: "107",
-      details: "Infinix Book",
-      progress: "50%",
-      date: "2024-11-29",
-      totalVotes: 100,
-      status: "Partial",
-    },
-    {
-      orderNumber: "108",
-      details: "HP Pavilion 15-DK1056W",
-      progress: "0%",
-      date: "2024-11-28",
-      totalVotes: 0,
-      status: "Canceled",
-    },
-    {
-      orderNumber: "109",
-      details: "RealmeXT",
-      progress: "100%",
-      date: "2024-11-27",
-      totalVotes: 500,
-      status: "Completed",
-    },
-    {
-      orderNumber: "110",
-      details: "Google pixel 9",
-      progress: "10%",
-      date: "2024-11-26",
-      totalVotes: 20,
-      status: "Pending",
-    },
-  ];
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedQuery(searchQuery);
-    }); // Adjust delay as needed
+    }, 500); // Adjust delay as needed
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  // Filter data based on active tab and search query
+  // Fetch data from API
   useEffect(() => {
-    let filteredData = sampleData;
+    const fetchData = async () => {
+      setLoading(true); // Start loading
+      setError(null); // Clear previous errors
 
-    if (activeTab !== "All") {
-      filteredData = filteredData.filter((item) => item.status === activeTab);
-    }
+      try {
+        const token = localStorage.getItem("authToken");
+        const response = await axios.get(`${API_BASE_URL}/auth/orders`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
-    if (debouncedQuery) {
-      filteredData = filteredData.filter(
-        (item) =>
-          item.details.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
-          item.details.toUpperCase().includes(debouncedQuery.toUpperCase()) ||
-          item.orderNumber.toLowerCase().includes(debouncedQuery.toLowerCase())
-      );
-    }
+        let filteredData = response.data;
 
-    // Filter by date range
-    if (startDate) {
-      filteredData = filteredData.filter(
-        (item) => new Date(item.date) >= new Date(startDate)
-      );
-    }
-    if (endDate) {
-      filteredData = filteredData.filter(
-        (item) => new Date(item.date) <= new Date(endDate)
-      );
-    }
+        // Filter data based on the active tab
+        if (activeTab !== "All") {
+          filteredData = filteredData.filter((item) => item.status === activeTab);
+        }
 
-    setTableData(filteredData);
-  }, [activeTab, debouncedQuery, startDate, endDate]);
+        // Filter data based on the search query (only `orderId` and `service`)
+        if (debouncedQuery) {
+          filteredData = filteredData.filter(
+            (item) =>
+              item.orderId.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
+              item.service.toLowerCase().includes(debouncedQuery.toLowerCase())
+          );
+        }
 
-  // Simulating fetching data based on the tab
+        // Filter by date range
+        if (startDate) {
+          filteredData = filteredData.filter(
+            (item) => new Date(item.date) >= new Date(startDate)
+          );
+        }
+        if (endDate) {
+          filteredData = filteredData.filter(
+            (item) => new Date(item.date) <= new Date(endDate)
+          );
+        }
+
+        // Sort data by date in descending order (latest first)
+        filteredData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        // Update table data
+        setTableData(filteredData);
+
+        // Update tab counts
+        setTabCounts((prevCounts) => ({
+          ...prevCounts,
+          All: response.data.length,
+          Pending: response.data.filter((item) => item.status === "Pending").length,
+          "In Progress": response.data.filter((item) => item.status === "In Progress").length,
+          Completed: response.data.filter((item) => item.status === "Completed").length,
+          Canceled: response.data.filter((item) => item.status === "Canceled").length,
+        }));
+      } catch (error) {
+        setError("There was an issue fetching the data. Please try again later.");
+      } finally {
+        setLoading(false); // Stop loading
+      }
+    };
+
+    fetchData();
+  }, [activeTab, startDate, endDate, debouncedQuery]);
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-
-    // Update tableData based on active tab (just a mock for now)
-    if (tab === "All") {
-      setTableData(sampleData); // Show all data
-    } else {
-      // Filter data based on the tab
-      setTableData(sampleData.filter((item) => item.status === tab));
-    }
   };
 
+  const tabs = [
+    { label: "All", count: tabCounts["All"], color: "bg-[#919EAB29] text-para-color", colors: "bg-black text-white" },
+    { label: "Pending", count: tabCounts["Pending"] || 0, color: "bg-[#FFAB0029] text-[#B76E00]", colors: "bg-[#FFAB00] text-[#212B36]" },
+    { label: "In Progress", count: tabCounts["In Progress"] || 0, color: "bg-[#0ea5e92b] text-[#0ea5e9]", colors: "bg-[#0ea5e9] text-white" },
+    { label: "Completed", count: tabCounts["Completed"] || 0, color: "bg-[#22C55E29] text-[#118D57]", colors: "bg-[#22C55E] text-white" },
+    { label: "Partial", count: tabCounts["Partial"] || 0, color: "bg-[#919EAB29] text-para-color", colors: "bg-sub-color text-white" },
+    { label: "Canceled", count: tabCounts["Canceled"] || 0, color: "bg-[#FF563029] text-[#B71D18]", colors: "bg-light-orange text-white" },
+  ];
+
   return (
-    <div className="p-6 max-h-screen">
-      <h1 className="py-2 text-sub-color font-bold text-basic">
+    <div className="mb-4 border rounded-2xl">
+      <h1 className="p-4 font-bold text-sub-color text-basic">
         Your past upvote orders:
       </h1>
 
       {/* Tabs */}
-      <div className="flex items-center shadow-sm border border-gray-border">
+      <div className="flex items-center border border-gray-border">
         {tabs.map((tab) => (
           <button
             key={tab.label}
             onClick={() => handleTabChange(tab.label)}
-            className={`relative p-3 font-bold text-sm mr-4 ${
-              activeTab === tab.label
-                ? "text-main-color border-b-2 border-main-color"
-                : "text-sub-color"
-            }`}
+            className={`relative p-3 font-bold text-sm mr-4 ${activeTab === tab.label
+              ? "text-main-color border-b-2 border-main-color"
+              : "text-sub-color"
+              }`}
           >
             {tab.label}
             <span
-              className={`ml-2 px-2 py-1 rounded text-xs font-bold ${
-                activeTab === tab.label ? tab.colors : tab.color
-              }`}
+              className={`ml-2 px-2 py-1 rounded text-xs font-bold ${activeTab === tab.label ? tab.colors : tab.color
+                }`}
             >
               {tab.count}
             </span>
           </button>
         ))}
+
       </div>
 
       {/* Filter Section */}
-      <div className="flex flex-wrap items-center gap-4 py-4 border border-gray-border p-2">
+      <div className="flex flex-wrap items-center gap-4 p-3 py-4 border border-gray-border">
         {/* Start Date */}
         <div className="flex items-center gap-2">
           <input
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="border rounded-full hover:border-black transition-all ease-in duration-150 px-6 py-2 text-black"
+            className="px-6 py-2 text-black transition-all duration-150 ease-in border rounded-full hover:border-black"
           />
         </div>
         {/* End Date */}
@@ -254,44 +176,31 @@ const Ordertable = () => {
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="border rounded-full hover:border-black transition-all ease-in duration-150 px-6 py-2 text-black"
+            className="px-6 py-2 text-black transition-all duration-150 ease-in border rounded-full hover:border-black"
           />
         </div>
 
-        {/* Search Product `*/}
-        <div className="flex-grow relative">
+        {/* Search Product */}
+        <div className="relative flex-grow">
           <input
             type="text"
-            placeholder="Search Product Name or Order #..."
+            placeholder="Search Details or Order #..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full border rounded-full hover:border-black transition-all ease-in duration-150 py-2 px-10 text-sub-color"
+            className="w-full px-10 py-2 transition-all duration-150 ease-in border rounded-full hover:border-black text-sub-color"
           />
           <FiSearch className="absolute top-3 left-3 size-5 text-light-gray" />
         </div>
       </div>
 
-      {/* Order Result */}
-      <div className="py-2">
-        <h1 className="text-sub-color">
-          <span className="text-sub-color font-black">{tableData.length}</span>
-          {tableData.length === 1 ? " Result found" : " Results found"}
-          {activeTab !== "All" && (
-            <span className="text-sub-color font-normal ml-2">
-              (Filtered by <span className="font-bold">{activeTab}</span>)
-            </span>
-          )}
-        </h1>
-      </div>
-
-      <div className="flex space-x-4">
-        {/* Status Check Section - Show for tabs other than "All" */}
+      <div className="flex px-3 py-2 space-x-4">
+        {/* Status Check Section */}
         {activeTab !== "All" && (
-          <div className="mb-2 flex items-center space-x-2 border border-dashed w-48 p-1.5">
-            <h1 className="text-sub-color">Status :</h1>
+          <div className="flex items-center space-x-2 w-50 p-1.5">
+            <h1 className="text-sub-color">Status </h1>
             <button
               onClick={() => handleTabChange("All")} // Set active tab to "All" on click
-              className="px-2 py-1 flex bg-sub-color rounded-full text-white text-[14px] hover:bg-light-gray transition-all ease-in duration-150 font-bold"
+              className="px-2 py-1 flex bg-sub-color rounded-full text-white text-[14px] hover:bg-light-gray transition-all ease-in duration-150"
             >
               {activeTab}
               {/* Close Icon */}
@@ -301,27 +210,33 @@ const Ordertable = () => {
                 aria-hidden="true"
                 role="img"
                 viewBox="0 0 24 24"
-                className="size-6 ml-1"
+                width="1.5em"
+                height="1.5em"
+                preserveAspectRatio="xMidYMid meet"
+                className="ml-2"
               >
-                <path
-                  fill="currentColor"
-                  fillRule="evenodd"
-                  d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10M8.97 8.97a.75.75 0 0 1 1.06 0L12 10.94l1.97-1.97a.75.75 0 0 1 1.06 1.06L13.06 12l1.97 1.97a.75.75 0 0 1-1.06 1.06L12 13.06l-1.97 1.97a.75.75 0 0 1-1.06-1.06L10.94 12l-1.97-1.97a.75.75 0 0 1 0-1.06"
-                  clipRule="evenodd"
-                ></path>
+                <g>
+                  <path
+                    fill="none"
+                    d="M0 0h24v24H0z"
+                  />
+                  <path
+                    fill="currentColor"
+                    d="M12 10.586L15.657 7.929l1.414 1.414L13.414 12l3.657 3.657-1.414 1.414L12 13.414l-3.657 3.657-1.414-1.414L10.586 12 7.929 8.343l1.414-1.414z"
+                  />
+                </g>
               </svg>
             </button>
           </div>
         )}
-
         {activeTab !== "All" && (
           <div
-            className="flex items-center mb-2 cursor-pointer"
+            className="flex items-center cursor-pointer"
             onClick={() => setActiveTab("All")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
               aria-hidden="true"
               role="img"
               viewBox="0 0 24 24"
@@ -333,113 +248,104 @@ const Ordertable = () => {
               ></path>
               <path
                 fill="currentColor"
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M11.596 22h.808c2.783 0 4.174 0 5.08-.886c.904-.886.996-2.339 1.181-5.245l.267-4.188c.1-1.577.15-2.366-.303-2.865c-.454-.5-1.22-.5-2.753-.5H8.124c-1.533 0-2.3 0-2.753.5s-.404 1.288-.303 2.865l.267 4.188c.185 2.906.277 4.36 1.182 5.245c.905.886 2.296.886 5.079.886m-1.35-9.811c-.04-.434-.408-.75-.82-.707c-.413.043-.713.43-.672.864l.5 5.263c.04.434.408.75.82.707c.413-.043.713-.43.672-.864zm4.329-.707c.412.043.713.43.671.864l-.5 5.263c-.04.434-.409.75-.82.707c-.413-.043-.713-.43-.672-.864l.5-5.263c.04-.434.409-.75.82-.707"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
-            <h1 className="ml-2 text-small font-bold text-light-orange">
+            <h1 className="ml-2 font-bold text-small text-light-orange">
               Clear
             </h1>
           </div>
         )}
       </div>
 
-      {/* Table */}
-      <div className="bg-white rounded-md shadow-md overflow-hidden h-auto max-h-screen">
-        <table className="w-full table-auto border-collapse">
-          <thead className="bg-gray-100 text-sub-color text-xs font-medium uppercase">
-            <tr className="border-b">
-              <th className="py-3 px-4 text-left">Order #</th>
-              <th className="py-3 px-4 text-left">Details</th>
-              <th className="py-3 px-4 text-left">Progress</th>
-              <th className="py-3 px-4 text-left">Date</th>
-              <th className="py-3 px-4 text-left">Total Votes</th>
-              <th className="py-3 px-4 text-left">Status</th>
+      {/* Table Section */}
+      <div className="h-auto max-h-screen overflow-hidden">
+        <table className="w-full border-collapse table-auto">
+          <thead className="text-xs font-medium uppercase bg-gray-100 text-sub-color">
+            <tr>
+              <th className="px-4 py-3 text-left">Order #</th>
+              <th className="px-4 py-3 text-left">Details</th>
+              <th className="px-4 py-3 text-left">Date</th>
+              <th className="px-4 py-3 text-left">Total Votes</th>
+              <th className="px-4 py-3 text-left">Status</th>
             </tr>
           </thead>
           <tbody>
-            {paginatedData.length > 0 ? (
-              paginatedData.map((row, index) => (
-                <tr
-                  key={index}
-                  className={`border-b hover:bg-gray-100 ${
-                    index % 2 === 0 ? "bg-gray-50" : ""
-                  }`}
-                >
-                  <td className="py-3 px-4">{row.orderNumber}</td>
-                  <td className="py-3 px-4">{row.details}</td>
-                  <td className="py-3 px-4">{row.progress}</td>
-                  <td className="py-3 px-4">{row.date}</td>
-                  <td className="py-3 px-4">{row.totalVotes}</td>
-                  <td className="py-3 px-4">
+            {loading ? (
+              <tr>
+                <td colSpan="6" className="py-20 text-center text-gray-400">
+                  <div className="flex flex-col items-center">
+                    <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
+                  </div>
+                </td>
+              </tr>
+
+            ) : tableData.length === 0 ? (
+              <tr>
+                <td colSpan="6" className="py-20 text-center text-gray-400">
+                  <div className="flex flex-col items-center">
+                    <img src={Data} alt="No Data" className="h-40" />
+                    <p className="mt-4 text-lg font-bold">No Data Available</p>
+                  </div>
+                </td>
+              </tr>
+            ) : (
+              paginatedData.map((item, index) => (
+                <tr key={`${item.orderId}-${index}`}>
+                  <td className="px-4 py-4">{item.orderId.substring(0, 4)}</td>
+                  <td className="gap-3 px-4 py-2 "><span className="flex gap-2">{item.service}<a href={`${item.link}`} target="_blank" className=""><HiLink className="mt-1" /></a></span></td>
+                  <td className="px-4 py-4">
+                    {new Intl.DateTimeFormat("en-US", { month: "2-digit", day: "2-digit", year: "numeric" }).format(new Date(item.date))}
+                  </td>
+                  <td className="px-4 py-4">{item.quantity}</td>
+                  <td className="px-4 py-4">
                     <span
-                      className={`px-3 py-1.5 rounded-full text-xs font-bold tracking-wide ${
-                        row.status === "Completed"
-                          ? "bg-green-500 text-white"
-                          : row.status === "Pending"
+                      className={`px-3 py-1.5 rounded-full text-xs font-bold tracking-wide ${item.status === "Completed"
+                        ? "bg-green-500 text-white"
+                        : item.status === "Pending"
                           ? "bg-yellow-500 text-white"
-                          : row.status === "Canceled"
-                          ? "bg-red-500 text-white"
-                          : "bg-sky-500 text-white"
-                      }`}
+                          : item.status === "Canceled"
+                            ? "bg-red-500 text-white"
+                            : "bg-sky-500 text-white"
+                        }`}
                     >
-                      {row.status}
+                      {item.status}
                     </span>
                   </td>
                 </tr>
               ))
-            ) : (
-              <tr>
-                <td colSpan="6" className="text-center text-gray-400 py-20">
-                  <div className="flex flex-col items-center">
-                    <img src={Data} alt="No Data" className="h-40" />
-                    <p className="text-lg font-bold mt-4">No Data Available</p>
-                  </div>
-                </td>
-              </tr>
             )}
           </tbody>
+
         </table>
       </div>
 
-      <div className="flex justify-end space-x-5 items-center p-4 bg-white border border-gray-border">
-        <span className="text-sm text-sub-color">
-          Rows per page:
-          <select
-            value={rowsPerPage}
-            onChange={handleRowsPerPageChange}
-            className="rounded-md text-sub-color outline-none text-small"
-          >
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="25">25</option>
-          </select>
-        </span>
-        <span className="text-sm text-sub-color">
-          {Math.min((currentPage - 1) * rowsPerPage + 1, tableData.length)}-
-          {Math.min(currentPage * rowsPerPage, tableData.length)} of{" "}
-          {tableData.length}
-        </span>
-        <div className="flex items-center gap-2">
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-between p-4">
           <button
             onClick={handlePreviousPage}
+            className="flex items-center text-sm text-main-color"
             disabled={currentPage === 1}
-            className={currentPage === 1 ? "opacity-50" : ""}
           >
-            <FaChevronLeft className="size-5" />
+            <FaChevronLeft className="mr-2" />
+            Previous
           </button>
+          <div className="text-sm">
+            Page {currentPage} of {totalPages}
+          </div>
           <button
             onClick={handleNextPage}
+            className="flex items-center text-sm text-main-color"
             disabled={currentPage === totalPages}
-            className={currentPage === totalPages ? "opacity-50" : ""}
           >
-            <FaChevronRight className="size-5" />
+            Next
+            <FaChevronRight className="ml-2" />
           </button>
         </div>
-      </div>
-
-      {/* Pagination */}
+      )}
     </div>
   );
 };
