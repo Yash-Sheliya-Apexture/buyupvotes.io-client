@@ -15,6 +15,7 @@ import FAQ from "../Dashboard/pages/FAQ";
 import BlogJson from "../Dashboard/pages/BlogJson";
 import BlogDetails from "../Dashboard/pages/BlogDetails";
 import Error404 from "../Dashboard/pages/Error404";
+import Account from "../Dashboard/pages/Account";
 
 const DashboardRoutes = () => {
   return (
@@ -45,6 +46,7 @@ const DashboardRoutes = () => {
               <Route path=":id" element={<BlogDetails />} />{" "}
               {/* Dynamic route for BlogDetails */}
             </Route>
+            <Route path="Account" element={<Account />} />
           </Routes>
         </main>
       </div>

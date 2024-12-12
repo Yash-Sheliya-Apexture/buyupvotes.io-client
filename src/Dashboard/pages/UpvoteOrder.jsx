@@ -177,7 +177,7 @@ const UpvoteOrder = () => {
   ];
 
   return (
-    <div className="container">
+    <div className="container mx-auto">
       {/* Form Content */}
       <div className="px-6">
         <h1 className="mb-2 font-bold text-sub-color text-basic">

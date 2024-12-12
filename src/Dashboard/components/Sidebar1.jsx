@@ -84,7 +84,7 @@ const SideBar = () => {
       id: "Account",
       icon: <RiAccountBoxFill />,
       label: "Account",
-      link: "/settings",
+      link: "/dashboard/Account",
     },
   ];
 
