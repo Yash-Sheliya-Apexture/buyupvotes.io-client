@@ -20,7 +20,7 @@ import Account from "../Dashboard/pages/Account";
 const DashboardRoutes = () => {
   return (
     <div className="min-h-screen flex">
-      {/* Left Sidebar */}
+      {/* Left Sidebar1 */}
       <div className="w-[250px]">
         <Sidebar1 />
       </div>

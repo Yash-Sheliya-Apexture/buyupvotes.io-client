@@ -16,7 +16,6 @@ const OrderComment = () => {
 
   const [formData, setFormData] = useState({ speed: "", numberOfComments: "" });
 
-  const speeds = ["Slow", "Medium", "Fast", "Express"];
   const numbers = Array.from({ length: 50 }, (_, i) => i + 1);
 
   // Validate URL function

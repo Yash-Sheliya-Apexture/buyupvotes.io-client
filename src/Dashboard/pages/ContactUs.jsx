@@ -65,9 +65,9 @@ const ContactUs = () => {
         <Breadcrumb items={breadcrumbs} />
       </div>
 
-      <div className="flex h-screen my-10 bg-white">
+      <div className="flex min-h-full my-10 bg-white">
         {/* Left Side */}
-        <div className="relative w-1/2 overflow-hidden rounded-xlarge">
+        <div className="relative w-2/5 overflow-hidden rounded-xlarge">
           <div
             className="absolute inset-0 z-10"
             style={{
@@ -91,7 +91,7 @@ const ContactUs = () => {
         </div>
 
         {/* Right Side */}
-        <div className="w-1/2 flex flex-col items-center justify-center">
+        <div className="w-3/5 flex flex-col items-center justify-center">
           <div className="text-center flex items-center border-b py-4">
             <h2 className="text-medium font-bold text-sub-color mr-2">
               Chat with us:
@@ -141,7 +141,7 @@ const ContactUs = () => {
             </div>
           </div>
 
-          <div className="w-full max-w-md">
+          <div className="w-full max-w-lg">
             <h2 className="text-center text-base font-bold text-sub-color my-5">
               Or send us an email below:
             </h2>
