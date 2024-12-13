@@ -149,12 +149,12 @@ const Sign_Up = () => {
                     id="First name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className={`mt-1 block w-full px-3.5 py-3 border ${errors.firstName ? "border-red-500" : "border-gray-300"
+                    className={`mt-1 block w-full px-3.5 py-3 border ${errors.firstName ? "border-red" : "border-gray-300"
                       } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
                     placeholder="First name"
                   />
                   {errors.firstName && (
-                    <p className="mt-1 text-xs text-red-500">{errors.firstName}</p>
+                    <p className="mt-1 text-xs text-red">{errors.firstName}</p>
                   )}
                 </div>
                 {/* <input
@@ -168,12 +168,12 @@ const Sign_Up = () => {
                     id="Last name"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className={`mt-1 block w-full px-3.5 py-3 border ${errors.lastName ? "border-red-500" : "border-gray-300"
+                    className={`mt-1 block w-full px-3.5 py-3 border ${errors.lastName ? "border-red" : "border-gray-300"
                       } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
                     placeholder="Last name"
                   />
                   {errors.lastName && (
-                    <p className="mt-1 text-xs text-red-500">{errors.lastName}</p>
+                    <p className="mt-1 text-xs text-red">{errors.lastName}</p>
                   )}
                 </div>
               </div>
@@ -184,12 +184,12 @@ const Sign_Up = () => {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={`mt-1 block w-full px-3.5 py-3 border ${errors.email ? "border-red-500" : "border-gray-300"
+                  className={`mt-1 block w-full px-3.5 py-3 border ${errors.email ? "border-red" : "border-gray-300"
                     } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Email address"
                 />
                 {errors.email && (
-                  <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+                  <p className="mt-1 text-xs text-red">{errors.email}</p>
                 )}
               </div>
 
@@ -198,7 +198,7 @@ const Sign_Up = () => {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={`block w-full px-3.5 py-3 border ${errors.password ? "border-red-500" : "border-gray-300"
+                  className={`block w-full px-3.5 py-3 border ${errors.password ? "border-red" : "border-gray-300"
                     } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Password"
                 />
@@ -241,7 +241,7 @@ const Sign_Up = () => {
                   )}
                 </button>
                 {errors.password && (
-                  <p className="mt-1 text-xs text-red-500">{errors.password}</p>
+                  <p className="mt-1 text-xs text-red">{errors.password}</p>
                 )}
               </div>
 
@@ -252,7 +252,7 @@ const Sign_Up = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className={`block w-full px-3.5 py-3 border ${errors.confirmPassword
-                    ? "border-red-500"
+                    ? "border-red"
                     : "border-gray-300"
                     } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Confirm Password"
@@ -301,7 +301,7 @@ const Sign_Up = () => {
                   )}
                 </button>
                 {errors.confirmPassword && (
-                  <p className="mt-1 text-xs text-red-500">
+                  <p className="mt-1 text-xs text-red">
                     {errors.confirmPassword}
                   </p>
                 )}

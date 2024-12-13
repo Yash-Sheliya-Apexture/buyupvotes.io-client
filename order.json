@@ -6,6 +6,7 @@
     "link": "FundPrice",
     "icon": "fas fa-wallet"
   },
+  
   {
     "id": 2,
     "remainingVotes": 0,
@@ -16,7 +17,7 @@
   {
     "id": 3,
     "remainingVotes": 0,
-    "label": "Orders in Progress",
+    "label": "Order in Progress",
     "link": "UpvoteOrder",
     "icon": "fas fa-bolt"
   },

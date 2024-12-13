@@ -77,11 +77,11 @@ const ContactUs = () => {
               backgroundRepeat: "no-repeat",
             }}
           ></div>
-          <div className="absolute inset-0 bg-black/65 z-10"></div>
+          <div className="absolute inset-0 bg-black/70 z-10"></div>
           <div className="absolute -bottom-20 z-20 flex items-center justify-center h-full px-6">
             <h1
               ref={textRef}
-              className="text-white text-[60px] font-black text-start leading-[80px]"
+              className="text-white text-largest font-black text-start leading-20"
             >
               <span>Looking to</span> <br />
               <span className="text-main-color">contact</span> <br />
@@ -93,16 +93,16 @@ const ContactUs = () => {
         {/* Right Side */}
         <div className="w-3/5 flex flex-col items-center justify-center">
           <div className="text-center flex items-center border-b py-4">
-            <h2 className="text-medium font-bold text-sub-color mr-2">
+            <h2 className="text-base font-semibold text-sub-color mr-2">
               Chat with us:
             </h2>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 aria-hidden="true"
                 role="img"
-                className="size-5 text-[#24A1DE] "
+                className="size-5 text-blue-500"
                 viewBox="0 0 496 512"
               >
                 <path
@@ -123,7 +123,7 @@ const ContactUs = () => {
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 aria-hidden="true"
                 role="img"
-                className="size-5 text-[#237067]"
+                className="size-5 text-green-500"
                 viewBox="0 0 448 512"
               >
                 <path
@@ -142,7 +142,7 @@ const ContactUs = () => {
           </div>
 
           <div className="w-full max-w-lg">
-            <h2 className="text-center text-base font-bold text-sub-color my-5">
+            <h2 className="text-center text-base font-medium text-sub-color my-5">
               Or send us an email below:
             </h2>
             <form className="space-y-3" onSubmit={handleSubmit}>
@@ -151,7 +151,7 @@ const ContactUs = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-full"
                   id="name"
                   type="text"
-                  placeholder="Your name"
+                  placeholder="Rudra Sutariya"
                   disabled
                 />
               </div>
@@ -160,14 +160,14 @@ const ContactUs = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-full"
                   id="email"
                   type="email"
-                  placeholder="Your email"
+                  placeholder="rudrasutariya003@gmail.com"
                   disabled
                 />
               </div>
               <div>
                 <input
                   className={`w-full px-4 py-2 border ${
-                    errors.subject ? "border-red-500" : "border-gray-300"
+                    errors.subject ? "border-red" : "border-gray-300"
                   } rounded-full`}
                   id="subject"
                   type="text"
@@ -176,15 +176,13 @@ const ContactUs = () => {
                   onChange={handleChange}
                 />
                 {errors.subject && (
-                  <p className="text-red-500 text-sm mt-1">
-                    Subject is required.
-                  </p>
+                  <p className="text-red text-sm mt-1">Subject is required.</p>
                 )}
               </div>
               <div>
                 <textarea
                   className={`w-full border ${
-                    errors.message ? "border-red-500" : "border-gray-300"
+                    errors.message ? "border-red" : "border-gray-300"
                   } hover:border-black transition-all duration-150 ease-in rounded-small resize-none`}
                   id="message"
                   rows="8"
@@ -194,9 +192,7 @@ const ContactUs = () => {
                   onChange={handleChange}
                 ></textarea>
                 {errors.message && (
-                  <p className="text-red-500 text-sm mt-1">
-                    Message is required.
-                  </p>
+                  <p className="text-red text-sm mt-1">Message is required.</p>
                 )}
               </div>
 

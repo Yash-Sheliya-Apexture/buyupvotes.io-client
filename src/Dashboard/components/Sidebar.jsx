@@ -12,21 +12,28 @@ import { IoTv } from "react-icons/io5";
 import { MdContacts } from "react-icons/md";
 import { RiAccountBoxFill } from "react-icons/ri";
 import { GoFileDirectoryFill } from "react-icons/go";
-import { FiMenu, FiX } from "react-icons/fi";
-import { FaAngleLeft } from "react-icons/fa6";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import logo1 from "../../assets/Images/logo-mini.png";
+import Button from "../../Dashboard/components/Button";
+import { RiMenu3Fill } from "react-icons/ri";
+import { CgMenuRightAlt } from "react-icons/cg";
 
 const SideBar = () => {
-  const [activeMenu, setActiveMenu] = useState("dashboard"); // State for active menu
-  const [isSidebarOpen, setSidebarOpen] = useState(false); // State for sidebar visibility
-
+  const [activeMenu, setActiveMenu] = useState("Dashboard");
+  const [isSidebarExpanded, setSidebarExpanded] = useState(true);
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
 
   const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
+    setSidebarExpanded(!isSidebarExpanded);
+  };
+
+  const toggleSidebarVisibility = () => {
+    setSidebarVisible(!isSidebarVisible);
   };
 
   const menuItems = [
     {
-      id: "dashboard",
+      id: "Dashboard",
       icon: <PiSpeedometerFill />,
       label: "Dashboard",
       link: "/dashboard",
@@ -35,105 +42,133 @@ const SideBar = () => {
       id: "Order Upvotes",
       icon: <BsBarChartFill />,
       label: "Order Upvotes",
-      link: "/UpvoteOrder",
+      link: "/dashboard/UpvoteOrder",
     },
     {
-      id: "Orders Create",
+      id: "Orders",
       icon: <IoMdChatboxes />,
       label: "Order Comments",
-      link: "/OrderComment",
+      link: "/dashboard/OrderComment",
     },
     {
       id: "Order messages",
       icon: <IoIosChatboxes />,
       label: "Order Direct Messages",
-      link: "/notifications",
+      link: "/dashboard/DirectMassage",
     },
     {
       id: "Add Funds",
       icon: <HiCurrencyEuro />,
       label: "Add Funds-Princing",
-      link: "/FundPrice",
+      link: "/dashboard/FundPrice",
     },
     {
       id: "Raddit Accounts",
       icon: <FaCartShopping />,
       label: "Buy Raddit Accounts",
-      link: "/signup",
+      link: "/dashboard/RabbitAcc",
     },
     {
-      id: "faqs",
+      id: "FAQs",
       icon: <MdContactPage />,
       label: "FAQ'S",
-      link: "/password",
+      link: "/dashboard/FaQ",
     },
-    { id: "OTP", icon: <GoFileDirectoryFill />, label: "Blogs", link: "/otp" },
     {
-      id: "API",
-      icon: <IoTv />,
-      label: "API (New)",
-      link: "/settings",
+      id: "Blogs Data",
+      icon: <GoFileDirectoryFill />,
+      label: "Blogs",
+      link: "/dashboard/BlogJson",
     },
+    { id: "API", icon: <IoTv />, label: "API (New)", link: "/Api" },
     {
       id: "Contact",
       icon: <MdContacts />,
       label: "Contact Us",
-      link: "/settings",
+      link: "/dashboard/ContactUs",
     },
     {
       id: "Account",
       icon: <RiAccountBoxFill />,
       label: "Account",
-      link: "/settings",
+      link: "/dashboard/Account",
     },
   ];
 
   return (
     <>
-      {/* Hamburger Menu for Small Screens */}
-      <div className="lg:hidden p-4 bg-white flex items-center">
-        <div>
-          <img src={logo} alt="Logo" className="w-10 h-10 hidden" />
-        </div>
-        <button onClick={toggleSidebar}>
-          {isSidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-        </button>
-      </div>
+      {/* Toggle Button for Small Screens */}
+      <button
+        className="absolute top-3 left-2 z-10 sm:hidden rounded-full"
+        onClick={toggleSidebarVisibility}
+      >
+        <CgMenuRightAlt className="text-main-color size-8 rounded-md" />
+      </button>
+
+      {/* Backdrop Overlay */}
+      {isSidebarVisible && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-45 z-40 backdrop-blur-sm sm:hidden"
+          onClick={toggleSidebarVisibility}
+        ></div>
+      )}
 
       {/* Sidebar */}
       <section
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-dashed border-gray-300 transform ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 lg:translate-x-0 lg:static lg:block h-screen`}
+        className={`fixed sm:relative bg-white border-r z-50 border-dashed border-border-color h-screen transition-all duration-300 sm:w-auto ${
+          isSidebarExpanded ? "w-60" : "w-16"
+        } ${isSidebarVisible ? "left-0" : "-left-60"} sm:left-0`}
       >
-        <div className="flex items-center justify-between p-3">
-          <div>
-            <img src={logo} alt="Logo" />
-          </div>
+        {/* Sidebar Header */}
+        <div className="flex items-center justify-between p-3.5">
+          {isSidebarExpanded ? (
+            <Link to="/">
+              <img
+                src={logo}
+                alt="Expanded Logo"
+                className="h-8 transition-all duration-300 ease-in-out"
+              />
+            </Link>
+          ) : (
+            <img
+              src={logo1}
+              alt="Collapsed Logo"
+              className="h-8 transition-all duration-300 ease-in-out"
+            />
+          )}
+          <button
+            onClick={toggleSidebar}
+            className={`relative ${isSidebarExpanded ? "" : "ml-auto"}`}
+          >
+            {isSidebarExpanded ? (
+              <FaAngleLeft className="text-gray-500 absolute top-0 left-0.5 backdrop-blur-sm p-1 size-6 lg:block hidden cursor-pointer border rounded-full" />
+            ) : (
+              <FaAngleRight className="text-gray-500 absolute top-0 left-0.5 p-1 size-6 backdrop-blur-sm lg:block hidden cursor-pointer border rounded-full" />
+            )}
+          </button>
         </div>
 
-        <div className="absolute top-10 -right-2.5 p-1 border rounded-full backdrop-blur-sm lg:block hidden cursor-pointer">
-          <FaAngleLeft className="size-2.5 text-gray-500" />
-        </div>
-
-        <div>
-          <ul className="flex flex-col space-y-2.5">
+        {/* Sidebar Menu */}
+        <div className="h-[calc(100%-4rem)] overflow-y-auto custom-scroll">
+          <ul className="space-y-2.5 mt-5">
             {menuItems.map((item) => (
               <li
                 key={item.id}
                 className={`relative group rounded-base cursor-pointer ${
                   activeMenu === item.id
-                    ? "bg-side-color text-main-color font-bold" // Active menu styles
-                    : "text-active hover:bg-background-active" // Inactive menu styles
+                    ? "bg-[#FF570014] text-main-color font-bold"
+                    : "text-active hover:bg-[rgba(240,240,240,0.6)]"
                 }`}
-                onClick={() => setActiveMenu(item.id)} // Set active menu on click
+                onClick={() => setActiveMenu(item.id)}
               >
                 <Link
                   to={item.link}
-                  className="w-full px-2.5 py-2.5 flex justify-start items-center transition-colors duration-200"
+                  className="w-full px-2.5 py-2.5 flex items-center transition-all duration-200 relative"
                 >
-                  <span className="mr-4 text-basic">{item.icon}</span>
-                  <span className="text-small">{item.label}</span>
+                  <span className="mr-4 text-large">{item.icon}</span>
+                  {isSidebarExpanded && (
+                    <span className="text-small">{item.label}</span>
+                  )}
                 </Link>
                 <div
                   className={`absolute left-0 top-0 h-full w-1 ${
@@ -145,21 +180,8 @@ const SideBar = () => {
               </li>
             ))}
           </ul>
-          <div className="py-2">
-            <button className="w-full p-1.5 hover:shadow-Sidebar rounded-full border border-main-color">
-              Add Funds
-            </button>
-          </div>
         </div>
       </section>
-
-      {/* Overlay for Small Screens */}
-      {isSidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black opacity-50 lg:hidden"
-          onClick={toggleSidebar}
-        ></div>
-      )}
     </>
   );
 };

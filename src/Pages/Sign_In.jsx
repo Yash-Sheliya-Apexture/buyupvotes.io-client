@@ -135,12 +135,12 @@
 //                   id="email"
 //                   value={email}
 //                   onChange={(e) => setEmail(e.target.value)}
-//                   className={`mt-1 block w-full px-3.5 py-3 border ${errors.email ? "border-red-500" : "border-gray-300"
+//                   className={`mt-1 block w-full px-3.5 py-3 border ${errors.email ? "border-red" : "border-gray-300"
 //                     } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
 //                   placeholder="Email address"
 //                 />
 //                 {errors.email && (
-//                   <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+//                   <p className="mt-1 text-xs text-red">{errors.email}</p>
 //                 )}
 //               </div>
 
@@ -151,7 +151,7 @@
 //                   id="password"
 //                   value={password}
 //                   onChange={(e) => setPassword(e.target.value)}
-//                   className={`mt-1 block w-full px-3.5 py-3 border ${errors.password ? "border-red-500" : "border-gray-300"
+//                   className={`mt-1 block w-full px-3.5 py-3 border ${errors.password ? "border-red" : "border-gray-300"
 //                     } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
 //                   placeholder="Password"
 //                 />
@@ -199,7 +199,7 @@
 //                   )}
 //                 </button>
 //                 {errors.password && (
-//                   <p className="mt-1 text-xs text-red-500">{errors.password}</p>
+//                   <p className="mt-1 text-xs text-red">{errors.password}</p>
 //                 )}
 //               </div>
 
@@ -389,12 +389,12 @@ const Sign_In = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={`mt-1 block w-full px-3.5 py-3 border ${
-                    errors.email ? "border-red-500" : "border-gray-300"
+                    errors.email ? "border-red" : "border-gray-300"
                   } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Email address"
                 />
                 {errors.email && (
-                  <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+                  <p className="mt-1 text-xs text-red">{errors.email}</p>
                 )}
               </div>
 
@@ -405,7 +405,7 @@ const Sign_In = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className={`mt-1 block w-full px-3.5 py-3 border ${
-                    errors.password ? "border-red-500" : "border-gray-300"
+                    errors.password ? "border-red" : "border-gray-300"
                   } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Password"
                 />
@@ -421,7 +421,7 @@ const Sign_In = () => {
                   )}
                 </button>
                 {errors.password && (
-                  <p className="mt-1 text-xs text-red-500">{errors.password}</p>
+                  <p className="mt-1 text-xs text-red">{errors.password}</p>
                 )}
               </div>
 

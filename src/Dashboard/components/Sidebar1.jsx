@@ -65,7 +65,7 @@ const SideBar = () => {
       id: "FAQs",
       icon: <MdContactPage />,
       label: "FAQ'S",
-      link: "/dashboard/FAQ",
+      link: "/dashboard/FaQ",
     },
     {
       id: "Blogs Data",
@@ -171,4 +171,3 @@ const SideBar = () => {
 };
 
 export default SideBar;
-

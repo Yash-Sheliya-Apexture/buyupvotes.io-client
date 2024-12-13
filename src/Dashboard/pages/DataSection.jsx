@@ -20,20 +20,22 @@ const DataSection = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-2 mt-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <div className="px-2 mt-4 lg:w-full w-1/2 lg:py-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {data.map((item) => (
           <div
             key={item.id}
-            className="bg-white shadow-md rounded-small border border-gray-border p-6 flex justify-between items-center cursor-pointer"
+            className="bg-white shadow-md rounded-small border border-gray-border p-6 flex justify-between items-center cursor-pointer w-full md:w-1/2 lg:w-full"
           >
             <div>
-              <p className="text-large font-bold text-sub-color mb-2">
+              <p className="lg:text-large font-bold text-sub-color mb-2">
                 {item.remainingVotes ?? ""}
               </p>
-              <p className="text-[20px] text-para-color font-semibold">{item.label}</p>
+              <p className="lg:text-base text-para-color font-semibold">
+                {item.label}
+              </p>
             </div>
-            <div className="text-main-color text-large">
+            <div className="text-main-color lg:text-large text-basic">
               {item.link ? (
                 <Link to={item.link}>
                   <i

@@ -37,6 +37,10 @@ export default {
         "light-red": "#B71D18",
         "border-color": "#e5e7eb",
         "brown-hover": "#919eab14",
+        "red": "#F05252",
+      },
+      lineHeight: {
+        20: "70px",
       },
       borderWidth: {
         1.5: "1.5px",
@@ -50,6 +54,7 @@ export default {
         basic: "24px",
         large: "30px",
         xlarge: "35px",
+        largest: "60px",
       },
       borderRadius: {
         base: "4px",

@@ -1,8 +1,8 @@
 [
   {
     "id": 1,
-    "image": "path-to-blog-image.png",
-    "profileImage": "path-to-men.jpg",
+    "image": "/src/assets/Images/blog-image.png",
+    "profileImage": "/src/assets/images/men.jpg",
     "author": "Ethan Young",
     "date": "14 Aug 2024",
     "title": "Decoding Reddit’s Algorithms: Best Practices for Marketers",
@@ -11,8 +11,8 @@
   },
   {
     "id": 2,
-    "image": "path-to-blog-image.png",
-    "profileImage": "path-to-yellowgirl.jpg",
+    "image": "/src/assets/Images/blog-image.png",
+    "profileImage": "/src/assets/Images/Yellowgirl.jpg",
     "author": "Abigail Moore",
     "date": "27 Jul 2024",
     "title": "The Best Times to Post on Reddit for Optimal Exposure",
@@ -21,8 +21,8 @@
   },
   {
     "id": 3,
-    "image": "path-to-blog-image.png",
-    "profileImage": "path-to-yellowgirl.jpg",
+    "image": "/src/assets/Images/blog-image.png",
+    "profileImage": "/src/assets/Images/Yellowgirl.jpg",
     "author": "Abigail Moore",
     "date": "01 Jul 2024",
     "title": "Beginner Mistakes to Avoid in New Data Reddit Marketing",

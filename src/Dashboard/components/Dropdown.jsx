@@ -40,7 +40,7 @@ const Dropdown = ({
       {/* Dropdown Header */}
       <div
         className={`w-full border rounded-full p-2.5 ${
-          error ? "border-red-500" : "border-gray-300"
+          error ? "border-red" : "border-gray-300"
         } text-sub-color hover:border-black transition-all ease-in duration-150 flex justify-between items-center`}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -51,7 +51,7 @@ const Dropdown = ({
           }`}
         />
       </div>
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error && <p className="text-red text-sm">{error}</p>}
 
       {/* Dropdown Menu */}
       <div

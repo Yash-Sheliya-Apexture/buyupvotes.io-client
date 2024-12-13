@@ -3,16 +3,18 @@ import girl from "../../assets/Images/girl.png";
 import Slider from "./Slider";
 import { Link } from "react-router-dom";
 
-const HeroSecrtion = () => {
+const HeroSection = () => {
   return (
     <>
-      <div className="flex gap-6">
-        <div className="flex w-2/3 h-auto bg-light-brown rounded-large py-10 px-4 relative overflow-hidden">
-          <div className="p-6">
+      <div className="flex flex-col lg:flex-row gap-4 lg:py-0 py-10">
+        {/* HeroCard Components */}
+        <div className="flex flex-col lg:flex-row lg:w-2/3 w-1/2 h-auto bg-light-brown rounded-large py-10 px-4 relative overflow-hidden">
+          {/* Left Side - Text */}
+          <div className="mb-6 lg:mb-0 text-center lg:text-start lg:max-w-[300px]">
             <h2 className="text-large font-black text-dark-green mb-2 flex items-center leading-10">
-              Welcome back, <br /> Rudra 👋
+              Welcome back, Rudra 👋
             </h2>
-            <p className="text-[#477677] font-semibold mb-6 max-w-[300px]">
+            <p className="text-[#477677] font-semibold mb-6">
               You have 100 upvotes remaining on your balance. Continue boosting
               your Reddit experience by placing an order!
             </p>
@@ -23,10 +25,12 @@ const HeroSecrtion = () => {
               Order Now
             </Link>
           </div>
-          <div className="flex">
-            <div className="absolute top-10 right-0">
+
+          {/* Right Side - Image */}
+          <div className="lg:w-1/2 relative">
+            <div className="relative w-auto">
               <svg
-                className="w-full h-full object-cover"
+                className="lg:w-full lg:h-full "
                 viewBox="0 0 480 360"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -258,13 +262,14 @@ const HeroSecrtion = () => {
               <img
                 src={girl}
                 alt="Girl Image"
-                className="absolute top-2 h-52 right-6"
+                className="h-52 lg:absolute absolute top-0 right-6  lg:top-2 lg:right-6"
               />
             </div>
           </div>
         </div>
 
-        <div className="w-1/3">
+        {/* Slider Components */}
+        <div className="w-1/2 lg:w-1/3">
           <Slider />
         </div>
       </div>
@@ -272,4 +277,4 @@ const HeroSecrtion = () => {
   );
 };
 
-export default HeroSecrtion;
+export default HeroSection;

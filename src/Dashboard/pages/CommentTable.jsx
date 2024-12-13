@@ -215,7 +215,7 @@ const CommentTable = () => {
       {/* Order Result */}
       <div className="py-2">
         <h1 className="text-sub-color">
-          <span className="text-sub-color font-black">{tableData.length}</span>
+          <span className="text-sub-color font-bold">{tableData.length}</span>
           {tableData.length === 1 ? " Result found" : " Results found"}
           {activeTab !== "All" && (
             <span className="text-sub-color font-normal ml-2">
