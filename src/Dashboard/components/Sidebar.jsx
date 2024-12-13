@@ -91,9 +91,9 @@ const SideBar = () => {
   return (
     <>
       {/* Hamburger Menu for Small Screens */}
-      <div className="lg:hidden p-4 bg-white flex items-center">
+      <div className="flex items-center p-4 bg-white lg:hidden">
         <div>
-          <img src={logo} alt="Logo" className="w-10 h-10 hidden" />
+          <img src={logo} alt="Logo" className="hidden w-10 h-10" />
         </div>
         <button onClick={toggleSidebar}>
           {isSidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}

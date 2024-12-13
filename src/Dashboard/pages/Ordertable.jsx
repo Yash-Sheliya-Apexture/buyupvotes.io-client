@@ -193,7 +193,7 @@ const Ordertable = () => {
         </div>
       </div>
 
-      <div className="flex px-3 py-2 space-x-4">
+      <div className="flex space-x-4">
         {/* Status Check Section */}
         {activeTab !== "All" && (
           <div className="flex items-center space-x-2 w-50 p-1.5">

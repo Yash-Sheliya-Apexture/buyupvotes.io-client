@@ -37,30 +37,30 @@ const SideBar = () => {
       label: "Order Upvotes",
       link: "/dashboard/UpvoteOrder",
     },
-    {
-      id: "Orders",
-      icon: <IoMdChatboxes />,
-      label: "Order Comments",
-      link: "/dashboard/OrderComment",
-    },
-    {
-      id: "Order messages",
-      icon: <IoIosChatboxes />,
-      label: "Order Direct Messages",
-      link: "/dashboard/DirectMassage",
-    },
+    // {
+    //   id: "Orders",
+    //   icon: <IoMdChatboxes />,
+    //   label: "Order Comments",
+    //   link: "/dashboard/OrderComment",
+    // },
+    // {
+    //   id: "Order messages",
+    //   icon: <IoIosChatboxes />,
+    //   label: "Order Direct Messages",
+    //   link: "/dashboard/DirectMassage",
+    // },
     {
       id: "Add Funds",
       icon: <HiCurrencyEuro />,
       label: "Add Funds-Princing",
       link: "/dashboard/FundPrice",
     },
-    {
-      id: "Raddit Accounts",
-      icon: <FaCartShopping />,
-      label: "Buy Raddit Accounts",
-      link: "/dashboard/RabbitAcc",
-    },
+    // {
+    //   id: "Raddit Accounts",
+    //   icon: <FaCartShopping />,
+    //   label: "Buy Raddit Accounts",
+    //   link: "/dashboard/RabbitAcc",
+    // },
     {
       id: "FAQs",
       icon: <MdContactPage />,
@@ -73,7 +73,6 @@ const SideBar = () => {
       label: "Blogs",
       link: "/dashboard/BlogJson",
     },
-    { id: "API", icon: <IoTv />, label: "API (New)", link: "/Api" },
     {
       id: "Contact",
       icon: <MdContacts />,
@@ -92,7 +91,7 @@ const SideBar = () => {
     <>
       {/* Sidebar */}
       <section
-        className={`fixed bg-white border-r border-dashed border-border-color h-screen transition-all duration-300 ${
+        className={`bg-white border-r border-dashed border-border-color h-screen transition-all duration-300 ${
           isSidebarExpanded ? "w-60" : "w-16"
         }`}
       >
@@ -115,7 +114,7 @@ const SideBar = () => {
           )}
           <button
             onClick={toggleSidebar}
-            className={`relative ${isSidebarExpanded ? "" : "ml-auto"}`}
+            className={`relative z-50 ${isSidebarExpanded ? "" : "ml-auto"}`}
           >
             {isSidebarExpanded ? (
               <FaAngleLeft className="text-gray-500 absolute top-0 left-0.5 backdrop-blur-sm p-1 size-6 lg:block hidden cursor-pointer border rounded-full" />
@@ -126,7 +125,7 @@ const SideBar = () => {
         </div>
 
         {/* Sidebar Menu */}
-        <div className="h-[calc(100%-4rem)] overflow-y-auto custom-scroll">
+        <div className="h-[calc(100%-60px)] overflow-y-auto custom-scroll">
           <ul className="space-y-2.5 mt-5">
             {menuItems.map((item) => (
               <li
@@ -144,7 +143,7 @@ const SideBar = () => {
                 >
                   <span className="mr-4 text-large">{item.icon}</span>
                   {isSidebarExpanded && (
-                    <span className="text-small">{item.label}</span>
+                    <span className="text-small text-nowrap">{item.label}</span>
                   )}
                 </Link>
                 <div
@@ -160,7 +159,7 @@ const SideBar = () => {
           {isSidebarExpanded && (
             <div className="p-2.5">
               <Link to="/dashboard/FundPrice">
-                <Button>Add Funds</Button>
+                <Button className="w-full">Add Funds</Button>
               </Link>
             </div>
           )}

@@ -6,7 +6,6 @@ import skybackground from "../../assets/Images/blue-background.png";
 import axios from "axios";
 
 const Dashboard_header = () => {
-  const [showTooltip, setShowTooltip] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
@@ -57,7 +56,6 @@ const Dashboard_header = () => {
     };
   }, []);
 
-  const toggleTooltip = () => setShowTooltip(!showTooltip);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const handleSignOut = () => {
@@ -66,109 +64,83 @@ const Dashboard_header = () => {
   };
 
   return (
-    <section className="container relative flex items-center justify-end p-2 space-x-2 lg:space-x-4 lg:p-4">
-      {/* Tooltip */}
-      {showTooltip && (
-        <div className="absolute right-80 top-14 bg-[#dceff5] border border-gray-300 rounded-medium px-4 py-1.5 z-10">
-          <div className="flex justify-between ap-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              role="img"
-              className="rounded-md"
-              width="24"
-              height="24"
-              viewBox="0 0 32 24"
-            >
-              <g fill="none">
-                <path fill="#F7FCFF" d="M0 0h32v24H0z"></path>
-                <path
-                  fill="#E31D1C"
-                  d="M0 14.667v2h32v-2zm0 3.666v2h32v-2zm0-11v2h32v-2zM0 22v2h32v-2zm0-11v2h32v-2zM0 0v2h32V0zm0 3.667v2h32v-2z"
-                ></path>
-                <path fill="#2E42A5" d="M0 0h20v13H0z"></path>
-              </g>
-            </svg>
-            <p className="text-sm text-black">English</p>
-          </div>
-        </div>
-      )}
+    <header className="sticky top-0 z-10 bg-white">
+      <div className="flex items-center justify-end p-6 space-x-2 lg:space-x-4">
+        {/* Dropdown */}
+        <div className="relative" ref={dropdownRef}>
+          <button
+            className="px-6 py-2.5 rounded-full bg-main-color flex items-center relative focus:outline-none"
+            onClick={toggleDropdown}
+          >
+            <img
+              src={rocket}
+              alt="Rocket Icon"
+              className="absolute top-0 left-0 h-10 animate-rocket"
+            />
+            <p className="ml-6 font-bold text-white">
+              Balance:{" "}
+              <span className="underline underline-offset-1">100 Votes</span>
+            </p>
+            <FaAngleDown
+              className={`text-white ml-2 transform transition-transform ${isDropdownOpen ? "rotate-180" : ""
+                }`}
+            />
+          </button>
 
-      {/* Dropdown */}
-      <div className="relative" ref={dropdownRef}>
-        <button
-          className="px-6 py-2.5 rounded-full bg-main-color flex items-center relative focus:outline-none"
-          onClick={toggleDropdown}
-        >
-          <img
-            src={rocket}
-            alt="Rocket Icon"
-            className="absolute top-0 left-0 h-10 animate-rocket"
-          />
-          <p className="ml-6 font-bold text-white">
-            Balance:{" "}
-            <span className="underline underline-offset-1">100 Votes</span>
-          </p>
-          <FaAngleDown
-            className={`text-white ml-2 transform transition-transform ${
-              isDropdownOpen ? "rotate-180" : ""
-            }`}
-          />
-        </button>
-
-        <div
-          className={`absolute min-w-80 overflow-hidden top-12 right-0 w-full bg-gradient-to-r from-[#fef2f0af] shadow-md bg-white rounded-[14px] border border-gray-border z-10 transform transition-all duration-300 ease-in-out ${
-            isDropdownOpen
-              ? "opacity-100 scale-100 translate-y-0"
-              : "opacity-0 scale-95 -translate-y-10 pointer-events-none"
-          }`}
-          style={{
-            backgroundImage: `url(${skybackground})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <div className="text-sm text-[#2D2624] space-y-1">
-            {user ? (
-              <div className="px-4 py-2 space-y-2 cursor-pointer">
-                <span className="text-sub-color font-medium text-[16px]">
-                  {user.firstName || "Guest"}
+          <div
+            className={`absolute min-w-80 overflow-hidden top-12 right-0 w-full bg-gradient-to-r from-[#fef2f0af] shadow-md bg-white rounded-[14px] border border-gray-border z-10 transform transition-all duration-300 ease-in-out ${isDropdownOpen
+                ? "opacity-100 scale-100 translate-y-0"
+                : "opacity-0 scale-95 -translate-y-10 pointer-events-none"
+              }`}
+            style={{
+              backgroundImage: `url(${skybackground})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+          >
+            <div className="text-sm text-[#2D2624] space-y-1">
+              {user ? (
+                <div className="px-4 py-4 space-y-2 cursor-pointer">
+                  <span className="text-sub-color font-medium text-[16px]">
+                    {user.firstName || "Guest"}
+                  </span>
+                  <p className="text-[#403633] font-medium text-[16px]">
+                    {user.email || "No email found"}
+                  </p>
+                </div>
+              ) : (
+                <span className="px-4 font-medium text-sub-color text-small">
+                  No data found here
                 </span>
-                <p className="text-[#403633] font-medium text-[16px]">
-                  {user.email || "No email found"}
-                </p>
+              )}
+              <hr className="border-t border-dashed" />
+              <div className="p-2">
+                <ul className="space-y-0.5">
+                  <li>
+                    <Link to="/dashboard" className="px-4 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150 block">Home</Link>
+                  </li>
+                  <li>
+                    <Link to="/dashboard/user/account/" className="px-4 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150 block">Settings</Link>
+                  </li>
+                </ul>
               </div>
-            ) : (
-              <span className="text-sub-color font-medium text-small px-4">
-                No data found here
-              </span>
-            )}
-            <hr className="border-t border-dashed" />
-            <div className="p-2">
-              <ul className="space-y-0.5">
-                <li>
-                  <Link to="/dashboard" className="px-4 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150 block">Home</Link>
-                </li>
-                <li>
-                  <Link to="/dashboard/user/account/" className="px-4 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150 block">Settings</Link>
-                </li>
-              </ul>
-            </div>
-            <hr className="border-t border-dashed " />
-            <div className="p-2 ">
-              <div
-                className="px-4 py-2 hover:bg-[#919eab14] rounded-full transition-all ease-in duration-150 text-[#FF5D3A] font-black tracking-wide cursor-pointer"
-                onClick={handleSignOut}
-              >
-                Sign Out
+              <hr className="border-t border-dashed " />
+              <div className="p-2 ">
+                <div
+                  className="px-4 py-2 hover:bg-[#919eab14] rounded-full transition-all ease-in duration-150 text-[#FF5D3A] font-bold tracking-wide cursor-pointer"
+                  onClick={handleSignOut}
+                >
+                  Sign Out
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </header>
   );
 };
 
 export default Dashboard_header;
+
