@@ -113,7 +113,7 @@ const Currency = () => {
                             <div className="relative">
                                 <span className="text-black text-[24px] mr-2">$</span>
                                 <input
-                                    placeholder="  Deposit amount"
+                                    placeholder="Deposit amount"
                                     className="p-2 py-2 border-t border-b border-l border-black rounded-l-full focus:outline-none"
                                 />
                             </div>
