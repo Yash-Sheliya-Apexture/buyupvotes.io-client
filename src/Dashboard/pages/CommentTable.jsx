@@ -149,13 +149,13 @@ const CommentTable = () => {
   };
 
   return (
-    <div className="p-6 max-h-screen">
-      <h1 className="py-2 text-sub-color font-bold text-basic">
+    <div className="max-h-screen p-6">
+      <h1 className="py-2 font-bold text-sub-color text-basic">
         Your past upvote orders:
       </h1>
 
       {/* Tabs */}
-      <div className="flex items-center shadow-sm border border-gray-border">
+      <div className="flex items-center border shadow-sm border-gray-border">
         {tabs.map((tab) => (
           <button
             key={tab.label}
@@ -179,14 +179,14 @@ const CommentTable = () => {
       </div>
 
       {/* Filter Section */}
-      <div className="flex flex-wrap items-center gap-4 py-4 border border-gray-border p-2">
+      <div className="flex flex-wrap items-center gap-4 p-2 py-4 border border-gray-border">
         {/* Start Date */}
         <div className="flex items-center gap-2">
           <input
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="border rounded-full hover:border-black transition-all ease-in duration-150 px-6 py-2 text-black"
+            className="px-6 py-2 text-black transition-all duration-150 ease-in border rounded-full hover:border-black"
           />
         </div>
         {/* End Date */}
@@ -195,18 +195,18 @@ const CommentTable = () => {
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="border rounded-full hover:border-black transition-all ease-in duration-150 px-6 py-2 text-black"
+            className="px-6 py-2 text-black transition-all duration-150 ease-in border rounded-full hover:border-black"
           />
         </div>
 
         {/* Search Product `*/}
-        <div className="flex-grow relative">
+        <div className="relative flex-grow">
           <input
             type="text"
             placeholder="Search Product Name or Order #..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full border rounded-full hover:border-black transition-all ease-in duration-150 py-2 px-10 text-sub-color"
+            className="w-full px-10 py-2 transition-all duration-150 ease-in border rounded-full hover:border-black text-sub-color"
           />
           <FiSearch className="absolute top-3 left-3 size-5 text-light-gray" />
         </div>
@@ -218,7 +218,7 @@ const CommentTable = () => {
           <span className="text-sub-color font-bold">{tableData.length}</span>
           {tableData.length === 1 ? " Result found" : " Results found"}
           {activeTab !== "All" && (
-            <span className="text-sub-color font-normal ml-2">
+            <span className="ml-2 font-normal text-sub-color">
               (Filtered by <span className="font-bold">{activeTab}</span>)
             </span>
           )}
@@ -242,7 +242,7 @@ const CommentTable = () => {
                 aria-hidden="true"
                 role="img"
                 viewBox="0 0 24 24"
-                className="size-6 ml-1"
+                className="ml-1 size-6"
               >
                 <path
                   fill="currentColor"
@@ -262,7 +262,7 @@ const CommentTable = () => {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
               aria-hidden="true"
               role="img"
               viewBox="0 0 24 24"
@@ -279,7 +279,7 @@ const CommentTable = () => {
                 clip-rule="evenodd"
               ></path>
             </svg>
-            <h1 className="ml-2 text-small font-bold text-light-orange">
+            <h1 className="ml-2 font-bold text-small text-light-orange">
               Clear
             </h1>
           </div>
@@ -287,16 +287,16 @@ const CommentTable = () => {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-md shadow-md overflow-hidden h-auto max-h-screen">
-        <table className="w-full table-auto border-collapse">
-          <thead className="bg-gray-100 text-sub-color text-xs font-medium uppercase">
+      <div className="h-auto max-h-screen overflow-hidden bg-white rounded-md shadow-md">
+        <table className="w-full border-collapse table-auto">
+          <thead className="text-xs font-medium uppercase bg-gray-100 text-sub-color">
             <tr className="border-b">
-              <th className="py-3 px-4 text-left">Order #</th>
-              <th className="py-3 px-4 text-left">Massage</th>
-              <th className="py-3 px-4 text-left">Quantity</th>
-              <th className="py-3 px-4 text-left">Date</th>
-              <th className="py-3 px-4 text-left">Status</th>
-              <th className="py-3 px-4 text-left">Details</th>
+              <th className="px-4 py-3 text-left">Order #</th>
+              <th className="px-4 py-3 text-left">Massage</th>
+              <th className="px-4 py-3 text-left">Quantity</th>
+              <th className="px-4 py-3 text-left">Date</th>
+              <th className="px-4 py-3 text-left">Status</th>
+              <th className="px-4 py-3 text-left">Details</th>
             </tr>
           </thead>
           <tbody>
@@ -308,12 +308,12 @@ const CommentTable = () => {
                     index % 2 === 0 ? "bg-gray-50" : ""
                   }`}
                 >
-                  <td className="py-3 px-4">{row.orderNumber}</td>
-                  <td className="py-3 px-4">{row.details}</td>
-                  <td className="py-3 px-4">{row.progress}</td>
-                  <td className="py-3 px-4">{row.date}</td>
-                  <td className="py-3 px-4">{row.totalVotes}</td>
-                  <td className="py-3 px-4">
+                  <td className="px-4 py-3">{row.orderNumber}</td>
+                  <td className="px-4 py-3">{row.details}</td>
+                  <td className="px-4 py-3">{row.progress}</td>
+                  <td className="px-4 py-3">{row.date}</td>
+                  <td className="px-4 py-3">{row.totalVotes}</td>
+                  <td className="px-4 py-3">
                     <span
                       className={`px-3 py-1.5 rounded-full text-xs font-bold tracking-wide ${
                         row.status === "Completed"
@@ -332,10 +332,10 @@ const CommentTable = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="6" className="text-center text-gray-400 py-20">
+                <td colSpan="6" className="py-20 text-center text-gray-400">
                   <div className="flex flex-col items-center">
                     <img src={Data} alt="No Data" className="h-40" />
-                    <p className="text-lg font-bold mt-4">No Data Available</p>
+                    <p className="mt-4 text-lg font-bold">No Data Available</p>
                   </div>
                 </td>
               </tr>
@@ -344,13 +344,13 @@ const CommentTable = () => {
         </table>
       </div>
 
-      <div className="flex justify-end space-x-5 items-center p-4 bg-white border border-gray-border">
+      <div className="flex items-center justify-end p-4 space-x-5 bg-white border border-gray-border">
         <span className="text-sm text-sub-color">
           Rows per page:
           <select
             value={rowsPerPage}
             onChange={handleRowsPerPageChange}
-            className="rounded-md text-sub-color outline-none text-small"
+            className="rounded-md outline-none text-sub-color text-small"
           >
             <option value="5">5</option>
             <option value="10">10</option>

@@ -139,6 +139,7 @@ const ContactUs = () => {
               {/* Chat Links */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 aria-hidden="true"
                 role="img"
                 className="size-5 text-blue-500"
