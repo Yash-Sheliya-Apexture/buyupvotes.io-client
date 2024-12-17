@@ -99,7 +99,7 @@ const ContactUs = () => {
             <div className="flex items-center space-x-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 aria-hidden="true"
                 role="img"
                 className="size-5 text-[#24A1DE] "
@@ -120,7 +120,7 @@ const ContactUs = () => {
               <span>-</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 aria-hidden="true"
                 role="img"
                 className="size-5 text-[#237067]"

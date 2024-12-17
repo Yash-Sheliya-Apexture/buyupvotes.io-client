@@ -64,7 +64,7 @@ const Dashboard_header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-10 bg-white">
+    <header className="sticky top-0 z-10 w-full backdrop-blur-sm bg-white/90">
       <div className="flex items-center justify-end p-6 space-x-2 lg:space-x-4">
         {/* Dropdown */}
         <div className="relative" ref={dropdownRef}>
