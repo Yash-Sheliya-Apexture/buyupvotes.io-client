@@ -9,7 +9,7 @@ const DashboardLayout = () => {
       {/* Left Sidebar */}
       <Sidebar1 />
       {/* Right Content Area */}
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-wrap flex-1">
         {/* Dashboard Header */}
         <Dashboard_header />
         
