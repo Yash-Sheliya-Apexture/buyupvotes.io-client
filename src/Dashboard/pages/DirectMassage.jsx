@@ -66,7 +66,7 @@ const DirectMassage = () => {
           <textarea
             className={`w-full border p-2 h-40 resize-none rounded-medium transition-all duration-150 ease-in ${
               errors.messageContent
-                ? "border-red"
+                ? "border-red-500"
                 : "border-gray-300 hover:border-bold"
             }`}
             placeholder="Message content"
@@ -74,7 +74,7 @@ const DirectMassage = () => {
             onChange={(e) => setMessageContent(e.target.value)}
           ></textarea>
           {errors.messageContent && (
-            <p className="text-red text-sm">{errors.messageContent}</p>
+            <p className="text-red-500 text-sm">{errors.messageContent}</p>
           )}
 
           {/* Input for Username */}
@@ -82,7 +82,7 @@ const DirectMassage = () => {
             type="text"
             className={`w-full border p-3 rounded-full transition-all duration-150 ease-in ${
               errors.username
-                ? "border-red"
+                ? "border-red-500"
                 : "border-gray-300 hover:border-bold"
             }`}
             placeholder="Recipient username"
@@ -90,7 +90,7 @@ const DirectMassage = () => {
             onChange={(e) => setUsername(e.target.value)}
           />
           {errors.username && (
-            <p className="text-red text-sm">{errors.username}</p>
+            <p className="text-red-500 text-sm">{errors.username}</p>
           )}
 
           {/* Submit Button */}

@@ -27,7 +27,6 @@ const OrderComment = () => {
   const handleLinkChange = (e) => {
     const value = e.target.value;
     setLink(value);
-
     if (!value) {
       setErrors((prevErrors) => ({ ...prevErrors, link: "Link is required" }));
     } else if (!validateURL(value)) {

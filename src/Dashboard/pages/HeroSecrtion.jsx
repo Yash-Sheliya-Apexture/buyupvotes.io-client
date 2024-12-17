@@ -1,36 +1,82 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import girl from "../../assets/Images/girl.png";
 import Slider from "./Slider";
 import { Link } from "react-router-dom";
+import axios from "axios"; // Make sure axios is imported
 
 const HeroSection = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false); // Loading state
+  const [error, setError] = useState(null); // Error state
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  // Fetch user data
+  
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("authToken");
+      if (token) {
+        try {
+          setLoading(true);
+          const response = await axios.get(`${API_BASE_URL}/auth/user`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          if (response.status === 200) {
+            setUser(response.data);
+          } else {
+            setError("Failed to fetch user data");
+          }
+        } catch (err) {
+          setError("Error fetching user data");
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+    fetchUserData();
+  }, [API_BASE_URL]);
   return (
     <>
-      <div className="flex flex-col lg:flex-row gap-4 lg:py-0 py-10">
+      <div className="flex flex-col lg:flex-row gap-4">
         {/* HeroCard Components */}
-        <div className="flex flex-col lg:flex-row lg:w-2/3 w-1/2 h-auto bg-light-brown rounded-large py-10 px-4 relative overflow-hidden">
+        <div className="flex flex-col lg:flex-row lg:w-2/3 w-full h-auto bg-light-brown rounded-small lg:py-10 lg:px-8 p-4 relative overflow-hidden">
           {/* Left Side - Text */}
-          <div className="mb-6 lg:mb-0 text-center lg:text-start lg:max-w-[300px]">
-            <h2 className="text-large font-black text-dark-green mb-2 flex items-center leading-10">
-              Welcome back, Rudra 👋
-            </h2>
-            <p className="text-[#477677] font-semibold mb-6">
-              You have 100 upvotes remaining on your balance. Continue boosting
-              your Reddit experience by placing an order!
-            </p>
-            <Link
-              to="/UpvoteOrder"
-              className="px-6 py-1.5 bg-main-color text-white font-bold rounded-full"
-            >
-              Order Now
-            </Link>
+          <div className="lg:w-1/2 w-full flex justify-center">
+            <div className="mb-20 text-center space-y-5 lg:text-start lg:max-w-[300px]">
+              {loading ? (
+                <h2 className="font-bold text-dark-green text-base">
+                  Loading...
+                </h2>
+              ) : error ? (
+                <h2 className="font-bold text-red-500 text-large">{error}</h2>
+              ) : user ? (
+                <h2 className="flex items-center mb-2 font-black leading-10  lg:text-small text-dark-green">
+                  Welcome back, <br /> {user.firstName} 👋
+                </h2>
+              ) : (
+                <h2 className="font-bold text-dark-green text-large">
+                  Welcome back, Guest 👋
+                </h2>
+              )}
+              <p className="text-[#477677] font-semibold mb-6 pb-6 max-w-[350px]">
+                You have 100 upvotes remaining on your balance. Continue
+                boosting your Reddit experience by placing an order!
+              </p>
+              <Link
+                to="/dashboard/UpvoteOrder"
+                className="px-6 py-1.5 bg-main-color text-white font-bold rounded-full"
+              >
+                Order Now
+              </Link>
+            </div>
           </div>
 
           {/* Right Side - Image */}
-          <div className="lg:w-1/2 relative">
-            <div className="relative w-auto">
+          <div className="lg:w-1/2 w-full flex justify-center items-center md:flex md:relative">
+            <div className="relative w-auto flex justify-center items-center">
               <svg
-                className="lg:w-full lg:h-full "
+                className="object-cover h-56 md:h-64"
                 viewBox="0 0 480 360"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -252,24 +298,18 @@ const HeroSection = () => {
                     <stop offset="1" stopColor="#FF4500"></stop>
                   </linearGradient>
                 </defs>
-                <image
-                  href="/assets/illustrations/characters/character_2.png"
-                  height="300"
-                  x="312"
-                  y="30"
-                ></image>
               </svg>
               <img
                 src={girl}
                 alt="Girl Image"
-                className="h-52 lg:absolute absolute top-0 right-6  lg:top-2 lg:right-6"
+                className="h-48 absolute top-0 right-4 md:relative md:top-auto md:right-20"
               />
             </div>
           </div>
         </div>
 
         {/* Slider Components */}
-        <div className="w-1/2 lg:w-1/3">
+        <div className="w-full lg:w-1/3">
           <Slider />
         </div>
       </div>

@@ -5,6 +5,9 @@ import Ordertable from "./Ordertable";
 import Breadcrumb from "../components/Breadcrumb";
 import Dropdown from "../components/Dropdown"; // Import reusable dropdown
 import Button from "../components/Button"; // Import reusable button
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FaSpinner } from "react-icons/fa";
 
 const UpvoteOrder = () => {
   // Consolidated form state
@@ -24,14 +27,30 @@ const UpvoteOrder = () => {
   });
 
   const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Access the API URL using Vite-specific syntax
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
-  const validateRedditLink = (url) => {
-    const redditRegex =
-      /^(https?:\/\/)?(www\.)?(reddit\.com|old\.reddit\.com)\/[a-zA-Z0-9_/.-]+$/;
-    return redditRegex.test(url);
+  const validateRedditLink = () => {
+    const redditRegex = /^https:\/\/(www\.)?reddit\.com\/[a-zA-Z0-9_]/;
+    if (!redditRegex.test(formData.link)) {
+      setErrors({
+        ...errors,
+        link: "Please enter a valid Reddit link (e.g., https://www.reddit.com/r/subreddit/)",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmits = (e) => {
+    e.preventDefault();
+
+    if (validateRedditLink()) {
+      console.log("Reddit link is valid:", formData.link);
+      // Perform further actions (e.g., send link to an API)
+    }
   };
 
   const handleInputChange = (e) => {
@@ -40,16 +59,6 @@ const UpvoteOrder = () => {
       ...prevData,
       [name]: value,
     }));
-
-    if (name === "link" && value && !validateRedditLink(value)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        link: "Invalid Reddit link. Example: https://www.reddit.com/r/subreddit/",
-      }));
-    } else if (name === "link") {
-      setErrors((prevErrors) => ({ ...prevErrors, link: "" }));
-    }
-
     if (name === "quantity") {
       handleQuantityValidation(value);
     }
@@ -86,8 +95,8 @@ const UpvoteOrder = () => {
 
   const validateForm = () => {
     const newErrors = {
-      service: formData.service ? "" : "Service is required",
-      speed: formData.speed ? "" : "Speed is required",
+      service: formData.service ? "" : "Service is required", // Check if service is selected
+      speed: formData.speed ? "" : "Speed is required", // Check if speed is selected
       link: formData.link
         ? validateRedditLink(formData.link)
           ? ""
@@ -103,53 +112,51 @@ const UpvoteOrder = () => {
           : "Quantity is required",
     };
 
-    setErrors(newErrors);
-    return Object.values(newErrors).every((error) => error === "");
+    setErrors(newErrors); // Update the error state
+
+    return Object.values(newErrors).every((error) => error === ""); // Return true if no errors
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Reset form values
-      setFormData({
-        service: "",
-        speed: "",
-        link: "",
-        quantity: "",
-      });
+      setLoading(true); // Show loader
 
-      // Reset errors
-      setErrors({
-        service: "",
-        speed: "",
-        link: "",
-        quantity: "",
-      });
+      const token = localStorage.getItem("authToken");
 
       try {
-        // Send form data to backend to save to Google Sheets
-        const response = await fetch(`${apiUrl}/api/auth/submit-order`, {
+        const response = await fetch(`${apiUrl}/auth/submit-order`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(formData),
         });
 
         const data = await response.json();
         if (response.ok) {
-          setSuccessMessage(data.message); // Set success message
+          toast.success(data.message || "Order submitted successfully!");
         } else {
-          setSuccessMessage("There was an error submitting the order.");
+          toast.error(
+            data.message || "There was an error submitting the order."
+          );
         }
       } catch (error) {
         console.error("Error submitting order:", error);
-        setSuccessMessage("There was an error submitting the order.");
+        toast.error("An error occurred. Please try again later.");
+      } finally {
+        setLoading(false); // Hide loader after request
       }
 
-      // Clear success message after a few seconds
-      setTimeout(() => setSuccessMessage(""), 2000);
+      // Reset the form after submission
+      setFormData({
+        service: "",
+        speed: "",
+        link: "",
+        quantity: "",
+      });
     }
   };
 
@@ -179,8 +186,8 @@ const UpvoteOrder = () => {
   return (
     <div className="container mx-auto">
       {/* Form Content */}
-      <div className="px-6">
-        <h1 className="mb-2 font-bold text-sub-color text-basic">
+      <div>
+        <h1 className="mb-2 font-semibold text-sub-color text-small lg:text-basic">
           Order Upvotes
         </h1>
         <div className="flex items-center space-x-4">
@@ -188,14 +195,25 @@ const UpvoteOrder = () => {
         </div>
       </div>
 
-      <div className="flex w-full gap-10 mt-6">
-        <div className="w-full md:w-[50%] border rounded-2xl p-10">
-          <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="flex lg:flex-row flex-col w-full gap-4 mt-6 lg:gap-y-6">
+        {/* Left Section */}
+        <div className="w-full lg:w-1/2 shadow-main rounded-large lg:p-6 p-4">
+          <form onSubmit={handleSubmits} className="lg:space-y-6 space-y-4">
             {/* Service Dropdown */}
             <Dropdown
               options={services}
               selectedValue={formData.service}
-              onSelect={(value) => setFormData({ ...formData, service: value })}
+              onSelect={(value) => {
+                setFormData({ ...formData, service: value });
+
+                // Clear the error if the value is valid (non-empty)
+                if (value) {
+                  setErrors((prevErrors) => ({
+                    ...prevErrors,
+                    service: "", // Clear the 'service' error when a valid option is selected
+                  }));
+                }
+              }}
               placeholder="Service"
               error={errors.service}
             />
@@ -205,15 +223,15 @@ const UpvoteOrder = () => {
               <input
                 type="text"
                 name="link"
-                placeholder="Link"
+                placeholder="Enter a Reddit link"
                 value={formData.link}
                 onChange={handleInputChange}
                 className={`w-full border rounded-full p-2.5 ${
-                  errors.link ? "border-red" : "border-gray-300"
-                } text-sub-color placeholder:text-sub-color hover:border-bold transition-all ease-in duration-150`}
+                  errors.link ? "border-red-500" : "border-gray-300"
+                } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
               />
               {errors.link && (
-                <p className="text-sm text-red">{errors.link}</p>
+                <p className="text-sm text-red-500 mt-2">{errors.link}</p>
               )}
             </div>
 
@@ -226,11 +244,11 @@ const UpvoteOrder = () => {
                 value={formData.quantity}
                 onChange={handleInputChange}
                 className={`w-full border rounded-full p-2.5 ${
-                  errors.quantity ? "border-red" : "border-gray-300"
-                } text-sub-color placeholder:text-sub-color hover:border-bold transition-all ease-in duration-150`}
+                  errors.quantity ? "border-red-500" : "border-gray-300"
+                } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
               />
               {errors.quantity && (
-                <p className="text-sm text-red">{errors.quantity}</p>
+                <p className="text-sm text-red-500">{errors.quantity}</p>
               )}
             </div>
 
@@ -238,7 +256,17 @@ const UpvoteOrder = () => {
             <Dropdown
               options={speeds}
               selectedValue={formData.speed}
-              onSelect={(value) => setFormData({ ...formData, speed: value })}
+              onSelect={(value) => {
+                setFormData({ ...formData, speed: value });
+
+                // Clear the error if the value is valid (non-empty)
+                if (value) {
+                  setErrors((prevErrors) => ({
+                    ...prevErrors,
+                    speed: "", // Clear the 'speed' error when a valid option is selected
+                  }));
+                }
+              }}
               placeholder="Select Delivery Speed"
               error={errors.speed}
             />
@@ -252,32 +280,38 @@ const UpvoteOrder = () => {
 
             {/* Submit Button */}
             <div className="flex justify-center space-x-4">
-              <Button type="submit" onClick={handleSubmit}>
-                Submit Order
-              </Button>
+              {loading ? (
+                <div className="flex items-center">
+                  <FaSpinner className="text-lg animate-spin" />
+                </div>
+              ) : (
+                <Button type="submit" onClick={handleSubmit}>
+                  Submit Order
+                </Button>
+              )}
             </div>
           </form>
         </div>
 
         {/* Right Section */}
-        <div className="w-full md:w-[50%] border rounded-2xl p-10">
+        <div className="w-full lg:w-1/2 shadow-main rounded-large lg:p-10 xs:p-4">
           <p className="text-[16px] font-medium underline underline-offset-1 text-[#2D2624] mb-2">
             Upvotes & downvotes:
           </p>
           <div className="space-y-4 text-gray-700">
             <div className="flex space-x-20 text-[#2D2624]">
               <p>
-                Minimum quantity: <b className="font-bold">5</b>
+                Minimum quantity: <b className="font-black">5</b>
               </p>
               <p>
-                Maximum quantity: <b className="font-bold">1000</b>
+                Maximum quantity: <b className="font-black">1000</b>
               </p>
             </div>
             <div className="flex items-center justify-center">
               <hr className="w-[80%]" />
             </div>
             <ul className="space-y-1 list-disc list-inside">
-              <li className="text-[#2D2624] font-bold text-[14px]">
+              <li className="text-[#2D2624] font-black text-[14px]">
                 Mobile links are now accepted
               </li>
               <li className="text-[#2d2624] font-medium text-[14px]">
@@ -303,15 +337,15 @@ const UpvoteOrder = () => {
         </div>
       </div>
 
-      <div className="my-5">
-        <p className="text-center underline text-light-red underline-offset-1 text-[18px]">
+      <div className="my-4">
+        <p className="text-center underline text-light-red underline-offset-1 lg:text-medium text-small">
           Due to Reddit's updated security measures, upvotes on certain
           subreddits are temporarily unavailable. If affected, the order will be
           canceled and refunded.
         </p>
       </div>
 
-      {/* Order Tables */}
+      {/* Order Tables Data*/}
       <Ordertable />
     </div>
   );

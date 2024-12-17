@@ -2,6 +2,7 @@ const flowbite = require("flowbite-react/tailwind");
 
 /** @type {import('tailwindcss').Config} */
 export default {
+  mode: "jit", // Ensure JIT mode is enabled
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", flowbite.content()],
   theme: {
     extend: {
@@ -19,6 +20,7 @@ export default {
         base: "0px 2px 5px 1px #ff8700",
         btnShadow: "#FF5630 0px 0px 2px 1px",
         newShadow: "#22C55E 0px 0px 2px 1px",
+        main: "rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;",
       },
       colors: {
         "main-color": "#FF5700",
@@ -37,10 +39,9 @@ export default {
         "light-red": "#B71D18",
         "border-color": "#e5e7eb",
         "brown-hover": "#919eab14",
-        "red": "#F05252",
       },
       lineHeight: {
-        20: "70px",
+        20: "60px",
       },
       borderWidth: {
         1.5: "1.5px",

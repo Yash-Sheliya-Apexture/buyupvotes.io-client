@@ -11,30 +11,30 @@ const Error404 = () => {
         className="flex flex-col py-5 m-auto max-w-[400px] text-center justify-center relative"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
       >
         {/* Animated Title */}
         <motion.h1
-          className="text-sub-color font-bold text-large mb-4"
+          className="text-sub-color font-bold lg:text-large text-base mb-4"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         >
           Sorry, Page Not Found!
         </motion.h1>
         {/* Animated Description */}
         <motion.p
-          className="m-0 leading-6 text-small font-medium text-[#403633]"
+          className="m-0 leading-6 text-small lg:font-medium text-[#403633]"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
         >
           Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve
           mistyped the URL? Be sure to check your spelling.
         </motion.p>
         {/* SVG Animation */}
         <motion.svg
-          className="my-10 w-full h-72 z-10"
+          className="my-10 w-full h-70 z-10"
           viewBox="0 0 480 360"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -46,13 +46,13 @@ const Error404 = () => {
               y1="71.822%"
               y2="16.69%"
             >
-              <stop offset="0%" stop-color="#FF5700"></stop>
-              <stop offset="100%" stop-color="#FF5700" stop-opacity="0"></stop>
+              <stop offset="0%" stopColor="#FF5700"></stop>
+              <stop offset="100%" stopColor="#FF5700" stopOpacity="0"></stop>
             </linearGradient>
           </defs>
           <path
             fill="url(#BG)"
-            fill-rule="nonzero"
+            fillRule="nonzero"
             d="M0 198.78c0 41.458 14.945 79.236 39.539 107.786 28.214 32.765 69.128 53.365 114.734 53.434a148.44 148.44 0 0056.495-11.036c9.051-3.699 19.182-3.274 27.948 1.107a75.779 75.779 0 0033.957 8.01c5.023 0 9.942-.494 14.7-1.433 13.58-2.67 25.94-8.99 36.09-17.94 6.378-5.627 14.547-8.456 22.897-8.446h.142c27.589 0 53.215-8.732 74.492-23.696 19.021-13.36 34.554-31.696 44.904-53.224C474.92 234.58 480 213.388 480 190.958c0-76.93-59.774-139.305-133.498-139.305-7.516 0-14.88.663-22.063 1.899C305.418 21.42 271.355 0 232.499 0a103.651 103.651 0 00-45.88 10.661c-13.24 6.487-25.011 15.705-34.64 26.939-32.698.544-62.931 11.69-87.676 30.291C25.351 97.155 0 144.882 0 198.781z"
             opacity="0.2"
           ></path>
@@ -93,8 +93,8 @@ const Error404 = () => {
               y2="305.935"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#FF5700"></stop>
-              <stop offset="1" stop-color="#FF4500"></stop>
+              <stop stopColor="#FF5700"></stop>
+              <stop offset="1" stopColor="#FF4500"></stop>
             </linearGradient>
           </defs>
         </motion.svg>
@@ -102,10 +102,10 @@ const Error404 = () => {
         <motion.img
           src={char_1}
           alt="Error_Char"
-          className="h-64 absolute top-52 left-40 z-0"
+          className="h-64 absolute lg:top-56 top-40 left-32 z-0"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
+          transition={{ delay: 0.6, duration: 0.5, ease: "easeOut" }}
           whileHover={{ scale: 1.05 }}
         />
       </motion.div>
@@ -115,7 +115,7 @@ const Error404 = () => {
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.5 }}
           >
             <Button>Back to Homepage</Button>
           </motion.div>

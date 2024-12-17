@@ -84,15 +84,15 @@ const FAQ = () => {
     <div>
       {/* Header Section */}
       <div
-        className="relative h-[550px] bg-cover bg-center rounded-small"
+        className="relative lg:h-[550px] h-[350px] bg-cover bg-center rounded-small"
         style={{
           backgroundImage: `url(${FaQbackground})`,
         }}
       >
         {/* Overlay with Backdrop Filter */}
         <div className="absolute inset-0 bg-black/75 bg-opacity-70 flex items-center justify-center rounded-small"></div>
-        <div className="absolute bottom-20 left-6">
-          <h1 className="text-white text-largest font-bold leading-20">
+        <div className="absolute lg:bottom-20 md:bottom-10 bottom-32 left-4">
+          <h1 className="text-white lg:text-largest text-[40px] sm:text-start text-center leading-[40px] lg:leading-20 font-bold">
             {lines.map((line, index) => (
               <span
                 key={index}
@@ -114,23 +114,26 @@ const FAQ = () => {
       </div>
 
       {/* FAQ Section */}
-      <div className="max-w-5xl mx-auto mt-10">
+      <h1 className="text-sub-color lg:text-large text-basic font-semibold p-4">
+        Frequently asked questions
+      </h1>
+      <div className="max-w-6xl mx-auto space-y-2">
         {faqs.map((faq, index) => (
-          <div key={index} className="border-b border-light-gray">
+          <div key={index} className="border-b border-light-gray p-4">
             <button
               onClick={() => toggleFAQ(index)}
-              className={`flex justify-between items-center w-full py-3 ${
+              className={`flex justify-between items-center w-full ${
                 openIndex === index ? "" : "bg-white"
               }`}
             >
               {/* Question */}
-              <h2 className="text-base font-medium text-sub-color">
+              <h2 className="lg:text-base text-start font-medium text-sub-color">
                 {faq.question}
               </h2>
 
               {/* Icon (+/-) */}
               <span
-                className={`transform transition-transform duration-500 text-base px-4 py-2 rounded-full ${
+                className={`transform transition-transform duration-500 text-base rounded-full lg:px-4 px-2 py-0.5 lg:py-2 ${
                   openIndex === index
                     ? "bg-main-color text-white"
                     : "bg-gray-100 text-sub-color"
@@ -143,14 +146,13 @@ const FAQ = () => {
                 )}
               </span>
             </button>
-
             {/* Answer */}
             <div
               className={`overflow-hidden transition-[max-height] duration-700 ease-in-out ${
                 openIndex === index ? "max-h-[150px]" : "max-h-0"
               }`}
             >
-              <p className="text-sub-color text-medium leading-7 py-4">
+              <p className="text-sub-color lg:text-medium lg:py-4 py-2">
                 {faq.answer}
               </p>
             </div>

@@ -30,7 +30,7 @@ const Header = () => {
   return (
     <>
       {/* Blue background behind header */}
-      <div className="fixed top-0 left-0 z-10 w-full h-16">
+      <div className="top-0 left-0 z-20 w-full h-16">
         {/* Header */}
         <div className="bg-white shadow-md">
           <section className="container mx-auto">

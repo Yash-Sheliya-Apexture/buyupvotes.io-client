@@ -1,21 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Import Link component
+import { Link } from "react-router-dom";
 import logo from "../../assets/Images/blog-image.png";
 import { FaEye } from "react-icons/fa";
 import { IoMdShare } from "react-icons/io";
+import Dropdown from "../components/Dropdown";
 
-const BlogJson = () => {
+const Blog = () => {
   const [blogs, setBlogs] = useState([]); // State to hold blog data
+  const [selectedFilter, setSelectedFilter] = useState("Latest"); // State to manage filter
 
+  const filterOptions = ["Latest", "Popular", "Oldest"];
+
+  // Fetch blogs data
   useEffect(() => {
     fetch("/data.json")
       .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched blog data:", data); // Log data
         setBlogs(data);
       })
       .catch((error) => console.error("Error fetching blog data:", error));
   }, []);
+
+  // Sort blogs dynamically based on the selected filter
+  const sortedBlogs = [...blogs].sort((a, b) => {
+    if (selectedFilter === "Latest") {
+      return new Date(b.date) - new Date(a.date); // Sort by newest date
+    }
+    if (selectedFilter === "Popular") {
+      return b.views - a.views; // Sort by views
+    }
+    if (selectedFilter === "Oldest") {
+      return new Date(a.date) - new Date(b.date); // Sort by oldest date
+    }
+    return 0;
+  });
 
   return (
     <div className="container mx-auto">
@@ -24,13 +42,34 @@ const BlogJson = () => {
         <img src={logo} alt="Blog_logo" className="h-10" />
       </div>
 
-      {/* Blog-Card Section */}
-      <div className="flex justify-center items-center gap-4 my-10">
-        {blogs.map((blog) => (
+      {/* Blog Header with Filter */}
+      <div className="flex lg:flex-row lg:items-center justify-between flex-col">
+        <h1 className="text-sub-color font-medium lg:text-base">
+          Interested in guest posting on our blog? Please{" "}
+          <span className="text-main-color font-medium underline underline-offset-1 cursor-pointer">
+            <Link to="/dashboard/ContactUs">contact us</Link>
+          </span>{" "}
+          we'd love to hear from you!
+        </h1>
+
+        {/* Dropdown for sorting */}
+        <div className="flex items-center py-2">
+          <span className="mr-2 text-sub-color font-medium">Sort By:</span>
+          <Dropdown
+            options={filterOptions}
+            selectedValue={selectedFilter}
+            onSelect={(value) => setSelectedFilter(value)} // Update filter state
+          />
+        </div>
+      </div>
+
+      {/* Blog Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {sortedBlogs.map((blog) => (
           <Link
             key={blog.id}
-            to={`/dashboard/blogjson/${blog.id}`} // Adjusted to include the full path
-            className="bg-[#fff] text-sub-color relative shadow-md border-gray-border z-0 cursor-pointer overflow-hidden rounded-small"
+            to={`/dashboard/blogjson/${blog.id}`}
+            className="bg-white text-sub-color relative shadow-main z-0 cursor-pointer overflow-hidden rounded-small"
           >
             <div className="relative">
               <div className="w-22 h-9 text-white left-0 z-10 -bottom-4 absolute">
@@ -42,7 +81,7 @@ const BlogJson = () => {
                   <path
                     d="m111.34 23.88c-10.62-10.46-18.5-23.88-38.74-23.88h-1.2c-20.24 0-28.12 13.42-38.74 23.88-7.72 9.64-19.44 11.74-32.66 12.12v26h144v-26c-13.22-.38-24.94-2.48-32.66-12.12z"
                     fill="currentColor"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                   ></path>
                 </svg>
                 <div className="flex items-center justify-center shrink-0 w-10 h-10 rounded-full absolute -bottom-2.5 left-6">
@@ -91,4 +130,4 @@ const BlogJson = () => {
   );
 };
 
-export default BlogJson;
+export default Blog;

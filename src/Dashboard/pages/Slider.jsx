@@ -21,14 +21,15 @@ export function Slider() {
       }}
       pagination={{
         clickable: true,
+        dynamicBullets: true, 
       }}
       navigation={false}
       modules={[Autoplay, Pagination]}
-      className="mySwiper rounded-small shadow-md"
+      className="mySwiper rounded-small shadow-main w-full"
     >
       {sliderData.map((slide) => (
         <SwiperSlide key={slide.id}>
-          <div className="bg-[#fff] text-[#2D2624] relative shadow-md border-gray-border z-0 cursor-pointer overflow-hidden rounded-small">
+          <div className="bg-[#fff] text-[#2D2624] relative z-0 cursor-pointer overflow-hidden rounded-small pb-6">
             <div className="relative">
               <div className="w-[88px] h-[36px] text-white left-0 z-[9] -bottom-4 absolute">
                 <svg
@@ -54,11 +55,11 @@ export function Slider() {
                 <img
                   src={slide.image}
                   alt="Blog"
-                  className="absolute h-8 bottom-0 right-4"
+                  className="absolute lg:h-8 h-7 bottom-0 right-2"
                 />
               </span>
             </div>
-            <div className="text-start mt-8 px-4">
+            <div className="px-4 mt-8 text-start">
               <div className="space-y-1 text-xs">
                 <h1 className="text-[#2d2624]">{slide.author}</h1>
                 <p className="text-[#919EAB]">{slide.date}</p>

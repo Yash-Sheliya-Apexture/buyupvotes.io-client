@@ -1,47 +1,26 @@
 import React, { useState } from "react";
 import Breadcrumb from "../components/Breadcrumb";
 import Button from "../components/Button";
-import { IoMdEye } from "react-icons/io";
-import { IoMdEyeOff } from "react-icons/io";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Account = () => {
   const [activeTab, setActiveTab] = useState("general");
-  const [showPasswords, setShowPasswords] = useState({
-    oldPassword: false,
-    newPassword: false,
-    confirmPassword: false,
-  });
+  const [showPasswords, setShowPasswords] = useState({ all: false });
+  const [isSaving, setIsSaving] = useState(false);
 
-  const [isEditing, setIsEditing] = useState(false); // Track edit mode
-  const [userData, setUserData] = useState({
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const initialUserData = {
     email: "rudrasutariya003@gmail.com",
     firstName: "Rudra",
     lastName: "Sutariya",
-  });
-
-  const [isSaving, setIsSaving] = useState(false); // Track if changes are being saved
-  const [showMessage, setShowMessage] = useState(false); // Track if popup message is visible
-
-  const togglePasswordVisibility = (field) => {
-    setShowPasswords((prev) => ({
-      ...prev,
-      [field]: !prev[field],
-    }));
   };
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleCancelClick = () => {
-    setIsEditing(false);
-    // Reset the user data if needed, or keep it unchanged
-    setUserData({
-      email: "rudrasutariya003@gmail.com",
-      firstName: "Rudra",
-      lastName: "Sutariya",
-    });
-  };
+  const [userData, setUserData] = useState(initialUserData);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -51,38 +30,61 @@ const Account = () => {
     }));
   };
 
-  const handleSaveChanges = () => {
-    setIsSaving(true);
-    // Simulate a delay for the save operation
-    setTimeout(() => {
-      setIsEditing(false);
-      setIsSaving(false); // Reset saving state after the "Save" is complete
-      setShowMessage(true); // Show the success message
-      setTimeout(() => setShowMessage(false), 3000); // Hide the message after 3 seconds
-    }, 1000); // Simulate a save duration (1 second)
+  const toggleAllPasswordVisibility = () => {
+    setShowPasswords((prevState) => ({
+      ...prevState,
+      all: !prevState.all,
+    }));
   };
 
-  const breadcrumbs = [
-    { label: "Dashboard", link: "/dashboard" },
-    { label: "Account" }, // No link for the current page
-  ];
+  const handleSavePassword = () => {
+    if (newPassword !== confirmPassword) {
+      toast.error("Passwords do not match. Please try again.");
+      return;
+    }
+
+    setIsSaving(true);
+    setTimeout(() => {
+      setIsSaving(false);
+      setNewPassword("");
+      setConfirmPassword("");
+      toast.success("Password updated successfully!");
+    }, 1000);
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancelClick = () => {
+    setUserData(initialUserData);
+    setIsEditing(false);
+  };
+
+  const handleSaveChanges = () => {
+    setIsSaving(true);
+    setTimeout(() => {
+      setIsSaving(false);
+      setIsEditing(false);
+      toast.success("Changes saved successfully!");
+    }, 1000);
+  };
 
   return (
-    <div className="container mx-auto">
-      {/* Form Content */}
-      <div className="mx-6">
+    <>
+      <div className="lg:container mx-auto">
         <h1 className="mb-2 font-bold text-sub-color text-basic">Account</h1>
         <div className="flex items-center space-x-4">
-          <Breadcrumb items={breadcrumbs} />
+          <Breadcrumb
+            items={[
+              { label: "Dashboard", link: "/dashboard" },
+              { label: "Account" },
+            ]}
+          />
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto p-6">
-        {/* Tabs */}
-        <div className="w-full max-w-4xl mx-auto">
-          {/* Tab Buttons */}
-          <div className="flex items-start space-x-5 border-b border-gray-200">
-            {/* General Tab */}
+        <div className="w-full max-w-7xl mx-auto my-5">
+          <div className="flex items-start space-x-5">
             <button
               className={`flex space-x-3 py-2 transition-all duration-300 ${
                 activeTab === "general"
@@ -107,6 +109,7 @@ const Account = () => {
                   clipRule="evenodd"
                 ></path>
               </svg>
+
               <span className="font-bold">General</span>
             </button>
 
@@ -140,7 +143,6 @@ const Account = () => {
               <span className="font-bold">Transactions</span>
             </button>
 
-            {/* Security Tab */}
             <button
               className={`flex items-center space-x-2 px-4 py-2 transition-all duration-300 ${
                 activeTab === "security"
@@ -170,53 +172,59 @@ const Account = () => {
           </div>
         </div>
 
-        {/* Tab Content */}
-        <div className="w-full border p-10 shadow-md border-gray-border mt-10 rounded-small">
-          {/* Tab Content */}
+        <div className="w-full border lg:p-10 p-4 shadow-md border-gray-border lg:mt-10 rounded-small">
+          {/* General Tab */}
           {activeTab === "general" && (
-            <div className="space-y-4 w-1/2">
+            <div className="space-y-4 w-full">
               <div>
                 <input
                   type="email"
                   name="email"
                   value={userData.email}
-                  disabled={!isEditing} // Disable field when not editing
-                  className={`block w-full border-gray-300 rounded-full ${
-                    isEditing ? "opacity-50" : "opacity-50"
+                  disabled={!isEditing}
+                  className={`block w-full lg:w-1/2 border-gray-300 rounded-full ${
+                    isEditing ? "opacity-100" : "opacity-50"
                   }`}
                 />
               </div>
-              <div className="flex space-x-4">
-                <div>
+              <div className="flex flex-col md:flex-row md:space-x-2 space-y-4 md:space-y-0">
+                <div className="lg:w-1/4 md:w-1/2 w-full">
                   <input
                     type="text"
                     name="firstName"
                     value={userData.firstName}
-                    onChange={handleInputChange} // Handle input changes
-                    disabled={!isEditing} // Disable field when not editing
-                    className={`block w-full border-gray-300 rounded-full  ${
-                      isEditing
-                        ? "opacity-100 hover:border-black transition-all ease-in duration-150"
-                        : "opacity-50"
+                    onChange={handleInputChange}
+                    disabled={!isEditing}
+                    className={`block w-full border-gray-300 rounded-full ${
+                      isEditing ? "opacity-100" : "opacity-50"
                     }`}
                   />
+                  {isEditing && userData.firstName.trim() === "" && (
+                    <p className="text-red-500 font-medium text-sm mt-1">
+                      First name is required.
+                    </p>
+                  )}
                 </div>
-                <div>
+                <div className="lg:w-1/4 md:w-1/2 w-full">
                   <input
                     type="text"
                     name="lastName"
                     value={userData.lastName}
-                    onChange={handleInputChange} // Handle input changes
-                    disabled={!isEditing} // Disable field when not editing
-                    className={`block w-full border-gray-300 rounded-full  ${
-                      isEditing
-                        ? "opacity-100 hover:border-black transition-all ease-in duration-150"
-                        : "opacity-50"
+                    onChange={handleInputChange}
+                    disabled={!isEditing}
+                    className={`block w-full border-gray-300 rounded-full ${
+                      isEditing ? "opacity-100" : "opacity-50"
                     }`}
                   />
+                  {isEditing && userData.lastName.trim() === "" && (
+                    <p className="text-red-500 font-medium text-sm mt-1">
+                      Last name is required.
+                    </p>
+                  )}
                 </div>
               </div>
-              <div className="flex justify-end space-x-4 pt-4">
+
+              <div className="flex justify-end space-x-4 pt-4 lg:w-1/2 w-full">
                 {!isEditing ? (
                   <Button onClick={handleEditClick}>Edit</Button>
                 ) : (
@@ -227,10 +235,9 @@ const Account = () => {
                     >
                       Cancel
                     </button>
-                    {/* Submit */}
                     <button
                       onClick={handleSaveChanges}
-                      className={`px-6 py-1 border text-green-500 border-green-500 hover:shadow-newShadow font-semibold rounded-full ${
+                      className={`px-6 py-1 border text-green-500 border-green-500 hover:shadow-newShadow transition-all ease-in duration-150 font-semibold rounded-full ${
                         isSaving ? "opacity-100" : ""
                       }`}
                       disabled={isSaving}
@@ -254,24 +261,26 @@ const Account = () => {
             </div>
           )}
 
+          {/* Security Tab */}
           {activeTab === "security" && (
-            <div className="space-y-6">
-              <p className="text-sub-color font-medium mb-4">
+            <div className="lg:space-y-6 space-y-4">
+              <p className="text-sub-color lg:font-medium mb-4">
                 If your account was created with Google, you can create an
-                account password the 'forgot password' option on the login page.
+                account password using the 'forgot password' option on the login
+                page.
               </p>
-              <div className="w-1/2">
+              <div className="lg:w-1/2">
                 <div className="relative">
                   <input
-                    type={showPasswords.oldPassword ? "text" : "password"}
+                    type={showPasswords.all ? "text" : "password"}
                     className="block w-full border-gray-300 rounded-full hover:border-black transition-all ease-in duration-150"
                     placeholder="Old password"
                   />
                   <span
-                    className="absolute right-3 top-3 text-smcursor-pointer"
-                    onClick={() => togglePasswordVisibility("oldPassword")}
+                    className="absolute right-3 top-3 text-sm cursor-pointer"
+                    onClick={toggleAllPasswordVisibility}
                   >
-                    {showPasswords.oldPassword ? (
+                    {showPasswords.all ? (
                       <IoMdEye className="text-base text-light-gray" />
                     ) : (
                       <IoMdEyeOff className="text-base text-light-gray" />
@@ -279,18 +288,20 @@ const Account = () => {
                   </span>
                 </div>
               </div>
-              <div className="w-1/2">
+              <div className="lg:w-1/2">
                 <div className="relative">
                   <input
-                    type={showPasswords.newPassword ? "text" : "password"}
-                    className="block w-full border-gray-300 rounded-full hover:border-black transition-all ease-in duration-150"
+                    type={showPasswords.all ? "text" : "password"}
+                    className="block w-full border-gray-300 rounded-full"
                     placeholder="New password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
                   />
                   <span
                     className="absolute right-3 top-3 text-sm cursor-pointer"
-                    onClick={() => togglePasswordVisibility("newPassword")}
+                    onClick={toggleAllPasswordVisibility}
                   >
-                    {showPasswords.oldPassword ? (
+                    {showPasswords.all ? (
                       <IoMdEye className="text-base text-light-gray" />
                     ) : (
                       <IoMdEyeOff className="text-base text-light-gray" />
@@ -298,18 +309,20 @@ const Account = () => {
                   </span>
                 </div>
               </div>
-              <div className="w-1/2">
+              <div className="lg:w-1/2">
                 <div className="relative">
                   <input
-                    type={showPasswords.confirmPassword ? "text" : "password"}
-                    className="mt-1 block w-full border-gray-300 rounded-full hover:border-black transition-all ease-in duration-150"
-                    placeholder="New confirm password"
+                    type={showPasswords.all ? "text" : "password"}
+                    className="block w-full border-gray-300 rounded-full"
+                    placeholder="Confirm password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                   <span
                     className="absolute right-3 top-3 text-sm cursor-pointer"
-                    onClick={() => togglePasswordVisibility("confirmPassword")}
+                    onClick={toggleAllPasswordVisibility}
                   >
-                    {showPasswords.oldPassword ? (
+                    {showPasswords.all ? (
                       <IoMdEye className="text-base text-light-gray" />
                     ) : (
                       <IoMdEyeOff className="text-base text-light-gray" />
@@ -318,8 +331,8 @@ const Account = () => {
                 </div>
                 <div className="flex justify-end mt-5">
                   <button
-                    onClick={handleSaveChanges}
-                    className={`px-6 py-1 border text-green-500 border-green-500 hover:shadow-newShadow font-semibold rounded-full ${
+                    onClick={handleSavePassword}
+                    className={`px-6 py-1 border text-green-500 border-green-500 hover:shadow-newShadow transition-all ease-in duration-150 font-semibold rounded-full ${
                       isSaving ? "opacity-100" : ""
                     }`}
                     disabled={isSaving}
@@ -332,7 +345,13 @@ const Account = () => {
           )}
         </div>
       </div>
-    </div>
+      {/* Delete button */}
+      <div className="text-center mt-4 opacity-50">
+        <button className="px-14 py-1.5 bg-slate-300 text-xs cursor-default rounded-full font-bold text-sub-color">
+          Delete Account
+        </button>
+      </div>
+    </>
   );
 };
 

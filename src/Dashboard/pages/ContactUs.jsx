@@ -1,19 +1,27 @@
+// Updated ContactUs Component
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Breadcrumb from "../../Dashboard/components/Breadcrumb";
 import background from "../../assets/Images/hero1.jpg";
 import Button from "../components/Button";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 
 const ContactUs = () => {
   const textRef = useRef(null);
 
-  // State for form values and errors
+  // State for form values, errors, and touched status
   const [formData, setFormData] = useState({
     subject: "",
     message: "",
   });
 
   const [errors, setErrors] = useState({
+    subject: false,
+    message: false,
+  });
+
+  const [touched, setTouched] = useState({
     subject: false,
     message: false,
   });
@@ -39,6 +47,12 @@ const ContactUs = () => {
     setErrors((prev) => ({ ...prev, [id]: false })); // Reset error state on change
   };
 
+  // Handle blur to mark fields as touched
+  const handleBlur = (e) => {
+    const { id } = e.target;
+    setTouched((prev) => ({ ...prev, [id]: true }));
+  };
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,25 +65,46 @@ const ContactUs = () => {
 
     setErrors(newErrors);
 
-    // If no errors, proceed with form submission (e.g., send to backend)
+    // If no errors, proceed
     if (!newErrors.subject && !newErrors.message) {
-      console.log("Form submitted:", formData);
-      alert("Form submitted successfully!!");
+      toast.success("Message sent successfully!", {
+        position: "top-right",
+        autoClose: 2500, // 3 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored", // Use colored theme
+      });
+
+      // Reset form fields
+      setFormData({
+        subject: "",
+        message: "",
+      });
+
+      // Reset touched status
+      setTouched({
+        subject: false,
+        message: false,
+      });
     }
   };
 
   return (
-    <div className="container mx-auto">
+    <>
       <h1 className="mb-2 font-bold text-sub-color text-basic">Contact Us</h1>
       <div className="flex items-center space-x-4">
         <Breadcrumb items={breadcrumbs} />
       </div>
 
-      <div className="flex min-h-full my-10 bg-white">
+      <div className="flex flex-col lg:flex-row my-5 bg-white lg:container mx-auto">
         {/* Left Side */}
-        <div className="relative w-2/5 overflow-hidden rounded-xlarge">
+        <div className="relative lg:w-[45%] overflow-hidden rounded-xlarge">
+          {/* Background Image */}
           <div
-            className="absolute inset-0 z-10"
+            className="absolute inset-0 z-10 w-auto"
             style={{
               backgroundImage: `url(${background})`,
               backgroundPosition: "center",
@@ -77,11 +112,15 @@ const ContactUs = () => {
               backgroundRepeat: "no-repeat",
             }}
           ></div>
+
+          {/* Background Overlay */}
           <div className="absolute inset-0 bg-black/70 z-10"></div>
-          <div className="absolute -bottom-20 z-20 flex items-center justify-center h-full px-6">
+
+          {/* Text Content */}
+          <div className="lg:absolute flex py-20 items-center justify-center h-full px-6 text-center lg:text-left lg:mt-20">
             <h1
               ref={textRef}
-              className="text-white text-largest font-black text-start leading-20"
+              className="text-white lg:text-largest text-xlarge leading-10 font-black lg:leading-20 z-20"
             >
               <span>Looking to</span> <br />
               <span className="text-main-color">contact</span> <br />
@@ -91,15 +130,15 @@ const ContactUs = () => {
         </div>
 
         {/* Right Side */}
-        <div className="w-3/5 flex flex-col items-center justify-center">
+        <div className="w-full lg:w-[55%] flex flex-col items-center justify-center">
           <div className="text-center flex items-center border-b py-4">
-            <h2 className="text-base font-semibold text-sub-color mr-2">
+            <h2 className="lg:text-base font-semibold text-sub-color mr-2">
               Chat with us:
             </h2>
             <div className="flex items-center space-x-1">
+              {/* Chat Links */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
                 aria-hidden="true"
                 role="img"
                 className="size-5 text-blue-500"
@@ -120,7 +159,7 @@ const ContactUs = () => {
               <span>-</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 aria-hidden="true"
                 role="img"
                 className="size-5 text-green-500"
@@ -141,7 +180,7 @@ const ContactUs = () => {
             </div>
           </div>
 
-          <div className="w-full max-w-lg">
+          <div className="w-full lg:max-w-lg max-w-3xl">
             <h2 className="text-center text-base font-medium text-sub-color my-5">
               Or send us an email below:
             </h2>
@@ -167,22 +206,27 @@ const ContactUs = () => {
               <div>
                 <input
                   className={`w-full px-4 py-2 border ${
-                    errors.subject ? "border-red" : "border-gray-300"
+                    errors.subject && touched.subject
+                      ? "border-red-500"
+                      : "border-gray-300"
                   } rounded-full`}
                   id="subject"
                   type="text"
                   placeholder="Subject"
                   value={formData.subject}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                 />
-                {errors.subject && (
-                  <p className="text-red text-sm mt-1">Subject is required.</p>
+                {errors.subject && touched.subject && (
+                  <p className="text-red-500 text-sm">Subject is required.</p>
                 )}
               </div>
               <div>
                 <textarea
                   className={`w-full border ${
-                    errors.message ? "border-red" : "border-gray-300"
+                    errors.message && touched.message
+                      ? "border-red-500"
+                      : "border-gray-300"
                   } hover:border-black transition-all duration-150 ease-in rounded-small resize-none`}
                   id="message"
                   rows="8"
@@ -190,9 +234,10 @@ const ContactUs = () => {
                   placeholder="Your message"
                   value={formData.message}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                 ></textarea>
-                {errors.message && (
-                  <p className="text-red text-sm mt-1">Message is required.</p>
+                {errors.message && touched.message && (
+                  <p className="text-red-500 text-sm">Message is required.</p>
                 )}
               </div>
 
@@ -204,7 +249,7 @@ const ContactUs = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -44,30 +44,30 @@ const SideBar = () => {
       label: "Order Upvotes",
       link: "/dashboard/UpvoteOrder",
     },
-    {
-      id: "Orders",
-      icon: <IoMdChatboxes />,
-      label: "Order Comments",
-      link: "/dashboard/OrderComment",
-    },
-    {
-      id: "Order messages",
-      icon: <IoIosChatboxes />,
-      label: "Order Direct Messages",
-      link: "/dashboard/DirectMassage",
-    },
+    // {
+    //   id: "Orders",
+    //   icon: <IoMdChatboxes />,
+    //   label: "Order Comments",
+    //   link: "/dashboard/OrderComment",
+    // },
+    // {
+    //   id: "Order messages",
+    //   icon: <IoIosChatboxes />,
+    //   label: "Order Direct Messages",
+    //   link: "/dashboard/DirectMassage",
+    // },
     {
       id: "Add Funds",
       icon: <HiCurrencyEuro />,
       label: "Add Funds-Princing",
       link: "/dashboard/FundPrice",
     },
-    {
-      id: "Raddit Accounts",
-      icon: <FaCartShopping />,
-      label: "Buy Raddit Accounts",
-      link: "/dashboard/RabbitAcc",
-    },
+    // {
+    //   id: "Raddit Accounts",
+    //   icon: <FaCartShopping />,
+    //   label: "Buy Raddit Accounts",
+    //   link: "/dashboard/RabbitAcc",
+    // },
     {
       id: "FAQs",
       icon: <MdContactPage />,
@@ -80,7 +80,6 @@ const SideBar = () => {
       label: "Blogs",
       link: "/dashboard/BlogJson",
     },
-    { id: "API", icon: <IoTv />, label: "API (New)", link: "/Api" },
     {
       id: "Contact",
       icon: <MdContacts />,
@@ -99,7 +98,7 @@ const SideBar = () => {
     <>
       {/* Toggle Button for Small Screens */}
       <button
-        className="absolute top-3 left-2 z-10 sm:hidden rounded-full"
+        className="absolute top-4 left-4 z-50 xl:hidden rounded-full"
         onClick={toggleSidebarVisibility}
       >
         <CgMenuRightAlt className="text-main-color size-8 rounded-md" />
@@ -108,16 +107,16 @@ const SideBar = () => {
       {/* Backdrop Overlay */}
       {isSidebarVisible && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-45 z-40 backdrop-blur-sm sm:hidden"
+          className="fixed inset-0 bg-black bg-opacity-45 z-40 backdrop-blur-sm xl:hidden"
           onClick={toggleSidebarVisibility}
         ></div>
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar Desktop */}
       <section
-        className={`fixed sm:relative bg-white border-r z-50 border-dashed border-border-color h-screen transition-all duration-300 sm:w-auto ${
+        className={`fixed xl:relative bg-white border-r z-50 border-dashed border-border-color h-screen transition-all duration-300 ${
           isSidebarExpanded ? "w-60" : "w-16"
-        } ${isSidebarVisible ? "left-0" : "-left-60"} sm:left-0`}
+        } ${isSidebarVisible ? "left-0" : "-left-60 xl:left-0"} :left-0`}
       >
         {/* Sidebar Header */}
         <div className="flex items-center justify-between p-3.5">
@@ -167,7 +166,7 @@ const SideBar = () => {
                 >
                   <span className="mr-4 text-large">{item.icon}</span>
                   {isSidebarExpanded && (
-                    <span className="text-small">{item.label}</span>
+                    <span className="text-small text-nowrap">{item.label}</span>
                   )}
                 </Link>
                 <div
@@ -180,6 +179,13 @@ const SideBar = () => {
               </li>
             ))}
           </ul>
+          {isSidebarExpanded && (
+            <div className="p-4">
+              <Link to="/dashboard/FundPrice">
+                <Button className="w-full">Add Funds</Button>
+              </Link>
+            </div>
+          )}
         </div>
       </section>
     </>
