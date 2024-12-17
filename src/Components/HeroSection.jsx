@@ -19,10 +19,10 @@ const HeroSection = () => {
 
   return (
     <section className="">
-      <div className="flex items-center justify-center h-screen p-6 bg-gradient-to-b from-white to-gray-100 lg:pb-0 pb-60">
+      <div className="flex items-center justify-center h-screen p-6 bg-gradient-to-b from-white to-gray-100 lg:pb-0 pb-68">
         <div className="flex flex-col items-center lg:flex-row max-w-7xl lg:items-start">
-          <div className="lg:w-[50%] space-y-8 mt-56 lg:mt-28">
-            <h1 className="font-black tracking-[12px] text-4xl text-center lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-[#FF5E00] to-[#FF9D00]">
+          <div className="lg:w-[50%] space-y-8 mt-0 lg:mt-16">
+            <h1 className="font-bold tracking-[12px] text-4xl text-center lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-[#FF5E00] to-[#FF9D00]">
               Buy Reddit Upvotes
             </h1>
             <p className="text-[20px] text-[#FF5A04] font-bold text-center">

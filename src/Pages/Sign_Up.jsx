@@ -9,8 +9,8 @@ const Sign_Up = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [firstName, setFirstName] = useState("");  // Add state for firstName
-  const [lastName, setLastName] = useState("");    // Add state for lastName
+  const [firstName, setFirstName] = useState(""); // Add state for firstName
+  const [lastName, setLastName] = useState(""); // Add state for lastName
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState({});
@@ -18,7 +18,7 @@ const Sign_Up = () => {
   const navigate = useNavigate(); // Used for navigation after successful registration
 
   // Access the API URL using Vite-specific syntax
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;  // Correct way to access Vite environment variables
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL; // Correct way to access Vite environment variables
 
   // Validation Function
   const validate = () => {
@@ -44,11 +44,11 @@ const Sign_Up = () => {
     }
 
     if (!firstName) {
-      validationErrors.firstName = "First name is required.";  // Add validation for firstName
+      validationErrors.firstName = "First name is required."; // Add validation for firstName
     }
 
     if (!lastName) {
-      validationErrors.lastName = "Last name is required.";    // Add validation for lastName
+      validationErrors.lastName = "Last name is required."; // Add validation for lastName
     }
 
     setErrors(validationErrors);
@@ -64,7 +64,7 @@ const Sign_Up = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/auth/register`,  // Use the dynamic URL here from the environment variable
+        `${API_BASE_URL}/auth/register`, // Use the dynamic URL here from the environment variable
         {
           firstName,
           lastName,
@@ -80,13 +80,15 @@ const Sign_Up = () => {
         navigate("/signin");
       }
     } catch (error) {
-      setErrors({ ...errors, general: "Registration failed. Please try again." });
+      setErrors({
+        ...errors,
+        general: "Registration failed. Please try again.",
+      });
       console.error("Registration error", error);
     } finally {
       setLoading(false);
     }
   };
-
 
   return (
     <>
@@ -110,7 +112,7 @@ const Sign_Up = () => {
             </Link>
           </div>
           <div>
-            <a href="#" className="text-[#2D2624] font-medium hover:underline">
+            <a href="#" className="text-sub-color font-medium hover:underline">
               Need help?
             </a>
           </div>
@@ -118,74 +120,71 @@ const Sign_Up = () => {
 
         {/* Content Section */}
         <div className="flex items-center justify-center p-4">
-          <div className="lg:w-[30%] h-auto bg-white rounded-[25px] lg:p-6 p-4 pb-10">
-            <h1 className="lg:text-[24px] text-[20px] font-bold text-center mb-4 text-[#2D2624]">
+          <div className="lg:w-[30%] h-auto bg-white rounded-small lg:p-6 p-4 pb-10">
+            <h1 className="lg:text-basic text-base font-bold text-center mb-4 text-sub-color">
               Welcome to BuyUpvotes!
             </h1>
             <p className="mb-4 text-sm leading-7 text-center">
               Already have an account?
               <Link
                 to="/signin"
-                className="text-[#FF5700] font-bold underline"
+                className="text-main-color font-bold underline underline-offset-1"
               >
-                &nbsp;&nbsp;Sign in <br />
+                &nbsp;Sign in <br />
               </Link>
               Or register below
             </p>
-            <button className="flex items-center justify-start w-full border border-gray-300 hover:border-[#2D2426] hover:bg-[#dfdcdc] rounded-full px-4 py-2.5 lg:text-[16px] text-sm font-bold text-[#2d2624] mb-4 transition-all ease-in duration-200">
-              <img src={google} alt="Google Logo" className="w-8 h-8 mr-12" />
+            <button className="flex items-center justify-start w-full border border-gray-300 hover:border-sub-color hover:bg-gray-300/50 rounded-full px-4 py-2 lg:text-small text-sm font-medium text-sub-color mb-4 transition-all ease-in duration-200">
+              <img src={google} alt="Google Logo" className="w-6 h-6 mr-12" />
               Sign in with Google
             </button>
-            <form onSubmit={handleSubmit}>
-              <div className="flex gap-4">
-                {/* <input
-                  type="text"
-                  placeholder="First name"
-                  className="w-1/2 px-3.5 py-2.5 border rounded-full hover:border-[#2D2426] transition-all ease-in duration-200"
-                /> */}
-                <div className="w-1/2 mb-6">
+            <form onSubmit={handleSubmit} className="lg:space-y-4 space-y-3">
+              <div className="flex space-x-2">
+                <div className="w-1/2">
                   <input
                     type="text"
                     id="First name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className={`mt-1 block w-full px-3.5 py-3 border ${errors.firstName ? "border-red-500" : "border-gray-300"
-                      } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                    className={`mt-1 block w-full px-3.5 py-3 border ${
+                      errors.firstName ? "border-red-500" : "border-gray-300"
+                    } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                     placeholder="First name"
                   />
                   {errors.firstName && (
-                    <p className="mt-1 text-xs text-red-500">{errors.firstName}</p>
+                    <p className="mt-1 text-xs text-red-500">
+                      {errors.firstName}
+                    </p>
                   )}
                 </div>
-                {/* <input
-                  type="text"
-                  placeholder="Last name"
-                  className="w-1/2 px-3.5 py-2.5 border rounded-full hover:border-[#2D2426] transition-all ease-in duration-200"
-                /> */}
-                <div className="w-1/2 mb-6">
+                <div className="w-1/2">
                   <input
                     type="text"
                     id="Last name"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className={`mt-1 block w-full px-3.5 py-3 border ${errors.lastName ? "border-red-500" : "border-gray-300"
-                      } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                    className={`mt-1 block w-full px-3.5 py-3 border ${
+                      errors.lastName ? "border-red-500" : "border-gray-300"
+                    } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                     placeholder="Last name"
                   />
                   {errors.lastName && (
-                    <p className="mt-1 text-xs text-red-500">{errors.lastName}</p>
+                    <p className="mt-1 text-xs text-red-500">
+                      {errors.lastName}
+                    </p>
                   )}
                 </div>
               </div>
               {/* Email Input */}
-              <div className="mb-6">
+              <div className="">
                 <input
                   type="email"
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={`mt-1 block w-full px-3.5 py-3 border ${errors.email ? "border-red-500" : "border-gray-300"
-                    } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                  className={`mt-1 block w-full px-3.5 py-3 border ${
+                    errors.email ? "border-red-500" : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Email address"
                 />
                 {errors.email && (
@@ -193,13 +192,14 @@ const Sign_Up = () => {
                 )}
               </div>
 
-              <div className="relative mb-6">
+              <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={`block w-full px-3.5 py-3 border ${errors.password ? "border-red-500" : "border-gray-300"
-                    } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                  className={`block w-full px-3.5 py-3 border ${
+                    errors.password ? "border-red-500" : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Password"
                 />
                 <button
@@ -246,15 +246,16 @@ const Sign_Up = () => {
               </div>
 
               {/* Confirm Password Input */}
-              <div className="relative mb-6">
+              <div className="relative">
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className={`block w-full px-3.5 py-3 border ${errors.confirmPassword
-                    ? "border-red-500"
-                    : "border-gray-300"
-                    } hover:border-[#2D2426] transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                  className={`block w-full px-3.5 py-3 border ${
+                    errors.confirmPassword
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Confirm Password"
                 />
                 <button
@@ -308,20 +309,21 @@ const Sign_Up = () => {
               </div>
 
               {/* Submit Button */}
-              <div className="w-full mb-6">
+              <div className="w-full">
                 <button
                   type="submit"
-                  className={`w-full py-2 rounded-full font-semibold transition-all ease-in duration-200 ${loading
-                    ? "bg-gray-400 text-white cursor-not-allowed"
-                    : "bg-[#FF5700] text-white hover:bg-[#ff6a0d]"
-                    }`}
+                  className={`w-full py-2 rounded-full font-medium transition-all ease-in duration-300 ${
+                    loading
+                      ? "bg-gray-400 text-white cursor-not-allowed"
+                      : " border border-main-color hover:bg-main-color text-sub-color"
+                  }`}
                   disabled={loading}
                 >
                   {loading ? "Signing up..." : "Sign Up"}
                 </button>
               </div>
             </form>
-            <p className="text-[14px] text-center font-bold text-[#2D2624] mt-6">
+            <p className="text-[12px] text-center font-medium text-sub-color mt-6">
               By signing up, I agree to{" "}
               <a href="#" className="underline decoration-[#2d262466]">
                 Terms and Service

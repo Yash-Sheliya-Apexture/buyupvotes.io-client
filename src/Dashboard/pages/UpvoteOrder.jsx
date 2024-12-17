@@ -32,10 +32,25 @@ const UpvoteOrder = () => {
   // Access the API URL using Vite-specific syntax
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
-  const validateRedditLink = (url) => {
-    const redditRegex =
-      /^(https?:\/\/)?(www\.)?(reddit\.com|old\.reddit\.com)\/[a-zA-Z0-9_/.-]+$/;
-    return redditRegex.test(url);
+  const validateRedditLink = () => {
+    const redditRegex = /^https:\/\/(www\.)?reddit\.com\/[a-zA-Z0-9_]/;
+    if (!redditRegex.test(formData.link)) {
+      setErrors({
+        ...errors,
+        link: "Please enter a valid Reddit link (e.g., https://www.reddit.com/r/subreddit/)",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmits = (e) => {
+    e.preventDefault();
+
+    if (validateRedditLink()) {
+      console.log("Reddit link is valid:", formData.link);
+      // Perform further actions (e.g., send link to an API)
+    }
   };
 
   const handleInputChange = (e) => {
@@ -44,16 +59,6 @@ const UpvoteOrder = () => {
       ...prevData,
       [name]: value,
     }));
-
-    if (name === "link" && value && !validateRedditLink(value)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        link: "Invalid Reddit link. Example: https://www.reddit.com/r/subreddit/",
-      }));
-    } else if (name === "link") {
-      setErrors((prevErrors) => ({ ...prevErrors, link: "" }));
-    }
-
     if (name === "quantity") {
       handleQuantityValidation(value);
     }
@@ -106,65 +111,11 @@ const UpvoteOrder = () => {
             : ""
           : "Quantity is required",
     };
-  
+
     setErrors(newErrors); // Update the error state
-  
+
     return Object.values(newErrors).every((error) => error === ""); // Return true if no errors
   };
-  
-
-
-
-
-  // const handleSubmit = async (e) => {
-  //     e.preventDefault();
-
-  //     if (validateForm()) {
-  //       // Reset form values
-  //       setFormData({
-  //         service: "",
-  //         speed: "",
-  //         link: "",
-  //         quantity: "",
-  //       });
-
-  //       // Reset errors
-  //       setErrors({
-  //         service: "",
-  //         speed: "",
-  //         link: "",
-  //         quantity: "",
-  //       });
-
-  //       try {
-  //         // Send form data to backend to save to Google Sheets
-  //         const token = localStorage.getItem("authToken"); // Example: Retrieve token from localStorage
-
-  //         const response = await fetch(`${apiUrl}/auth/submit-order`, {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${token}`, // Add the token to the header
-  //           },
-  //           body: JSON.stringify(formData),
-  //         });
-
-  //         const data = await response.json();
-  //         if (response.ok) {
-  //           setSuccessMessage(data.message); // Set success message
-  //         } else {
-  //           setSuccessMessage("There was an error submitting the order.");
-  //         }
-  //       } catch (error) {
-  //         console.error("Error submitting order:", error);
-  //         setSuccessMessage("There was an error submitting the order.");
-  //       }
-
-  //       // Clear success message after a few seconds
-  //       setTimeout(() => setSuccessMessage(""), 2000);
-  //     }
-  // };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -188,7 +139,9 @@ const UpvoteOrder = () => {
         if (response.ok) {
           toast.success(data.message || "Order submitted successfully!");
         } else {
-          toast.error(data.message || "There was an error submitting the order.");
+          toast.error(
+            data.message || "There was an error submitting the order."
+          );
         }
       } catch (error) {
         console.error("Error submitting order:", error);
@@ -206,8 +159,6 @@ const UpvoteOrder = () => {
       });
     }
   };
-
-
 
   const services = [
     "Post upvotes",
@@ -235,8 +186,8 @@ const UpvoteOrder = () => {
   return (
     <div className="container mx-auto">
       {/* Form Content */}
-      <div className="px-6">
-        <h1 className="mb-2 font-bold text-sub-color text-basic">
+      <div>
+        <h1 className="mb-2 font-semibold text-sub-color text-small lg:text-basic">
           Order Upvotes
         </h1>
         <div className="flex items-center space-x-4">
@@ -244,10 +195,10 @@ const UpvoteOrder = () => {
         </div>
       </div>
 
-
-      <div className="flex w-full gap-10 mt-6">
-        <div className="w-full md:w-[50%] border rounded-2xl p-10">
-          <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="flex lg:flex-row flex-col w-full gap-4 mt-6 lg:gap-y-6">
+        {/* Left Section */}
+        <div className="w-full lg:w-1/2 shadow-main rounded-large lg:p-6 p-4">
+          <form onSubmit={handleSubmits} className="lg:space-y-6 space-y-4">
             {/* Service Dropdown */}
             <Dropdown
               options={services}
@@ -272,14 +223,15 @@ const UpvoteOrder = () => {
               <input
                 type="text"
                 name="link"
-                placeholder="Link"
+                placeholder="Enter a Reddit link"
                 value={formData.link}
                 onChange={handleInputChange}
-                className={`w-full border rounded-full p-2.5 ${errors.link ? "border-red-500" : "border-gray-300"
-                  } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
+                className={`w-full border rounded-full p-2.5 ${
+                  errors.link ? "border-red-500" : "border-gray-300"
+                } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
               />
               {errors.link && (
-                <p className="text-sm text-red-500">{errors.link}</p>
+                <p className="text-sm text-red-500 mt-2">{errors.link}</p>
               )}
             </div>
 
@@ -291,8 +243,9 @@ const UpvoteOrder = () => {
                 placeholder="Quantity"
                 value={formData.quantity}
                 onChange={handleInputChange}
-                className={`w-full border rounded-full p-2.5 ${errors.quantity ? "border-red-500" : "border-gray-300"
-                  } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
+                className={`w-full border rounded-full p-2.5 ${
+                  errors.quantity ? "border-red-500" : "border-gray-300"
+                } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
               />
               {errors.quantity && (
                 <p className="text-sm text-red-500">{errors.quantity}</p>
@@ -341,7 +294,7 @@ const UpvoteOrder = () => {
         </div>
 
         {/* Right Section */}
-        <div className="w-full md:w-[50%] border rounded-2xl p-10">
+        <div className="w-full lg:w-1/2 shadow-main rounded-large lg:p-10 xs:p-4">
           <p className="text-[16px] font-medium underline underline-offset-1 text-[#2D2624] mb-2">
             Upvotes & downvotes:
           </p>
@@ -376,23 +329,23 @@ const UpvoteOrder = () => {
               quantity wisely so as not to arouse any suspicion.
             </p>
             <p className="text-[14px] text-[#2D2624] font-semibold">
-              *Upvotes on posts/comments older than 24 hours are not
-              guaranteed to go through. Downvotes are similarly not guaranteed
-              regardless of post/comment age.
+              *Upvotes on posts/comments older than 24 hours are not guaranteed
+              to go through. Downvotes are similarly not guaranteed regardless
+              of post/comment age.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="my-5">
-        <p className="text-center underline text-light-red underline-offset-1 text-[18px]">
+      <div className="my-4">
+        <p className="text-center underline text-light-red underline-offset-1 lg:text-medium text-small">
           Due to Reddit's updated security measures, upvotes on certain
           subreddits are temporarily unavailable. If affected, the order will be
           canceled and refunded.
         </p>
       </div>
 
-      {/* Order Tables */}
+      {/* Order Tables Data*/}
       <Ordertable />
     </div>
   );

@@ -1,14 +1,14 @@
 import React from "react";
 import HeroSecrtion from "./HeroSecrtion";
 import DataSection from "./DataSection";
-import Ordertable from "./ordertable";
+import Ordertable from "./Ordertable";
 
 const DashboardHome = () => {
   return (
     <div className="container mx-auto">
       <HeroSecrtion />
       <DataSection />
-      <div className="pt-10">
+      <div className="">
         <Ordertable />
       </div>
     </div>

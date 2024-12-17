@@ -16,7 +16,6 @@ const OrderComment = () => {
 
   const [formData, setFormData] = useState({ speed: "", numberOfComments: "" });
 
-  const speeds = ["Slow", "Medium", "Fast", "Express"];
   const numbers = Array.from({ length: 50 }, (_, i) => i + 1);
 
   // Validate URL function
@@ -28,7 +27,6 @@ const OrderComment = () => {
   const handleLinkChange = (e) => {
     const value = e.target.value;
     setLink(value);
-
     if (!value) {
       setErrors((prevErrors) => ({ ...prevErrors, link: "Link is required" }));
     } else if (!validateURL(value)) {
@@ -128,10 +126,10 @@ const OrderComment = () => {
               </h3>
               <div className="flex items-center my-2 space-x-20">
                 <p className="text-small text-sub-color">
-                  Minimum quantity: <span className="font-black">1</span>
+                  Minimum quantity: <span className="font-bold">1</span>
                 </p>
                 <p className="text-small text-sub-color">
-                  Maximum quantity: <span className="font-black">75</span>
+                  Maximum quantity: <span className="font-bold">75</span>
                 </p>
               </div>
             </div>
@@ -143,10 +141,10 @@ const OrderComment = () => {
               </h3>
               <div className="flex items-center my-2 space-x-20">
                 <p className="text-small text-sub-color">
-                  Minimum quantity: <span className="font-black">5</span>
+                  Minimum quantity: <span className="font-bold">5</span>
                 </p>
                 <p className="text-small text-sub-color">
-                  Maximum quantity: <span className="font-black">1000</span>
+                  Maximum quantity: <span className="font-bold">1000</span>
                 </p>
               </div>
             </div>
@@ -160,7 +158,7 @@ const OrderComment = () => {
             <p className="text-sub-color text-small underline underline-offset-1 font-medium">
               Links can be inserted in the following format: &nbsp;
             </p>
-            <span className="text-sub-color font-black">
+            <span className="text-sub-color font-bold">
               [link text](https://yourlink.com)
             </span>
           </div>
@@ -169,18 +167,18 @@ const OrderComment = () => {
             <p className="text-sub-color text-small underline underline-offset-1 font-medium">
               To make a new line in the comment, include the text: &nbsp;
             </p>
-            <span className="text-sub-color font-black"> [newline]</span>
+            <span className="text-sub-color font-bold"> [newline]</span>
           </div>
 
           <p className="text-sub-color text-small font-medium mb-4">
             Comments are made with aged but low-karma accounts and{" "}
-            <span className="font-black">are not guaranteed to go through</span>{" "}
+            <span className="font-bold">are not guaranteed to go through</span>{" "}
             due to Reddit's spam filters or a subreddit's karma requirements.
           </p>
 
           <p className="text-sub-color text-small font-medium mb-4">
             Due to the high amount of resources spent on making a comment,{" "}
-            <span className="font-black">we do not provide refunds</span> for
+            <span className="font-bold">we do not provide refunds</span> for
             comment orders that do not go through. Please make sure to test this
             service before ordering in bulk.
           </p>
@@ -204,7 +202,7 @@ const OrderComment = () => {
               <div className="flex relative">
                 <input
                   type="text"
-                  className="w-full p-2 rounded-full border hover:border-black transition-all ease-in duration-200"
+                  className="w-full p-2 rounded-full border hover:border-boldfont-bold transition-all ease-in duration-200"
                   placeholder="1 minutes"
                   disabled
                 />
@@ -230,9 +228,9 @@ const OrderComment = () => {
                 placeholder="Link"
                 className={`w-full px-4 py-2.5 border ${
                   errors.link
-                    ? "border-[#FF5630] placeholder:text-[#FF5630] text-black"
+                    ? "border-[#FF5630] placeholder:text-[#FF5630] text-boldfont-bold"
                     : "border-gray-300"
-                } rounded-full text-[16px] hover:border-black transition-all ease-in duration-150`}
+                } rounded-full text-[16px] hover:border-boldfont-bold transition-all ease-in duration-150`}
               />
               {errors.link && (
                 <span className="text-[#FF5630] text-xs mt-1">
@@ -250,9 +248,9 @@ const OrderComment = () => {
                 placeholder="Comment content"
                 className={`w-full px-4 py-2.5 border ${
                   errors.comment
-                    ? "border-[#FF5630] placeholder:text-[#FF5630] text-black"
+                    ? "border-[#FF5630] placeholder:text-[#FF5630] text-boldfont-bold"
                     : "border-gray-300"
-                } rounded-full text-[16px] hover:text-black transition-all ease-in duration-150`}
+                } rounded-full text-[16px] hover:text-boldfont-bold transition-all ease-in duration-150`}
               />
               {errors.comment && (
                 <span className="text-[#FF5630] text-xs mt-1">

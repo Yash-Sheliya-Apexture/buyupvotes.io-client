@@ -136,36 +136,35 @@
 
 // export default FundPricing;
 
-
-
 import React from "react";
 import Pricing from "../../Components/Pricing";
 import CustomizePayment from "../components/CustomizePayment";
 import { Link } from "react-router-dom";
+import Button from "../components/Button";
 
 const FundPricing = () => {
-
   return (
     <div className="container mx-auto">
       <Pricing />
       <CustomizePayment />
       <div className="text-center">
         <div className="flex justify-center mb-6">
-          <hr className=" border w-[85%]" />
+          <hr className="border border-gray-300/50 w-4/5" />
         </div>
-        <h1 className="mb-4 text-base font-bold text-sub-color">
+        <h1 className="mb-4 text-base font-semibold text-sub-color">
           Have any questions?
         </h1>
-        <p className="font-medium text-sub-color text-small">
+        <p className="font-normal text-sub-color text-small">
           Contact us and we'll get back to you as soon as possible.
         </p>
-        <Link to="/Dashboard/ContactUs" className="inline-block py-1 mt-6 font-bold transition-all border rounded-full px-14 border-main-color text-main-color">
-            Contact Us
-        </Link>
+        <div className="mt-4">
+          <Link to="/dashboard/contactUs">
+            <Button>Contact Us</Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
 };
 
 export default FundPricing;
-

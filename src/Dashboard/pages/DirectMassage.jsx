@@ -67,7 +67,7 @@ const DirectMassage = () => {
             className={`w-full border p-2 h-40 resize-none rounded-medium transition-all duration-150 ease-in ${
               errors.messageContent
                 ? "border-red-500"
-                : "border-gray-300 hover:border-black"
+                : "border-gray-300 hover:border-bold"
             }`}
             placeholder="Message content"
             value={messageContent}
@@ -83,7 +83,7 @@ const DirectMassage = () => {
             className={`w-full border p-3 rounded-full transition-all duration-150 ease-in ${
               errors.username
                 ? "border-red-500"
-                : "border-gray-300 hover:border-black"
+                : "border-gray-300 hover:border-bold"
             }`}
             placeholder="Recipient username"
             value={username}
@@ -106,11 +106,11 @@ const DirectMassage = () => {
           </h3>
           <div className="flex items-center my-2 space-x-20">
             <p className="text-small text-sub-color">
-              Minimum quantity: <span className="font-black">1</span>
+              Minimum quantity: <span className="font-bold">1</span>
             </p>
             <p className="text-small text-sub-color">
-              Maximum quantity: <b className="font-black">1</b> (will be updated
-              to <b className="font-black">500</b> soon)
+              Maximum quantity: <b className="font-bold">1</b> (will be updated
+              to <b className="font-bold">500</b> soon)
             </p>
           </div>
 
@@ -121,7 +121,7 @@ const DirectMassage = () => {
           <p className="text-[14px] text-sub-color mb-4 font-medium">
             This service allows you to send Reddit DMs using our extensive
             network of Reddit accounts. Each message will deduct{" "}
-            <span className="font-black underline underline-offset-1">
+            <span className="font-bold underline underline-offset-1">
               50 Upvotes
             </span>{" "}
             from your balance.

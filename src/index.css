@@ -2,42 +2,140 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-font-face { font-family: "InterDisplay"; font-style: normal; font-weight: 100; font-display: swap; src: url("./assets/fonts/InterDisplay-Thin.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: italic; font-weight: 100; font-display: swap; src: url("./assets/fonts/InterDisplay-ThinItalic.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: normal; font-weight: 200; font-display: swap; src: url("./assets/fonts/InterDisplay-ExtraLight.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: italic; font-weight: 200; font-display: swap; src: url("./assets/fonts/InterDisplay-ExtraLightItalic.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: normal; font-weight: 300; font-display: swap; src: url("./assets/fonts/InterDisplay-Light.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: italic; font-weight: 300; font-display: swap; src: url("./assets/fonts/InterDisplay-LightItalic.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: normal; font-weight: 400; font-display: swap; src: url("./assets/fonts/InterDisplay-Regular.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: italic; font-weight: 400; font-display: swap; src: url("./assets/fonts/InterDisplay-Italic.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: normal; font-weight: 500; font-display: swap; src: url("./assets/fonts/InterDisplay-Medium.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: italic; font-weight: 500; font-display: swap; src: url("./assets/fonts/InterDisplay-MediumItalic.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: normal; font-weight: 600; font-display: swap; src: url("./assets/fonts/InterDisplay-SemiBold.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: italic; font-weight: 600; font-display: swap; src: url("./assets/fonts/InterDisplay-SemiBoldItalic.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: normal; font-weight: 700; font-display: swap; src: url("./assets/fonts/InterDisplay-Bold.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: italic; font-weight: 700; font-display: swap; src: url("./assets/fonts/InterDisplay-BoldItalic.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: normal; font-weight: 800; font-display: swap; src: url("./assets/fonts/InterDisplay-ExtraBold.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: italic; font-weight: 800; font-display: swap; src: url("./assets/fonts/InterDisplay-ExtraBoldItalic.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: normal; font-weight: 900; font-display: swap; src: url("./assets/fonts/InterDisplay-Black.woff2") format("woff2"); }
-@font-face { font-family: "InterDisplay"; font-style: italic; font-weight: 900; font-display: swap; src: url("./assets/fonts/InterDisplay-BlackItalic.woff2") format("woff2"); }
-
-
-
-
-
+font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Thin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-ThinItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-ExtraLight.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-ExtraLightItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-LightItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-MediumItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-SemiBoldItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-BoldItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-ExtraBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-ExtraBoldItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Black.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-BlackItalic.woff2") format("woff2");
+}
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
+  /* user-select: none; */
 }
-/* 
-.container {
-  @apply px-0 py-0 mx-auto max-w-7xl;
-} */
 
 /* Apply Urbanist font globally */
 body {
@@ -66,12 +164,54 @@ body {
   min-height: 100vh;
 }
 
-/* .bg-blue {
-  background-image: url(./assets/Images/blue-background.png);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-} */
+/* logo Animation */
+
+.animated-logo {
+  position: relative;
+  color: #ff5700;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 0.4rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.animated-logo::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  color: #fff;
+  font-weight: 900;
+  text-transform: uppercase;
+  overflow: hidden;
+  -webkit-text-stroke: 4px #ff5700;
+  border-right: 2px solid #ff5700;
+  animation: reveal-text 2s ease-in-out both;
+}
+
+/* Animation Keyframes */
+@keyframes reveal-text {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+#root input:focus {
+  border: 1px solid #000;
+  box-shadow: none;
+  outline: none;
+}
+
+textarea:focus {
+  border: 1px solid #000;
+  box-shadow: none;
+  outline: none;
+}
 
 @media (max-width: 992px) {
   .logo {
@@ -84,6 +224,18 @@ body {
 
 .text-stroke {
   -webkit-text-stroke: 2.5px;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 /* Rocket Animation */
@@ -123,6 +275,31 @@ body {
   height: 100%;
 }
 
+@media (max-width: 1024px) {
+  .swiper {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tabs Section - Horizontal Scrolling */
+  .tabs-scrollable {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    justify-content: flex-start; /* Ensure tabs start from the left */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  /* Table Section - Horizontal Scrolling */
+  .table-scrollable {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -ms-overflow-style: none;
+  }
+}
+
 .swiper-slide {
   text-align: center;
   font-size: 18px;
@@ -130,14 +307,14 @@ body {
 }
 
 .swiper-pagination-bullet {
-  background-color: #ffaa00 !important;
+  background-color: #fc8d4d !important;
   width: 10px !important;
   height: 10px !important;
 }
 
 .swiper-pagination-bullet-active {
-  border: 1px solid #edc061;
-  background-color: #fff;
+  border: 1px solid #ff5700;
+  background-color: #ff5700 !important;
 }
 
 /* Custom scrollbar styles */
@@ -158,7 +335,7 @@ body {
 }
 
 .custom-scroll::-webkit-scrollbar {
-  width: 3px; /* Width of the scrollbar */
+  width: 5px; /* Width of the scrollbar */
 }
 
 /* Scrollbar track */
@@ -171,4 +348,44 @@ body {
 .custom-scroll::-webkit-scrollbar-thumb {
   background: #c1c7c8; /* Color of the thumb */
   border-radius: 10px; /* Round the thumb */
+}
+
+/* Add animation for smooth fade-in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+.animate-slide-out {
+  animation: slideOut 0.5s ease-out forwards;
 }

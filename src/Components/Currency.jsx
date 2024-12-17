@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CiCreditCard1 } from "react-icons/ci";
 import { MdCurrencyBitcoin } from "react-icons/md";
 import { Link } from "react-router-dom";
-import payment_logos from '../assets/Images/payment_logos.png'
+import payment_logos from '../assets/Images/payment_logo.png'
 
 const Currency = () => {
     const [selectedTab, setSelectedTab] = useState("creditCard");
@@ -24,7 +24,7 @@ const Currency = () => {
                 !isLoggedIn ? (
                     <div className="tujghvcbxfvdsf">
                         <div className="flex items-center justify-center mb-7">
-                            <img src={payment_logos} alt="" className="max-w-screen-md" />
+                            <img src={payment_logos} alt="" className="lg:max-w-screen-md" />
                         </div>
                         <div className="relative flex items-center justify-center space-x-4">
                             <Link className="px-4 py-1 text-[rgb(255,87,0)] border font-bold border-[rgb(255,87,0)] rounded-full hover:bg-orange-500 hover:text-white transition hidden lg:block" to="/signin" >Sign-In</Link>
