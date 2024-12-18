@@ -31,7 +31,7 @@ const DashboardLayout = () => {
           <Sidebar />
           <div className="flex flex-wrap flex-1 overflow-y-auto">
             <Dashboard_header />
-            <main className="flex-1 p-4 overflow-y-auto">
+            <main className="flex-1 p-4 overflow-y-auto flex-">
               <Outlet />
             </main>
           </div>

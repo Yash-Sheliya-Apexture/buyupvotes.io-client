@@ -183,7 +183,7 @@ const Account = () => {
                   value={userData.email}
                   disabled={!isEditing}
                   className={`block w-full lg:w-1/2 border-gray-300 rounded-full ${
-                    isEditing ? "opacity-100" : "opacity-50"
+                    isEditing ? "opacity-50" : "opacity-50"
                   }`}
                 />
               </div>

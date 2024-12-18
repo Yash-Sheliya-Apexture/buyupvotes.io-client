@@ -8,6 +8,7 @@ import Button from "../components/Button"; // Import reusable button
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaSpinner } from "react-icons/fa";
+import InputField from "../components/InputField";
 
 const UpvoteOrder = () => {
   // Consolidated form state
@@ -220,19 +221,13 @@ const UpvoteOrder = () => {
 
             {/* Link Input */}
             <div>
-              <input
-                type="text"
+              <InputField
                 name="link"
                 placeholder="Enter a Reddit link"
                 value={formData.link}
                 onChange={handleInputChange}
-                className={`w-full border rounded-full p-2.5 ${
-                  errors.link ? "border-red-500" : "border-gray-300"
-                } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
+                error={errors.link}
               />
-              {errors.link && (
-                <p className="text-sm text-red-500 mt-2">{errors.link}</p>
-              )}
             </div>
 
             {/* Quantity Input */}
