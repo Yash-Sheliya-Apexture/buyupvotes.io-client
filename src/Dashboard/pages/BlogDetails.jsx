@@ -1,19 +1,18 @@
 "use client";
+import React, { useState, useEffect, useRef } from "react";
 import { Tooltip } from "flowbite-react";
-import { useState, useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
-import { FaTwitter } from "react-icons/fa";
-import { FaLinkedinIn } from "react-icons/fa";
-import { FaFacebookF } from "react-icons/fa6";
-import { BsDash } from "react-icons/bs";
+import { FaTwitter, FaLinkedinIn, FaFacebookF } from "react-icons/fa";
 import gsap from "gsap";
+import { FaShareAlt } from "react-icons/fa";
 
 const BlogDetails = () => {
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
-  const [showIcons, setShowIcons] = useState(false); // State for showing icons
+  const [showIcons, setShowIcons] = useState(false);
   const iconRefs = useRef([]);
 
+  // Fetch blog data from JSON file
   useEffect(() => {
     fetch("/data.json")
       .then((response) => response.json())
@@ -51,21 +50,16 @@ const BlogDetails = () => {
 
   return (
     <>
+      {/* Blog Cover Section */}
       <div
         className="relative w-full h-[400px] bg-cover bg-center rounded-small overflow-hidden container"
         style={{ backgroundImage: `url(${blog.coverImage})` }}
       >
-        {/* Overlay for slight dark tint */}
         <div className="absolute inset-0 bg-black/60"></div>
-
-        {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-between p-6 text-white">
-          {/* Blog Title */}
           <h1 className="lg:text-4xl sm:text-basic text-center font-bold leading-tight">
             {blog.title}
           </h1>
-
-          {/* Author & Date */}
           <div className="flex items-center space-x-4">
             <img
               src={blog.profileImage}
@@ -120,21 +114,7 @@ const BlogDetails = () => {
 
           {/* Main Share Button */}
           <button className="bg-main-color p-3 rounded-full shadow-lg hover:bg-orange-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              aria-hidden="true"
-              role="img"
-              viewBox="0 0 24 24"
-              className="h-6 text-white"
-            >
-              <path
-                fill="currentColor"
-                fillRule="evenodd"
-                d="M13.803 5.333c0-1.84 1.5-3.333 3.348-3.333A3.34 3.34 0 0 1 20.5 5.333c0 1.841-1.5 3.334-3.349 3.334a3.35 3.35 0 0 1-2.384-.994l-4.635 3.156a3.34 3.34 0 0 1-.182 1.917l5.082 3.34a3.35 3.35 0 0 1 2.12-.753a3.34 3.34 0 0 1 3.348 3.334C20.5 20.507 19 22 17.151 22a3.34 3.34 0 0 1-3.348-3.333a3.3 3.3 0 0 1 .289-1.356L9.05 14a3.35 3.35 0 0 1-2.202.821A3.34 3.34 0 0 1 3.5 11.487a3.34 3.34 0 0 1 3.348-3.333c1.064 0 2.01.493 2.623 1.261l4.493-3.059a3.3 3.3 0 0 1-.161-1.023"
-                clipRule="evenodd"
-              ></path>
-            </svg>
+            <FaShareAlt  className="size-6 text-white"/>
           </button>
         </div>
       </div>
@@ -158,44 +138,88 @@ const BlogDetails = () => {
         <span className="text-[#929191] lg:font-medium">{blog.title}</span>
       </div>
 
-      <hr className="my-5" />
+      {/* Blog Content */}
+      <div className="w-full max-w-[720px] mx-auto mt-6">
+        {blog.content.map((section, index) => {
+          if (section.type === "h4") {
+            return (
+              <h4
+                key={index}
+                className="text-sub-color font-semibold text-base mt-6"
+              >
+                {section.text}
+              </h4>
+            );
+          } else if (section.type === "p") {
+            return (
+              <p
+                key={index}
+                className="text-sub-color text-small leading-6 mt-4"
+              >
+                {section.text}
+              </p>
+            );
+          } else if (section.type === "image") {
+            return (
+              <div key={index} className="mt-4">
+                <img
+                  src={section.url}
+                  alt="Blog Section"
+                  className="w-full rounded"
+                />
+              </div>
+            );
+          } else if (section.type === "table") {
+            return (
+              <div key={index} className="overflow-x-auto mt-6">
+                <table className="min-w-full border-collapse border border-gray-300">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      {section.columns.map((col, idx) => (
+                        <th
+                          key={idx}
+                          className="border border-gray-300 px-4 py-2 text-center lg:text-small font-medium"
+                        >
+                          {col}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {section.rows.map((row, rowIndex) => (
+                      <tr key={rowIndex} className="odd:bg-[#F4F6F8]">
+                        {row.map((cell, cellIndex) => (
+                          <td
+                            key={cellIndex}
+                            className="border border-gray-300 px-4 py-2 text-sub-color"
+                          >
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            );
+          }
+          return null;
+        })}
 
-      <div className="w-full">
-        <div className="flex flex-col max-w-[720px] mx-auto border-b-2 border-dashed py-2">
-          {blog.content.map((section, index) => {
-            if (section.type === "h4") {
-              return (
-                <h4 key={index} className="text-sub-color font-bold text-basic">
-                  <br />
-                  {section.text}
-                </h4>
-              );
-            } else if (section.type === "p") {
-              return (
-                <p key={index} className="text-sub-color text-small leading-6">
-                  <br />
-                  {section.text}
-                </p>
-              );
-            }
-            return null;
-          })}
-
-          {/* Blog Tags */}
-          <div className="flex space-x-2 mt-2">
-            <a
-              href="#"
-              className="border border-sub-color text-sub-color px-6 py-0.5  rounded-full"
-            >
-              Reddit
-            </a>
-            <a
-              href="#"
-              className="border border-sub-color text-sub-color px-6 py-0.5  rounded-full"
-            >
-              Marketing
-            </a>
-          </div>
+        {/* Blog Tags */}
+        <div className="flex space-x-2 mt-4">
+          <a
+            href="#"
+            className="border border-sub-color text-sub-color px-6 py-0.5  rounded-full"
+          >
+            Reddit
+          </a>
+          <a
+            href="#"
+            className="border border-sub-color text-sub-color px-6 py-0.5  rounded-full"
+          >
+            Marketing
+          </a>
         </div>
       </div>
     </>

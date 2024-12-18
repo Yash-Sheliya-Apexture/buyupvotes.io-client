@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Import arrow icons
 import Breadcrumb from "../components/Breadcrumb";
 import Button from "../components/Button";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
@@ -8,7 +9,59 @@ import "react-toastify/dist/ReactToastify.css";
 const Account = () => {
   const [activeTab, setActiveTab] = useState("general");
   const [showPasswords, setShowPasswords] = useState({ all: false });
+  const [oldPassword, setOldPassword] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+  const [errors, setErrors] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const scrollContainerRef = useRef(null); // Ref for scrollable container
+
+  // Function to scroll left
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -200, behavior: "smooth" });
+    }
+  };
+
+  // Function to scroll right
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 200, behavior: "smooth" });
+    }
+  };
+
+  const validatePasswords = () => {
+    let isValid = true;
+    const newErrors = {
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    };
+
+    if (!oldPassword) {
+      newErrors.oldPassword = "Old password is required.";
+      isValid = false;
+    }
+    if (!newPassword) {
+      newErrors.newPassword = "New password is required.";
+      isValid = false;
+    } else if (newPassword.length < 6) {
+      newErrors.newPassword = "Password must be at least 6 characters.";
+      isValid = false;
+    }
+    if (!confirmPassword) {
+      newErrors.confirmPassword = "Please confirm your password.";
+      isValid = false;
+    } else if (newPassword !== confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match.";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -38,16 +91,25 @@ const Account = () => {
   };
 
   const handleSavePassword = () => {
+    // Check if any field is empty
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      toast.error("All fields are required. Please fill them out.");
+      return;
+    }
+
+    // Check if passwords match
     if (newPassword !== confirmPassword) {
       toast.error("Passwords do not match. Please try again.");
       return;
     }
 
+    // Proceed with saving
     setIsSaving(true);
     setTimeout(() => {
       setIsSaving(false);
-      setNewPassword("");
-      setConfirmPassword("");
+      setOldPassword(""); // Clear the old password field
+      setNewPassword(""); // Clear the new password field
+      setConfirmPassword(""); // Clear the confirm password field
       toast.success("Password updated successfully!");
     }, 1000);
   };
@@ -72,7 +134,7 @@ const Account = () => {
 
   return (
     <>
-      <div className="lg:container mx-auto">
+      <div className="mx-auto container">
         <h1 className="mb-2 font-bold text-sub-color text-basic">Account</h1>
         <div className="flex items-center space-x-4">
           <Breadcrumb
@@ -83,10 +145,21 @@ const Account = () => {
           />
         </div>
 
-        <div className="w-full max-w-7xl mx-auto my-5">
-          <div className="flex items-start space-x-5">
+        {/* Account Tabs  */}
+        <div className="w-full max-w-7xl mx-auto my-5 flex items-center relative">
+          {/* Left Icon */}
+          <button onClick={scrollLeft} className="p-2 md:hidden flex-shrink-0">
+            <FaChevronLeft className="text-sub-color size-3" />
+          </button>
+
+          {/* Scrollable Tabs Container */}
+          <div
+            ref={scrollContainerRef}
+            className="flex items-center overflow-x-auto scrollbar-hide whitespace-nowrap gap-8 tabs-scrollable scroll-smooth flex-grow"
+          >
+            {/* General Tab */}
             <button
-              className={`flex space-x-3 py-2 transition-all duration-300 ${
+              className={`flex gap-2 transition-all duration-300 ${
                 activeTab === "general"
                   ? "text-main-color border-b-2 border-main-color"
                   : "text-sub-color border-b-2 border-transparent"
@@ -109,13 +182,12 @@ const Account = () => {
                   clipRule="evenodd"
                 ></path>
               </svg>
-
               <span className="font-bold">General</span>
             </button>
 
             {/* Transactions Tab */}
             <button
-              className={`flex items-center space-x-2 px-4 py-2 transition-all duration-300 ${
+              className={`flex items-center gap-2 transition-all duration-300 ${
                 activeTab === "transactions"
                   ? "text-main-color border-b-2 border-main-color"
                   : "text-sub-color border-b-2 border-transparent"
@@ -143,8 +215,9 @@ const Account = () => {
               <span className="font-bold">Transactions</span>
             </button>
 
+            {/* Security Tab */}
             <button
-              className={`flex items-center space-x-2 px-4 py-2 transition-all duration-300 ${
+              className={`flex items-center gap-2 transition-all duration-300 ${
                 activeTab === "security"
                   ? "text-main-color border-b-2 border-main-color"
                   : "text-sub-color border-b-2 border-transparent"
@@ -170,6 +243,11 @@ const Account = () => {
               <span className="font-bold">Security</span>
             </button>
           </div>
+
+          {/* Right Icon */}
+          <button onClick={scrollRight} className="p-2 md:hidden flex-shrink-0">
+            <FaChevronRight className="text-sub-color size-3" />
+          </button>
         </div>
 
         <div className="w-full border lg:p-10 p-4 shadow-md border-gray-border lg:mt-10 rounded-small">
@@ -195,8 +273,10 @@ const Account = () => {
                     value={userData.firstName}
                     onChange={handleInputChange}
                     disabled={!isEditing}
-                    className={`block w-full border-gray-300 rounded-full ${
-                      isEditing ? "opacity-100" : "opacity-50"
+                    className={`block w-full border-gray-300 rounded-full  ${
+                      isEditing
+                        ? "opacity-100 hover:border-black transition-all ease-in duration-150"
+                        : "opacity-50 "
                     }`}
                   />
                   {isEditing && userData.firstName.trim() === "" && (
@@ -213,7 +293,9 @@ const Account = () => {
                     onChange={handleInputChange}
                     disabled={!isEditing}
                     className={`block w-full border-gray-300 rounded-full ${
-                      isEditing ? "opacity-100" : "opacity-50"
+                      isEditing
+                        ? "opacity-100 hover:border-black transition-all ease-in duration-150"
+                        : "opacity-50"
                     }`}
                   />
                   {isEditing && userData.lastName.trim() === "" && (
@@ -273,8 +355,12 @@ const Account = () => {
                 <div className="relative">
                   <input
                     type={showPasswords.all ? "text" : "password"}
-                    className="block w-full border-gray-300 rounded-full hover:border-black transition-all ease-in duration-150"
+                    className={`block w-full border-gray-300 rounded-full hover:border-black transition-all ease-in duration-150 ${
+                      errors.oldPassword ? "border-red-500" : ""
+                    }`}
                     placeholder="Old password"
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
                   />
                   <span
                     className="absolute right-3 top-3 text-sm cursor-pointer"
@@ -287,12 +373,20 @@ const Account = () => {
                     )}
                   </span>
                 </div>
+                {errors.oldPassword && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.oldPassword}
+                  </p>
+                )}
               </div>
+
               <div className="lg:w-1/2">
                 <div className="relative">
                   <input
                     type={showPasswords.all ? "text" : "password"}
-                    className="block w-full border-gray-300 rounded-full"
+                    className={`block w-full border-gray-300 rounded-full hover:border-black transition-all ease-in duration-150 ${
+                      errors.newPassword ? "border-red-500" : ""
+                    }`}
                     placeholder="New password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
@@ -308,12 +402,20 @@ const Account = () => {
                     )}
                   </span>
                 </div>
+                {errors.newPassword && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.newPassword}
+                  </p>
+                )}
               </div>
+
               <div className="lg:w-1/2">
                 <div className="relative">
                   <input
                     type={showPasswords.all ? "text" : "password"}
-                    className="block w-full border-gray-300 rounded-full"
+                    className={`block w-full border-gray-300 rounded-full hover:border-black transition-all ease-in duration-150 ${
+                      errors.confirmPassword ? "border-red-500" : ""
+                    }`}
                     placeholder="Confirm password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -329,6 +431,11 @@ const Account = () => {
                     )}
                   </span>
                 </div>
+                {errors.confirmPassword && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.confirmPassword}
+                  </p>
+                )}
                 <div className="flex justify-end mt-5">
                   <button
                     onClick={handleSavePassword}

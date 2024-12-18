@@ -232,15 +232,12 @@ const UpvoteOrder = () => {
 
             {/* Quantity Input */}
             <div>
-              <input
+              <InputField
                 type="text"
                 name="quantity"
                 placeholder="Quantity"
                 value={formData.quantity}
                 onChange={handleInputChange}
-                className={`w-full border rounded-full p-2.5 ${
-                  errors.quantity ? "border-red-500" : "border-gray-300"
-                } text-sub-color placeholder:text-sub-color hover:border-black transition-all ease-in duration-150`}
               />
               {errors.quantity && (
                 <p className="text-sm text-red-500">{errors.quantity}</p>
@@ -290,40 +287,40 @@ const UpvoteOrder = () => {
 
         {/* Right Section */}
         <div className="w-full lg:w-1/2 shadow-main rounded-large lg:p-10 xs:p-4">
-          <p className="text-[16px] font-medium underline underline-offset-1 text-[#2D2624] mb-2">
+          <p className="text-[16px] font-medium underline underline-offset-1 text-sub-color mb-2">
             Upvotes & downvotes:
           </p>
           <div className="space-y-4 text-gray-700">
-            <div className="flex space-x-20 text-[#2D2624]">
+            <div className="flex space-x-20 text-sub-color">
               <p>
-                Minimum quantity: <b className="font-black">5</b>
+                Minimum quantity: <b className="font-bold">5</b>
               </p>
               <p>
-                Maximum quantity: <b className="font-black">1000</b>
+                Maximum quantity: <b className="font-bold">1000</b>
               </p>
             </div>
             <div className="flex items-center justify-center">
               <hr className="w-[80%]" />
             </div>
             <ul className="space-y-1 list-disc list-inside">
-              <li className="text-[#2D2624] font-black text-[14px]">
+              <li className="text-sub-color font-bold text-xs">
                 Mobile links are now accepted
               </li>
-              <li className="text-[#2d2624] font-medium text-[14px]">
+              <li className="text-[#2d2624] font-medium text-xs">
                 Links can only contain English characters
               </li>
             </ul>
             <div className="flex items-center justify-center">
               <hr className="w-[80%]" />
             </div>
-            <p className="text-sm text-[#2D2624] font-medium leading-6">
+            <p className="text-sm text-sub-color font-medium leading-6">
               Our upvotes/downvotes are the same as organic upvotes/downvotes
               and will not get your account banned. Unusual activity that
               results in users or moderators reporting your account can still
               get you banned. Please choose your order's upvote/downvote
               quantity wisely so as not to arouse any suspicion.
             </p>
-            <p className="text-[14px] text-[#2D2624] font-semibold">
+            <p className="text-xs text-sub-color font-semibold">
               *Upvotes on posts/comments older than 24 hours are not guaranteed
               to go through. Downvotes are similarly not guaranteed regardless
               of post/comment age.

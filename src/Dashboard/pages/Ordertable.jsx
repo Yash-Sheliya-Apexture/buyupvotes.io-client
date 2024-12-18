@@ -5,6 +5,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import axios from "axios"; // Import Axios
 import { HiLink } from "react-icons/hi";
 import { useRef } from "react";
+import InputField from "../components/InputField";
 
 const Ordertable = () => {
   const [activeTab, setActiveTab] = useState("All");
@@ -187,37 +188,38 @@ const Ordertable = () => {
   ];
 
   return (
-    <div className="mb-4 border border-gray-300/50 rounded-large shadow-main">
-      <h1 className="p-4 font-medium text-sub-color lg:text-basic">
+    <div className="mb-4 border rounded-2xl">
+      <h1 className="p-4 font-semibold text-sub-color lg:text-basic">
         Your past upvote orders:
       </h1>
 
       {/* Tabs table*/}
-      <div className="relative flex items-center rounded-lg shadow-main bg-white">
+      <div className="relative flex items-center border border-gray-border">
         {/* Left Icon */}
         <button
           onClick={scrollLeft}
-          className="absolute left-0 z-10 p-2 rounded-full lg:hidden bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+          className="absolute left-0 z-10 p-2 rounded-full lg:hidden"
         >
           <FaChevronLeft size={14} />
         </button>
 
         {/* Tabs table */}
-        <div className="relative flex items-center justify-center lg:mx-0 mx-6 overflow-hidden">
+        <div className="relative flex items-center justify-center mx-6 overflow-hidden">
           {/* Tabs Container */}
           <div
             ref={scrollableRef}
-            className="tabs-scrollable flex items-center gap-0 overflow-hidden scroll-smooth xs:w-[calc(100%-10px)] w-full space-x-4"
+            className="tabs-scrollable flex items-center gap-0 overflow-hidden scroll-smooth"
+            style={{ width: "calc(100% - 20px)" }}
           >
             {tabs.map((tab) => (
               <button
                 key={tab.label}
                 onClick={() => handleTabChange(tab.label)}
-                className={`relative p-3 font-bold text-sm whitespace-nowrap ${
+                className={`relative px-4 py-2 font-bold text-sm whitespace-nowrap ${
                   activeTab === tab.label
                     ? "text-main-color border-b-2 border-main-color"
                     : "text-sub-color"
-                } transition-colors duration-200`}
+                }`}
               >
                 {tab.label}
                 <span
@@ -235,7 +237,7 @@ const Ordertable = () => {
         {/* Right Icon */}
         <button
           onClick={scrollRight}
-          className="absolute right-0 z-10 p-2 rounded-full lg:hidden bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+          className="absolute right-0 z-10 p-2 rounded-full lg:hidden"
         >
           <FaChevronRight size={14} />
         </button>
@@ -245,34 +247,34 @@ const Ordertable = () => {
       <div className="flex flex-wrap items-center gap-4 p-3 lg:py-4 w-full border border-gray-border">
         {/* Start Date */}
         <div className="flex items-center gap-2 w-full lg:w-auto">
-          <input
+          <InputField
+            name="Date"
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="px-6 py-2 ps-2.5 w-full text-black cursor-text transition-all duration-200 ease-in border border-gray-500/50 rounded-full hover:border-black"
           />
         </div>
 
         {/* End Date */}
         <div className="flex items-center gap-2 w-full lg:w-auto">
-          <input
+          <InputField
+            name="Date"
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="px-6 py-2 ps-2.5 w-full text-black cursor-text transition-all duration-200 ease-in border border-gray-500/50 rounded-full hover:border-black"
           />
         </div>
 
         {/* Search Product */}
-        <div className="relative flex-grow w-full lg:w-auto">
-          <input
+        <div className="relative flex-grow w-full lg:w-auto ">
+          <InputField
+            name="Search"
             type="text"
-            placeholder="Search Details or Order #..."
+            placeholder="Search by subreddit name or order number"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-10 py-2 transition-all duration-200 cursor-text ease-in border border-gray-500/50 rounded-full hover:border-black text-sub-color"
           />
-          <FiSearch className="absolute top-3 left-3 size-5 text-light-gray" />
+          <FiSearch className="absolute top-3 right-3 size-5 text-light-gray" />
         </div>
       </div>
 
