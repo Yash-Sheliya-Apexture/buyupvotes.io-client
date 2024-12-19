@@ -4,6 +4,7 @@ const PricingWithMenu = () => {
   // Pricing data
   const pricingPlans = [
     {
+      id: "1",
       title: "Starter",
       price: "$10+",
       rate: "$0.05/upvote",
@@ -16,6 +17,7 @@ const PricingWithMenu = () => {
       ],
     },
     {
+      id: "2",
       title: "Basic",
       price: "$100+",
       rate: "$0.03/upvote",
@@ -28,6 +30,7 @@ const PricingWithMenu = () => {
       ],
     },
     {
+      id: "3",
       title: "Standard",
       price: "$250+",
       rate: "$0.025/upvote",
@@ -41,6 +44,7 @@ const PricingWithMenu = () => {
       bestValue: true,
     },
     {
+      id: "4",
       title: "Pro",
       price: "$500+",
       rate: "$0.02/upvote",
@@ -53,6 +57,7 @@ const PricingWithMenu = () => {
       ],
     },
     {
+      id: "5",
       title: "Elite",
       price: "$750+",
       rate: "$0.015/upvote",
@@ -78,9 +83,9 @@ const PricingWithMenu = () => {
       {/* Large Screen Layout */}
       <div className="hidden lg:block">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-6 border border-[rgba(145, 158, 171, 0.2)] rounded-small">
-          {pricingPlans.map((plan, index) => (
+          {pricingPlans.map((plan) => (
             <div
-              key={index}
+              key={plan.id}
               className={`rounded-small p-6 ${
                 plan.bestValue || selectedPlan.title === plan.title
                   ? "border-main-color border-2 relative"
@@ -124,6 +129,7 @@ const PricingWithMenu = () => {
 
       {/* Tablet/Small Screen Layout */}
       <div className="block lg:hidden">
+        {/* Pricing Tab */}
         <div className="flex overflow-x-auto md:space-x-12 space-x-6 pb-6 justify-center items-center">
           {pricingPlans.map((plan, index) => (
             <button
@@ -144,14 +150,18 @@ const PricingWithMenu = () => {
 
         <div className="flex justify-center items-center">
           <div
-            className={`rounded-small p-6 bg-white border border-gray-300 md:w-[60%] w-full ${
+            className={`rounded-small p-6 bg-white border border-gray-300 md:w-[60%] w-full relative ${
               selectedPlan.title === "Standard"
                 ? "border-2 border-main-color"
                 : ""
             }`}
           >
             {selectedPlan.bestValue && (
-              <div className="flex justify-center -mt-11"><span className="border-4 border-white bg-main-color py-1 px-5 rounded-full text-white text-xs ">Best Value</span></div>
+              <div className="flex justify-center absolute -top-5 left-1/2 -translate-x-1/2">
+                <span className="border-4 border-white bg-main-color py-1 px-5 rounded-full text-white text-xs ">
+                  Best Value
+                </span>
+              </div>
             )}
             <h3 className="text-xs font-medium text-light-gray mb-3">
               {selectedPlan.title}

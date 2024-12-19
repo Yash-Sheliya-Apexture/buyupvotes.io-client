@@ -8,9 +8,7 @@ const DashboardHome = () => {
     <div className="container mx-auto">
       <HeroSecrtion />
       <DataSection />
-      <div className="">
-        <Ordertable />
-      </div>
+      <Ordertable />
     </div>
   );
 };

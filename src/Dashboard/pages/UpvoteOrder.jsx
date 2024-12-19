@@ -202,6 +202,7 @@ const UpvoteOrder = () => {
           <form onSubmit={handleSubmits} className="lg:space-y-6 space-y-4">
             {/* Service Dropdown */}
             <Dropdown
+              type="text"
               options={services}
               selectedValue={formData.service}
               onSelect={(value) => {
@@ -223,7 +224,7 @@ const UpvoteOrder = () => {
             <div>
               <InputField
                 name="link"
-                placeholder="Enter a Reddit link"
+                placeholder="Raddit link"
                 value={formData.link}
                 onChange={handleInputChange}
                 error={errors.link}

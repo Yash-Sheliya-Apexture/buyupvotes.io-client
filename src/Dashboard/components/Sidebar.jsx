@@ -3,19 +3,13 @@ import logo from "../../assets/Images/logo.png";
 import { Link } from "react-router-dom";
 import { BsBarChartFill } from "react-icons/bs";
 import { PiSpeedometerFill } from "react-icons/pi";
-import { IoMdChatboxes } from "react-icons/io";
-import { IoIosChatboxes } from "react-icons/io";
 import { HiCurrencyEuro } from "react-icons/hi";
-import { FaCartShopping } from "react-icons/fa6";
 import { MdContactPage } from "react-icons/md";
-import { IoTv } from "react-icons/io5";
+import { GoFileDirectoryFill } from "react-icons/go";
 import { MdContacts } from "react-icons/md";
 import { RiAccountBoxFill } from "react-icons/ri";
-import { GoFileDirectoryFill } from "react-icons/go";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import logo1 from "../../assets/Images/logo-mini.png";
-import Button from "../../Dashboard/components/Button";
-import { RiMenu3Fill } from "react-icons/ri";
 import { CgMenuRightAlt } from "react-icons/cg";
 
 const SideBar = () => {
@@ -31,6 +25,14 @@ const SideBar = () => {
     setSidebarVisible(!isSidebarVisible);
   };
 
+  const handleMenuItemClick = (menuId) => {
+    setActiveMenu(menuId);
+    if (window.innerWidth < 992) {
+      // Close sidebar on smaller screens when a menu item is clicked
+      setSidebarVisible(false);
+    }
+  };
+
   const menuItems = [
     {
       id: "Dashboard",
@@ -44,30 +46,12 @@ const SideBar = () => {
       label: "Order Upvotes",
       link: "/dashboard/UpvoteOrder",
     },
-    // {
-    //   id: "Orders",
-    //   icon: <IoMdChatboxes />,
-    //   label: "Order Comments",
-    //   link: "/dashboard/OrderComment",
-    // },
-    // {
-    //   id: "Order messages",
-    //   icon: <IoIosChatboxes />,
-    //   label: "Order Direct Messages",
-    //   link: "/dashboard/DirectMassage",
-    // },
     {
       id: "Add Funds",
       icon: <HiCurrencyEuro />,
       label: "Add Funds-Princing",
       link: "/dashboard/FundPrice",
     },
-    // {
-    //   id: "Raddit Accounts",
-    //   icon: <FaCartShopping />,
-    //   label: "Buy Raddit Accounts",
-    //   link: "/dashboard/RabbitAcc",
-    // },
     {
       id: "FAQs",
       icon: <MdContactPage />,
@@ -158,7 +142,7 @@ const SideBar = () => {
                     ? "bg-[#FF570014] text-main-color font-bold"
                     : "text-active hover:bg-[rgba(240,240,240,0.6)]"
                 }`}
-                onClick={() => setActiveMenu(item.id)}
+                onClick={() => handleMenuItemClick(item.id)}
               >
                 <Link
                   to={item.link}
@@ -181,9 +165,7 @@ const SideBar = () => {
           </ul>
           {isSidebarExpanded && (
             <div className="p-4">
-              <Link to="/dashboard/FundPrice">
-                <Button className="w-full">Add Funds</Button>
-              </Link>
+              <button className="mybtn w-full">Add Funds</button>
             </div>
           )}
         </div>

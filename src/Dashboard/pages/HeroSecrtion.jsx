@@ -3,6 +3,7 @@ import girl from "../../assets/Images/girl.png";
 import Slider from "./Slider";
 import { Link } from "react-router-dom";
 import axios from "axios"; // Make sure axios is imported
+import Button from "../components/Button";
 
 const HeroSection = () => {
   const [user, setUser] = useState(null);
@@ -63,11 +64,8 @@ const HeroSection = () => {
                 You have 100 upvotes remaining on your balance. Continue
                 boosting your Reddit experience by placing an order!
               </p>
-              <Link
-                to="/dashboard/UpvoteOrder"
-                className="px-10 py-1.5 bg-main-color text-white font-bold rounded-full"
-              >
-                Order Now
+              <Link to="/dashboard/UpvoteOrder">
+                <Button>Order Now</Button>
               </Link>
             </div>
           </div>

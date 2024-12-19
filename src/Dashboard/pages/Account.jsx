@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Import arrow icons
 import Breadcrumb from "../components/Breadcrumb";
 import Button from "../components/Button";
@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Account = () => {
   const [activeTab, setActiveTab] = useState("general");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPasswords, setShowPasswords] = useState({ all: false });
   const [oldPassword, setOldPassword] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -16,55 +18,48 @@ const Account = () => {
     newPassword: "",
     confirmPassword: "",
   });
+  const [indicatorWidth, setIndicatorWidth] = useState(0);
+  const [indicatorLeft, setIndicatorLeft] = useState(0);
+  const tabRefs = useRef([]); // References for each tab
   const scrollContainerRef = useRef(null); // Ref for scrollable container
+
+  useEffect(() => {
+    // Initialize the indicator for the default active tab
+    updateIndicator(0);
+  }, []);
+
+  const updateIndicator = (index) => {
+    const tab = tabRefs.current[index];
+    if (tab) {
+      setIndicatorWidth(tab.offsetWidth);
+      setIndicatorLeft(tab.offsetLeft);
+    }
+  };
+
+  const handleTabChange = (tabId, index) => {
+    setActiveTab(tabId);
+    updateIndicator(index);
+  };
 
   // Function to scroll left
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -200, behavior: "smooth" });
+      scrollContainerRef.current.scrollBy({
+        left: -150,
+        behavior: "smooth",
+      });
     }
   };
 
   // Function to scroll right
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 200, behavior: "smooth" });
+      scrollContainerRef.current.scrollBy({
+        left: 150,
+        behavior: "smooth",
+      });
     }
   };
-
-  const validatePasswords = () => {
-    let isValid = true;
-    const newErrors = {
-      oldPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    };
-
-    if (!oldPassword) {
-      newErrors.oldPassword = "Old password is required.";
-      isValid = false;
-    }
-    if (!newPassword) {
-      newErrors.newPassword = "New password is required.";
-      isValid = false;
-    } else if (newPassword.length < 6) {
-      newErrors.newPassword = "Password must be at least 6 characters.";
-      isValid = false;
-    }
-    if (!confirmPassword) {
-      newErrors.confirmPassword = "Please confirm your password.";
-      isValid = false;
-    } else if (newPassword !== confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match.";
-      isValid = false;
-    }
-
-    setErrors(newErrors);
-    return isValid;
-  };
-
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
   const initialUserData = {
     email: "rudrasutariya003@gmail.com",
@@ -132,6 +127,73 @@ const Account = () => {
     }, 1000);
   };
 
+  const tabs = [
+    {
+      id: "general",
+      label: "General",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          role="img"
+          className={`h-6 transition-colors duration-300 ${
+            activeTab === "general" ? "text-main-color" : "text-sub-color"
+          }`}
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            fillRule="evenodd"
+            d="M10 4h4c3.771 0 5.657 0 6.828 1.172S22 8.229 22 12s0 5.657-1.172 6.828S17.771 20 14 20h-4c-3.771 0-5.657 0-6.828-1.172S2 15.771 2 12s0-5.657 1.172-6.828S6.229 4 10 4m3.25 5a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75m1 3a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75m1 3a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75M11 9a2 2 0 1 1-4 0a2 2 0 0 1 4 0m-2 8c4 0 4-.895 4-2s-1.79-2-4-2s-4 .895-4 2s0 2 4 2"
+            clipRule="evenodd"
+          ></path>
+        </svg>
+      ),
+    },
+    {
+      id: "transactions",
+      label: "Transactions",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          role="img"
+          className={`h-6 transition-colors duration-300 ${
+            activeTab === "transactions" ? "text-main-color" : "text-sub-color"
+          }`}
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            fillRule="evenodd"
+            d="M7.245 2h9.51c1.159 0 1.738 0 2.206.163a3.05 3.05 0 0 1 1.881 1.936C21 4.581 21 5.177 21 6.37v14.004c0 .858-.985 1.314-1.608.744a.946.946 0 0 0-1.284 0l-.483.442a1.657 1.657 0 0 1-2.25 0a1.657 1.657 0 0 0-2.25 0a1.657 1.657 0 0 1-2.25 0a1.657 1.657 0 0 0-2.25 0a1.657 1.657 0 0 1-2.25 0l-.483-.442a.946.946 0 0 0-1.284 0c-.623.57-1.608.114-1.608-.744V6.37c0-1.193 0-1.79.158-2.27c.3-.913.995-1.629 1.881-1.937C5.507 2 6.086 2 7.245 2M7 6.75a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5zm3.5 0a.75.75 0 0 0 0 1.5H17a.75.75 0 0 0 0-1.5zM7 10.25a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5zm3.5 0a.75.75 0 0 0 0 1.5H17a.75.75 0 0 0 0-1.5zM7 13.75a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5zm3.5 0a.75.75 0 0 0 0 1.5H17a.75.75 0 0 0 0-1.5z"
+            clipRule="evenodd"
+          ></path>
+        </svg>
+      ),
+    },
+    {
+      id: "security",
+      label: "Security",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          role="img"
+          className={`h-6 transition-colors duration-300 ${
+            activeTab === "security" ? "text-main-color" : "text-sub-color"
+          }`}
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M12.65 10a6 6 0 0 0-6.88-3.88c-2.29.46-4.15 2.29-4.63 4.58A6.006 6.006 0 0 0 7 18a5.99 5.99 0 0 0 5.65-4H17v2c0 1.1.9 2 2 2s2-.9 2-2v-2c1.1 0 2-.9 2-2s-.9-2-2-2zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2s2 .9 2 2s-.9 2-2 2"
+          ></path>
+        </svg>
+      ),
+    },
+  ];
+
   return (
     <>
       <div className="mx-auto container">
@@ -146,107 +208,46 @@ const Account = () => {
         </div>
 
         {/* Account Tabs  */}
-        <div className="w-full max-w-7xl mx-auto my-5 flex items-center relative">
-          {/* Left Icon */}
+        <div className="w-full max-w-7xl my-5 flex items-center relative">
+          {/* Left Scroll Button */}
           <button onClick={scrollLeft} className="p-2 md:hidden flex-shrink-0">
-            <FaChevronLeft className="text-sub-color size-3" />
+            <FaChevronLeft className="text-sub-color h-3" />
           </button>
 
-          {/* Scrollable Tabs Container */}
+          {/* Tabs Container */}
           <div
             ref={scrollContainerRef}
-            className="flex items-center overflow-x-auto scrollbar-hide whitespace-nowrap gap-8 tabs-scrollable scroll-smooth flex-grow"
+            className="flex items-center overflow-x-auto scrollbar-hide whitespace-nowrap lg:gap-6 tabs-scrollable scroll-smooth flex-grow relative"
           >
-            {/* General Tab */}
-            <button
-              className={`flex gap-2 transition-all duration-300 ${
-                activeTab === "general"
-                  ? "text-main-color border-b-2 border-main-color"
-                  : "text-sub-color border-b-2 border-transparent"
-              }`}
-              onClick={() => setActiveTab("general")}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                role="img"
-                className={`h-6 transition-colors duration-300 ${
-                  activeTab === "general" ? "text-main-color" : "text-sub-color"
-                }`}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  fillRule="evenodd"
-                  d="M10 4h4c3.771 0 5.657 0 6.828 1.172S22 8.229 22 12s0 5.657-1.172 6.828S17.771 20 14 20h-4c-3.771 0-5.657 0-6.828-1.172S2 15.771 2 12s0-5.657 1.172-6.828S6.229 4 10 4m3.25 5a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75m1 3a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75m1 3a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75M11 9a2 2 0 1 1-4 0a2 2 0 0 1 4 0m-2 8c4 0 4-.895 4-2s-1.79-2-4-2s-4 .895-4 2s0 2 4 2"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              <span className="font-bold">General</span>
-            </button>
+            {/* Indicator */}
+            <div
+              className="absolute bottom-0 h-0.5 bg-main-color transition-all duration-300"
+              style={{
+                width: `${indicatorWidth}px`,
+                left: `${indicatorLeft}px`,
+              }}
+            ></div>
 
-            {/* Transactions Tab */}
-            <button
-              className={`flex items-center gap-2 transition-all duration-300 ${
-                activeTab === "transactions"
-                  ? "text-main-color border-b-2 border-main-color"
-                  : "text-sub-color border-b-2 border-transparent"
-              }`}
-              onClick={() => setActiveTab("transactions")}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                role="img"
-                className={`h-6 transition-colors duration-300 ${
-                  activeTab === "transactions"
-                    ? "text-main-color"
-                    : "text-sub-color"
+            {tabs.map((tab, index) => (
+              <button
+                key={tab.id}
+                ref={(el) => (tabRefs.current[index] = el)}
+                className={`flex items-center gap-2 px-4 py-2 transition-all duration-300 ${
+                  activeTab === tab.id
+                    ? "text-main-color border-b-2 border-main-color"
+                    : "text-sub-color border-b-2 border-transparent"
                 }`}
-                viewBox="0 0 24 24"
+                onClick={() => handleTabChange(tab.id, index)}
               >
-                <path
-                  fill="currentColor"
-                  fillRule="evenodd"
-                  d="M7.245 2h9.51c1.159 0 1.738 0 2.206.163a3.05 3.05 0 0 1 1.881 1.936C21 4.581 21 5.177 21 6.37v14.004c0 .858-.985 1.314-1.608.744a.946.946 0 0 0-1.284 0l-.483.442a1.657 1.657 0 0 1-2.25 0a1.657 1.657 0 0 0-2.25 0a1.657 1.657 0 0 1-2.25 0a1.657 1.657 0 0 0-2.25 0a1.657 1.657 0 0 1-2.25 0l-.483-.442a.946.946 0 0 0-1.284 0c-.623.57-1.608.114-1.608-.744V6.37c0-1.193 0-1.79.158-2.27c.3-.913.995-1.629 1.881-1.937C5.507 2 6.086 2 7.245 2M7 6.75a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5zm3.5 0a.75.75 0 0 0 0 1.5H17a.75.75 0 0 0 0-1.5zM7 10.25a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5zm3.5 0a.75.75 0 0 0 0 1.5H17a.75.75 0 0 0 0-1.5zM7 13.75a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5zm3.5 0a.75.75 0 0 0 0 1.5H17a.75.75 0 0 0 0-1.5z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              <span className="font-bold">Transactions</span>
-            </button>
-
-            {/* Security Tab */}
-            <button
-              className={`flex items-center gap-2 transition-all duration-300 ${
-                activeTab === "security"
-                  ? "text-main-color border-b-2 border-main-color"
-                  : "text-sub-color border-b-2 border-transparent"
-              }`}
-              onClick={() => setActiveTab("security")}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                role="img"
-                className={`h-6 transition-colors duration-300 ${
-                  activeTab === "security"
-                    ? "text-main-color"
-                    : "text-sub-color"
-                }`}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12.65 10a6 6 0 0 0-6.88-3.88c-2.29.46-4.15 2.29-4.63 4.58A6.006 6.006 0 0 0 7 18a5.99 5.99 0 0 0 5.65-4H17v2c0 1.1.9 2 2 2s2-.9 2-2v-2c1.1 0 2-.9 2-2s-.9-2-2-2zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2s2 .9 2 2s-.9 2-2 2"
-                ></path>
-              </svg>
-              <span className="font-bold">Security</span>
-            </button>
+                {tab.icon}
+                {tab.label}
+              </button>
+            ))}
           </div>
 
-          {/* Right Icon */}
+          {/* Right Scroll Button */}
           <button onClick={scrollRight} className="p-2 md:hidden flex-shrink-0">
-            <FaChevronRight className="text-sub-color size-3" />
+            <FaChevronRight className="text-sub-color h-3" />
           </button>
         </div>
 

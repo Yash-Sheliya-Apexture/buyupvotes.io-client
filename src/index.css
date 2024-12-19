@@ -164,6 +164,19 @@ body {
   min-height: 100vh;
 }
 
+/* Table-css */
+
+.table-main thead tr th {
+  padding: 4px 24px;
+  background-color: #f4f6f8;
+  color: #2d2624;
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: capitalize;
+  white-space: nowrap;
+  text-align: left;
+}
+
 /* logo Animation */
 
 .animated-logo {
@@ -214,7 +227,7 @@ textarea:focus {
 }
 
 /* Button Animation */
-.mybtn{
+.mybtn {
   position: relative;
   padding: 6px 30px;
   border-radius: 20px;
@@ -369,9 +382,35 @@ textarea:focus {
   /* Table Section - Horizontal Scrolling */
   .table-scrollable {
     overflow-x: auto;
-    scrollbar-width: thin;
+    scrollbar-width: none;
     -ms-overflow-style: none;
   }
+
+  .table-main thead tr th {
+    font-size: 14px;
+  }
+}
+
+.input-group {
+  position: relative;
+}
+
+.user-label {
+  position: absolute;
+  left: 15px;
+  color: #2d2624;
+  pointer-events: none;
+  transform: translateY(0.5rem);
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input:focus ~ .user-label,
+.input:valid ~ .user-label {
+  transform: translateY(-50%) scale(0.8);
+  background-color: #fff;
+  padding: 0 0.5em;
+  font-size: 20px;
+  color: #2D2624;
 }
 
 .swiper-slide {
