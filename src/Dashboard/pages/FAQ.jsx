@@ -81,7 +81,7 @@ const FAQ = () => {
   };
 
   return (
-    <div>
+    <div className="">
       {/* Header Section */}
       <div
         className="relative lg:h-[550px] h-[350px] bg-cover bg-center rounded-small"
@@ -114,10 +114,10 @@ const FAQ = () => {
       </div>
 
       {/* FAQ Section */}
-      <h1 className="text-sub-color lg:text-large text-basic font-semibold p-4">
-        Frequently asked questions
-      </h1>
-      <div className="max-w-6xl mx-auto space-y-2">
+      <div className="max-w-6xl mx-auto space-y-2 my-4">
+        <h1 className="text-sub-color lg:text-large text-basic font-semibold container mx-auto">
+          Frequently asked questions
+        </h1>
         {faqs.map((faq, index) => (
           <div key={index} className="border-b border-light-gray p-4">
             <button

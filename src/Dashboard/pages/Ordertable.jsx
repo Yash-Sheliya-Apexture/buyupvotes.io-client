@@ -5,6 +5,9 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import axios from "axios"; // Import Axios
 import { HiLink } from "react-icons/hi";
 import { useRef } from "react";
+import InputField from "../components/InputField";
+import { FaPlus } from "react-icons/fa6";
+import { FaTrashAlt } from "react-icons/fa";
 
 const Ordertable = () => {
   const [activeTab, setActiveTab] = useState("All");
@@ -18,6 +21,27 @@ const Ordertable = () => {
   const [loading, setLoading] = useState(false); // Track loading state
   const [error, setError] = useState(null); // Error state
   const scrollableRef = useRef(null);
+  const [indicatorWidth, setIndicatorWidth] = useState(0);
+  const [indicatorLeft, setIndicatorLeft] = useState(0);
+  const tabRefs = useRef([]); // Store references to each tab button.
+
+  useEffect(() => {
+    // Set the indicator position and width for the default active tab
+    updateIndicator(0);
+  }, []);
+
+  const handleTabChange = (label, index) => {
+    setActiveTab(label); // Update active tab
+    updateIndicator(index); // Update the indicator's position and width
+  };
+
+  const updateIndicator = (index) => {
+    const tab = tabRefs.current[index];
+    if (tab) {
+      setIndicatorWidth(tab.offsetWidth);
+      setIndicatorLeft(tab.offsetLeft);
+    }
+  };
 
   const scrollLeft = () => {
     if (scrollableRef.current) {
@@ -143,10 +167,6 @@ const Ordertable = () => {
     fetchData();
   }, [activeTab, startDate, endDate, debouncedQuery]);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
-
   const tabs = [
     {
       label: "All",
@@ -187,37 +207,45 @@ const Ordertable = () => {
   ];
 
   return (
-    <div className="mb-4 border border-gray-300/50 rounded-large shadow-main">
-      <h1 className="p-4 font-medium text-sub-color lg:text-basic">
+    <div className="mb-4 border rounded-small">
+      <h1 className="p-4 font-semibold text-sub-color lg:text-basic">
         Your past upvote orders:
       </h1>
 
-      {/* Tabs table*/}
-      <div className="relative flex items-center rounded-lg shadow-main bg-white">
+      {/* Tabs table */}
+      <div className="relative flex items-center border border-gray-300/50 shadow-main rounded-sm ">
         {/* Left Icon */}
         <button
           onClick={scrollLeft}
-          className="absolute left-0 z-10 p-2 rounded-full lg:hidden bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+          className="absolute left-0 z-0 p-2 rounded-full lg:hidden"
         >
-          <FaChevronLeft size={14} />
+          <FaChevronLeft className="h-3" />
         </button>
 
         {/* Tabs table */}
-        <div className="relative flex items-center justify-center lg:mx-0 mx-6 overflow-hidden">
+        <div className="relative flex justify-center items-center mx-6 lg:mx-2 overflow-hidden">
           {/* Tabs Container */}
           <div
             ref={scrollableRef}
-            className="tabs-scrollable flex items-center gap-0 overflow-hidden scroll-smooth xs:w-[calc(100%-10px)] w-full space-x-4"
+            className="tabs-scrollable relative flex items-center lg:gap-6 overflow-hidden scroll-smooth"
           >
-            {tabs.map((tab) => (
+            {/* Active Tab Indicator */}
+            <div
+              className="absolute bottom-0 h-0.5 bg-main-color transition-all duration-300"
+              style={{
+                width: `${indicatorWidth}px`,
+                left: `${indicatorLeft}px`,
+              }}
+            ></div>
+
+            {tabs.map((tab, index) => (
               <button
                 key={tab.label}
-                onClick={() => handleTabChange(tab.label)}
-                className={`relative p-3 font-bold text-sm whitespace-nowrap ${
-                  activeTab === tab.label
-                    ? "text-main-color border-b-2 border-main-color"
-                    : "text-sub-color"
-                } transition-colors duration-200`}
+                onClick={() => handleTabChange(tab.label, index)}
+                className={`relative p-3.5 font-bold text-sm whitespace-nowrap ${
+                  activeTab === tab.label ? "text-main-color" : "text-sub-color"
+                }`}
+                ref={(el) => (tabRefs.current[index] = el)}
               >
                 {tab.label}
                 <span
@@ -235,78 +263,64 @@ const Ordertable = () => {
         {/* Right Icon */}
         <button
           onClick={scrollRight}
-          className="absolute right-0 z-10 p-2 rounded-full lg:hidden bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+          className="absolute right-0 z-0 p-2 rounded-full lg:hidden"
         >
-          <FaChevronRight size={14} />
+          <FaChevronRight className="h-3" />
         </button>
       </div>
 
       {/* Filter Section */}
-      <div className="flex flex-wrap items-center gap-4 p-3 lg:py-4 w-full border border-gray-border">
+      <div className="flex flex-wrap items-center gap-3 p-2 py-3 w-full border border-gray-border">
         {/* Start Date */}
-        <div className="flex items-center gap-2 w-full lg:w-auto">
-          <input
-            type="date"
+        <div className="gap-2 w-full lg:w-auto">
+          <InputField
+            name="Date"
+            type="date" 
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="px-6 py-2 ps-2.5 w-full text-black cursor-text transition-all duration-200 ease-in border border-gray-500/50 rounded-full hover:border-black"
           />
         </div>
 
         {/* End Date */}
-        <div className="flex items-center gap-2 w-full lg:w-auto">
-          <input
+        <div className="gap-2 w-full lg:w-auto">
+          <InputField
+            name="Date"
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="px-6 py-2 ps-2.5 w-full text-black cursor-text transition-all duration-200 ease-in border border-gray-500/50 rounded-full hover:border-black"
           />
         </div>
 
         {/* Search Product */}
-        <div className="relative flex-grow w-full lg:w-auto">
-          <input
+        <div className="relative flex-grow w-full lg:w-auto ">
+          <InputField
+            name="Search"
             type="text"
-            placeholder="Search Details or Order #..."
+            placeholder="search by subreddit names..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-10 py-2 transition-all duration-200 cursor-text ease-in border border-gray-500/50 rounded-full hover:border-black text-sub-color"
           />
-          <FiSearch className="absolute top-3 left-3 size-5 text-light-gray" />
+          <FiSearch className="absolute top-3 right-3 size-5 text-sub-color" />
         </div>
       </div>
 
-      <div className="flex space-x-4">
+      <div className="flex space-x-2">
         {/* Status Check Section */}
         {activeTab !== "All" && (
-          <div className="flex items-center space-x-2 w-50 p-1.5">
-            <h1 className="text-sub-color">Status </h1>
-            <button
-              onClick={() => handleTabChange("All")} // Set active tab to "All" on click
-              className="px-2 py-1 flex bg-sub-color rounded-full text-white text-[14px] hover:bg-light-gray transition-all ease-in duration-150"
-            >
-              {activeTab}
-              {/* Close Icon */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                xmlnsXlink="http://www.w3.org/1999/xlink"
-                aria-hidden="true"
-                role="img"
-                viewBox="0 0 24 24"
-                width="1.5em"
-                height="1.5em"
-                preserveAspectRatio="xMidYMid meet"
-                className="ml-2"
+          <div className="p-2">
+            <div className="flex items-center space-x-2 p-2 border rounded-medium border-dashed">
+              <h1 className="text-sub-color font-medium">Status : </h1>
+              <button
+                onClick={() => handleTabChange("All")} // Set active tab to "All" on click
+                className="px-2 py-1 flex items-center bg-sub-color rounded-full text-white text-xs hover:bg-slate-500/50 transition-all ease-in duration-300"
               >
-                <g>
-                  <path fill="none" d="M0 0h24v24H0z" />
-                  <path
-                    fill="currentColor"
-                    d="M12 10.586L15.657 7.929l1.414 1.414L13.414 12l3.657 3.657-1.414 1.414L12 13.414l-3.657 3.657-1.414-1.414L10.586 12 7.929 8.343l1.414-1.414z"
-                  />
-                </g>
-              </svg>
-            </button>
+                {activeTab}
+                {/* Close Icon */}
+                <div className="size-5 bg-white rounded-full ml-2 flex items-center justify-center">
+                  <FaPlus className="h-3 text-gray-500 rotate-45" />
+                </div>
+              </button>
+            </div>
           </div>
         )}
         {activeTab !== "All" && (
@@ -314,25 +328,7 @@ const Ordertable = () => {
             className="flex items-center cursor-pointer"
             onClick={() => setActiveTab("All")}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              aria-hidden="true"
-              role="img"
-              viewBox="0 0 24 24"
-              className="size-6 text-light-orange"
-            >
-              <path
-                fill="currentColor"
-                d="M3 6.386c0-.484.345-.877.771-.877h2.665c.529-.016.996-.399 1.176-.965l.03-.1l.115-.391c.07-.24.131-.45.217-.637c.338-.739.964-1.252 1.687-1.383c.184-.033.378-.033.6-.033h3.478c.223 0 .417 0 .6.033c.723.131 1.35.644 1.687 1.383c.086.187.147.396.218.637l.114.391l.03.1c.18.566.74.95 1.27.965h2.57c.427 0 .772.393.772.877s-.345.877-.771.877H3.77c-.425 0-.77-.393-.77-.877"
-              ></path>
-              <path
-                fill="currentColor"
-                fillRule="evenodd"
-                d="M11.596 22h.808c2.783 0 4.174 0 5.08-.886c.904-.886.996-2.339 1.181-5.245l.267-4.188c.1-1.577.15-2.366-.303-2.865c-.454-.5-1.22-.5-2.753-.5H8.124c-1.533 0-2.3 0-2.753.5s-.404 1.288-.303 2.865l.267 4.188c.185 2.906.277 4.36 1.182 5.245c.905.886 2.296.886 5.079.886m-1.35-9.811c-.04-.434-.408-.75-.82-.707c-.413.043-.713.43-.672.864l.5 5.263c.04.434.408.75.82.707c.413-.043.713-.43.672-.864zm4.329-.707c.412.043.713.43.671.864l-.5 5.263c-.04.434-.409.75-.82.707c-.413-.043-.713-.43-.672-.864l.5-5.263c.04-.434.409-.75.82-.707"
-                clipRule="evenodd"
-              ></path>
-            </svg>
+            <FaTrashAlt className="size-5 text-light-orange" />
             <h1 className="ml-2 font-bold text-small text-light-orange">
               Clear
             </h1>
@@ -342,16 +338,15 @@ const Ordertable = () => {
 
       {/* Table Section */}
       <div className="table-scrollable">
-        <table className="w-full border-collapse table-auto">
-          <thead className="text-xs font-normal uppercase bg-gray-100 text-sub-color">
+        <table className="w-full border-collapse table-auto table-main">
+          <thead className="text-small capitalize bg-gray-light text-sub-color">
             <tr>
-              <th className="px-6 py-3 text-left whitespace-nowrap">Order #</th>
-              <th className="px-6 py-3 text-left whitespace-nowrap">Details</th>
-              <th className="px-6 py-3 text-left whitespace-nowrap">Date</th>
-              <th className="px-6 py-3 text-left whitespace-nowrap">
-                Total Votes
-              </th>
-              <th className="px-6 py-3 text-left whitespace-nowrap">Status</th>
+              <th>Order #</th>
+              <th>Details</th>
+              <th>Progress</th>
+              <th>Date</th>
+              <th>Total Votes</th>
+              <th>Status</th>
             </tr>
           </thead>
 
@@ -369,7 +364,9 @@ const Ordertable = () => {
                 <td colSpan="6" className="py-20 text-center text-gray-400">
                   <div className="flex flex-col items-center">
                     <img src={Data} alt="No Data" className="h-40" />
-                    <p className="mt-4 text-lg font-bold">No Data Available</p>
+                    <p className="mt-4 text-lg font-medium">
+                      No Data Available
+                    </p>
                   </div>
                 </td>
               </tr>
@@ -384,6 +381,22 @@ const Ordertable = () => {
                         <HiLink className="mt-1" />
                       </a>
                     </span>
+                  </td>
+                  <td>
+                    <div className="flex gap-1 items-center">
+                      <div
+                        className={`w-3 h-3 rounded-full ${
+                          item.progress === 100 ? "bg-green-500" : "bg-sky-500"
+                        }`}
+                        style={{
+                          width: `${item.progress}%`,
+                          height: "3px",
+                        }}
+                      ></div>
+                      <span className="text-small font-medium text-sub-color">
+                        {item.progress}%
+                      </span>
+                    </div>
                   </td>
                   <td className="px-4 py-4">
                     {new Intl.DateTimeFormat("en-US", {

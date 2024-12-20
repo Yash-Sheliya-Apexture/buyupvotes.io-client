@@ -18,7 +18,6 @@ const Header = () => {
     }
   }, []);
 
-
   const toggleTooltip = () => {
     setShowTooltip((prev) => !prev); // Toggle tooltip visibility
   };
@@ -73,6 +72,7 @@ const Header = () => {
               <div className="flex items-center justify-between space-x-6 md:w-auto">
                 {/* Navigation Links */}
                 <nav className="flex-grow hidden h-full space-x-10 cursor-pointer md:flex">
+                  <Link to="/dashboard">Dashboard</Link>
                   <a
                     href="#Pricing"
                     className="text-[16px] text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-200"
@@ -192,8 +192,9 @@ const Header = () => {
 
             {/* Sidebar for mobile view */}
             <div
-              className={`fixed top-0 left-0 w-64 bg-white h-full border-r border-[#b5b5b5] shadow-Sidebar transition-transform duration-300 ease-in-out ${showMenu ? "translate-x-0" : "-translate-x-full"
-                }`}
+              className={`fixed top-0 left-0 w-64 bg-white h-full border-r border-[#b5b5b5] shadow-Sidebar transition-transform duration-300 ease-in-out ${
+                showMenu ? "translate-x-0" : "-translate-x-full"
+              }`}
               style={{ zIndex: 1000 }} // Ensure this is above the blur layer
             >
               <div className="relative flex justify-end p-4">

@@ -8,7 +8,7 @@ import { AuthProvider } from "./auth/AuthContext";
 
 const App = () => {
   return (
-    <AuthProvider >
+    <AuthProvider>
       <Router>
         {/* ToastContainer added globally */}
         <ToastContainer
@@ -18,7 +18,7 @@ const App = () => {
           draggable
           pauseOnHover
           theme="light"
-          toastStyle={{ fontFamily: 'InterDisplay, sans-serif' }}
+          toastStyle={{ fontFamily: "InterDisplay, sans-serif" }}
         />
         <Routes>
           <Route path="/*" element={<WebsiteRoutes />} />{" "}
@@ -27,8 +27,8 @@ const App = () => {
           <Route
             path="/dashboard/*"
             element={
-              <ProtectedRoute element={<DashboardRoutes />} /> // Protecting dashboard
-              // <DashboardRoutes />
+              // <ProtectedRoute element={<DashboardRoutes />} /> // Protecting dashboard
+              <DashboardRoutes />
             }
           />
         </Routes>

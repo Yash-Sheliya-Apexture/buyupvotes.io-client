@@ -91,7 +91,7 @@ const CustomizePayment = () => {
     <>
       {/* Tabs Section */}
       <div className="my-2">
-        <h1 className="text-center text-para-color text-basic font-medium">
+        <h1 className="text-center text-para-color lg:text-basic text-base font-medium">
           Customize your{" "}
           <span className="text-main-color font-bold">payment</span> below :
         </h1>
@@ -99,7 +99,7 @@ const CustomizePayment = () => {
       <div className="py-5">
         <div className="flex items-center justify-center">
           <div className="max-w-lg overflow-hidden">
-            <div className="flex justify-center pb-4">
+            <div className="flex justify-center lg:pb-8 pb-4">
               {/* Credit Card Tab */}
               <button
                 className={`flex items-center font-bold lg:text-sm text-xs border-b-2 border-2 ${

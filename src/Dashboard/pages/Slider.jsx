@@ -29,7 +29,7 @@ export function Slider() {
     >
       {sliderData.map((slide) => (
         <SwiperSlide key={slide.id}>
-          <div className="bg-[#fff] text-[#2D2624] relative z-0 cursor-pointer overflow-hidden rounded-small pb-6">
+          <div className="bg-[#fff] text-[#2D2624] relative z-0 cursor-pointer overflow-hidden rounded-small">
             <div className="relative">
               <div className="w-[88px] h-[36px] text-white left-0 z-[9] -bottom-4 absolute">
                 <svg

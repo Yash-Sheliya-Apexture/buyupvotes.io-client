@@ -72,7 +72,7 @@ const Blog = () => {
             className="bg-white text-sub-color relative shadow-main z-0 cursor-pointer overflow-hidden rounded-small"
           >
             <div className="relative">
-              <div className="w-22 h-9 text-white left-0 z-10 -bottom-4 absolute">
+              <div className="w-20 h-9 text-white left-2 z-10 -bottom-4 absolute">
                 <svg
                   fill="none"
                   viewBox="0 0 144 62"
@@ -84,7 +84,7 @@ const Blog = () => {
                     fillRule="evenodd"
                   ></path>
                 </svg>
-                <div className="flex items-center justify-center shrink-0 w-10 h-10 rounded-full absolute -bottom-2.5 left-6">
+                <div className="flex items-center justify-center shrink-0 w-10 h-10 rounded-full absolute -bottom-2.5 left-5">
                   <img
                     src={blog.profileImage}
                     alt="profile"
@@ -130,4 +130,8 @@ const Blog = () => {
   );
 };
 
+
+
 export default Blog;
+
+

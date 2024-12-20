@@ -3,6 +3,7 @@ import girl from "../../assets/Images/girl.png";
 import Slider from "./Slider";
 import { Link } from "react-router-dom";
 import axios from "axios"; // Make sure axios is imported
+import Button from "../components/Button";
 
 const HeroSection = () => {
   const [user, setUser] = useState(null);
@@ -10,7 +11,7 @@ const HeroSection = () => {
   const [error, setError] = useState(null); // Error state
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   // Fetch user data
-  
+
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("authToken");
@@ -38,12 +39,12 @@ const HeroSection = () => {
   }, [API_BASE_URL]);
   return (
     <>
-      <div className="flex flex-col lg:flex-row gap-4">
+      <div className="flex flex-col lg:flex-row items-center gap-4">
         {/* HeroCard Components */}
-        <div className="flex flex-col lg:flex-row lg:w-2/3 w-full h-auto bg-light-brown rounded-small lg:py-10 lg:px-8 p-4 relative overflow-hidden">
+        <div className="flex flex-col lg:flex-row lg:w-full w-full bg-light-brown rounded-small lg:p-8 p-4 relative overflow-hidden">
           {/* Left Side - Text */}
           <div className="lg:w-1/2 w-full flex justify-center">
-            <div className="mb-20 text-center space-y-5 lg:text-start lg:max-w-[300px]">
+            <div className="mb-20 text-center space-y-5 lg:text-start max-w-[320px]">
               {loading ? (
                 <h2 className="font-bold text-dark-green text-base">
                   Loading...
@@ -51,32 +52,29 @@ const HeroSection = () => {
               ) : error ? (
                 <h2 className="font-bold text-red-500 text-large">{error}</h2>
               ) : user ? (
-                <h2 className="flex items-center mb-2 font-black leading-10  lg:text-small text-dark-green">
+                <h2 className="flex items-center mb-2 font-black leading-10 lg:text-small text-dark-green">
                   Welcome back, <br /> {user.firstName} 👋
                 </h2>
               ) : (
-                <h2 className="font-bold text-dark-green text-large">
+                <h2 className="font-bold text-dark-green lg:text-large text-[26px]">
                   Welcome back, Guest 👋
                 </h2>
               )}
-              <p className="text-[#477677] font-semibold mb-6 pb-6 max-w-[350px]">
+              <p className="text-[#477677] font-semibold pb-6 max-w-[350px]">
                 You have 100 upvotes remaining on your balance. Continue
                 boosting your Reddit experience by placing an order!
               </p>
-              <Link
-                to="/dashboard/UpvoteOrder"
-                className="px-6 py-1.5 bg-main-color text-white font-bold rounded-full"
-              >
-                Order Now
+              <Link to="/dashboard/UpvoteOrder">
+                <Button>Order Now</Button>
               </Link>
             </div>
           </div>
 
           {/* Right Side - Image */}
-          <div className="lg:w-1/2 w-full flex justify-center items-center md:flex md:relative">
+          <div className="lg:w-1/2 w-full flex justify-center items-center">
             <div className="relative w-auto flex justify-center items-center">
               <svg
-                className="object-cover h-56 md:h-64"
+                className="object-cover lg:h-64 h-52"
                 viewBox="0 0 480 360"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -302,7 +300,7 @@ const HeroSection = () => {
               <img
                 src={girl}
                 alt="Girl Image"
-                className="h-48 absolute top-0 right-4 md:relative md:top-auto md:right-20"
+                className="h-52 absolute top-0 right-2 md:relative md:top-auto md:right-1/4"
               />
             </div>
           </div>
