@@ -52,13 +52,16 @@ const Blog = () => {
           we'd love to hear from you!
         </h1>
 
-        {/* Dropdown for sorting */}
-        <div className="flex items-center py-2">
-          <span className="mr-2 text-sub-color font-medium">Sort By:</span>
+        {/* Dropdown Modify */}
+        <div className="flex items-center py-2 lg:w-1/4">
+          <span className="mr-2 text-nowrap text-sub-color font-medium">
+            Sort By:
+          </span>
           <Dropdown
             options={filterOptions}
             selectedValue={selectedFilter}
             onSelect={(value) => setSelectedFilter(value)} // Update filter state
+            className="w-64"
           />
         </div>
       </div>
@@ -130,8 +133,4 @@ const Blog = () => {
   );
 };
 
-
-
 export default Blog;
-
-

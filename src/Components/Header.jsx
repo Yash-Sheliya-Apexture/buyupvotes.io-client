@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import logo from "../assets/Images/Logo.png"; // Replace with your logo image path
 import Uparrow from "../assets/Images/logo-mini.png";
 import { Link } from "react-router-dom";
+import { FaUser } from "react-icons/fa";
 
 const Header = () => {
   const [showTooltip, setShowTooltip] = useState(false); // Tooltip state
@@ -72,7 +73,6 @@ const Header = () => {
               <div className="flex items-center justify-between space-x-6 md:w-auto">
                 {/* Navigation Links */}
                 <nav className="flex-grow hidden h-full space-x-10 cursor-pointer md:flex">
-                  <Link to="/dashboard">Dashboard</Link>
                   <a
                     href="#Pricing"
                     className="text-[16px] text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-200"
@@ -328,6 +328,16 @@ const Header = () => {
                   >
                     Contact
                   </a>
+                </div>
+                <div className="flex space-x-5 items-center">
+                  <FaUser className="size-6" />
+                  <Link
+                    to="/dashboard"
+                    href="#login"
+                    className="block text-lg text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-200"
+                  >
+                    Dashboard Create
+                  </Link>
                 </div>
               </div>
             </div>

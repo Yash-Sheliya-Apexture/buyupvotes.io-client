@@ -8,14 +8,16 @@ import { useRef } from "react";
 import InputField from "../components/InputField";
 import { FaPlus } from "react-icons/fa6";
 import { FaTrashAlt } from "react-icons/fa";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Ordertable = () => {
   const [activeTab, setActiveTab] = useState("All");
   const [tableData, setTableData] = useState([]); // state for table data
   const [searchQuery, setSearchQuery] = useState(""); // New search state
   const [debouncedQuery, setDebouncedQuery] = useState(""); // For debounce effect
-  const [startDate, setStartDate] = useState(""); // Track start date
-  const [endDate, setEndDate] = useState(""); // Track end date
+  const [startDate, setStartDate] = useState(null); // Track start date
+  const [endDate, setEndDate] = useState(null); // Track end date
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [loading, setLoading] = useState(false); // Track loading state
@@ -213,7 +215,7 @@ const Ordertable = () => {
       </h1>
 
       {/* Tabs table */}
-      <div className="relative flex items-center border border-gray-300/50 shadow-main rounded-sm ">
+      <div className="relative flex items-center border border-gray-300/50 shadow-main rounded-sm">
         {/* Left Icon */}
         <button
           onClick={scrollLeft}
@@ -231,7 +233,7 @@ const Ordertable = () => {
           >
             {/* Active Tab Indicator */}
             <div
-              className="absolute bottom-0 h-0.5 bg-main-color transition-all duration-300"
+              className="absolute bottom-0 h-0.5 bg-main-color transition-all duration-300 w-[calc(100%-40px)]"
               style={{
                 width: `${indicatorWidth}px`,
                 left: `${indicatorLeft}px`,
@@ -270,19 +272,40 @@ const Ordertable = () => {
       </div>
 
       {/* Filter Section */}
-      <div className="flex flex-wrap items-center gap-3 p-2 py-3 w-full border border-gray-border">
+      <div className="flex flex-wrap gap-4 p-3 lg:py-4 w-full border border-gray-border">
+        {/* <div className="w-full lg:w-auto">
+          <DatePicker
+            type="date"
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            dateFormat="yyyy/MM/dd"
+            placeholderText="Select start date"
+            className="w-full p-2.5 border border-gray-300 rounded-full text-gray-700 shadow-sm hover:border-black transition-all ease-in duration-150"
+          />
+        </div>
+        <div className="w-full lg:w-auto">
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            dateFormat="yyyy/MM/dd"
+            placeholderText="Select end date"
+            className="w-full p-2.5 border border-gray-300 rounded-full text-gray-700 shadow-sm hover:border-black transition-all ease-in duration-150"
+            minDate={startDate} // Prevent selecting a date earlier than startDate
+          />
+        </div> */}
+
         {/* Start Date */}
-        <div className="gap-2 w-full lg:w-auto">
+        <div className="w-full lg:w-auto">
           <InputField
             name="Date"
-            type="date" 
+            type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
         </div>
 
         {/* End Date */}
-        <div className="gap-2 w-full lg:w-auto">
+        <div className="w-full lg:w-auto">
           <InputField
             name="Date"
             type="date"
@@ -296,11 +319,11 @@ const Ordertable = () => {
           <InputField
             name="Search"
             type="text"
-            placeholder="search by subreddit names..."
+            placeholder="Search by subreddit name"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <FiSearch className="absolute top-3 right-3 size-5 text-sub-color" />
+          <FiSearch className="absolute top-3.5 right-3 size-5 text-light-gray" />
         </div>
       </div>
 
