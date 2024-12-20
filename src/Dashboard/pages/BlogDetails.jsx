@@ -114,7 +114,7 @@ const BlogDetails = () => {
 
           {/* Main Share Button */}
           <button className="bg-main-color p-3 rounded-full shadow-lg hover:bg-orange-600">
-            <FaShareAlt  className="size-6 text-white"/>
+            <FaShareAlt className="size-6 text-white" />
           </button>
         </div>
       </div>

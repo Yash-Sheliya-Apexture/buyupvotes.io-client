@@ -3,6 +3,7 @@ import logo from "../assets/Images/Logo.png"; // Replace with your logo image pa
 import Uparrow from "../assets/Images/logo-mini.png";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
+import Button from "../Dashboard/components/Button";
 
 const Header = () => {
   const [showTooltip, setShowTooltip] = useState(false); // Tooltip state
@@ -30,10 +31,10 @@ const Header = () => {
   return (
     <>
       {/* Blue background behind header */}
-      <div className="top-0 left-0 z-20 w-full h-16">
+      <div className="fixed top-0 left-0 z-20 w-full h-16">
         {/* Header */}
-        <div className="bg-white shadow-md">
-          <section className="container mx-auto">
+        <div className="bg-white shadow-main">
+          <section className="px-4">
             <header className="flex items-center justify-between py-2.5 relative">
               {/* Left Section: Logo & Small screen icons */}
               <div className="flex items-center space-x-4">
@@ -101,88 +102,27 @@ const Header = () => {
 
                 {/* Right Section */}
                 <div className="relative flex items-center space-x-4">
-                  {/* Country Icon */}
-                  <button
-                    className="relative"
-                    onClick={toggleTooltip} // Toggle tooltip on click
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      role="img"
-                      className="rounded-md hover:blur-[1px] hover:scale-110 transition-all ease-linear duration-200"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 32 24"
-                    >
-                      <g fill="none">
-                        <path fill="#F7FCFF" d="M0 0h32v24H0z"></path>
-                        <path
-                          fill="#E31D1C"
-                          d="M0 14.667v2h32v-2zm0 3.666v2h32v-2zm0-11v2h32v-2zM0 22v2h32v-2zm0-11v2h32v-2zM0 0v2h32V0zm0 3.667v2h32v-2z"
-                        ></path>
-                        <path fill="#2E42A5" d="M0 0h20v13H0z"></path>
-                      </g>
-                    </svg>
-                  </button>
-
-                  {/* Tooltip */}
-                  {showTooltip && (
-                    <div className="absolute -left-24 top-10 bg-[#dceff5] border border-gray-300 rounded-[10px] px-4 py-1.5 z-10">
-                      <div className="flex justify-between gap-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          aria-hidden="true"
-                          role="img"
-                          className="rounded-md"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 32 24"
-                        >
-                          <g fill="none">
-                            <path fill="#F7FCFF" d="M0 0h32v24H0z"></path>
-                            <path
-                              fill="#E31D1C"
-                              d="M0 14.667v2h32v-2zm0 3.666v2h32v-2zm0-11v2h32v-2zM0 22v2h32v-2zm0-11v2h32v-2zM0 0v2h32V0zm0 3.667v2h32v-2z"
-                            ></path>
-                            <path fill="#2E42A5" d="M0 0h20v13H0z"></path>
-                          </g>
-                        </svg>
-                        <p className="text-sm text-black">English</p>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Icon Day */}
-                  <button className="inline-flex items-center justify-center relative align-middle appearance-none rounded-full border border-[#919eab14] bg-transparent ">
-                    <span className="svg-color icon-set"></span>
-                  </button>
-
                   <div className="relative flex items-center space-x-4">
                     {isLoggedIn ? (
                       // If user is logged in, show Dashboard
-                      <Link
-                        to="/dashboard"
-                        className="px-4 py-1 text-[rgb(255,87,0)] border font-bold border-[rgb(255,87,0)] rounded-full hover:bg-orange-500 hover:text-white transition hidden lg:block"
-                      >
-                        Dashboard
-                      </Link>
+                      <Button>
+                        <Link to="/dashboard">Dashboard</Link>
+                      </Button>
                     ) : (
                       // If user is not logged in, show Sign-In and Sign-Up
                       <>
-                        <Link
-                          to="/signin"
-                          className="px-4 lg:px-0 py-1 text-[rgb(255,87,0)] font-bold border lg:border-transparent border-[rgb(255,87,0)] rounded-full transition"
-                        >
-                          Sign-In
-                        </Link>
+                        <button>
+                          <Link
+                            to="/signin"
+                            className="px-4 lg:px-0 py-1 text-main-color border-main-color font-medium rounded-full transition lg:block hidden"
+                          >
+                            Sign-In
+                          </Link>
+                        </button>
 
-                        <Link
-                          to="/signup"
-                          className="px-4 py-1 text-[rgb(255,87,0)] border font-bold border-[rgb(255,87,0)] rounded-full hover:bg-orange-500 hover:text-white transition hidden lg:block"
-                        >
-                          Sign-Up
-                        </Link>
+                        <Button>
+                          <Link to="/signup">Sign-Up</Link>
+                        </Button>
                       </>
                     )}
                   </div>
@@ -192,7 +132,7 @@ const Header = () => {
 
             {/* Sidebar for mobile view */}
             <div
-              className={`fixed top-0 left-0 w-64 bg-white h-full border-r border-[#b5b5b5] shadow-Sidebar transition-transform duration-300 ease-in-out ${
+              className={`fixed top-0 left-0 w-56 bg-white h-full border-r border-[#b5b5b5] shadow-main transition-transform duration-300 ease-in-out ${
                 showMenu ? "translate-x-0" : "-translate-x-full"
               }`}
               style={{ zIndex: 1000 }} // Ensure this is above the blur layer
@@ -225,12 +165,12 @@ const Header = () => {
                       d="M11.147 14.328c-.673-.672-.667-1.638-.265-2.403a.75.75 0 0 1 1.04-1.046c.34-.18.713-.276 1.085-.272a.75.75 0 0 1-.014 1.5a.88.88 0 0 0-.609.277c-.387.387-.285.775-.177.884c.11.109.497.21.884-.177c.784-.784 2.138-1.044 3.006-.177c.673.673.667 1.639.264 2.404a.75.75 0 0 1-1.04 1.045a2.2 2.2 0 0 1-1.472.232a.75.75 0 1 1 .302-1.47c.177.037.463-.021.708-.266c.388-.388.286-.775.177-.884s-.496-.21-.884.177c-.784.784-2.138 1.044-3.005.176m-1.126-4.035a2 2 0 1 0-2.828-2.828a2 2 0 0 0 2.828 2.828"
                     ></path>
                   </svg>
-                  <a
-                    href="#pricing"
+                  <Link
+                    to="/dashboard/FundPrice"
                     className="block text-lg text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-200"
                   >
                     Pricing
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="flex items-center space-x-5">
@@ -254,12 +194,12 @@ const Header = () => {
                       d="M12 7.75c-.621 0-1.125.504-1.125 1.125a.75.75 0 0 1-1.5 0a2.625 2.625 0 1 1 4.508 1.829q-.138.142-.264.267a7 7 0 0 0-.571.617c-.22.282-.298.489-.298.662V13a.75.75 0 0 1-1.5 0v-.75c0-.655.305-1.186.614-1.583c.229-.294.516-.58.75-.814q.106-.105.193-.194A1.125 1.125 0 0 0 12 7.75M12 17a1 1 0 1 0 0-2a1 1 0 0 0 0 2"
                     ></path>
                   </svg>
-                  <a
-                    href="#faq"
+                  <Link
+                    to="/dashboard/FAQ"
                     className="block text-lg text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-200"
                   >
                     FAQ
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="flex items-center space-x-5">
@@ -283,12 +223,12 @@ const Header = () => {
                       d="M7 16.75a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zm0-3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5zM22 5a3 3 0 1 1-6 0a3 3 0 0 1 6 0"
                     ></path>
                   </svg>
-                  <a
-                    href="#blog"
+                  <Link
+                    to="/dashboard/blogjson"
                     className="block text-lg text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-200"
                   >
                     Blog
-                  </a>
+                  </Link>
                 </div>
                 <div className="flex items-center space-x-5">
                   <svg
@@ -322,12 +262,13 @@ const Header = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  <a
+                  <Link
+                    to="ContactUs"
                     href="#contact"
                     className="block text-lg text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-200"
                   >
                     Contact
-                  </a>
+                  </Link>
                 </div>
                 <div className="flex space-x-5 items-center">
                   <FaUser className="size-6" />
@@ -336,7 +277,7 @@ const Header = () => {
                     href="#login"
                     className="block text-lg text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-200"
                   >
-                    Dashboard Create
+                    Dashboard
                   </Link>
                 </div>
               </div>
@@ -345,7 +286,7 @@ const Header = () => {
             {/* Background blur when menu is open */}
             {showMenu && (
               <div
-                className="fixed inset-0 bg-opacity-100 backdrop-blur-[1px]"
+                className="fixed inset-0 bg-opacity-100 bg-black/50 backdrop-blur-[1px]"
                 style={{ zIndex: 999 }} // Ensure this is below the menu but above other content
                 onClick={toggleMenu}
               ></div>

@@ -1,16 +1,15 @@
-// Updated ContactUs Component
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Breadcrumb from "../../Dashboard/components/Breadcrumb";
 import background from "../../assets/Images/hero1.jpg";
 import Button from "../components/Button";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 
 const ContactUs = () => {
   const textRef = useRef(null);
 
-  // State for form values, errors, and touched status
+  // State for form values, errors, touched status, and submission
   const [formData, setFormData] = useState({
     subject: "",
     message: "",
@@ -25,6 +24,8 @@ const ContactUs = () => {
     subject: false,
     message: false,
   });
+
+  const [loading, setLoading] = useState(false); // Loading state for form submission
 
   useEffect(() => {
     const el = textRef.current;
@@ -54,7 +55,7 @@ const ContactUs = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validation logic
@@ -65,18 +66,18 @@ const ContactUs = () => {
 
     setErrors(newErrors);
 
-    // If no errors, proceed
-    if (!newErrors.subject && !newErrors.message) {
-      toast.success("Message sent successfully!", {
-        position: "top-right",
-        autoClose: 2500, // 3 seconds
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored", // Use colored theme
-      });
+    // If errors exist, abort submission
+    if (newErrors.subject || newErrors.message) {
+      return;
+    }
+
+    // Simulate form submission
+    setLoading(true);
+    try {
+      // Simulate an API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      toast.success("Message sent successfully!");
 
       // Reset form fields
       setFormData({
@@ -89,6 +90,14 @@ const ContactUs = () => {
         subject: false,
         message: false,
       });
+    } catch (error) {
+      toast.error("Failed to send message. Please try again later.", {
+        position: "top-right",
+        autoClose: 2500,
+        theme: "colored",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -102,7 +111,6 @@ const ContactUs = () => {
         <div className="flex flex-col lg:flex-row my-5 bg-white gap-10">
           {/* Left Side */}
           <div className="relative lg:w-[45%] overflow-hidden rounded-xlarge">
-            {/* Background Image */}
             <div
               className="absolute inset-0 z-0 w-auto"
               style={{
@@ -112,11 +120,7 @@ const ContactUs = () => {
                 backgroundRepeat: "no-repeat",
               }}
             ></div>
-
-            {/* Background Overlay */}
             <div className="absolute inset-0 bg-black/70 z-0"></div>
-
-            {/* Text Content */}
             <div className="lg:absolute flex py-20 items-center justify-center h-full px-6 text-center lg:text-left lg:mt-20">
               <h1
                 ref={textRef}
@@ -130,18 +134,18 @@ const ContactUs = () => {
           </div>
 
           {/* Right Side */}
-          <div className="w-full lg:w-[55%] flex flex-col">
-            <div className="flex items-center border-b py-2">
-              <h2 className="lg:text-base font-semibold text-center text-sub-color mr-2">
+          <div className="lg:w-1/2 w-full flex flex-col items-center justify-center">
+            <div className="text-center flex items-center border-b py-4">
+              <h2 className="text-nowrap text-medium font-bold text-sub-color mr-2">
                 Chat with us:
               </h2>
               <div className="flex items-center space-x-2">
-                {/* Chat Links */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  xmlnsXlink="http://www.w3.org/1999/xlink"
                   aria-hidden="true"
                   role="img"
-                  className="size-5 text-blue-500"
+                  className="size-5 text-[#24A1DE] "
                   viewBox="0 0 496 512"
                 >
                   <path
@@ -162,7 +166,7 @@ const ContactUs = () => {
                   xmlnsXlink="http://www.w3.org/1999/xlink"
                   aria-hidden="true"
                   role="img"
-                  className="size-5 text-green-500"
+                  className="size-5 text-[#237067]"
                   viewBox="0 0 448 512"
                 >
                   <path
@@ -180,8 +184,8 @@ const ContactUs = () => {
               </div>
             </div>
 
-            <div className="w-full lg:max-w-lg max-w-3xl">
-              <h2 className="text-center text-base font-medium text-sub-color my-5">
+            <div className="w-full max-w-2xl">
+              <h2 className="text-center text-base font-bold text-sub-color my-5">
                 Or send us an email below:
               </h2>
               <form className="space-y-3" onSubmit={handleSubmit}>
@@ -190,7 +194,7 @@ const ContactUs = () => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-full"
                     id="name"
                     type="text"
-                    placeholder="Rudra Sutariya"
+                    placeholder="rudra"
                     disabled
                   />
                 </div>
@@ -206,26 +210,24 @@ const ContactUs = () => {
                 <div>
                   <input
                     className={`w-full px-4 py-2 border ${
-                      errors.subject && touched.subject
-                        ? "border-red-500"
-                        : "border-gray-300"
-                    } rounded-full hover:border-black transition-all duration-150`}
+                      errors.subject ? "border-red-500" : "border-gray-300"
+                    } rounded-full`}
                     id="subject"
                     type="text"
                     placeholder="Subject"
                     value={formData.subject}
                     onChange={handleChange}
                   />
-                  {errors.subject && touched.subject && (
-                    <p className="text-red-500 text-sm">Subject is required.</p>
+                  {errors.subject && (
+                    <p className="text-red-500 text-sm mt-1">
+                      Subject is required.
+                    </p>
                   )}
                 </div>
                 <div>
                   <textarea
                     className={`w-full border ${
-                      errors.message && touched.message
-                        ? "border-red-500"
-                        : "border-gray-300"
+                      errors.message ? "border-red-500" : "border-gray-300"
                     } hover:border-black transition-all duration-150 ease-in rounded-small resize-none`}
                     id="message"
                     rows="8"
@@ -234,14 +236,18 @@ const ContactUs = () => {
                     value={formData.message}
                     onChange={handleChange}
                   ></textarea>
-                  {errors.message && touched.message && (
-                    <p className="text-red-500 text-sm">Message is required.</p>
+                  {errors.message && (
+                    <p className="text-red-500 text-sm mt-1">
+                      Message is required.
+                    </p>
                   )}
                 </div>
 
                 {/* Submit Button */}
                 <div className="text-center">
-                  <Button type="submit">Send Message</Button>
+                  <Button type="submit" onClick={handleSubmit}>
+                    Send Message
+                  </Button>
                 </div>
               </form>
             </div>

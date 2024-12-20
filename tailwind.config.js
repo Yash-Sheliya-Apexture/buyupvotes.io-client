@@ -11,6 +11,7 @@ export default {
       },
       screens: {
         xs: { min: "320px" },
+        tablet: "769px",
       },
       boxShadow: {
         Sidebar: "0px 0px 12px 5px #00000036",
