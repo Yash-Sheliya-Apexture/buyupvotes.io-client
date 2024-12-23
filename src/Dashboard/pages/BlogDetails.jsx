@@ -14,7 +14,7 @@ const BlogDetails = () => {
 
   // Fetch blog data from JSON file
   useEffect(() => {
-    fetch("/data.json")
+    fetch(`${import.meta.env.BASE_URL}data.json`)
       .then((response) => response.json())
       .then((data) => {
         const foundBlog = data.find((b) => b.id === parseInt(id, 10));
@@ -57,14 +57,14 @@ const BlogDetails = () => {
       >
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="absolute inset-0 flex flex-col justify-between p-6 text-white">
-          <h1 className="lg:text-4xl sm:text-basic text-center font-bold leading-tight">
+          <h1 className="font-bold leading-tight text-center lg:text-4xl sm:text-basic">
             {blog.title}
           </h1>
           <div className="flex items-center space-x-4">
             <img
               src={blog.profileImage}
               alt="Author"
-              className="w-14 h-14 rounded-full object-cover"
+              className="object-cover rounded-full w-14 h-14"
             />
             <div>
               <p className="text-sm">{blog.author}</p>
@@ -75,13 +75,13 @@ const BlogDetails = () => {
 
         {/* Share Button */}
         <div
-          className="absolute bottom-6 right-6 flex items-center "
+          className="absolute flex items-center bottom-6 right-6 "
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           {/* Floating Icons */}
           <div
-            className="flex space-x-3 mr-2 relative"
+            className="relative flex mr-2 space-x-3"
             style={{
               display: showIcons ? "flex" : "none", // Hide icons initially
             }}
@@ -113,24 +113,24 @@ const BlogDetails = () => {
           </div>
 
           {/* Main Share Button */}
-          <button className="bg-main-color p-3 rounded-full shadow-lg hover:bg-orange-600">
-            <FaShareAlt  className="size-6 text-white"/>
+          <button className="p-3 rounded-full shadow-lg bg-main-color hover:bg-orange-600">
+            <FaShareAlt  className="text-white size-6"/>
           </button>
         </div>
       </div>
 
       {/* Breadcrumbs */}
-      <div className="text-small mt-4 text-center">
+      <div className="mt-4 text-center text-small">
         <a
           href="/dashboard"
-          className="hover:underline text-sub-color font-bold"
+          className="font-bold hover:underline text-sub-color"
         >
           Dashboard
         </a>
         <span className="px-3 text-gray-300">•</span>
         <Link
           to="/dashboard/BlogJson"
-          className="hover:underline text-sub-color font-bold"
+          className="font-bold hover:underline text-sub-color"
         >
           Blog
         </Link>
@@ -145,7 +145,7 @@ const BlogDetails = () => {
             return (
               <h4
                 key={index}
-                className="text-sub-color font-semibold text-base mt-6"
+                className="mt-6 text-base font-semibold text-sub-color"
               >
                 {section.text}
               </h4>
@@ -154,7 +154,7 @@ const BlogDetails = () => {
             return (
               <p
                 key={index}
-                className="text-sub-color text-small leading-6 mt-4"
+                className="mt-4 leading-6 text-sub-color text-small"
               >
                 {section.text}
               </p>
@@ -171,14 +171,14 @@ const BlogDetails = () => {
             );
           } else if (section.type === "table") {
             return (
-              <div key={index} className="overflow-x-auto mt-6">
-                <table className="min-w-full border-collapse border border-gray-300">
+              <div key={index} className="mt-6 overflow-x-auto">
+                <table className="min-w-full border border-collapse border-gray-300">
                   <thead>
                     <tr className="bg-gray-100">
                       {section.columns.map((col, idx) => (
                         <th
                           key={idx}
-                          className="border border-gray-300 px-4 py-2 text-center lg:text-small font-medium"
+                          className="px-4 py-2 font-medium text-center border border-gray-300 lg:text-small"
                         >
                           {col}
                         </th>
@@ -191,7 +191,7 @@ const BlogDetails = () => {
                         {row.map((cell, cellIndex) => (
                           <td
                             key={cellIndex}
-                            className="border border-gray-300 px-4 py-2 text-sub-color"
+                            className="px-4 py-2 border border-gray-300 text-sub-color"
                           >
                             {cell}
                           </td>
@@ -207,7 +207,7 @@ const BlogDetails = () => {
         })}
 
         {/* Blog Tags */}
-        <div className="flex space-x-2 mt-4">
+        <div className="flex mt-4 space-x-2">
           <a
             href="#"
             className="border border-sub-color text-sub-color px-6 py-0.5  rounded-full"
