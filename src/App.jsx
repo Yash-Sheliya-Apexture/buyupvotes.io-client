@@ -5,12 +5,10 @@ import DashboardRoutes from "./routes/DashboardRoutes";
 import ProtectedRoute from "./routes/ProtectedRoute"; // Import ProtectedRoute
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'; // Don't forget to import the CSS for react-toastify
-import { AuthProvider } from "./auth/AuthContext";
 
 const App = () => {
   return (
-    <Router>
-      <AuthProvider>
+      <Router>
         {/* ToastContainer added globally */}
         <ToastContainer
           autoClose={3000}
@@ -33,8 +31,7 @@ const App = () => {
             }
           />
         </Routes>
-      </AuthProvider>
-    </Router>
+      </Router>
   );
 };
 
