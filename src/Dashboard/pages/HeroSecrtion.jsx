@@ -39,20 +39,20 @@ const HeroSection = () => {
   }, [API_BASE_URL]);
   return (
     <>
-      <div className="flex flex-col lg:flex-row items-center gap-4">
+      <div className="flex flex-col items-center gap-4 lg:flex-row">
         {/* HeroCard Components */}
-        <div className="flex flex-col lg:flex-row lg:w-full w-full bg-light-brown rounded-small lg:p-8 p-4 relative overflow-hidden">
+        <div className="relative flex flex-col w-full p-4 overflow-hidden lg:flex-row lg:w-full bg-light-brown rounded-small lg:p-8">
           {/* Left Side - Text */}
-          <div className="lg:w-1/2 w-full flex justify-center">
+          <div className="flex justify-center w-full lg:w-1/2">
             <div className="mb-20 text-center space-y-5 lg:text-start max-w-[320px]">
               {loading ? (
-                <h2 className="font-bold text-dark-green text-base">
+                <h2 className="font-bold text-dark-green lg:text-large text-[26px]">
                   Loading...
                 </h2>
               ) : error ? (
-                <h2 className="font-bold text-red-500 text-large">{error}</h2>
+                <h2 className="text-4xl font-bold text-red-500 lg:text-large text-[26px]">{error}</h2>
               ) : user ? (
-                <h2 className="flex items-center mb-2 font-black leading-10 lg:text-small text-dark-green">
+                <h2 className="flex items-center mb-2 font-black leading-10 text-dark-green lg:text-large text-[26px]">
                   Welcome back, <br /> {user.firstName} 👋
                 </h2>
               ) : (
@@ -71,8 +71,8 @@ const HeroSection = () => {
           </div>
 
           {/* Right Side - Image */}
-          <div className="lg:w-1/2 w-full flex justify-center items-center">
-            <div className="relative w-auto flex justify-center items-center">
+          <div className="flex items-center justify-center w-full lg:w-1/2">
+            <div className="relative flex items-center justify-center w-auto">
               <svg
                 className="object-cover lg:h-64 h-52"
                 viewBox="0 0 480 360"
@@ -300,7 +300,7 @@ const HeroSection = () => {
               <img
                 src={girl}
                 alt="Girl Image"
-                className="h-52 absolute top-0 right-2 md:relative md:top-auto md:right-1/4"
+                className="absolute top-0 h-52 right-2 md:relative md:top-auto md:right-1/4"
               />
             </div>
           </div>
