@@ -71,7 +71,7 @@ const Blog = () => {
         {sortedBlogs.map((blog) => (
           <Link
             key={blog.id}
-            to={`/dashboard/blogjson/${blog.id}`}
+            to={`/dashboard/blog/${blog.id}`}
             className="bg-white text-sub-color relative shadow-main z-0 cursor-pointer overflow-hidden rounded-small"
           >
             <div className="relative">

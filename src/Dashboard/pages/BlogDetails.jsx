@@ -129,7 +129,7 @@ const BlogDetails = () => {
         </a>
         <span className="px-3 text-gray-300">•</span>
         <Link
-          to="/dashboard/BlogJson"
+          to="/dashboard/blog"
           className="hover:underline text-sub-color font-bold"
         >
           Blog

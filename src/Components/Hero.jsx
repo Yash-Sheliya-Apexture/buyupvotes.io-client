@@ -33,10 +33,10 @@ const HeroSection = () => {
       <section
         className="hero-section relative h-screen overflow-hidden bg-no-repeat bg-center bg-cover"
         style={{
-          background: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${overlay_3})`,
+          background:`linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${overlay_3})`,
         }}
       >
-        <div className="mt-20">
+        <div className="lg:mt-20 mt-10">
           <div className="container mx-auto">
             <div className="">
               {/* grid 1 row 2 cols */}

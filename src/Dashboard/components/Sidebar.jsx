@@ -62,7 +62,7 @@ const SideBar = () => {
       id: "Blogs Data",
       icon: <GoFileDirectoryFill />,
       label: "Blogs",
-      link: "/dashboard/BlogJson",
+      link: "/dashboard/Blog",
     },
     {
       id: "Contact",
