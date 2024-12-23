@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -7,10 +7,22 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { FaEye } from "react-icons/fa";
 import { IoMdShare } from "react-icons/io";
 
-// Import JSON data
-import sliderData from "/src/assets/data/sliderData.json";
-
 export function Slider() {
+  const [sliderData, setSliderData] = useState([]);
+
+  // Fetch slider data from the public folder
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}data.json`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch slider data");
+        }
+        return response.json();
+      })
+      .then((data) => setSliderData(data))
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
     <Swiper
       spaceBetween={30}
@@ -21,11 +33,11 @@ export function Slider() {
       }}
       pagination={{
         clickable: true,
-        dynamicBullets: true, 
+        dynamicBullets: true,
       }}
       navigation={false}
       modules={[Autoplay, Pagination]}
-      className="mySwiper rounded-small shadow-main w-full"
+      className="w-full mySwiper rounded-small shadow-main"
     >
       {sliderData.map((slide) => (
         <SwiperSlide key={slide.id}>
@@ -47,15 +59,15 @@ export function Slider() {
                   <img
                     src={slide.profileImage}
                     alt="Profile"
-                    className="w-full h-full object-cover rounded-full top-0 left-0 absolute"
+                    className="absolute top-0 left-0 object-cover w-full h-full rounded-full"
                   />
                 </div>
               </div>
               <span className="overflow-hidden relative align-bottom inline-block w-full h-40 bg-[#FDE6D9]">
                 <img
-                  src={slide.image}
+                  src={slide.logo}
                   alt="Blog"
-                  className="absolute lg:h-8 h-7 bottom-0 right-2"
+                  className="absolute bottom-0 lg:h-8 h-7 right-2"
                 />
               </span>
             </div>
