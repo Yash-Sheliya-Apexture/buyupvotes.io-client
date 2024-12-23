@@ -13,7 +13,7 @@ const Blog = () => {
 
   // Fetch blogs data
   useEffect(() => {
-    fetch("/data.json")
+    fetch(`${import.meta.env.BASE_URL}data.json`)
       .then((response) => response.json())
       .then((data) => {
         setBlogs(data);
@@ -43,10 +43,10 @@ const Blog = () => {
       </div>
 
       {/* Blog Header with Filter */}
-      <div className="flex lg:flex-row lg:items-center justify-between flex-col">
-        <h1 className="text-sub-color font-medium lg:text-base">
+      <div className="flex flex-col justify-between lg:flex-row lg:items-center">
+        <h1 className="font-medium text-sub-color lg:text-base">
           Interested in guest posting on our blog? Please{" "}
-          <span className="text-main-color font-medium underline underline-offset-1 cursor-pointer">
+          <span className="font-medium underline cursor-pointer text-main-color underline-offset-1">
             <Link to="/dashboard/ContactUs">contact us</Link>
           </span>{" "}
           we'd love to hear from you!
@@ -54,7 +54,7 @@ const Blog = () => {
 
         {/* Dropdown for sorting */}
         <div className="flex items-center py-2">
-          <span className="mr-2 text-sub-color font-medium">Sort By:</span>
+          <span className="mr-2 font-medium text-sub-color">Sort By:</span>
           <Dropdown
             options={filterOptions}
             selectedValue={selectedFilter}
@@ -64,15 +64,15 @@ const Blog = () => {
       </div>
 
       {/* Blog Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {sortedBlogs.map((blog) => (
           <Link
             key={blog.id}
             to={`/dashboard/blogjson/${blog.id}`}
-            className="bg-white text-sub-color relative shadow-main z-0 cursor-pointer overflow-hidden rounded-small"
+            className="relative z-0 overflow-hidden bg-white cursor-pointer text-sub-color shadow-main rounded-small"
           >
             <div className="relative">
-              <div className="w-20 h-9 text-white left-2 z-10 -bottom-4 absolute">
+              <div className="absolute z-10 w-20 text-white h-9 left-2 -bottom-4">
                 <svg
                   fill="none"
                   viewBox="0 0 144 62"
@@ -88,7 +88,7 @@ const Blog = () => {
                   <img
                     src={blog.profileImage}
                     alt="profile"
-                    className="w-full h-full rounded-full object-cover"
+                    className="object-cover w-full h-full rounded-full"
                   />
                 </div>
               </div>
@@ -96,30 +96,30 @@ const Blog = () => {
                 <img
                   src={blog.coverImage}
                   alt="Background"
-                  className="w-full h-full object-cover top-0 left-0 absolute"
+                  className="absolute top-0 left-0 object-cover w-full h-full"
                 />
               </span>
             </div>
 
-            <div className="pt-9 px-6">
+            <div className="px-6 pt-9">
               <div className="space-y-2 font-medium">
                 <h1 className="text-sub-color">{blog.author}</h1>
                 <p className="text-light-gray">{blog.date}</p>
-                <p className="text-sub-color text-small leading-6">
+                <p className="leading-6 text-sub-color text-small">
                   {blog.title}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center justify-end p-8">
-              <div className="flex items-center text-light-gray space-x-4">
+              <div className="flex items-center space-x-4 text-light-gray">
                 <span className="flex items-center space-x-1">
                   <FaEye className="size-4" />
-                  <span className="text-light-gray text-xs">{blog.views}</span>
+                  <span className="text-xs text-light-gray">{blog.views}</span>
                 </span>
                 <span className="flex items-center space-x-1">
                   <IoMdShare className="size-4" />
-                  <span className="text-light-gray text-xs">{blog.shares}</span>
+                  <span className="text-xs text-light-gray">{blog.shares}</span>
                 </span>
               </div>
             </div>
