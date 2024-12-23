@@ -20,7 +20,6 @@ Thumbs.db
 
 # Build and production files
 build/
-dist/
 tmp/
 temp/
 public/ # If you generate static files in the client folder
