@@ -2,7 +2,8 @@
   {
     "id": 1,
     "author": "Ethan Young",
-    "logo": "assets/blog-image.png",
+    "logo": "assets/blog_image.png",
+    "myImage": "assets/blogImage.png",
     "profileImage": "assets/men.jpg",
     "date": "14 Aug 2024",
     "title": "Decoding Reddit’s Algorithms: Best Practices for Marketers",
@@ -12,7 +13,8 @@
   {
     "id": 2,
     "author": "Abigail Moore",
-    "logo": "assets/blog-image.png",
+    "logo": "assets/blog_image.png",
+    "myImage": "assets/blogImage.png",
     "profileImage": "assets/Yellowgirl.jpg",
     "date": "27 Jul 2024",
     "title": "The Best Times to Post on Reddit for Optimal Exposure",
@@ -22,7 +24,8 @@
   {
     "id": 3,
     "author": "Abigail Moore",
-    "logo": "assets/blog-image.png",
+    "logo": "assets/blog_image.png",
+    "myImage": "assets/blogImage.png",
     "profileImage": "assets/Yellowgirl.jpg",
     "date": "01 Jul 2024",
     "title": "Beginner Mistakes to Avoid in New Data Reddit Marketing",
