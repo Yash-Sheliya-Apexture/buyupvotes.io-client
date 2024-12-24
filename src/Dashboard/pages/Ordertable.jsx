@@ -572,6 +572,7 @@ const Ordertable = () => {
         });
   
         let filteredData = response.data;
+        console.log("Table data",response.data);
   
         // Filter data based on the active tab
         if (activeTab !== "All") {
