@@ -1,4 +1,5 @@
 {
+  "proxy": "https://buyupvotes-io-server.onrender.com",
   "name": "my-project",
   "private": true,
   "version": "0.0.0",
