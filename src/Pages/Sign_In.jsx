@@ -6,28 +6,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios"; // Import axios
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-
-// Token Management Utilities
-const TokenService = {
-  setToken: (accessToken, refreshToken) => {
-    localStorage.setItem("authToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
-  },
-  getToken: () => localStorage.getItem("authToken"),
-  getRefreshToken: () => localStorage.getItem("refreshToken"),
-  clearToken: () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("refreshToken");
-  },
-  isTokenExpired: (token) => {
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      return payload.exp * 1000 < Date.now();
-    } catch (e) {
-      return true; // If token is invalid or parsing fails, treat it as expired
-    }
-  },
-};
+import TokenService from "../utils/TokenService"; // Ensure you have a TokenService for managing tokens
 
 // Login Component
 const Sign_In = () => {
@@ -62,32 +41,69 @@ const Sign_In = () => {
 
   // Form submission handler
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
+    e.preventDefault(); // Prevent default form submission behavior
+  
+    // Perform client-side validation
     if (!validate()) return;
-
-    setLoading(true);
+  
+    setLoading(true); // Set loading state to true
+  
     try {
+      // Send login request to the server
       const response = await axios.post(`${API_BASE_URL}/auth/login`, {
         email,
         password,
       });
-
+  
+      // Destructure accessToken and refreshToken from the response
       const { accessToken, refreshToken } = response.data;
-
-      // Handle successful login
+  
       if (response.status === 200) {
+        // Store the tokens securely using TokenService
         TokenService.setToken(accessToken, refreshToken);
-        navigate("/dashboard"); // Redirect to dashboard
+  
+        // Redirect the user to the dashboard after a successful login
+        navigate("/dashboard");
       }
     } catch (error) {
-      setErrors({
-        ...errors,
-        general: "Login failed. Please check your credentials.",
-      });
-      console.error("Login error", error);
+      // Handle potential errors during the login request
+      if (error.response) {
+        // Server responded with a status code outside the 2xx range
+        const statusCode = error.response.status;
+  
+        if (statusCode === 401) {
+          setErrors({
+            ...errors,
+            general: "Invalid credentials. Please try again.",
+          });
+        } else if (statusCode === 500) {
+          setErrors({
+            ...errors,
+            general: "Server error. Please try again later.",
+          });
+        } else {
+          setErrors({
+            ...errors,
+            general: "An unexpected error occurred. Please try again.",
+          });
+        }
+      } else if (error.request) {
+        // No response received from the server
+        setErrors({
+          ...errors,
+          general: "Network error. Please check your connection.",
+        });
+      } else {
+        // Error occurred while setting up the request
+        setErrors({
+          ...errors,
+          general: "Unexpected error. Please try again.",
+        });
+      }
+  
+      console.error("Login error:", error);
     } finally {
-      setLoading(false);
+      setLoading(false); // Reset loading state
     }
   };
 
@@ -128,7 +144,7 @@ const Sign_In = () => {
             </Link>
           </div>
           <div>
-            <a href="#" className="text-sub-color font-medium hover:underline">
+            <a href="#" className="font-medium text-sub-color hover:underline">
               Need help?
             </a>
           </div>
@@ -137,16 +153,16 @@ const Sign_In = () => {
         {/* Content Section */}
         <div className="flex items-center justify-center p-4">
           <div className="lg:w-[30%] h-auto bg-white rounded-small lg:p-6 p-4 pb-10">
-            <h1 className="lg:text-basic text-base font-bold text-center mb-4 text-sub-color">
+            <h1 className="mb-4 text-base font-bold text-center lg:text-basic text-sub-color">
               Welcome to BuyUpvotes!
             </h1>
             <p className="mb-4 text-sm text-center">
               New user?{" "}
-              <Link to="/signup" className="text-main-color font-bold underline">
+              <Link to="/signup" className="font-bold underline text-main-color">
                 Create an account
               </Link>
             </p>
-            <button className="flex items-center justify-start w-full border border-gray-300 hover:border-sub-color hover:bg-gray-300/50 rounded-full px-4 py-2 lg:text-small text-sm font-medium text-sub-color mb-4 transition-all ease-in duration-200">
+            <button className="flex items-center justify-start w-full px-4 py-2 mb-4 text-sm font-medium transition-all duration-200 ease-in border border-gray-300 rounded-full hover:border-sub-color hover:bg-gray-300/50 lg:text-small text-sub-color">
               <img src={google} alt="Google Logo" className="w-6 h-6 mr-16" />
               Sign in with Google
             </button>
@@ -191,7 +207,7 @@ const Sign_In = () => {
               </div>
 
               <div className="flex items-center justify-end mb-6">
-                <a href="#" className="text-sm text-sub-color underline">
+                <a href="#" className="text-sm underline text-sub-color">
                   Forgot password?
                 </a>
               </div>
@@ -204,7 +220,7 @@ const Sign_In = () => {
                 {loading ? "Signing In..." : "Sign In"}
               </button>
             </form>
-            <p className="text-xxs text-center font-normal text-sub-color mt-6">
+            <p className="mt-6 font-normal text-center text-xxs text-sub-color">
               By signing up, I agree to{" "}
               <a href="#" className="underline underline-offset-1 decoration-sub-color">
                 Terms and Service

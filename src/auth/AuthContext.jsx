@@ -55,10 +55,10 @@
 
 
 
-// auth/AuthContext.js
 import React, { createContext, useState, useEffect, useCallback } from "react";
 import axiosInstance from "../utils/axiosInstance"; // Assuming you have axiosInstance set up
 import { useNavigate } from "react-router-dom";
+import TokenService from "../utils/TokenService"; // Utility to manage tokens
 
 // Create the AuthContext
 export const AuthContext = createContext();
@@ -73,31 +73,37 @@ export const AuthProvider = ({ children }) => {
   // Use environment variable for API base URL
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+  // Function to log out the user
+  const logoutUser = useCallback(() => {
+    TokenService.clearToken(); // Clear token from storage
+    setUser(null); // Clear user state
+    navigate("/signin"); // Redirect to login page
+  }, [navigate]);
+
   // Function to fetch user data
   const fetchUserData = useCallback(async () => {
     try {
-      setLoading(true); // Start loading
-      setError(null); // Clear previous errors
+      setLoading(true);
+      setError(null);
+  
       const response = await axiosInstance.get(`${API_BASE_URL}/auth/user`);
-      setUser(response.data); // Update user state with API response
+      setUser(response.data); // Update user data
     } catch (err) {
       console.error("Error fetching user data:", err);
-
-      // Handle errors gracefully
-      const statusCode = err.response?.status;
-      const message = err.response?.data?.message || "Failed to fetch user data";
-
-      setError(message);
-      setUser(null); // Clear user data on failure
-      
-      // Handle specific error codes (e.g., 401 Unauthorized)
-      if (statusCode === 401) {
-        navigate("/login"); // Redirect to login page
+  
+      if (err.response?.status === 401) {
+        // Clear user data if unauthorized
+        TokenService.clearToken();
+        setUser(null);
+        navigate("/signin"); // Redirect to login
+      } else {
+        setError(err.response?.data?.message || "Failed to fetch user data");
       }
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   }, [API_BASE_URL, navigate]);
+  
 
   // Refresh user data manually (can be exposed for other components to use)
   const refreshUserData = useCallback(() => {
@@ -116,6 +122,7 @@ export const AuthProvider = ({ children }) => {
         loading,         // Expose loading state
         error,           // Expose error state
         refreshUserData, // Expose function to refresh user data
+        logoutUser,      // Expose logout function
       }}
     >
       {children}
