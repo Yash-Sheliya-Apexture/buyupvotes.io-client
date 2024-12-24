@@ -581,29 +581,56 @@ const Account = () => {
     fetchUserData();
   }, []);
 
-  const handleSavePassword = () => {
-    // Check if any field is empty
+  const handleSavePassword = async () => {
+    // Validate inputs
     if (!oldPassword || !newPassword || !confirmPassword) {
       toast.error("All fields are required. Please fill them out.");
       return;
     }
 
-    // Check if passwords match
     if (newPassword !== confirmPassword) {
       toast.error("Passwords do not match. Please try again.");
       return;
     }
 
-    // Proceed with saving
-    setIsSaving(true);
-    setTimeout(() => {
-      setIsSaving(false);
-      setOldPassword(""); // Clear the old password field
-      setNewPassword(""); // Clear the new password field
-      setConfirmPassword(""); // Clear the confirm password field
+    try {
+      const token = localStorage.getItem("authToken"); // Retrieve token from localStorage
+
+      // Make sure token exists
+      if (!token) {
+        toast.error("You are not logged in. Please log in to reset your password.");
+        return;
+      }
+
+      // Send the request with the token in the Authorization header
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/reset-password`, {
+        oldPassword,
+        newPassword,
+        confirmPassword
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`  // Attach token to Authorization header
+        }
+      });
+
+      // Handle response on success
       toast.success("Password updated successfully!");
-    }, 1000);
+      setOldPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+    } catch (error) {
+      if (error.response) {
+        // Handle errors from the server
+        toast.error(error.response.data.message || "An error occurred");
+      } else {
+        // Handle other errors (e.g., network)
+        toast.error("Network error. Please try again.");
+      }
+    }
   };
+
+
+
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -616,7 +643,7 @@ const Account = () => {
 
   const handleSaveChanges = async () => {
     setIsSaving(true);
-  
+
     // Check if first name and last name are the same
     if (userData.firstName.trim() === userData.lastName.trim()) {
       // Remove last name if first name and last name are the same
@@ -625,17 +652,17 @@ const Account = () => {
         lastName: "",
       }));
     }
-  
+
     try {
       // Retrieve the token from localStorage (assuming the token is saved after login)
       const token = localStorage.getItem("authToken");
-  
+
       if (!token) {
         toast.error("Authorization token is missing. Please log in again.");
         setIsSaving(false);
         return;
       }
-  
+
       // Make the API call to update the user data
       await axios.put(
         `${API_BASE_URL}/auth/user`,
@@ -650,17 +677,17 @@ const Account = () => {
           },
         }
       );
-  
+
       toast.success("Changes saved successfully!");
     } catch (error) {
       console.error("Error saving changes:", error);
       toast.error("Failed to save changes.");
     }
-  
+
     setIsSaving(false);
     setIsEditing(false);
   };
-  
+
 
   const tabs = [
     {
