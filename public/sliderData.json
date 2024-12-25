@@ -2,7 +2,7 @@
   {
     "id": 1,
     "author": "Ethan Young",
-    "logo": "assets/blog_image.png",
+    "logo": "assets/blogImage.png",
     "myImage": "assets/blogImage.png",
     "profileImage": "assets/men.jpg",
     "date": "14 Aug 2024",
@@ -13,7 +13,7 @@
   {
     "id": 2,
     "author": "Abigail Moore",
-    "logo": "assets/blog_image.png",
+    "logo": "assets/blogImage.png",
     "myImage": "assets/blogImage.png",
     "profileImage": "assets/Yellowgirl.jpg",
     "date": "27 Jul 2024",
@@ -24,7 +24,7 @@
   {
     "id": 3,
     "author": "Abigail Moore",
-    "logo": "assets/blog_image.png",
+    "logo": "assets/blogImage.png",
     "myImage": "assets/blogImage.png",
     "profileImage": "assets/Yellowgirl.jpg",
     "date": "01 Jul 2024",

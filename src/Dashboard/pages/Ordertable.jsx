@@ -553,83 +553,91 @@ const Ordertable = () => {
   };
 
   useEffect(() => {
+    if (searchQuery.trim() === "") return; // Avoid triggering debounce if query is empty
     const timer = setTimeout(() => {
       setDebouncedQuery(searchQuery);
-    }, 500); // Adjust delay as needed
+    }, 500);
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  // Fetch data from API
+
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); // Start loading
-      setError(null); // Clear previous errors
-  
+      setLoading(true);
+      setError(null);
       try {
         const token = localStorage.getItem("authToken");
-        const response = await axios.get(`${API_BASE_URL}/auth/orders`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-  
-        let filteredData = response.data;
-        console.log("Table data",response.data);
-  
-        // Filter data based on the active tab
-        if (activeTab !== "All") {
-          filteredData = filteredData.filter((item) => item.status === activeTab);
+        if (!token) {
+          setError("Token missing or invalid.");
+          return;
         }
-  
-        // Filter data based on the search query (only `orderId` and `service`)
-        if (debouncedQuery) {
-          filteredData = filteredData.filter(
-            (item) =>
+
+        const response = await axios.get(
+          `${API_BASE_URL}/auth/orders?timestamp=${new Date().getTime()}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        if (!Array.isArray(response.data)) {
+          setError("Invalid data format.");
+          return;
+        }
+
+        // Initialize originalData
+        const originalData = response.data;
+
+        // Filtering logic
+        let filteredData = [...originalData];
+
+        // Apply filters based on active tab, debouncedQuery, and dates
+        filteredData = filteredData.filter((item) => {
+          if (
+            debouncedQuery &&
+            !(
               item.orderId.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
               item.service.toLowerCase().includes(debouncedQuery.toLowerCase())
-          );
-        }
-  
-        // Filter by date range
-        if (startDate) {
-          filteredData = filteredData.filter(
-            (item) => new Date(item.date) >= new Date(startDate)
-          );
-        }
-        if (endDate) {
-          filteredData = filteredData.filter(
-            (item) => new Date(item.date) <= new Date(endDate)
-          );
-        }
-  
-        // Sort data by date in descending order (latest first)
+            )
+          )
+            return false;
+          if (startDate && new Date(item.date) < new Date(startDate)) return false;
+          if (endDate && new Date(item.date) > new Date(endDate)) return false;
+
+          if (activeTab !== "All" && item.status !== activeTab) return false;
+
+          return true;
+        });
+
+        // Sort the filtered data
         filteredData.sort((a, b) => new Date(b.date) - new Date(a.date));
-  
-        // Update table data
         setTableData(filteredData);
-  
-        // Update tab counts
-        setTabCounts((prevCounts) => ({
-          ...prevCounts,
-          All: response.data.length,
-          Pending: response.data.filter((item) => item.status === "Pending")
+
+        // Calculate tab counts based on originalData
+        const tabCounts = {
+          All: originalData.length,
+          Pending: originalData.filter((item) => item.status === "Pending")
             .length,
-          "In Progress": response.data.filter(
+          "In Progress": originalData.filter(
             (item) => item.status === "In Progress"
           ).length,
-          Completed: response.data.filter((item) => item.status === "Completed")
+          Completed: originalData.filter((item) => item.status === "Completed")
             .length,
-          Canceled: response.data.filter((item) => item.status === "Canceled")
+          Canceled: originalData.filter((item) => item.status === "Canceled")
             .length,
-        }));
-      } catch (error) {
+        };
+        setTabCounts(tabCounts);
+      } catch (err) {
+        console.error("Error fetching data:", err);
         setError("There was an issue fetching the data. Please try again later.");
       } finally {
-        setLoading(false); // Stop loading
+        setLoading(false);
       }
     };
-  
+
     fetchData();
   }, [activeTab, startDate, endDate, debouncedQuery]);
-  
+
+
   function formattedDate(date) {
     const parsedDate = new Date(date);
     if (isNaN(parsedDate.getTime())) {
@@ -637,7 +645,7 @@ const Ordertable = () => {
     }
     return parsedDate.toLocaleDateString();  // Return the formatted date string
   }
-  
+
   const tabs = [
     {
       label: "All",
@@ -855,7 +863,7 @@ const Ordertable = () => {
                     {item.started}
                   </td>
                   <td className="px-4 py-4">
-                  {formattedDate(item.date)}
+                    {formattedDate(item.date)}
                   </td>
 
                   <td className="px-4 py-4">{item.quantity}</td>
