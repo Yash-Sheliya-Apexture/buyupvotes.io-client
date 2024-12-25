@@ -12,7 +12,7 @@ export function Slider() {
 
   // Fetch slider data from the public folder
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data.json`)
+    fetch(`${import.meta.env.BASE_URL}sliderData.json`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch slider data");

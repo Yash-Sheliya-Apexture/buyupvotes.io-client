@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../assets/Images/logo.png";
 import google from "../assets/Images/google_logo.png";
 import Uparrow from "../assets/Images/logo-mini.png";
@@ -7,6 +7,7 @@ import axios from "axios"; // Import axios
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import TokenService from "../utils/TokenService"; // Ensure you have a TokenService for managing tokens
+import { toast } from "react-toastify"; // Import toast from react-toastify
 
 // Login Component
 const Sign_In = () => {
@@ -35,73 +36,65 @@ const Sign_In = () => {
       validationErrors.password = "Password is required.";
     }
 
-    setErrors(validationErrors);
-    return Object.keys(validationErrors).length === 0;
+    return validationErrors;
   };
 
   // Form submission handler
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-  
-    // Perform client-side validation
-    if (!validate()) return;
-  
+
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      Object.values(validationErrors).forEach((error) => toast.error(error));
+      return;
+    }
+
     setLoading(true); // Set loading state to true
-  
+
     try {
       // Send login request to the server
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, {
-        email,
-        password,
-      });
-  
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password });
+
       // Destructure accessToken and refreshToken from the response
       const { accessToken, refreshToken } = response.data;
-  
-      if (response.status === 200) {
-        // Store the tokens securely using TokenService
-        TokenService.setToken(accessToken, refreshToken);
-  
-        // Redirect the user to the dashboard after a successful login
-        navigate("/dashboard");
-      }
+
+      // Store the tokens securely using TokenService
+      TokenService.setToken(accessToken, refreshToken);
+
+      // Redirect the user to the dashboard after a successful login
+      toast.success("Login successful!"); // Show success notification
+      navigate("/dashboard");
+
     } catch (error) {
-      // Handle potential errors during the login request
       if (error.response) {
-        // Server responded with a status code outside the 2xx range
         const statusCode = error.response.status;
-  
+        const message = error.response.data.message || "An error occurred";
+
+        // Log the error to the console for debugging purposes
+        console.error("Login error:", error.response.data);
+
+        // Handle different error responses
         if (statusCode === 401) {
-          setErrors({
-            ...errors,
-            general: "Invalid credentials. Please try again.",
-          });
+          // Differentiate between invalid email and invalid password
+          if (message === "Invalid email.") {
+            toast.error("Email not found. Please check your email.");
+          } else if (message === "Invalid password.") {
+            toast.error("Incorrect password. Please try again.");
+          } else {
+            toast.error("Invalid email or password.");
+          }
+        } else if (statusCode === 400) {
+          toast.error(message); // Display specific validation errors from the backend
         } else if (statusCode === 500) {
-          setErrors({
-            ...errors,
-            general: "Server error. Please try again later.",
-          });
+          toast.error("Server error. Please try again later.");
         } else {
-          setErrors({
-            ...errors,
-            general: "An unexpected error occurred. Please try again.",
-          });
+          toast.error("An unexpected error occurred. Please try again.");
         }
       } else if (error.request) {
-        // No response received from the server
-        setErrors({
-          ...errors,
-          general: "Network error. Please check your connection.",
-        });
+        toast.error("Network error. Please check your connection.");
       } else {
-        // Error occurred while setting up the request
-        setErrors({
-          ...errors,
-          general: "Unexpected error. Please try again.",
-        });
+        toast.error("Unexpected error. Please try again.");
       }
-  
-      console.error("Login error:", error);
     } finally {
       setLoading(false); // Reset loading state
     }
@@ -112,14 +105,15 @@ const Sign_In = () => {
     const token = TokenService.getToken();
     if (token && TokenService.isTokenExpired(token)) {
       TokenService.clearToken();
-      alert("Session expired. Please log in again.");
+      toast.info("Session expired. Please log in again."); // Notify about token expiration
       navigate("/login");
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     checkAndLogoutOnExpiration();
   }, []);
+
 
   return (
     <>
@@ -173,9 +167,8 @@ const Sign_In = () => {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={`mt-1 block w-full px-3.5 py-3 border ${
-                    errors.email ? "border-red-500" : "border-gray-300"
-                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                  className={`mt-1 block w-full px-3.5 py-3 border ${errors.email ? "border-red-500" : "border-gray-300"
+                    } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Email address"
                 />
                 {errors.email && (
@@ -189,9 +182,8 @@ const Sign_In = () => {
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={`mt-1 block w-full px-3.5 py-3 border ${
-                    errors.password ? "border-red-500" : "border-gray-300"
-                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                  className={`mt-1 block w-full px-3.5 py-3 border ${errors.password ? "border-red-500" : "border-gray-300"
+                    } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Password"
                 />
                 <button
