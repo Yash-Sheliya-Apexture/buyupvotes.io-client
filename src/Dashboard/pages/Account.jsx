@@ -534,9 +534,9 @@ const Account = () => {
   };
 
   const initialUserData = {
-    email: "rudrasutariya003@gmail.com",
-    firstName: "Rudra",
-    lastName: "Sutariya",
+    email: "Enter Your Email",
+    firstName: "Enter Your First Name",
+    lastName: "Enter Your Last Name",
   };
 
   const [userData, setUserData] = useState(initialUserData);
