@@ -59,7 +59,7 @@ const Dropdown = ({
       </div>
 
       {/* Error Message */}
-      {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
+      {error && <p className="text-sm text-[#FF0000] mt-1">{error}</p>}
 
       {/* Dropdown Menu */}
       <div

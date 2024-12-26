@@ -51,7 +51,7 @@ const InputField = ({
         onChange={onChange}
         onFocus={() => setIsFocused(true)}
         disabled={!isEditing || disabled}
-        className={`w-full border rounded-full p-2.5 shadow-main focus:outline-none ${
+        className={`w-full border rounded-full p-2.5 ${
           error ? "border-red-500" : "border-gray-300"
         } placeholder-transparent hover:border-black transition-all ease-in duration-150 ${
           !isEditing || disabled ? "bg-gray-200 opacity-50" : ""
@@ -61,7 +61,7 @@ const InputField = ({
       />
 
       {/* Error Message */}
-      {error && <p className="text-sm text-red-500 mt-2">{error}</p>}
+      {error && <p className="text-sm text-[#FF0000] mt-2">{error}</p>}
     </div>
   );
 };

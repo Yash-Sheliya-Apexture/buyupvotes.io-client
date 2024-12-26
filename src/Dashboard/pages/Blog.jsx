@@ -36,7 +36,7 @@ const Blog = () => {
   });
 
   return (
-    <div className="container mx-auto">
+    <div className="lg:container mx-auto">
       {/* Blog Logo */}
       <div className="flex justify-center mb-8">
         <img src={logo} alt="Blog_logo" className="h-10" />
@@ -61,7 +61,7 @@ const Blog = () => {
             options={filterOptions}
             selectedValue={selectedFilter}
             onSelect={(value) => setSelectedFilter(value)} // Update filter state
-            className="w-64"
+            className="w-52"
           />
         </div>
       </div>
@@ -71,7 +71,7 @@ const Blog = () => {
         {sortedBlogs.map((blog) => (
           <Link
             key={blog.id}
-            to={`/dashboard/blog/${blog.id}`}
+            to={`/dashboard/Blog/${blog.id}`}
             className="bg-white text-sub-color relative shadow-main z-0 cursor-pointer overflow-hidden rounded-small"
           >
             <div className="relative">

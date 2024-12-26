@@ -282,7 +282,7 @@ const Account = () => {
                     }`}
                   />
                   {isEditing && userData.firstName.trim() === "" && (
-                    <p className="text-red-500 font-medium text-sm mt-1">
+                    <p className="text-[#FF0000] font-medium text-sm mt-1">
                       First name is required.
                     </p>
                   )}
@@ -301,7 +301,7 @@ const Account = () => {
                     }`}
                   />
                   {isEditing && userData.lastName.trim() === "" && (
-                    <p className="text-red-500 font-medium text-sm mt-1">
+                    <p className="text-[#FF0000] font-medium text-sm mt-1">
                       Last name is required.
                     </p>
                   )}
@@ -376,7 +376,7 @@ const Account = () => {
                   </span>
                 </div>
                 {errors.oldPassword && (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className="text-[#FF0000] text-sm mt-1">
                     {errors.oldPassword}
                   </p>
                 )}
@@ -405,7 +405,7 @@ const Account = () => {
                   </span>
                 </div>
                 {errors.newPassword && (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className="text-[#FF0000] text-sm mt-1">
                     {errors.newPassword}
                   </p>
                 )}
@@ -435,7 +435,7 @@ const Account = () => {
                   </span>
                 </div>
                 {errors.confirmPassword && (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className="text-[#FF0000] text-sm mt-1">
                     {errors.confirmPassword}
                   </p>
                 )}

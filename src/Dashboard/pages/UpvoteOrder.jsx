@@ -239,10 +239,8 @@ const UpvoteOrder = () => {
                 placeholder="Quantity"
                 value={formData.quantity}
                 onChange={handleInputChange}
+                error={errors.quantity}
               />
-              {errors.quantity && (
-                <p className="text-sm text-red-500">{errors.quantity}</p>
-              )}
             </div>
 
             {/* Speed Dropdown */}

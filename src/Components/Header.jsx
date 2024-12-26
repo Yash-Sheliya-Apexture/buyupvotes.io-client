@@ -4,7 +4,7 @@ import Uparrow from "../assets/Images/logo-mini.png";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import Button from "../Dashboard/components/Button";
-import { NearMeDisabled } from "@mui/icons-material"
+import { NearMeDisabled } from "@mui/icons-material";
 
 const Header = () => {
   const [showTooltip, setShowTooltip] = useState(false); // Tooltip state
@@ -21,8 +21,6 @@ const Header = () => {
     }
   }, []);
 
-  
-
   const toggleTooltip = () => {
     setShowTooltip((prev) => !prev); // Toggle tooltip visibility
   };
@@ -34,17 +32,17 @@ const Header = () => {
   return (
     <>
       {/* Blue background behind header */}
-      <div className="sticky top-0 left-0 z-20 bg-white w-full bg-opacity-90 shadow-main">
+      <header className="sticky top-0 left-0 z-20 bg-white w-full bg-opacity-95 shadow-main">
         {/* Header */}
-        <section className="px-4">
-          <header className="flex items-center justify-between py-2.5 relative">
+        <section className="container mx-auto">
+          <div className="flex items-center justify-between py-2.5 relative">
             {/* Left Section: Logo & Small screen icons */}
             <div className="flex items-center space-x-4">
               {/* Mobile Menu Button */}
               <button className="block md:hidden" onClick={toggleMenu}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-[rgb(255,87,0)]"
+                  className="h-6 w-6 text-main-color"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -76,25 +74,28 @@ const Header = () => {
             <div className="flex items-center justify-between space-x-6 md:w-auto">
               {/* Navigation Links */}
               <nav className="flex-grow hidden h-full space-x-10 cursor-pointer md:flex">
-                <Link to="/dashboard/FundPrice"
-                  className="text-[16px] text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-150"
+                <Link
+                  to="/dashboard/FundPrice"
+                  className="text-small text-sub-color hover:opacity-50 transition-all ease-linear duration-150"
                 >
                   Pricing
                 </Link>
-                <Link to="/dashboard/FaQ"
+                <Link
+                  to="/dashboard/FAQ"
                   href="#FaQ"
-                  className="text-[16px] text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-150"
+                  className="text-small text-sub-color hover:opacity-50 transition-all ease-linear duration-150"
                 >
                   FAQ
                 </Link>
-                <Link to="/dashboard/blog"
-                  href="#blog"
-                  className="text-[16px] text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-150"
+                <Link
+                  to="/dashboard/Blog"
+                  className="text-small text-sub-color hover:opacity-50 transition-all ease-linear duration-150"
                 >
                   Blog
                 </Link>
-                <Link to="/dashboard/ContactUs"
-                  className="text-[16px] text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-150"
+                <Link
+                  to="/dashboard/ContactUs"
+                  className="text-small text-sub-color hover:opacity-50 transition-all ease-linear duration-150"
                 >
                   Contact
                 </Link>
@@ -128,11 +129,11 @@ const Header = () => {
                 </div>
               </div>
             </div>
-          </header>
+          </div>
 
           {/* Sidebar for mobile view */}
           <div
-            className={`fixed top-0 left-0 w-56 bg-white h-full border-r border-[#b5b5b5] shadow-main transition-transform duration-300 ease-in-out ${
+            className={`fixed top-0 left-0 w-56 bg-white h-full border-r border-gray-300/50 shadow-main transition-transform duration-300 ease-in-out ${
               showMenu ? "translate-x-0" : "-translate-x-full"
             }`}
             style={{ zIndex: 1000 }} // Ensure this is above the blur layer
@@ -167,7 +168,7 @@ const Header = () => {
                 </svg>
                 <Link
                   to="/dashboard/FundPrice"
-                  className="block text-lg text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-200"
+                  className="block text-lg text-sub-color hover:opacity-50 transition-all ease-linear duration-200"
                 >
                   Pricing
                 </Link>
@@ -196,7 +197,7 @@ const Header = () => {
                 </svg>
                 <Link
                   to="/dashboard/FAQ"
-                  className="block text-lg text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-200"
+                  className="block text-lg text-sub-color hover:opacity-50 transition-all ease-linear duration-200"
                 >
                   FAQ
                 </Link>
@@ -224,8 +225,8 @@ const Header = () => {
                   ></path>
                 </svg>
                 <Link
-                  to="/dashboard/blog"
-                  className="block text-lg text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-200"
+                  to="/dashboard/Blog"
+                  className="block text-lg text-sub-color hover:opacity-50 transition-all ease-linear duration-200"
                 >
                   Blog
                 </Link>
@@ -265,7 +266,7 @@ const Header = () => {
                 <Link
                   to="ContactUs"
                   href="#contact"
-                  className="block text-lg text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-200"
+                  className="block text-lg text-sub-color hover:opacity-50 transition-all ease-linear duration-200"
                 >
                   Contact
                 </Link>
@@ -275,7 +276,7 @@ const Header = () => {
                 <Link
                   to="/dashboard"
                   href="#login"
-                  className="block text-lg text-[#2D2624] hover:opacity-50 transition-all ease-linear duration-200"
+                  className="block text-lg text-sub-color hover:opacity-50 transition-all ease-linear duration-200"
                 >
                   Dashboard
                 </Link>
@@ -286,13 +287,13 @@ const Header = () => {
           {/* Background blur when menu is open */}
           {showMenu && (
             <div
-              className="fixed inset-0 bg-opacity-100 bg-black/50 backdrop-blur-[2px]"
+              className="fixed inset-0 bg-opacity-100 bg-black/50 backdrop-blur-[1.5px]"
               style={{ zIndex: 999 }} // Ensure this is below the menu but above other content
               onClick={toggleMenu}
             ></div>
           )}
         </section>
-      </div>
+      </header>
     </>
   );
 };

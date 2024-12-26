@@ -82,7 +82,7 @@ const CustomizePayment = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "colored",
+      theme: "light",
     });
     closeModal(); // Close the modal
   };
@@ -99,35 +99,50 @@ const CustomizePayment = () => {
       <div className="py-5">
         <div className="flex items-center justify-center">
           <div className="max-w-lg overflow-hidden">
-            <div className="flex justify-center lg:pb-8 pb-4">
+            {/* CardTabs */}
+            <div className="flex justify-center lg:pb-8 pb-4 relative z-0">
               {/* Credit Card Tab */}
               <button
-                className={`flex items-center font-bold lg:text-sm text-xs border-b-2 border-2 ${
+                className={`relative flex items-center font-bold lg:text-sm text-xs border-b-2 border-2 transition-all ${
                   selectedTab === "creditCard"
-                    ? "border-main-color text-main-color"
-                    : "text-gray-600 hover:text-main-color"
+                    ? "text-main-color border-main-color"
+                    : "text-gray-600"
                 } rounded-t-small lg:px-10 px-3.5 py-2`}
                 onClick={() => setSelectedTab("creditCard")}
               >
                 <span className="mr-2">
-                  <CiCreditCard1 className="size-8" />
+                  <CiCreditCard1 className="lg:size-8 size-6" />
                 </span>
                 CreditCard
+                {/* Active Border */}
+                <span
+                  className={`absolute bottom-0 left-0 w-full h-[1.5px] bg-main-color transition-transform duration-500 ${
+                    selectedTab === "creditCard" ? "scale-x-100" : "scale-x-0"
+                  }`}
+                  style={{ transformOrigin: "center" }}
+                ></span>
               </button>
 
               {/* Crypto Tab */}
               <button
-                className={`flex items-center font-bold lg:text-sm text-xs border-b-2 border-2 ${
+                className={`relative flex items-center font-bold lg:text-sm text-xs transition-all border-b-2 border-2 ${
                   selectedTab === "crypto"
-                    ? "border-main-color text-main-color"
-                    : "text-gray-600 hover:text-main-color"
+                    ? "text-main-color border-main-color"
+                    : "text-gray-600"
                 } rounded-t-small lg:px-10 px-3.5 py-2`}
                 onClick={() => setSelectedTab("crypto")}
               >
                 <span className="mr-2">
-                  <MdCurrencyBitcoin className="size-8" />
+                  <MdCurrencyBitcoin className="lg:size-8 size-6" />
                 </span>
                 Cryptocurrency
+                {/* Active Border */}
+                <span
+                  className={`absolute bottom-0 left-0 w-full h-[1.5px] bg-main-color transition-transform duration-500 ${
+                    selectedTab === "crypto" ? "scale-x-100" : "scale-x-0"
+                  }`}
+                  style={{ transformOrigin: "center" }}
+                ></span>
               </button>
             </div>
 
@@ -150,8 +165,8 @@ const CustomizePayment = () => {
                 <div className="flex items-center justify-center mt-2 text-center">
                   <p className="text-[#403633] lg:text-base max-w-[400px]">
                     Enter your{" "}
-                    <span className="font-medium leading-10 text-main-color">
-                      deposit amount
+                    <span className="font-bold leading-10 text-main-color">
+                      Deposit amount
                     </span>{" "}
                     using Credit Card, and it will convert into tokens.
                   </p>
@@ -163,18 +178,18 @@ const CustomizePayment = () => {
                       value={creditCardDeposit}
                       onChange={(e) => setCreditCardDeposit(e.target.value)}
                       placeholder="Deposit amount"
-                      className="lg:px-4 lg:py-2 p-1 w-1/2 border-t border-b border-l border-black rounded-l-full focus:outline-none"
+                      className="px-4 py-2 w-40 border-t border-b border-l border-black rounded-l-full focus:outline-none"
                     />
                     <button
                       onClick={handleCreditCardCalculate}
-                      className="lg:px-4 lg:py-2 p-1 font-bold transition-all bg-transparent border-2 rounded-r-full border-main-color text-main-color"
+                      className="px-4 py-2 font-bold transition-all bg-transparent border-2 rounded-r-full border-main-color text-main-color"
                     >
                       Calculate
                     </button>
                   </div>
                 </div>
                 {creditCardError && (
-                  <p className="mt-4 text-sm text-center text-red-500 font-semibold">
+                  <p className="mt-4 text-sm text-center text-[#FF0000] font-medium">
                     {creditCardError}
                   </p>
                 )}
@@ -197,10 +212,10 @@ const CustomizePayment = () => {
                 <div className="flex items-center justify-center mt-2 text-center">
                   <p className="text-[#403633] lg:text-base max-w-[400px]">
                     Enter your{" "}
-                    <span className="font-medium leading-10 text-main-color">
-                      deposit amount
+                    <span className="font-bold leading-10 text-main-color">
+                      Deposit amount
                     </span>{" "}
-                    using Cryptocurrency, and it will convert into coins.
+                    Cryptocurrency, using and it will convert into coins.
                   </p>
                 </div>
                 <div className="flex items-center justify-center mt-8">
@@ -210,18 +225,18 @@ const CustomizePayment = () => {
                       value={cryptoDeposit}
                       onChange={(e) => setCryptoDeposit(e.target.value)}
                       placeholder="Deposit amount"
-                      className="lg:px-4 lg:py-2 p-1 w-1/2 border-t border-b border-l border-black rounded-l-full focus:outline-none"
+                      className="px-4 py-2 w-40 border-t border-b border-l border-black rounded-l-full focus:outline-none"
                     />
                     <button
                       onClick={handleCryptoCalculate}
-                      className="lg:px-4 lg:py-2 p-1 font-bold transition-all bg-transparent border-2 rounded-r-full border-main-color text-main-color"
+                      className="px-4 py-2 font-bold transition-all bg-transparent border-2 rounded-r-full border-main-color text-main-color"
                     >
                       Calculate
                     </button>
                   </div>
                 </div>
                 {cryptoError && (
-                  <p className="mt-4 text-sm text-center text-red-500 font-semibold">
+                  <p className="mt-4 text-sm text-center text-[#FF0000] font-semibold">
                     {cryptoError}
                   </p>
                 )}

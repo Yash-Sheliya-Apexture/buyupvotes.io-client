@@ -41,7 +41,7 @@ const HeroSection = () => {
     <>
       <div className="flex flex-col lg:flex-row items-center gap-4">
         {/* HeroCard Components */}
-        <div className="flex flex-col lg:flex-row lg:w-full w-full bg-light-brown rounded-small lg:p-8 p-4 relative overflow-hidden">
+        <div className="flex flex-col lg:flex-row lg:w-full w-full bg-light-brown rounded-small lg:p-6 p-4 relative overflow-hidden">
           {/* Left Side - Text */}
           <div className="lg:w-1/2 w-full flex justify-center">
             <div className="mb-20 text-center space-y-5 lg:text-start max-w-[320px]">
@@ -50,7 +50,7 @@ const HeroSection = () => {
                   Loading...
                 </h2>
               ) : error ? (
-                <h2 className="font-bold text-red-500 text-large">{error}</h2>
+                <h2 className="font-bold text-[#FF0000] text-large">{error}</h2>
               ) : user ? (
                 <h2 className="flex items-center mb-2 font-black leading-10 lg:text-small text-dark-green">
                   Welcome back, <br /> {user.firstName} 👋

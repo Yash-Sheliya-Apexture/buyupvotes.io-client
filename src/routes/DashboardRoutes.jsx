@@ -26,7 +26,7 @@ const DashboardRoutes = () => {
         <Route path="OrderComment" element={<OrderComment />} />
         <Route path="DirectMassage" element={<DirectMassage />} />
         <Route path="FundPrice" element={<FundPricing />} />
-        <Route path="ContactUs" element={<ContactUs />} />
+        <Route path="contactUs" element={<ContactUs />} />
         <Route path="RabbitAcc" element={<RabbitAccount />} />
         <Route path="FAQ" element={<FaQ />} />
 

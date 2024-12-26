@@ -74,7 +74,7 @@ const DirectMassage = () => {
             onChange={(e) => setMessageContent(e.target.value)}
           ></textarea>
           {errors.messageContent && (
-            <p className="text-red-500 text-sm">{errors.messageContent}</p>
+            <p className="text-[#FF0000] text-sm">{errors.messageContent}</p>
           )}
 
           {/* Input for Username */}
@@ -90,7 +90,7 @@ const DirectMassage = () => {
             onChange={(e) => setUsername(e.target.value)}
           />
           {errors.username && (
-            <p className="text-red-500 text-sm">{errors.username}</p>
+            <p className="text-[#FF0000] text-sm">{errors.username}</p>
           )}
 
           {/* Submit Button */}

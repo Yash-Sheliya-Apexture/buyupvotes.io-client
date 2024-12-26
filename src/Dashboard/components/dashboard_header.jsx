@@ -58,7 +58,7 @@ const Dashboard_header = () => {
   return (
     <>
       {/* Header Section Start  */}
-      <header className="sticky top-0 z-10 w-full backdrop-blur-sm bg-white/90">
+      <header className="sticky top-0 z-10 w-full backdrop-blur-[2px] bg-white/50">
         <div className="flex items-center justify-end p-2 space-x-2 lg:space-x-4">
           <div className="relative" ref={dropdownRef}>
             <button
@@ -114,7 +114,7 @@ const Dashboard_header = () => {
                   <ul className="space-y-2">
                     <li>
                       <Link
-                        to="/dashboard"
+                        to="/"
                         className="lg:px-4 px-2 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150 block"
                       >
                         Home

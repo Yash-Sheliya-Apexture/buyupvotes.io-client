@@ -98,7 +98,7 @@ const Currency = () => {
   };
 
   return (
-    <div className="container mx-auto">
+    <section className="container mx-auto">
       {!isLoggedIn ? (
         <div className="tujghvcbxfvdsf">
           <div className="flex items-center justify-center my-4">
@@ -196,7 +196,7 @@ const Currency = () => {
                     </div>
                   </div>
                   {creditCardError && (
-                    <p className="mt-4 text-sm text-center text-red-500 font-semibold">
+                    <p className="mt-4 text-sm text-center text-[#FF0000] font-semibold">
                       {creditCardError}
                     </p>
                   )}
@@ -243,7 +243,7 @@ const Currency = () => {
                     </div>
                   </div>
                   {cryptoError && (
-                    <p className="mt-4 text-sm text-center text-red-500 font-semibold">
+                    <p className="mt-4 text-sm text-center text-[#FF0000] font-semibold">
                       {cryptoError}
                     </p>
                   )}
@@ -286,7 +286,7 @@ const Currency = () => {
           )}
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

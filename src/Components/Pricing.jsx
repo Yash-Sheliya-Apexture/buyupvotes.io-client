@@ -75,14 +75,14 @@ const PricingWithMenu = () => {
   const [selectedPlan, setSelectedPlan] = useState(pricingPlans[2]);
 
   return (
-    <section className="container mx-auto lg:pt-10" id="Pricing">
+    <section className="lg:container mx-auto lg:pt-10 px-4">
       <p className="lg:text-basic text-medium text-sub-color pb-8 text-center font-medium">
         Choose the perfect tier for your needs
       </p>
 
       {/* Large Screen Layout */}
       <div className="hidden lg:block">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-6 border border-[rgba(145, 158, 171, 0.2)] rounded-small">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-6 border border-gray-300/50 rounded-small">
           {pricingPlans.map((plan) => (
             <div
               key={plan.id}
@@ -130,7 +130,7 @@ const PricingWithMenu = () => {
       {/* Tablet/Small Screen Layout */}
       <div className="block lg:hidden">
         {/* Pricing Tab */}
-        <div className="flex overflow-x-auto md:space-x-12 space-x-6 pb-6 justify-center items-center">
+        <div className="flex overflow-x-auto md:space-x-12 space-x-4 pb-6 justify-center items-center">
           {pricingPlans.map((plan, index) => (
             <button
               key={index}

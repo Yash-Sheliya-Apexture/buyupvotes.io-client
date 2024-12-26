@@ -103,7 +103,7 @@ const ContactUs = () => {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="lg:container mx-auto">
         <h1 className="mb-2 font-bold text-sub-color text-basic">Contact Us</h1>
         <div className="flex items-center space-x-4">
           <Breadcrumb items={breadcrumbs} />
@@ -219,7 +219,7 @@ const ContactUs = () => {
                     onChange={handleChange}
                   />
                   {errors.subject && (
-                    <p className="text-red-500 text-sm mt-1">
+                    <p className="text-[#FF0000] text-sm mt-1">
                       Subject is required.
                     </p>
                   )}
@@ -237,7 +237,7 @@ const ContactUs = () => {
                     onChange={handleChange}
                   ></textarea>
                   {errors.message && (
-                    <p className="text-red-500 text-sm mt-1">
+                    <p className="text-[#FF0000] text-sm mt-1">
                       Message is required.
                     </p>
                   )}

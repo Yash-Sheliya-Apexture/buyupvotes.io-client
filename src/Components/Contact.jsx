@@ -19,7 +19,7 @@ const Contact = () => {
 
   return (
     <>
-      <div className="pt-10">
+      <section className="py-5 lg:container mx-auto px-4 mix-blend-overlay">
         <h1 className="text-center text-[24px] font-bold text-[#2D2624]">
           Have any questions?
         </h1>
@@ -28,17 +28,15 @@ const Contact = () => {
         </p>
         <div className="flex justify-center">
           <Button>
-            <Link to="/dashboard/contactUs">Contact us</Link>
+            <Link to="/dashboard/ContactUs">Contact us</Link>
           </Button>
         </div>
-      </div>
 
-      {/* Contact Form */}
-      <section className="mx-auto lg:container xs:p-4" id="FaQ">
-        <div className="bg-[#FF4C00] my-10 rounded-[30px] pb-6">
+        {/* Contact Form */}
+        <div className="bg-[#FF4C00] my-10 rounded-large pb-6">
           <div className="flex flex-wrap items-center lg:flex-nowrap">
             {/* Left Side: Image */}
-            <div className="w-full lg:w-[40%] flex justify-center lg:justify-start">
+            <div className="w-full lg:w-1/3 flex justify-center lg:justify-start">
               <img
                 src={Rocket}
                 alt="Rocket"
@@ -47,7 +45,7 @@ const Contact = () => {
             </div>
 
             {/* Right Side: Content */}
-            <div className="w-full lg:w-[60%] text-center lg:text-left mt-10 lg:mt-0">
+            <div className="w-full lg:w-2/3 text-center lg:text-left mt-10 lg:mt-0">
               <h1 className="text-white text-[24px] md:text-[32px] lg:text-[50px] font-black leading-tight">
                 Buy upvotes today & <br /> get instant delivery!
               </h1>
@@ -61,12 +59,12 @@ const Contact = () => {
                   </Link>
                 </div>
               ) : (
-                <div className="flex flex-col items-center mt-8 space-y-4 lg:flex-row lg:items-start md:space-y-0 md:space-x-4">
+                <div className="flex flex-col items-center mt-8 space-y-4 lg:flex-row lg:items-start md:space-y-0 md:space-x-4 ">
                   {/* Sign In Button */}
 
                   <Link
                     to="/signin"
-                    className="bg-white text-[#FF5700] font-bold px-20 py-1.5 rounded-full transition-all hover:bg-[#454F5B] hover:text-white"
+                    className="bg-white text-[#FF5700] font-medium px-20 py-1.5 rounded-full hover:bg-[#9c7564] hover:text-white transition-all duration-200 ease-in"
                   >
                     Sign in
                   </Link>
@@ -74,7 +72,7 @@ const Contact = () => {
                   {/* Sign Up Button */}
                   <Link
                     to="/signup"
-                    className="text-white font-bold lg:px-20 px-16 py-1.5 rounded-full border-2 border-transparent flex items-center transition-all hover:border-white"
+                    className="text-white font-medium lg:px-20 px-16 py-1.5 rounded-full border-2 border-transparent flex items-center hover:border-white transition-all duration-200 ease-in"
                   >
                     Sign up
                     <FaUpRightFromSquare className="ml-1" />
@@ -90,4 +88,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
