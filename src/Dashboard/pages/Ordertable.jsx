@@ -1112,16 +1112,16 @@ const Ordertable = () => {
           return;
         }
 
-        // const response = await axios.get(
-        //   `${API_BASE_URL}/auth/orders?timestamp=${new Date().getTime()}`,
-        //   {
-        //     headers: { Authorization: `Bearer ${token}` },
-        //   }
-        // );
+        const response = await axios.get(
+          `${API_BASE_URL}/auth/orders?timestamp=${new Date().getTime()}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
-        const response = await axios.get(`${API_BASE_URL}/auth/orders`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        // const response = await axios.get(`${API_BASE_URL}/auth/orders`, {
+        //   headers: { Authorization: `Bearer ${token}` },
+        // });
 
         if (!Array.isArray(response.data)) {
           setError("Invalid data format.");
@@ -1167,6 +1167,8 @@ const Ordertable = () => {
           Completed: originalData.filter((item) => item.status === "Completed")
             .length,
           Canceled: originalData.filter((item) => item.status === "Canceled")
+            .length,
+          Partial: originalData.filter((item) => item.status === "Partial")
             .length,
         };
         setTabCounts(tabCounts);
