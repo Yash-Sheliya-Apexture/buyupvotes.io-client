@@ -26,8 +26,8 @@ const App = () => {
           <Route
             path="/dashboard/*"
             element={
-              // <ProtectedRoute element={<DashboardRoutes />} /> // Protecting dashboard
-              <DashboardRoutes />
+              <ProtectedRoute element={<DashboardRoutes />} /> // Protecting dashboard
+              // <DashboardRoutes />
             }
           />
         </Routes>
