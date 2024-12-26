@@ -4,11 +4,10 @@ import WebsiteRoutes from "./routes/WebsiteRoutes";
 import DashboardRoutes from "./routes/DashboardRoutes";
 import ProtectedRoute from "./routes/ProtectedRoute"; // Import ProtectedRoute
 import { ToastContainer } from "react-toastify";
-import { AuthProvider } from "./auth/AuthContext";
+import 'react-toastify/dist/ReactToastify.css'; // Don't forget to import the CSS for react-toastify
 
 const App = () => {
   return (
-    <AuthProvider>
       <Router>
         {/* ToastContainer added globally */}
         <ToastContainer
@@ -33,7 +32,6 @@ const App = () => {
           />
         </Routes>
       </Router>
-    </AuthProvider>
   );
 };
 

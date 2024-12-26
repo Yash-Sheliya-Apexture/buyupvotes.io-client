@@ -15,31 +15,34 @@ import BlogDetails from "../Dashboard/pages/BlogDetails";
 import Error404 from "../Dashboard/pages/Error404";
 import Account from "../Dashboard/pages/Account";
 import DashboardLayout from "../Dashboard/layout/DashboardLayout"; // Import DashboardLayout
+import { AuthProvider } from "../auth/AuthContext";
 
 const DashboardRoutes = () => {
   return (
-    <Routes>
-      {/* Wrap all dashboard routes inside DashboardLayout */}
-      <Route path="/" element={<DashboardLayout />}>
-        <Route index element={<DashboardHome />} />
-        <Route path="UpvoteOrder" element={<UpvoteOrder />} />
-        <Route path="OrderComment" element={<OrderComment />} />
-        <Route path="DirectMassage" element={<DirectMassage />} />
-        <Route path="FundPrice" element={<FundPricing />} />
-        <Route path="contactUs" element={<ContactUs />} />
-        <Route path="RabbitAcc" element={<RabbitAccount />} />
-        <Route path="FAQ" element={<FaQ />} />
+    <AuthProvider>
+      <Routes>
+        {/* Wrap all dashboard routes inside DashboardLayout */}
+        <Route path="/" element={<DashboardLayout />}>
+          <Route index element={<DashboardHome />} />
+          <Route path="UpvoteOrder" element={<UpvoteOrder />} />
+          <Route path="OrderComment" element={<OrderComment />} />
+          <Route path="DirectMassage" element={<DirectMassage />} />
+          <Route path="FundPrice" element={<FundPricing />} />
+          <Route path="ContactUs" element={<ContactUs />} />
+          <Route path="RabbitAcc" element={<RabbitAccount />} />
+          <Route path="FAQ" element={<FaQ />} />
 
-        {/* Nested Routes for Blog */}
-        <Route path="Blog">
-          <Route index element={<Blog />} />
-          <Route path=":id" element={<BlogDetails />} />
+          {/* Nested Routes for Blog */}
+          <Route path="Blog">
+            <Route index element={<Blog />} />
+            <Route path=":id" element={<BlogDetails />} />
+          </Route>
+
+          <Route path="Account" element={<Account />} />
+          <Route path="*" element={<Error404 />} />
         </Route>
-
-        <Route path="Account" element={<Account />} />
-        <Route path="*" element={<Error404 />} />
-      </Route>
-    </Routes>
+      </Routes>
+    </AuthProvider>
   );
 };
 

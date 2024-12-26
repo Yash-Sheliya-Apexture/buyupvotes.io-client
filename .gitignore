@@ -20,7 +20,6 @@ Thumbs.db
 
 # Build and production files
 build/
-dist/
 tmp/
 temp/
 public/ # If you generate static files in the client folder
@@ -57,11 +56,9 @@ coverage/
 *.min.js
 *.gz
 
-# Ignore all unnecessary generated or build folders
-public/
-
 # Ignore other cache or temp files
 .cache/
 .pnp/
 .pnp.js
 .parcel-cache/
+.vercel

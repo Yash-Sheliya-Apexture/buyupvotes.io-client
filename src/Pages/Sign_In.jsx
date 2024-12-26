@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../assets/Images/logo.png";
 import Uparrow from "../assets/Images/logo-mini.png";
 import google from "../assets/Images/google_logo.png";
@@ -6,28 +6,8 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios"; // Import axios
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-
-// Token Management Utilities
-const TokenService = {
-  setToken: (accessToken, refreshToken) => {
-    localStorage.setItem("authToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
-  },
-  getToken: () => localStorage.getItem("authToken"),
-  getRefreshToken: () => localStorage.getItem("refreshToken"),
-  clearToken: () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("refreshToken");
-  },
-  isTokenExpired: (token) => {
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      return payload.exp * 1000 < Date.now();
-    } catch (e) {
-      return true; // If token is invalid or parsing fails, treat it as expired
-    }
-  },
-};
+import TokenService from "../utils/TokenService"; // Ensure you have a TokenService for managing tokens
+import { toast } from "react-toastify"; // Import toast from react-toastify
 
 // Login Component
 const Sign_In = () => {
@@ -56,38 +36,67 @@ const Sign_In = () => {
       validationErrors.password = "Password is required.";
     }
 
-    setErrors(validationErrors);
-    return Object.keys(validationErrors).length === 0;
+    return validationErrors;
   };
 
   // Form submission handler
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
 
-    if (!validate()) return;
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      Object.values(validationErrors).forEach((error) => toast.error(error));
+      return;
+    }
 
-    setLoading(true);
+    setLoading(true); // Set loading state to true
+
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, {
-        email,
-        password,
-      });
+      // Send login request to the server
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password });
 
+      // Destructure accessToken and refreshToken from the response
       const { accessToken, refreshToken } = response.data;
 
-      // Handle successful login
-      if (response.status === 200) {
-        TokenService.setToken(accessToken, refreshToken);
-        navigate("/dashboard"); // Redirect to dashboard
-      }
+      // Store the tokens securely using TokenService
+      TokenService.setToken(accessToken, refreshToken);
+
+      // Redirect the user to the dashboard after a successful login
+      toast.success("Login successful!"); // Show success notification
+      navigate("/dashboard");
+
     } catch (error) {
-      setErrors({
-        ...errors,
-        general: "Login failed. Please check your credentials.",
-      });
-      console.error("Login error", error);
+      if (error.response) {
+        const statusCode = error.response.status;
+        const message = error.response.data.message || "An error occurred";
+
+        // Log the error to the console for debugging purposes
+        console.error("Login error:", error.response.data);
+
+        // Handle different error responses
+        if (statusCode === 401) {
+          // Differentiate between invalid email and invalid password
+          if (message === "Invalid email.") {
+            toast.error("Email not found. Please check your email.");
+          } else if (message === "Invalid password.") {
+            toast.error("Incorrect password. Please try again.");
+          } else {
+            toast.error("Invalid email or password.");
+          }
+        } else if (statusCode === 400) {
+          toast.error(message); // Display specific validation errors from the backend
+        } else if (statusCode === 500) {
+          toast.error("Server error. Please try again later.");
+        } else {
+          toast.error("An unexpected error occurred. Please try again.");
+        }
+      } else if (error.request) {
+        toast.error("Network error. Please check your connection.");
+      } else {
+        toast.error("Unexpected error. Please try again.");
+      }
     } finally {
-      setLoading(false);
+      setLoading(false); // Reset loading state
     }
   };
 
@@ -96,14 +105,15 @@ const Sign_In = () => {
     const token = TokenService.getToken();
     if (token && TokenService.isTokenExpired(token)) {
       TokenService.clearToken();
-      alert("Session expired. Please log in again.");
+      toast.info("Session expired. Please log in again."); // Notify about token expiration
       navigate("/login");
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     checkAndLogoutOnExpiration();
   }, []);
+
 
   return (
     <>

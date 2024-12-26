@@ -197,10 +197,10 @@ const UpvoteOrder = () => {
         </div>
       </div>
 
-      <div className="flex lg:flex-row flex-col w-full gap-4 mt-6 lg:gap-y-6">
+      <div className="flex flex-col w-full gap-4 mt-6 lg:flex-row lg:gap-y-6">
         {/* Left Section */}
-        <div className="w-full lg:w-1/2 shadow-main rounded-large lg:p-6 p-4">
-          <form onSubmit={handleSubmits} className="lg:space-y-6 space-y-4">
+        <div className="w-full p-4 lg:w-1/2 shadow-main rounded-large lg:p-6">
+          <form onSubmit={handleSubmits} className="space-y-4 lg:space-y-6">
             {/* Service Dropdown */}
             <Dropdown
               type="text"
@@ -302,7 +302,7 @@ const UpvoteOrder = () => {
               <hr className="w-[80%]" />
             </div>
             <ul className="space-y-1 list-disc list-inside">
-              <li className="text-sub-color font-bold text-xs">
+              <li className="text-xs font-bold text-sub-color">
                 Mobile links are now accepted
               </li>
               <li className="text-[#2d2624] font-medium text-xs">
@@ -312,14 +312,14 @@ const UpvoteOrder = () => {
             <div className="flex items-center justify-center">
               <hr className="w-[80%]" />
             </div>
-            <p className="text-sm text-sub-color font-medium leading-6">
+            <p className="text-sm font-medium leading-6 text-sub-color">
               Our upvotes/downvotes are the same as organic upvotes/downvotes
               and will not get your account banned. Unusual activity that
               results in users or moderators reporting your account can still
               get you banned. Please choose your order's upvote/downvote
               quantity wisely so as not to arouse any suspicion.
             </p>
-            <p className="text-xs text-sub-color font-semibold">
+            <p className="text-xs font-semibold text-sub-color">
               *Upvotes on posts/comments older than 24 hours are not guaranteed
               to go through. Downvotes are similarly not guaranteed regardless
               of post/comment age.
