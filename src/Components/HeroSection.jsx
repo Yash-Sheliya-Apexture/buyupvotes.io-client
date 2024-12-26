@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import image1 from "../assets/Images/slide13.png";
-import image2 from "../assets/Images/slide2.png";
+import light_1 from "../assets/images/light_1 (1).png";
+import light_2 from "../assets/images/light_2.png";
 import { FaUpRightFromSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import Button from "../Dashboard/components/Button";
+import overlay_3 from "../assets/images/overlay_3.jpg";
 
 const HeroSection = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
@@ -18,69 +20,65 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="">
-      <div className="flex items-center justify-center h-screen p-6 bg-gradient-to-b from-white to-gray-100 lg:pb-0 pb-68">
-        <div className="flex flex-col items-center lg:flex-row max-w-7xl lg:items-start">
-          <div className="lg:w-[50%] space-y-8 mt-0 lg:mt-16">
-            <h1 className="font-bold tracking-[12px] text-4xl text-center lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-[#FF5E00] to-[#FF9D00]">
-              Buy Reddit Upvotes
-            </h1>
-            <p className="text-[20px] text-[#FF5A04] font-bold text-center">
-              Boost your posts, dominate your conversion
+    <section
+      className="hero-section relative h-[550px] overflow-hidden bg-no-repeat bg-center bg-cover flex items-center justify-center"
+      style={{
+        background: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${overlay_3})`,
+      }}
+    >
+      <div className="flex flex-col lg:flex-row items-center justify-center max-w-7xl px-4 container mx-auto">
+        {/* Leftside */}
+        <div className="lg:w-1/2 space-y-8 text-center lg:text-start flex flex-col">
+          <h1 className="font-bold tracking-[10px] text-4xl lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-main-color to-[#FF9D00] lg:mt-0 -mt-6">
+            Buy Reddit Upvotes
+          </h1>
+          <p className="text-base text-main-color font-medium">
+            Boost your posts, dominate your conversion
+          </p>
+          <div className="flex flex-col text-start space-y-2">
+            <p className="flex items-center text-xs lg:text-small font-medium text-sub-color">
+              <span className="text-main-color text-base mr-2">✔</span>
+              Get trending by sending instant upvotes too any post or comments.
             </p>
-            <div className="flex flex-col items-center space-y-2">
-              <p className="flex items-center text-[14px] lg:text-[16px] font-medium text-[#2d2624]">
-                <span className="lg:w-2 lg:h-2 h-1.5 w-1.5 bg-[#2d2624] rounded-full mr-3"></span>
-                Get trending by sending instant upvotes to any post or comments.
-              </p>
-              <p className="flex items-center text-[14px] lg:text-[16px] font-medium text-[#2d2624]">
-                <span className="lg:w-2 lg:h-2 h-1.5 w-1.5 bg-[#2d2624] rounded-full mr-3"></span>
-                Take control of comments on your posts by upvotes and downvotes
-              </p>
-            </div>
-            <div className="flex flex-col items-center justify-center pt-5 space-y-1">
-              {isLoggedIn ? (
-                // If user is logged in, show Dashboard
-                <Link
-                  to="/dashboard"
-                  className="px-8 py-1.5 text-[rgb(255,87,0)] border border-solid font-bold border-[rgb(255,87,0)] rounded-full hover:bg-orange-500 hover:text-white transition"
-                >
-                  Dashboard
-                </Link>
-              ) : (
-                <>
-                  <Link
-                    to="/signin"
-                    className="px-20 py-1.5 text-[rgb(255,87,0)] border border-solid font-bold border-[rgb(255,87,0)] rounded-full hover:bg-orange-500 hover:text-white transition"
-                  >
-                    Sign-In
-                  </Link>
-                  <Link
-                    to="/signup"
-                    className="text-[#2d2624] font-bold rounded-full flex items-center transition-all hover:border-white"
-                  >
-                    Sign up
-                    <FaUpRightFromSquare className="ml-1" />
-                  </Link>
-                </>
-              )}
-            </div>
+            <p className="flex items-center text-xs lg:text-small font-medium text-sub-color">
+              <span className="text-main-color text-base mr-2">✔</span>
+              Take control of comments on your posts by upvotes and downvotes
+            </p>
           </div>
+          <div className="flex flex-row items-center justify-center lg:justify-start space-x-2">
+            {isLoggedIn ? (
+              // If user is logged in, show Dashboard
+              <Link to="/dashboard">
+                <Button>dashboard</Button>
+              </Link>
+            ) : (
+              <>
+                {/* SignIn And SignUp */}
+                <button
+                  className="mybtn"
+                  style={{ backgroundColor: "#FF5700", color: "#FFF" }}
+                >
+                  <Link to="/dashboard/FundPrice">Sign in</Link>
+                </button>
+                <Button>
+                  <Link to="/signup">
+                    Sign up
+                    <FaUpRightFromSquare className="ml-1 absolute right-2.5 top-2.5" />
+                  </Link>
+                </Button>
+              </>
+            )}
+          </div>
+        </div>
 
-          <div className="lg:w-[50%] lg:mt-0 relative hidden lg:block">
-            <div className="flex flex-row space-y-6">
-              <div className="flex mt-10">
-                <img
-                  src={image1}
-                  alt="Example 1"
-                  className="w-[20%] -skew-x-[26deg]"
-                />
-                <img
-                  src={image2}
-                  alt="Example 2"
-                  className="w-[40%] h-auto -skew-x-[26deg]"
-                />
-              </div>
+        {/* RightSide */}
+        <div className="lg:w-1/2 lg:mt-0 relative hidden lg:flex items-center justify-center">
+          <div className="hero-image-wrap absolute flex -skew-x-[20deg] -space-x-10">
+            <div className="hero-image relative flex justify-center items-center">
+              <img src={light_2} alt="Image 1" className="w-2/3" />
+            </div>
+            <div className="hero-image relative">
+              <img src={light_1} alt="Image 2" className="w-3/5" />
             </div>
           </div>
         </div>

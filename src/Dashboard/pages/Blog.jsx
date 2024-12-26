@@ -36,7 +36,7 @@ const Blog = () => {
   });
 
   return (
-    <div className="container mx-auto">
+    <div className="lg:container mx-auto">
       {/* Blog Logo */}
       <div className="flex justify-center mb-8">
         <img src={logo} alt="Blog_logo" className="h-10" />
@@ -52,13 +52,16 @@ const Blog = () => {
           we'd love to hear from you!
         </h1>
 
-        {/* Dropdown for sorting */}
-        <div className="flex items-center py-2">
-          <span className="mr-2 font-medium text-sub-color">Sort By:</span>
+        {/* Dropdown Modify */}
+        <div className="flex items-center py-2 lg:w-1/4">
+          <span className="mr-2 text-nowrap text-sub-color font-medium">
+            Sort By:
+          </span>
           <Dropdown
             options={filterOptions}
             selectedValue={selectedFilter}
             onSelect={(value) => setSelectedFilter(value)} // Update filter state
+            className="w-52"
           />
         </div>
       </div>
@@ -68,8 +71,8 @@ const Blog = () => {
         {sortedBlogs.map((blog) => (
           <Link
             key={blog.id}
-            to={`/dashboard/blogjson/${blog.id}`}
-            className="relative z-0 overflow-hidden bg-white cursor-pointer text-sub-color shadow-main rounded-small"
+            to={`/dashboard/Blog/${blog.id}`}
+            className="bg-white text-sub-color relative shadow-main z-0 cursor-pointer overflow-hidden rounded-small"
           >
             <div className="relative">
               <div className="absolute z-10 w-20 text-white h-9 left-2 -bottom-4">
@@ -130,8 +133,4 @@ const Blog = () => {
   );
 };
 
-
-
 export default Blog;
-
-

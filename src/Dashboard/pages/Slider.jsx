@@ -41,7 +41,7 @@ export function Slider() {
     >
       {sliderData.map((slide) => (
         <SwiperSlide key={slide.id}>
-          <div className="bg-[#fff] text-[#2D2624] relative z-0 cursor-pointer overflow-hidden rounded-small">
+          <div className="bg-[#fff] text-sub-color relative z-0 cursor-pointer overflow-hidden rounded-small">
             <div className="relative">
               <div className="w-[88px] h-[36px] text-white left-0 z-[9] -bottom-4 absolute">
                 <svg
@@ -73,20 +73,20 @@ export function Slider() {
             </div>
             <div className="px-4 mt-8 text-start">
               <div className="space-y-1 text-xs">
-                <h1 className="text-[#2d2624]">{slide.author}</h1>
-                <p className="text-[#919EAB]">{slide.date}</p>
-                <p className="text-[#2D2624] leading-6">{slide.title}</p>
+                <h1 className="text-sub-color">{slide.author}</h1>
+                <p className="text-gray-light">{slide.date}</p>
+                <p className="text-sub-color leading-6">{slide.title}</p>
               </div>
             </div>
             <div className="flex items-center justify-end p-8">
-              <div className="flex items-center text-[#919EAB] space-x-4">
+              <div className="flex items-center text-gray-light space-x-4">
                 <span className="flex items-center space-x-1">
                   <FaEye className="size-4" />
-                  <span className="text-[#919EAB] text-xs">{slide.views}</span>
+                  <span className="text-gray-light text-xs">{slide.views}</span>
                 </span>
                 <span className="flex items-center space-x-1">
                   <IoMdShare className="size-4" />
-                  <span className="text-[#919EAB] text-xs">{slide.shares}</span>
+                  <span className="text-gray-light text-xs">{slide.shares}</span>
                 </span>
               </div>
             </div>

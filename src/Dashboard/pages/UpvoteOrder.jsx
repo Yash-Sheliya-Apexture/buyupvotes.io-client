@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaSpinner } from "react-icons/fa";
 import InputField from "../components/InputField";
+// import FloatingLabelInputField from "../components/FloatingLabelInputField";
 
 const UpvoteOrder = () => {
   // Consolidated form state
@@ -219,12 +220,11 @@ const UpvoteOrder = () => {
               placeholder="Service"
               error={errors.service}
             />
-
-            {/* Link Input */}
+            {/* Raddit link */}
             <div>
               <InputField
                 name="link"
-                placeholder="Raddit link"
+                placeholder="Link"
                 value={formData.link}
                 onChange={handleInputChange}
                 error={errors.link}
@@ -239,10 +239,8 @@ const UpvoteOrder = () => {
                 placeholder="Quantity"
                 value={formData.quantity}
                 onChange={handleInputChange}
+                error={errors.quantity}
               />
-              {errors.quantity && (
-                <p className="text-sm text-red-500">{errors.quantity}</p>
-              )}
             </div>
 
             {/* Speed Dropdown */}

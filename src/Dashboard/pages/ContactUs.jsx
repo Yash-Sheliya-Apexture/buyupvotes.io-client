@@ -682,7 +682,7 @@ const ContactUs = () => {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="lg:container mx-auto">
         <h1 className="mb-2 font-bold text-sub-color text-basic">Contact Us</h1>
         <div className="flex items-center space-x-4">
           <Breadcrumb items={breadcrumbs} />
@@ -690,7 +690,6 @@ const ContactUs = () => {
         <div className="flex flex-col gap-10 my-5 bg-white lg:flex-row">
           {/* Left Side */}
           <div className="relative lg:w-[45%] overflow-hidden rounded-xlarge">
-            {/* Background Image */}
             <div
               className="absolute inset-0 z-0 w-auto"
               style={{
@@ -700,12 +699,8 @@ const ContactUs = () => {
                 backgroundRepeat: "no-repeat",
               }}
             ></div>
-
-            {/* Background Overlay */}
-            <div className="absolute inset-0 z-0 bg-black/70"></div>
-
-            {/* Text Content */}
-            <div className="flex items-center justify-center h-full px-6 py-20 text-center lg:absolute lg:text-left lg:mt-20">
+            <div className="absolute inset-0 bg-black/70 z-0"></div>
+            <div className="lg:absolute flex py-20 items-center justify-center h-full px-6 text-center lg:text-left lg:mt-20">
               <h1
                 className="z-0 font-black leading-10 text-white lg:text-largest text-xlarge lg:leading-20"
               >
@@ -717,10 +712,9 @@ const ContactUs = () => {
           </div>
 
           {/* Right Side */}
-          <div className="w-full lg:w-[55%] flex flex-col">
-            <div className="w-full max-w-3xl lg:max-w-lg">
-            <div className="flex items-center justify-center py-4 text-center border-b">
-              <h2 className="mr-2 font-bold text-nowrap text-medium text-sub-color">
+          <div className="lg:w-1/2 w-full flex flex-col items-center justify-center">
+            <div className="text-center flex items-center border-b py-4">
+              <h2 className="text-nowrap text-medium font-bold text-sub-color mr-2">
                 Chat with us:
               </h2>
               <div className="flex items-center space-x-2">
@@ -767,7 +761,9 @@ const ContactUs = () => {
                 </a>
               </div>
             </div>
-              <h2 className="my-5 text-base font-medium text-center text-sub-color">
+
+            <div className="w-full max-w-2xl">
+              <h2 className="text-center text-base font-bold text-sub-color my-5">
                 Or send us an email below:
               </h2>
               <form className="space-y-3" onSubmit={handleSubmit}>
@@ -802,7 +798,9 @@ const ContactUs = () => {
                     onBlur={handleBlur}
                   />
                   {errors.subject && (
-                    <p className="text-sm text-red-500">{errors.subject}</p>
+                    <p className="text-[#FF0000] text-sm mt-1">
+                      {errors.subject}
+                    </p>
                   )}
                 </div>
                 <div>
@@ -817,7 +815,9 @@ const ContactUs = () => {
                     onBlur={handleBlur}
                   ></textarea>
                   {errors.message && (
-                    <p className="text-sm text-red-500">{errors.message}</p>
+                    <p className="text-[#FF0000] text-sm mt-1">
+                      {errors.message}
+                    </p>
                   )}
                 </div>
 

@@ -142,6 +142,14 @@ body {
   @apply font-InterDisplay;
 }
 
+.heading {
+  @apply text-sub-color font-semibold lg:text-base text-medium;
+}
+
+.para {
+  @apply text-sub-color font-medium lg:text-small text-xs;
+}
+
 /* Icon-Set */
 .svg-color {
   background: linear-gradient(135deg, rgb(255, 87, 0) 0%, rgb(255, 87, 0) 100%);
@@ -162,6 +170,39 @@ body {
   background-size: cover;
   background-position: center;
   min-height: 100vh;
+}
+
+/* loder animation */
+
+/* .loader {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #f8783d;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} */
+
+/* Tooltip Animation */
+
+.custom-tooltip {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.custom-tooltip[data-show="true"] {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Table-css */
@@ -226,6 +267,26 @@ textarea:focus {
   outline: none;
 }
 
+/* TEXT-ANIMATION */
+/* In your CSS file (e.g., styles.css or a global stylesheet) */
+
+@keyframes word-reveal {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Apply the animation to each word with a delay based on its index */
+.animate-word-reveal {
+  animation: word-reveal 1s ease-in-out forwards;
+  animation-delay: calc(var(--index) * 0.5s);
+}
+
 /* Button Animation */
 .mybtn {
   position: relative;
@@ -243,6 +304,10 @@ textarea:focus {
   -webkit-transition: all 0.5s ease-in;
   -moz-transition: all 0.5s ease-in;
   transition: all 0.5s ease-in;
+}
+
+.nenewbtn {
+  background-color: red !important;
 }
 
 .mybtn:hover {
@@ -410,7 +475,7 @@ textarea:focus {
   background-color: #fff;
   padding: 0 0.5em;
   font-size: 20px;
-  color: #2D2624;
+  color: #2d2624;
 }
 
 .swiper-slide {

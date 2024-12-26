@@ -81,7 +81,7 @@ const FAQ = () => {
   };
 
   return (
-    <div className="">
+    <div className="lg:container mx-auto">
       {/* Header Section */}
       <div
         className="relative lg:h-[550px] h-[350px] bg-cover bg-center rounded-small"
@@ -98,8 +98,8 @@ const FAQ = () => {
                 key={index}
                 className={`block ${
                   visibleLines.includes(line)
-                    ? "opacity-100 translate-x-0"
-                    : "opacity-0 -translate-x-14"
+                    ? "opacity-100 translate-x-0 animate-word-reveal"
+                    : "opacity-0 -translate-x-20"
                 } transition-all duration-500 ease-in`}
               >
                 {index === 0 ? (
@@ -114,7 +114,7 @@ const FAQ = () => {
       </div>
 
       {/* FAQ Section */}
-      <div className="max-w-6xl mx-auto space-y-2 my-4">
+      <div className="max-w-6xl mx-auto space-y-2 my-10">
         <h1 className="text-sub-color lg:text-large text-basic font-semibold container mx-auto">
           Frequently asked questions
         </h1>

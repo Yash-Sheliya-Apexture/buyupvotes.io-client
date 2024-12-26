@@ -6,21 +6,21 @@ import Button from "../components/Button";
 
 const FundPricing = () => {
   return (
-    <div className="container mx-auto">
+    <div className="pb-10">
       <Pricing />
-      <CustomizePayment />
+      <CustomizePayment />  
       <div className="text-center">
         <div className="flex justify-center mb-6">
           <hr className="border border-gray-300/50 w-4/5" />
         </div>
-        <h1 className="mb-4 text-base font-semibold text-sub-color">
+        <h1 className="mb-4 text-base font-bold text-sub-color">
           Have any questions?
         </h1>
-        <p className="font-normal text-sub-color text-small">
+        <p className="font-medium text-sub-color text-small">
           Contact us and we'll get back to you as soon as possible.
         </p>
         <div className="mt-4">
-          <Link to="/dashboard/contactUs">
+          <Link to="/dashboard/ContactUs">
             <Button>Contact Us</Button>
           </Link>
         </div>

@@ -483,6 +483,7 @@ const Account = () => {
   const [showPasswords, setShowPasswords] = useState({ all: false });
   const [oldPassword, setOldPassword] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+  
   const [errors, setErrors] = useState({
     oldPassword: "",
     newPassword: "",
@@ -837,7 +838,7 @@ const Account = () => {
                       }`}
                   />
                   {isEditing && userData.firstName.trim() === "" && (
-                    <p className="mt-1 text-sm font-medium text-red-500">
+                    <p className="text-[#FF0000] font-medium text-sm mt-1">
                       First name is required.
                     </p>
                   )}
@@ -855,7 +856,7 @@ const Account = () => {
                       }`}
                   />
                   {isEditing && userData.lastName.trim() === "" && (
-                    <p className="mt-1 text-sm font-medium text-red-500">
+                    <p className="text-[#FF0000] font-medium text-sm mt-1">
                       Last name is required.
                     </p>
                   )}
@@ -928,7 +929,7 @@ const Account = () => {
                   </span>
                 </div>
                 {errors.oldPassword && (
-                  <p className="mt-1 text-sm text-red-500">
+                  <p className="text-[#FF0000] text-sm mt-1">
                     {errors.oldPassword}
                   </p>
                 )}
@@ -956,11 +957,12 @@ const Account = () => {
                   </span>
                 </div>
                 {errors.newPassword && (
-                  <p className="mt-1 text-sm text-red-500">
+                  <p className="text-[#FF0000] text-sm mt-1">
                     {errors.newPassword}
                   </p>
                 )}
               </div>
+
 
               <div className="lg:w-1/2">
                 <div className="relative">
@@ -984,7 +986,7 @@ const Account = () => {
                   </span>
                 </div>
                 {errors.confirmPassword && (
-                  <p className="mt-1 text-sm text-red-500">
+                  <p className="text-[#FF0000] text-sm mt-1">
                     {errors.confirmPassword}
                   </p>
                 )}

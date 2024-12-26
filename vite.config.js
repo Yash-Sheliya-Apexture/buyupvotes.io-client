@@ -17,4 +17,6 @@ export default defineConfig({
       rewrite: (path) => path.replace(/^\/api/, ''), // Rewrite path to remove '/api'
     },
   },
-});
+})
+
+

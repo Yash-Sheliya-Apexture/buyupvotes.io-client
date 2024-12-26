@@ -57,10 +57,12 @@ const DataSection = () => {
   return (
     <div className="px-2 lg:w-full w-full py-5">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Cards */}
         {dataList.map((item) => (
           <div
             key={item.id}
-            className="bg-white shadow-main rounded-small p-6 flex justify-between items-center cursor-pointer w-full"
+            className="bg-white shadow-main rounded-small p-4 flex justify-between items-center cursor-pointer w-full h-full"
+            style={{ minHeight: "100px" }}
           >
             {/* Left Section */}
             <div>
@@ -75,16 +77,16 @@ const DataSection = () => {
             </div>
 
             {/* Icon Section */}
-            <div className="text-main-color lg:text-large text-basic">
+            <div className="text-main-color lg:text-large text-basic p-4">
               {item.link ? (
                 <Link to={item.link}>
                   <i
-                    className={`${item.icon} hover:bg-gray-hover p-3 rounded-full transition-all ease-in duration-150`}
+                    className={`${item.icon} hover:bg-gray-hover rounded-full transition-all ease-in duration-150`}
                   ></i>
                 </Link>
               ) : (
                 <i
-                  className={`${item.icon} hover:bg-gray-hover p-3 rounded-full transition-all ease-in duration-150`}
+                  className={`${item.icon} hover:bg-gray-hover rounded-full transition-all ease-in duration-150`}
                 ></i>
               )}
             </div>
