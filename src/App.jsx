@@ -4,10 +4,12 @@ import WebsiteRoutes from "./routes/WebsiteRoutes";
 import DashboardRoutes from "./routes/DashboardRoutes";
 import ProtectedRoute from "./routes/ProtectedRoute"; // Import ProtectedRoute
 import { ToastContainer } from "react-toastify";
+import { SpeedInsights } from "@vercel/speed-insights/react"; // Import SpeedInsights
 import 'react-toastify/dist/ReactToastify.css'; // Don't forget to import the CSS for react-toastify
 
 const App = () => {
   return (
+    <SpeedInsights> {/* Wrap the application with SpeedInsights */}
       <Router>
         {/* ToastContainer added globally */}
         <ToastContainer
@@ -32,6 +34,7 @@ const App = () => {
           />
         </Routes>
       </Router>
+    </SpeedInsights>
   );
 };
 
