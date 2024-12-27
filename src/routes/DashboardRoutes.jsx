@@ -9,7 +9,7 @@ import DirectMassage from "../Dashboard/pages/DirectMassage";
 import FundPricing from "../Dashboard/pages/FundPricing";
 import ContactUs from "../Dashboard/pages/ContactUs";
 import RabbitAccount from "../Dashboard/pages/RabbitAccount";
-import FaQ from "../Dashboard/pages/FaQ";
+import FAQ from "../Dashboard/pages/FAQ";
 import Blog from "../Dashboard/pages/Blog";
 import BlogDetails from "../Dashboard/pages/BlogDetails";
 import Error404 from "../Dashboard/pages/Error404";
@@ -30,7 +30,7 @@ const DashboardRoutes = () => {
           <Route path="FundPrice" element={<FundPricing />} />
           <Route path="ContactUs" element={<ContactUs />} />
           <Route path="RabbitAcc" element={<RabbitAccount />} />
-          <Route path="FAQ" element={<FaQ />} />
+          <Route path="FAQ" element={<FAQ />} />
 
           {/* Nested Routes for Blog */}
           <Route path="Blog">
