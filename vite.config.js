@@ -9,7 +9,7 @@ export default defineConfig({
     outDir: 'dist', // Output directory for production build
   },
   server: {
-    port: 3000, // Development server port
+    port: 5173, // Development server port
   },
   // Proxy configuration
   proxy: {
