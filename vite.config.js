@@ -11,6 +11,11 @@ export default defineConfig({
   build: {
     outDir: 'dist', 
   },
+  resolve: {
+    alias: {
+      '@': '/src', // Optional alias for cleaner imports
+    },
+  },
   // Proxy configuration
   proxy: {
     '/api': {
