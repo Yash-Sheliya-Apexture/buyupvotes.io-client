@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/Images/logo.png";
+import logo from "../assets/Images/Logo.png";
 import Uparrow from "../assets/Images/logo-mini.png";
 import { Link } from "react-router-dom";
 
@@ -25,7 +25,7 @@ const SignIn_Header = () => {
           </Link>
         </div>
         <div>
-          <a href="#" className="text-sub-color font-medium hover:underline">
+          <a href="#" className="font-medium text-sub-color hover:underline">
             Need help?
           </a>
         </div>

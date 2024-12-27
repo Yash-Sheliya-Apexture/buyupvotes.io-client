@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import logo from "../assets/Images/logo.png";
-import Uparrow from "../assets/Images/logo-mini.png";
 import google from "../assets/Images/google_logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios"; // Import axios
@@ -120,12 +118,12 @@ const Sign_In = () => {
       {/* Content Section */}
       <div className="flex items-center justify-center p-4">
         <div className="lg:w-[30%] h-auto bg-white rounded-small lg:p-6 p-4 pb-10">
-          <h1 className="lg:text-basic text-base font-bold text-center mb-4 text-sub-color">
+          <h1 className="mb-4 text-base font-bold text-center lg:text-basic text-sub-color">
             Welcome to BuyUpvotes!
           </h1>
           <p className="mb-4 text-sm text-center">
             New user?{" "}
-            <Link to="/signup" className="text-main-color font-bold underline">
+            <Link to="/signup" className="font-bold underline text-main-color">
               Create an account
             </Link>
           </p>
@@ -176,17 +174,17 @@ const Sign_In = () => {
             <div className="flex items-center justify-end my-4">
               <Link
                 to="/ForgotPassword"
-                className="text-sm text-sub-color underline"
+                className="text-sm underline text-sub-color"
               >
                 Forgot password?
               </Link>
             </div>
 
-            <button type="submit" className="mybtn w-full" disabled={loading}>
+            <button type="submit" className="w-full mybtn" disabled={loading}>
               {loading ? "Signing In..." : "Sign In"}
             </button>
           </form>
-          <p className="text-xxs text-center font-normal text-sub-color mt-6">
+          <p className="mt-6 font-normal text-center text-xxs text-sub-color">
             By signing up, I agree to{" "}
             <a
               href="#"

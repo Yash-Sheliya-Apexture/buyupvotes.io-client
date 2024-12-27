@@ -21,6 +21,6 @@ export default defineConfig({
       rewrite: (path) => path.replace(/^\/api/, ''), // Rewrite path to remove '/api'
     },
   },
-})
-
-
+  // Handle image assets
+  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif'],
+});
