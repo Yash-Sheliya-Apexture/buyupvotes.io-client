@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../assets/Images/logo.png";
+import logo from "../assets/Images/Logo.png";
 import google from "../assets/Images/google_logo.png";
 import Uparrow from "../assets/Images/logo-mini.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -97,14 +97,14 @@ const Sign_Up = () => {
       {/* Content Section */}
       <div className="flex items-center justify-center p-4">
         <div className="lg:w-[30%] h-auto bg-white rounded-small lg:p-6 p-4 pb-10">
-          <h1 className="lg:text-basic text-base font-bold text-center mb-4 text-sub-color">
+          <h1 className="mb-4 text-base font-bold text-center lg:text-basic text-sub-color">
             Welcome to BuyUpvotes!
           </h1>
           <p className="mb-4 text-sm leading-7 text-center">
             Already have an account?
             <Link
               to="/signin"
-              className="text-main-color font-bold underline underline-offset-1"
+              className="font-bold underline text-main-color underline-offset-1"
             >
               &nbsp;Sign in <br />
             </Link>
@@ -114,7 +114,7 @@ const Sign_Up = () => {
             <img src={google} alt="Google Logo" className="w-6 h-6 mr-12" />
             Sign in with Google
           </button>
-          <form onSubmit={handleSubmit} className="lg:space-y-4 space-y-3">
+          <form onSubmit={handleSubmit} className="space-y-3 lg:space-y-4">
             <div className="flex space-x-2">
               <div className="w-1/2">
                 <input
