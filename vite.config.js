@@ -26,6 +26,11 @@ export default defineConfig({
       rewrite: (path) => path.replace(/^\/api/, ''), // Rewrite path to remove '/api'
     },
   },
+  resolve: {
+    alias: {
+      '@assets': '/src/assets', // Optional: Simplify paths
+    },
+  },
   // Handle image assets
-  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif'], // Ensures Vite can include these assets
+  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif'], // Ensure these assets are included
 });
