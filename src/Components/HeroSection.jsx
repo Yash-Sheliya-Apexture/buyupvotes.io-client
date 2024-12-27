@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FaUpRightFromSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Button from "../Dashboard/components/Button";
-import overlay_3 from "../assets/images/overlay_3.jpg";
 import images from "../assets/websiteImages/index"; // Import the central images file
 
 const HeroSection = () => {
@@ -22,7 +21,7 @@ const HeroSection = () => {
     <section
       className="hero-section relative h-[550px] overflow-hidden bg-no-repeat bg-center bg-cover flex items-center justify-center"
       style={{
-        background: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${overlay_3})`,
+        background: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${images.overlay_3})`,
       }}
     >
       <div className="container flex flex-col items-center justify-center px-4 mx-auto lg:flex-row max-w-7xl">
