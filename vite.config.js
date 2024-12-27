@@ -22,5 +22,5 @@ export default defineConfig({
     },
   },
   // Handle image assets
-  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif'],
+  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif'], // Ensures Vite can include these assets
 });
