@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/Images/logo.png";
+import logo from "../assets/Images/Logo.png";
 import Uparrow from "../assets/Images/logo-mini.png";
 import { Link } from "react-router-dom";
 
