@@ -1,36 +1,92 @@
-import { defineConfig } from 'vite';
+// import { defineConfig } from 'vite';
+// import react from '@vitejs/plugin-react';
+
+// // https://vite.dev/config/
+// export default defineConfig({
+//   plugins: [react()],
+//   base: '/', // Ensure this is set correctly for your deployment
+//   build: {
+//     outDir: 'dist', // Output directory for production build
+//     rollupOptions: {
+//       output: {
+//         assetFileNames: 'assets/[name][extname]', // Prevent hash in asset filenames
+//       },
+//     },
+//   },
+//   server: {
+//     port: 5173, // Development server port
+//   },
+//   // Proxy configuration
+//   proxy: {
+//     '/api': {
+//       target: process.env.NODE_ENV === 'production'
+//         ? 'https://buyupvotes-io-server.onrender.com'  // Production backend URL (Render)
+//         : 'http://localhost:5000', // Local development backend URL
+//       changeOrigin: true,
+//       rewrite: (path) => path.replace(/^\/api/, ''), // Rewrite path to remove '/api'
+//     },
+//   },
+//   resolve: {
+//     alias: {
+//       '@assets': '/src/assets', // Optional: Simplify paths
+//     },
+//   },
+//   // Handle image assets
+//   assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif'], // Ensure these assets are included
+// });
+
+
+
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  base: '/', // Ensure this is set correctly for your deployment
-  build: {
-    outDir: 'dist', // Output directory for production build
-    rollupOptions: {
-      output: {
-        assetFileNames: 'assets/[name][extname]', // Prevent hash in asset filenames
+export default defineConfig(({ mode }) => {
+  // Load environment variables based on the mode (development/production)
+  const env = loadEnv(mode, process.cwd());
+
+  // Determine if it's production mode
+  const isProduction = mode === 'production';
+
+  return {
+    plugins: [react()],
+
+    base: '/', // Adjust for your deployment needs
+
+    build: {
+      outDir: 'dist', // Output directory for production build
+      rollupOptions: {
+        output: {
+          // Prevent hash in asset filenames
+          assetFileNames: 'assets/[name][extname]',
+        },
+      },
+      assetsInlineLimit: 0, // Disable inlining small assets
+    },
+
+    server: {
+      port: 5173, // Local development server port
+    },
+
+    proxy: {
+      '/api': {
+        target: env.VITE_API_BASE_URL, // Use the environment variable
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''), // Remove '/api' prefix
       },
     },
-  },
-  server: {
-    port: 5173, // Development server port
-  },
-  // Proxy configuration
-  proxy: {
-    '/api': {
-      target: process.env.NODE_ENV === 'production'
-        ? 'https://buyupvotes-io-server.onrender.com'  // Production backend URL (Render)
-        : 'http://localhost:5000', // Local development backend URL
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/api/, ''), // Rewrite path to remove '/api'
+
+    resolve: {
+      alias: {
+        '@assets': '/src/assets',
+        '@components': '/src/components',
+      },
     },
-  },
-  resolve: {
-    alias: {
-      '@assets': '/src/assets', // Optional: Simplify paths
+
+    assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif', '**/*.ico', '**/*.webp'],
+
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(env.NODE_ENV || 'development'),
+      'process.env.VITE_API_BASE_URL': JSON.stringify(env.VITE_API_BASE_URL), // Pass API URL to the app
     },
-  },
-  // Handle image assets
-  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif'], // Ensure these assets are included
+  };
 });
