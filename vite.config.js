@@ -37,6 +37,62 @@
 
 
 
+// import { defineConfig, loadEnv } from 'vite';
+// import react from '@vitejs/plugin-react';
+
+// export default defineConfig(({ mode }) => {
+//   // Load environment variables based on the mode (development/production)
+//   const env = loadEnv(mode, process.cwd());
+
+//   // Determine if it's production mode
+//   const isProduction = mode === 'production';
+
+//   return {
+//     plugins: [react()],
+
+//     base: '/', // Adjust for your deployment needs
+
+//     build: {
+//       outDir: 'dist', // Output directory for production build
+//       rollupOptions: {
+//         output: {
+//           // Prevent hash in asset filenames
+//           assetFileNames: 'assets/[name][extname]',
+//         },
+//       },
+//       assetsInlineLimit: 0, // Disable inlining small assets
+//     },
+
+//     server: {
+//       port: 5173, // Local development server port
+//     },
+
+//     proxy: {
+//       '/api': {
+//         target: env.VITE_API_BASE_URL, // Use the environment variable
+//         changeOrigin: true,
+//         rewrite: (path) => path.replace(/^\/api/, ''), // Remove '/api' prefix
+//       },
+//     },
+
+//     resolve: {
+//       alias: {
+//         '@assets': '/src/assets',
+//         '@components': '/src/components',
+//       },
+//     },
+
+//     assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif', '**/*.ico', '**/*.webp'],
+
+//     define: {
+//       'process.env.NODE_ENV': JSON.stringify(env.NODE_ENV || 'development'),
+//       'process.env.VITE_API_BASE_URL': JSON.stringify(env.VITE_API_BASE_URL), // Pass API URL to the app
+//     },
+//   };
+// });
+
+
+
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
@@ -50,17 +106,18 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
 
-    base: '/', // Adjust for your deployment needs
+    // Adjust the base path for deployment
+    base: isProduction ? '/buyupvotes-io-client/' : '/',
 
     build: {
       outDir: 'dist', // Output directory for production build
       rollupOptions: {
         output: {
-          // Prevent hash in asset filenames
+          // Prevent hash in asset filenames (good for caching)
           assetFileNames: 'assets/[name][extname]',
         },
       },
-      assetsInlineLimit: 0, // Disable inlining small assets
+      assetsInlineLimit: 0, // Disable inlining small assets for better control
     },
 
     server: {
@@ -69,9 +126,9 @@ export default defineConfig(({ mode }) => {
 
     proxy: {
       '/api': {
-        target: env.VITE_API_BASE_URL, // Use the environment variable
+        target: env.VITE_API_BASE_URL, // Use the environment variable for the API base URL
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''), // Remove '/api' prefix
+        rewrite: (path) => path.replace(/^\/api/, ''), // Rewrite '/api' to match backend API paths
       },
     },
 
@@ -82,7 +139,9 @@ export default defineConfig(({ mode }) => {
       },
     },
 
-    assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif', '**/*.ico', '**/*.webp'],
+    assetsInclude: [
+      '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif', '**/*.ico', '**/*.webp'
+    ], // Include additional asset types
 
     define: {
       'process.env.NODE_ENV': JSON.stringify(env.NODE_ENV || 'development'),
