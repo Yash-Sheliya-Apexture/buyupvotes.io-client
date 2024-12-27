@@ -7,6 +7,11 @@ export default defineConfig({
   base: '/', // Ensure this is set correctly for your deployment
   build: {
     outDir: 'dist', // Output directory for production build
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name][extname]', // Prevent hash in asset filenames
+      },
+    },
   },
   server: {
     port: 5173, // Development server port
@@ -14,7 +19,7 @@ export default defineConfig({
   // Proxy configuration
   proxy: {
     '/api': {
-      target: process.env.NODE_ENV === 'production' 
+      target: process.env.NODE_ENV === 'production'
         ? 'https://buyupvotes-io-server.onrender.com'  // Production backend URL (Render)
         : 'http://localhost:5000', // Local development backend URL
       changeOrigin: true,
