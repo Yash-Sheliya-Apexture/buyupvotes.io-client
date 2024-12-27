@@ -74,19 +74,19 @@ export function Slider() {
             <div className="px-4 mt-8 text-start">
               <div className="space-y-1 text-xs">
                 <h1 className="text-sub-color">{slide.author}</h1>
-                <p className="text-gray-light">{slide.date}</p>
+                <p className="text-light-gray font-medium">{slide.date}</p>
                 <p className="text-sub-color leading-6">{slide.title}</p>
               </div>
             </div>
             <div className="flex items-center justify-end p-8">
-              <div className="flex items-center text-gray-light space-x-4">
+              <div className="flex items-center text-light-gray font-medium text-xs  space-x-4">
                 <span className="flex items-center space-x-1">
                   <FaEye className="size-4" />
-                  <span className="text-gray-light text-xs">{slide.views}</span>
+                  <span>{slide.views}</span>
                 </span>
                 <span className="flex items-center space-x-1">
                   <IoMdShare className="size-4" />
-                  <span className="text-gray-light text-xs">{slide.shares}</span>
+                  <span>{slide.shares}</span>
                 </span>
               </div>
             </div>

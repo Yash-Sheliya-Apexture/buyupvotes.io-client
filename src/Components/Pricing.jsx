@@ -75,7 +75,7 @@ const PricingWithMenu = () => {
   const [selectedPlan, setSelectedPlan] = useState(pricingPlans[2]);
 
   return (
-    <section className="lg:container mx-auto lg:pt-10 px-4">
+    <section className="lg:pt-10">
       <p className="lg:text-basic text-medium text-sub-color pb-8 text-center font-medium">
         Choose the perfect tier for your needs
       </p>

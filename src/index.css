@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 font-face {
   font-family: "InterDisplay";
   font-style: normal;
@@ -142,6 +144,12 @@ body {
   @apply font-InterDisplay;
 }
 
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0px 16px;
+}
+
 .heading {
   @apply text-sub-color font-semibold lg:text-base text-medium;
 }
@@ -166,43 +174,34 @@ body {
 /* Background Image */
 
 .background-image {
-  background-image: url(./assets/Images/background..jpg);
+  background-image: url(./assets/Images/Background..jpg);
   background-size: cover;
   background-position: center;
   min-height: 100vh;
 }
 
-/* loder animation */
-
-/* .loader {
-  border: 2px solid #f3f3f3;
-  border-top: 2px solid #f8783d;
-  border-radius: 50%;
-  width: 16px;
-  height: 16px;
-  animation: spin 0.6s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-} */
-
 /* Tooltip Animation */
 
-.custom-tooltip {
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+@keyframes tooltipAppear {
+  from {
+    opacity: 0;
+    transform: translateX(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(10px);
+  }
 }
 
-.custom-tooltip[data-show="true"] {
-  opacity: 1;
-  transform: translateX(0);
+.tooltip-custom {
+  animation: tooltipAppear 0.5s ease-out forwards;
+  background-color: #ff5700 !important;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 2px 10px;
+  text-transform: capitalize;
 }
 
 /* Table-css */
@@ -410,7 +409,7 @@ textarea:focus {
 @keyframes Rocket {
   0%,
   100% {
-    transform: translateY(-1.5px);
+    transform: translateY(0.5px);
   }
   50% {
     transform: translateY(4px);

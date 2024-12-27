@@ -26,10 +26,10 @@ const HeroSection = () => {
         background: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${overlay_3})`,
       }}
     >
-      <div className="flex flex-col lg:flex-row items-center justify-center max-w-7xl px-4 container mx-auto">
+      <div className="flex flex-col lg:flex-row items-center justify-center container mx-auto">
         {/* Leftside */}
         <div className="lg:w-1/2 space-y-8 text-center lg:text-start flex flex-col">
-          <h1 className="font-bold tracking-[10px] text-4xl lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-main-color to-[#FF9D00] lg:mt-0 -mt-6">
+          <h1 className="font-bold tracking-[10px] text-xlarge md:text-5xl lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-main-color to-[#FF9D00] lg:mt-0 -mt-6">
             Buy Reddit Upvotes
           </h1>
           <p className="text-base text-main-color font-medium">
@@ -55,10 +55,10 @@ const HeroSection = () => {
               <>
                 {/* SignIn And SignUp */}
                 <button
+                  style={{ backgroundColor: "#FF5700", color: "#fff" }}
                   className="mybtn"
-                  style={{ backgroundColor: "#FF5700", color: "#FFF" }}
                 >
-                  <Link to="/dashboard/FundPrice">Sign in</Link>
+                  <Link to="/signin">Sign in</Link>
                 </button>
                 <Button>
                   <Link to="/signup">
@@ -78,7 +78,7 @@ const HeroSection = () => {
               <img src={light_2} alt="Image 1" className="w-2/3" />
             </div>
             <div className="hero-image relative">
-              <img src={light_1} alt="Image 2" className="w-3/5" />
+              <img src={light_1} alt="Image 2" className="w-3/4" />
             </div>
           </div>
         </div>

@@ -35,7 +35,7 @@ const DashboardRoutes = () => {
           {/* Nested Routes for Blog */}
           <Route path="Blog">
             <Route index element={<Blog />} />
-            <Route path=":id" element={<BlogDetails />} />
+            <Route path=":title" element={<BlogDetails />} />{" "}
           </Route>
 
           <Route path="Account" element={<Account />} />

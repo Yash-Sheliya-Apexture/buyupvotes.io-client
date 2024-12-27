@@ -6,9 +6,9 @@ import Button from "../components/Button";
 
 const FundPricing = () => {
   return (
-    <div className="pb-10">
+    <div className="container mx-auto">
       <Pricing />
-      <CustomizePayment />  
+      <CustomizePayment />
       <div className="text-center">
         <div className="flex justify-center mb-6">
           <hr className="border border-gray-300/50 w-4/5" />
@@ -19,7 +19,7 @@ const FundPricing = () => {
         <p className="font-medium text-sub-color text-small">
           Contact us and we'll get back to you as soon as possible.
         </p>
-        <div className="mt-4">
+        <div className="my-6">
           <Link to="/dashboard/ContactUs">
             <Button>Contact Us</Button>
           </Link>

@@ -1,12 +1,9 @@
 import React from "react";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
 
 const Privacy = () => {
   return (
     <>
-      <Header />
-      <section className="lg:container mx-auto p-4">
+      <section className="container mx-auto p-4">
         <h1 className="text-sub-color font-bold lg:text-large text-basic text-center mb-6">
           Privacy Policy
         </h1>
@@ -200,7 +197,6 @@ const Privacy = () => {
             please reach out to us at info@buyupvotes.io.
           </p>
         </div>
-        <Footer />
       </section>
     </>
   );

@@ -682,7 +682,7 @@ const ContactUs = () => {
 
   return (
     <>
-      <div className="lg:container mx-auto">
+      <div className="container mx-auto">
         <h1 className="mb-2 font-bold text-sub-color text-basic">Contact Us</h1>
         <div className="flex items-center space-x-4">
           <Breadcrumb items={breadcrumbs} />

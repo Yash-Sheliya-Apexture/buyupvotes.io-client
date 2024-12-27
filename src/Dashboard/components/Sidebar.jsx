@@ -95,7 +95,7 @@ const SideBar = () => {
   return (
     <>
       <button
-        className="absolute top-4 left-4 z-50 xl:hidden rounded-full"
+        className="absolute top-5 left-4 z-50 lg:hidden rounded-full"
         onClick={toggleSidebarVisibility}
       >
         <CgMenuRightAlt className="text-main-color size-8 rounded-md" />
@@ -145,6 +145,7 @@ const SideBar = () => {
 
         <div className="h-[calc(100%-4rem)] overflow-y-auto custom-scroll">
           <ul className="space-y-2.5 mt-5">
+            {/* Dashboard Tab */}
             {menuItems.map((item) => (
               <li
                 key={item.id}
@@ -166,19 +167,14 @@ const SideBar = () => {
                     <span className="text-small text-nowrap">{item.label}</span>
                   )}
                 </Link>
+                {/* Tooltip */}
                 {!isSidebarExpanded && (
                   <Tooltip
                     id={item.id}
+                    className="tooltip-custom" // Apply custom animation classs
                     style={{
-                      position: "fixed", // Ensure the tooltip stays outside
-                      transform: "translateX(0px)", // Move slightly to the right
+                      position: "fixed",
                       zIndex: 10,
-                      backgroundColor: "#ff5700", // Custom background color
-                      fontSize: "14px", // Custom font size
-                      fontWeight: "bold", // Custom font weight
-                      color: "white", // Text color
-                      borderRadius: "5px", // Rounded corner
-                      textTransform: "capitalize",
                     }}
                   />
                 )}
@@ -199,7 +195,7 @@ const SideBar = () => {
                 to="/dashboard/FundPrice"
                 className="mybtn"
                 style={{
-                  padding: "8px 40px", // Custom padding
+                  padding: "8px 55px", // Custom padding
                 }}
               >
                 Add Funds

@@ -11,6 +11,13 @@ const Blog = () => {
 
   const filterOptions = ["Latest", "Popular", "Oldest"];
 
+  const sanitizeTitle = (title) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+  };
+
   // Fetch blogs data
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data.json`)
@@ -36,7 +43,7 @@ const Blog = () => {
   });
 
   return (
-    <div className="lg:container mx-auto">
+    <div className="container mx-auto">
       {/* Blog Logo */}
       <div className="flex justify-center mb-8">
         <img src={logo} alt="Blog_logo" className="h-10" />
@@ -61,7 +68,7 @@ const Blog = () => {
             options={filterOptions}
             selectedValue={selectedFilter}
             onSelect={(value) => setSelectedFilter(value)} // Update filter state
-            className="w-52"
+            className="w-full"
           />
         </div>
       </div>
@@ -71,7 +78,7 @@ const Blog = () => {
         {sortedBlogs.map((blog) => (
           <Link
             key={blog.id}
-            to={`/dashboard/Blog/${blog.id}`}
+            to={`/dashboard/Blog/${sanitizeTitle(blog.title)}`} // Use sanitized title
             className="bg-white text-sub-color relative shadow-main z-0 cursor-pointer overflow-hidden rounded-small"
           >
             <div className="relative">

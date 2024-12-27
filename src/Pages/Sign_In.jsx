@@ -53,7 +53,10 @@ const Sign_In = () => {
 
     try {
       // Send login request to the server
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password });
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, {
+        email,
+        password,
+      });
 
       // Destructure accessToken and refreshToken from the response
       const { accessToken, refreshToken } = response.data;
@@ -64,7 +67,6 @@ const Sign_In = () => {
       // Redirect the user to the dashboard after a successful login
       toast.success("Login successful!"); // Show success notification
       navigate("/dashboard");
-
     } catch (error) {
       if (error.response) {
         const statusCode = error.response.status;
@@ -114,94 +116,100 @@ const Sign_In = () => {
     checkAndLogoutOnExpiration();
   }, []);
 
-
   return (
     <>
       {/* Content Section */}
-      <div className="flex items-center justify-center p-4">
-        <div className="lg:w-[30%] h-auto bg-white rounded-small lg:p-6 p-4 pb-10">
-          <h1 className="lg:text-basic text-base font-bold text-center mb-4 text-sub-color">
-            Welcome to BuyUpvotes!
-          </h1>
-          <p className="mb-4 text-sm text-center">
-            New user?{" "}
-            <Link to="/signup" className="text-main-color font-bold underline">
-              Create an account
-            </Link>
-          </p>
-          <button className="flex items-center justify-start w-full border border-gray-300 hover:bg-[#f8783d] hover:border-sub-color rounded-full px-4 py-2 lg:text-small text-sm font-semibold text-sub-color hover:text-white mb-4 transition-all ease-in duration-300">
-            <img src={google} alt="Google Logo" className="w-6 h-6 mr-16" />
-            Sign in with Google
-          </button>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={`mt-1 block w-full px-3.5 py-3 border ${
-                  errors.email ? "border-red-500" : "border-gray-300"
-                } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
-                placeholder="Email address"
-              />
-              {errors.email && (
-                <p className="mt-1 text-xs text-[#FF0000]">{errors.email}</p>
-              )}
-            </div>
-
-            <div className="relative mb-2">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className={`mt-1 block w-full px-3.5 py-3 border ${
-                  errors.password ? "border-red-500" : "border-gray-300"
-                } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
-                placeholder="Password"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500"
-              >
-                {showPassword ? <FaEye /> : <FaEyeSlash />}
-              </button>
-              {errors.password && (
-                <p className="mt-1 text-xs text-[#FF0000]">{errors.password}</p>
-              )}
-            </div>
-
-            <div className="flex items-center justify-end my-4">
+      <div className="container mx-auto">
+        <div className="flex items-center justify-center">
+          <div className="lg:w-[30%] h-auto bg-white rounded-small lg:p-6 p-4 pb-10">
+            <h1 className="lg:text-basic text-base font-bold text-center mb-4 text-sub-color">
+              Welcome to BuyUpvotes!
+            </h1>
+            <p className="mb-4 text-sm text-center">
+              New user?{" "}
               <Link
-                to="/ForgotPassword"
-                className="text-sm text-sub-color underline"
+                to="/signup"
+                className="text-main-color font-bold underline underline-offset-1"
               >
-                Forgot password?
+                Create an account
               </Link>
-            </div>
-
-            <button type="submit" className="mybtn w-full" disabled={loading}>
-              {loading ? "Signing In..." : "Sign In"}
+            </p>
+            <button className="flex items-center justify-start w-full border border-gray-300  hover:border-sub-color rounded-full px-4 py-2 lg:text-small text-sm font-semibold text-sub-color mb-4 transition-all ease-in duration-300">
+              <img src={google} alt="Google Logo" className="w-7 h-7 -ml-2.5" />
+              <span className="pl-16">Sign in with Google</span>
             </button>
-          </form>
-          <p className="text-xxs text-center font-normal text-sub-color mt-6">
-            By signing up, I agree to{" "}
-            <a
-              href="#"
-              className="underline underline-offset-1 decoration-sub-color"
-            >
-              Terms and Service
-            </a>{" "}
-            and{" "}
-            <a
-              href="#"
-              className="underline underline-offset-1 decoration-sub-color"
-            >
-              Privacy Policy
-            </a>
-          </p>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={`mt-1 block w-full px-3.5 py-3 border ${
+                    errors.email ? "border-red-500" : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                  placeholder="Email address"
+                />
+                {errors.email && (
+                  <p className="mt-1 text-xs text-[#FF0000]">{errors.email}</p>
+                )}
+              </div>
+
+              <div className="relative mb-2">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={`mt-1 block w-full px-3.5 py-3 border ${
+                    errors.password ? "border-red-500" : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                  placeholder="Password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500"
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </button>
+                {errors.password && (
+                  <p className="mt-1 text-xs text-[#FF0000]">
+                    {errors.password}
+                  </p>
+                )}
+              </div>
+
+              <div className="flex items-center justify-end my-4">
+                <Link
+                  to="/forgotpassword"
+                  className="text-sm text-sub-color underline"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+
+              <button type="submit" className="mybtn w-full" disabled={loading}>
+                {loading ? "Signing In..." : "Sign In"}
+              </button>
+            </form>
+            <p className="text-xxs text-center font-normal text-sub-color mt-6">
+              By signing up, I agree to{" "}
+              <a
+                href="#"
+                className="underline underline-offset-1 decoration-sub-color"
+              >
+                Terms and Service
+              </a>{" "}
+              and{" "}
+              <a
+                href="#"
+                className="underline underline-offset-1 decoration-sub-color"
+              >
+                Privacy Policy
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </>

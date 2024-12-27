@@ -192,7 +192,7 @@ const UpvoteOrder = () => {
         <h1 className="mb-2 font-semibold text-sub-color text-small lg:text-basic">
           Order Upvotes
         </h1>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center">
           <Breadcrumb items={breadcrumbs} />
         </div>
       </div>

@@ -465,8 +465,6 @@
 
 // export default Account;
 
-
-
 import React, { useState, useEffect, useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Import arrow icons
 import Breadcrumb from "../components/Breadcrumb";
@@ -483,7 +481,7 @@ const Account = () => {
   const [showPasswords, setShowPasswords] = useState({ all: false });
   const [oldPassword, setOldPassword] = useState("");
   const [isSaving, setIsSaving] = useState(false);
-  
+
   const [errors, setErrors] = useState({
     oldPassword: "",
     newPassword: "",
@@ -562,7 +560,7 @@ const Account = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const token = localStorage.getItem('authToken');
+        const token = localStorage.getItem("authToken");
         if (!token) {
           throw new Error("No token found");
         }
@@ -599,26 +597,32 @@ const Account = () => {
 
       // Make sure token exists
       if (!token) {
-        toast.error("You are not logged in. Please log in to reset your password.");
+        toast.error(
+          "You are not logged in. Please log in to reset your password."
+        );
         return;
       }
 
       // Send the request with the token in the Authorization header
-      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/reset-password`, {
-        oldPassword,
-        newPassword,
-        confirmPassword
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`  // Attach token to Authorization header
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/auth/reset-password`,
+        {
+          oldPassword,
+          newPassword,
+          confirmPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Attach token to Authorization header
+          },
         }
-      });
+      );
 
       // Handle response on success
       toast.success("Password updated successfully!");
-      setOldPassword('');
-      setNewPassword('');
-      setConfirmPassword('');
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
     } catch (error) {
       if (error.response) {
         // Handle errors from the server
@@ -629,9 +633,6 @@ const Account = () => {
       }
     }
   };
-
-
-
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -689,7 +690,6 @@ const Account = () => {
     setIsEditing(false);
   };
 
-
   const tabs = [
     {
       id: "general",
@@ -699,8 +699,9 @@ const Account = () => {
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
           role="img"
-          className={`h-6 transition-colors duration-300 ${activeTab === "general" ? "text-main-color" : "text-sub-color"
-            }`}
+          className={`h-6 transition-colors duration-300 ${
+            activeTab === "general" ? "text-main-color" : "text-sub-color"
+          }`}
           viewBox="0 0 24 24"
         >
           <path
@@ -720,8 +721,9 @@ const Account = () => {
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
           role="img"
-          className={`h-6 transition-colors duration-300 ${activeTab === "transactions" ? "text-main-color" : "text-sub-color"
-            }`}
+          className={`h-6 transition-colors duration-300 ${
+            activeTab === "transactions" ? "text-main-color" : "text-sub-color"
+          }`}
           viewBox="0 0 24 24"
         >
           <path
@@ -741,8 +743,9 @@ const Account = () => {
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
           role="img"
-          className={`h-6 transition-colors duration-300 ${activeTab === "security" ? "text-main-color" : "text-sub-color"
-            }`}
+          className={`h-6 transition-colors duration-300 ${
+            activeTab === "security" ? "text-main-color" : "text-sub-color"
+          }`}
           viewBox="0 0 24 24"
         >
           <path
@@ -765,7 +768,7 @@ const Account = () => {
               { label: "Account" },
             ]}
           />
-        </div>
+        </div>  
 
         {/* Account Tabs  */}
         <div className="relative flex items-center w-full my-5 max-w-7xl">
@@ -792,10 +795,11 @@ const Account = () => {
               <button
                 key={tab.id}
                 ref={(el) => (tabRefs.current[index] = el)}
-                className={`flex items-center gap-2 px-4 py-2 transition-all duration-300 ${activeTab === tab.id
-                  ? "text-main-color border-b-2 border-main-color"
-                  : "text-sub-color border-b-2 border-transparent"
-                  }`}
+                className={`flex items-center gap-2 px-4 py-2 transition-all duration-300 ${
+                  activeTab === tab.id
+                    ? "text-main-color border-b-2 border-main-color"
+                    : "text-sub-color border-b-2 border-transparent"
+                }`}
                 onClick={() => handleTabChange(tab.id, index)}
               >
                 {tab.icon}
@@ -820,8 +824,9 @@ const Account = () => {
                   name="email"
                   value={userData.email}
                   disabled={!isEditing}
-                  className={`block w-full lg:w-1/2 border-gray-300 rounded-full ${isEditing ? "opacity-50" : "opacity-50"
-                    }`}
+                  className={`block w-full lg:w-1/2 border-gray-300 rounded-full ${
+                    isEditing ? "opacity-50" : "opacity-50"
+                  }`}
                 />
               </div>
               <div className="flex flex-col space-y-4 md:flex-row md:space-x-2 md:space-y-0">
@@ -832,10 +837,11 @@ const Account = () => {
                     value={userData.firstName}
                     onChange={handleInputChange}
                     disabled={!isEditing}
-                    className={`block w-full border-gray-300 rounded-full  ${isEditing
-                      ? "opacity-100 hover:border-black transition-all ease-in duration-150"
-                      : "opacity-50 "
-                      }`}
+                    className={`block w-full border-gray-300 rounded-full  ${
+                      isEditing
+                        ? "opacity-100 hover:border-black transition-all ease-in duration-150"
+                        : "opacity-50 "
+                    }`}
                   />
                   {isEditing && userData.firstName.trim() === "" && (
                     <p className="text-[#FF0000] font-medium text-sm mt-1">
@@ -850,10 +856,11 @@ const Account = () => {
                     value={userData.lastName}
                     onChange={handleInputChange}
                     disabled={!isEditing}
-                    className={`block w-full border-gray-300 rounded-full ${isEditing
-                      ? "opacity-100 hover:border-black transition-all ease-in duration-150"
-                      : "opacity-50"
-                      }`}
+                    className={`block w-full border-gray-300 rounded-full ${
+                      isEditing
+                        ? "opacity-100 hover:border-black transition-all ease-in duration-150"
+                        : "opacity-50"
+                    }`}
                   />
                   {isEditing && userData.lastName.trim() === "" && (
                     <p className="text-[#FF0000] font-medium text-sm mt-1">
@@ -876,8 +883,9 @@ const Account = () => {
                     </button>
                     <button
                       onClick={handleSaveChanges}
-                      className={`px-6 py-1 border text-green-500 border-green-500 hover:shadow-newShadow transition-all ease-in duration-150 font-semibold rounded-full ${isSaving ? "opacity-100" : ""
-                        }`}
+                      className={`px-6 py-1 border text-green-500 border-green-500 hover:shadow-newShadow transition-all ease-in duration-150 font-semibold rounded-full ${
+                        isSaving ? "opacity-100" : ""
+                      }`}
                       disabled={isSaving}
                     >
                       {isSaving ? "Saving..." : "Save Changes"}
@@ -911,8 +919,9 @@ const Account = () => {
                 <div className="relative">
                   <input
                     type={showPasswords.all ? "text" : "password"}
-                    className={`block w-full border-gray-300 rounded-full hover:border-black transition-all ease-in duration-150 ${errors.oldPassword ? "border-red-500" : ""
-                      }`}
+                    className={`block w-full border-gray-300 rounded-full hover:border-black transition-all ease-in duration-150 ${
+                      errors.oldPassword ? "border-red-500" : ""
+                    }`}
                     placeholder="Old password"
                     value={oldPassword}
                     onChange={(e) => setOldPassword(e.target.value)}
@@ -939,8 +948,9 @@ const Account = () => {
                 <div className="relative">
                   <input
                     type={showPasswords.all ? "text" : "password"}
-                    className={`block w-full border-gray-300 rounded-full hover:border-black transition-all ease-in duration-150 ${errors.newPassword ? "border-red-500" : ""
-                      }`}
+                    className={`block w-full border-gray-300 rounded-full hover:border-black transition-all ease-in duration-150 ${
+                      errors.newPassword ? "border-red-500" : ""
+                    }`}
                     placeholder="New password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
@@ -963,13 +973,13 @@ const Account = () => {
                 )}
               </div>
 
-
               <div className="lg:w-1/2">
                 <div className="relative">
                   <input
                     type={showPasswords.all ? "text" : "password"}
-                    className={`block w-full border-gray-300 rounded-full hover:border-black transition-all ease-in duration-150 ${errors.confirmPassword ? "border-red-500" : ""
-                      }`}
+                    className={`block w-full border-gray-300 rounded-full hover:border-black transition-all ease-in duration-150 ${
+                      errors.confirmPassword ? "border-red-500" : ""
+                    }`}
                     placeholder="Confirm password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -993,8 +1003,9 @@ const Account = () => {
                 <div className="flex justify-end mt-5">
                   <button
                     onClick={handleSavePassword}
-                    className={`px-6 py-1 border text-green-500 border-green-500 hover:shadow-newShadow transition-all ease-in duration-150 font-semibold rounded-full ${isSaving ? "opacity-100" : ""
-                      }`}
+                    className={`px-6 py-1 border text-green-500 border-green-500 hover:shadow-newShadow transition-all ease-in duration-150 font-semibold rounded-full ${
+                      isSaving ? "opacity-100" : ""
+                    }`}
                     disabled={isSaving}
                   >
                     {isSaving ? "Saving..." : "Save Changes"}
@@ -1016,4 +1027,3 @@ const Account = () => {
 };
 
 export default Account;
-
