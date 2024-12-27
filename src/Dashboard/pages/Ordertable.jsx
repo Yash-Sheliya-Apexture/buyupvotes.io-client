@@ -1011,7 +1011,6 @@ import { useRef } from "react";
 import InputField from "../components/InputField";
 import { FaPlus } from "react-icons/fa6";
 import { FaTrashAlt } from "react-icons/fa";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 
@@ -1232,7 +1231,12 @@ const Ordertable = () => {
       colors: "bg-light-orange text-white",
     },
   ];
-
+  const handleClearStatus = () => {
+    setActiveTab("All");
+    const allTabIndex = tabs.findIndex((tab) => tab.label === "All");
+    updateIndicator(allTabIndex); // Update indicator for the "All" tab
+  };
+  
   return (
     <div className="mb-4 border rounded-small">
       <h1 className="p-4 font-semibold text-sub-color lg:text-basic">
@@ -1240,7 +1244,7 @@ const Ordertable = () => {
       </h1>
 
       {/* Tabs table */}
-      <div className="relative flex items-center border border-gray-300/50 shadow-main rounded-sm">
+      <div className="relative flex items-center border rounded-sm border-gray-300/50 shadow-main">
         {/* Left Icon */}
         <button
           onClick={scrollLeft}
@@ -1295,28 +1299,7 @@ const Ordertable = () => {
       </div>
 
       {/* Filter Section */}
-      <div className="flex flex-wrap gap-4 p-3 lg:py-4 w-full border border-gray-border">
-        {/* <div className="w-full lg:w-auto">
-          <DatePicker
-            type="date"
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            dateFormat="yyyy/MM/dd"
-            placeholderText="Select start date"
-            className="w-full p-2.5 border border-gray-300 rounded-full text-gray-700 shadow-sm hover:border-black transition-all ease-in duration-150"
-          />
-        </div>
-        <div className="w-full lg:w-auto">
-          <DatePicker
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
-            dateFormat="yyyy/MM/dd"
-            placeholderText="Select end date"
-            className="w-full p-2.5 border border-gray-300 rounded-full text-gray-700 shadow-sm hover:border-black transition-all ease-in duration-150"
-            minDate={startDate} // Prevent selecting a date earlier than startDate
-          />
-        </div> */}
-
+      <div className="flex flex-wrap w-full gap-4 p-3 border lg:py-4 border-gray-border">
         {/* Start Date */}
         <div className="w-full lg:w-auto">
           <InputField
@@ -1357,9 +1340,11 @@ const Ordertable = () => {
             <div className="flex items-center p-2 space-x-2 border border-dashed rounded-medium">
               <h1 className="font-medium text-sub-color">Status : </h1>
               <button
-                onClick={() => handleTabChange("All")} // Set active tab to "All" on click
-                className="flex items-center px-2 py-1 text-xs text-white transition-all duration-300 ease-in rounded-full bg-sub-color hover:bg-slate-500/50"
-              >
+        onClick={() => {
+          handleTabChange("All", 0); // Reset active tab to "All" and update the indicator
+        }}
+        className="flex items-center px-2 py-1 text-xs text-white transition-all duration-300 ease-in rounded-full bg-sub-color hover:bg-slate-500/50"
+      >
                 {activeTab}
                 {/* Close Icon */}
                 <div className="flex items-center justify-center ml-2 bg-white rounded-full size-5">
@@ -1372,7 +1357,7 @@ const Ordertable = () => {
         {activeTab !== "All" && (
           <div
             className="flex items-center cursor-pointer"
-            onClick={() => setActiveTab("All")}
+            onClick={handleClearStatus}
           >
             <FaTrashAlt className="size-5 text-light-orange" />
             <h1 className="ml-2 font-bold text-small text-light-orange">
