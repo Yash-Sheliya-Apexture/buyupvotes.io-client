@@ -166,7 +166,7 @@ body {
 /* Background Image */
 
 .background-image {
-  background-image: url(./assets/Images/background..jpg);
+  background-image: url(./assets/Images/Background.jpg);
   background-size: cover;
   background-position: center;
   min-height: 100vh;
