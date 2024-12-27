@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import light_1 from "../assets/Images/light_1.png";
-import light_2 from "../assets/images/light_2.png";
+import light1 from "../assets/Images/light1.png";
+import light2 from "../assets/images/light2.png";
 import { FaUpRightFromSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Button from "../Dashboard/components/Button";
@@ -75,10 +75,10 @@ const HeroSection = () => {
         <div className="relative items-center justify-center hidden lg:w-1/2 lg:mt-0 lg:flex">
           <div className="hero-image-wrap absolute flex -skew-x-[20deg] -space-x-10">
             <div className="relative flex items-center justify-center hero-image">
-              <img src={light_2} alt="Image 1" className="w-2/3" />
+              <img src={light2} alt="Image 1" className="w-2/3" />
             </div>
             <div className="relative hero-image">
-              <img src={light_1} alt="Image 2" className="w-3/5" />
+              <img src={light1} alt="Image 2" className="w-3/5" />
             </div>
           </div>
         </div>
