@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import light1 from "../assets/Images/light_1.png";
-import light2 from "../assets/images/light_2.png";
+import light1 from "../assets/Images/light1.png";
+import light2 from "../assets/images/light2.png";
 import { FaUpRightFromSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Button from "../Dashboard/components/Button";
