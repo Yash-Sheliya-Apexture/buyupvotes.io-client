@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import light_1 from "../assets/images/light_1 (1).png";
-import light_2 from "../assets/images/light_2.png";
+import light_1 from "../assets/images/light_1_.png";
+import light_2 from "../assets/images/light_2_.png";
 import { FaUpRightFromSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Button from "../Dashboard/components/Button";
@@ -26,26 +26,26 @@ const HeroSection = () => {
         background: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${overlay_3})`,
       }}
     >
-      <div className="flex flex-col lg:flex-row items-center justify-center max-w-7xl px-4 container mx-auto">
+      <div className="container flex flex-col items-center justify-center px-4 mx-auto lg:flex-row max-w-7xl">
         {/* Leftside */}
-        <div className="lg:w-1/2 space-y-8 text-center lg:text-start flex flex-col">
+        <div className="flex flex-col space-y-8 text-center lg:w-1/2 lg:text-start">
           <h1 className="font-bold tracking-[10px] text-4xl lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-main-color to-[#FF9D00] lg:mt-0 -mt-6">
             Buy Reddit Upvotes
           </h1>
-          <p className="text-base text-main-color font-medium">
+          <p className="text-base font-medium text-main-color">
             Boost your posts, dominate your conversion
           </p>
-          <div className="flex flex-col text-start space-y-2">
-            <p className="flex items-center text-xs lg:text-small font-medium text-sub-color">
-              <span className="text-main-color text-base mr-2">✔</span>
+          <div className="flex flex-col space-y-2 text-start">
+            <p className="flex items-center text-xs font-medium lg:text-small text-sub-color">
+              <span className="mr-2 text-base text-main-color">✔</span>
               Get trending by sending instant upvotes too any post or comments.
             </p>
-            <p className="flex items-center text-xs lg:text-small font-medium text-sub-color">
-              <span className="text-main-color text-base mr-2">✔</span>
+            <p className="flex items-center text-xs font-medium lg:text-small text-sub-color">
+              <span className="mr-2 text-base text-main-color">✔</span>
               Take control of comments on your posts by upvotes and downvotes
             </p>
           </div>
-          <div className="flex flex-row items-center justify-center lg:justify-start space-x-2">
+          <div className="flex flex-row items-center justify-center space-x-2 lg:justify-start">
             {isLoggedIn ? (
               // If user is logged in, show Dashboard
               <Link to="/dashboard">
@@ -72,12 +72,12 @@ const HeroSection = () => {
         </div>
 
         {/* RightSide */}
-        <div className="lg:w-1/2 lg:mt-0 relative hidden lg:flex items-center justify-center">
+        <div className="relative items-center justify-center hidden lg:w-1/2 lg:mt-0 lg:flex">
           <div className="hero-image-wrap absolute flex -skew-x-[20deg] -space-x-10">
-            <div className="hero-image relative flex justify-center items-center">
+            <div className="relative flex items-center justify-center hero-image">
               <img src={light_2} alt="Image 1" className="w-2/3" />
             </div>
-            <div className="hero-image relative">
+            <div className="relative hero-image">
               <img src={light_1} alt="Image 2" className="w-3/5" />
             </div>
           </div>
