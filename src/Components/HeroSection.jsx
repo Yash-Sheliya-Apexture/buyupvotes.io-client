@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import light1 from "../assets/Images/light1.png";
-import light2 from "../assets/images/light2.png";
 import { FaUpRightFromSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Button from "../Dashboard/components/Button";
-import overlay_3 from "../assets/images/overlay_3.jpg";
+import images from "../assets/websiteImages/index"; // Import the central images file
 
 const HeroSection = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
@@ -23,7 +21,7 @@ const HeroSection = () => {
     <section
       className="hero-section relative h-[550px] overflow-hidden bg-no-repeat bg-center bg-cover flex items-center justify-center"
       style={{
-        background: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${overlay_3})`,
+        background: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${images.overlay_3})`,
       }}
     >
       <div className="container flex flex-col items-center justify-center px-4 mx-auto lg:flex-row max-w-7xl">
@@ -75,10 +73,10 @@ const HeroSection = () => {
         <div className="relative items-center justify-center hidden lg:w-1/2 lg:mt-0 lg:flex">
           <div className="hero-image-wrap absolute flex -skew-x-[20deg] -space-x-10">
             <div className="relative flex items-center justify-center hero-image">
-              <img src={light2} alt="Image 1" className="w-2/3" />
+              <img src={images.light2} alt="Image 1" className="w-2/3" />
             </div>
             <div className="relative hero-image">
-              <img src={light1} alt="Image 2" className="w-3/5" />
+              <img src={images.light1} alt="Image 2" className="w-3/5" />
             </div>
           </div>
         </div>
