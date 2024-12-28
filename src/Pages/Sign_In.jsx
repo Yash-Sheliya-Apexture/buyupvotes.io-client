@@ -6,6 +6,8 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import TokenService from "../utils/TokenService"; // Ensure you have a TokenService for managing tokens
 import { toast } from "react-toastify"; // Import toast from react-toastify
+import Button from "../Dashboard/components/Button";
+import { FaSpinner } from "react-icons/fa";
 
 // Login Component
 const Sign_In = () => {
@@ -138,9 +140,8 @@ const Sign_In = () => {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`mt-1 block w-full px-3.5 py-3 border ${
-                  errors.email ? "border-red-500" : "border-gray-300"
-                } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                className={`mt-1 block w-full px-3.5 py-3 border ${errors.email ? "border-red-500" : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                 placeholder="Email address"
               />
               {errors.email && (
@@ -154,9 +155,8 @@ const Sign_In = () => {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className={`mt-1 block w-full px-3.5 py-3 border ${
-                  errors.password ? "border-red-500" : "border-gray-300"
-                } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                className={`mt-1 block w-full px-3.5 py-3 border ${errors.password ? "border-red-500" : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                 placeholder="Password"
               />
               <button
@@ -180,9 +180,16 @@ const Sign_In = () => {
               </Link>
             </div>
 
-            <button type="submit" className="w-full mybtn" disabled={loading}>
-              {loading ? "Signing In..." : "Sign In"}
-            </button>
+            {loading ? (
+              <div className="flex items-center justify-center">
+                <FaSpinner className="text-lg animate-spin" />
+              </div>
+            ) : (
+              <Button type="submit" onClick={handleSubmit} className="w-full">
+                Sign In
+              </Button>
+            )}
+
           </form>
           <p className="mt-6 font-normal text-center text-xxs text-sub-color">
             By signing up, I agree to{" "}

@@ -4,7 +4,7 @@ const InputField = ({
   type = "text",
   name,
   placeholder = "",
-  value,
+  value = "", // Default to an empty string to handle null/undefined
   onChange,
   error = "",
   disabled = false,
@@ -47,7 +47,7 @@ const InputField = ({
         id={name}
         type={type}
         name={name}
-        value={value}
+        value={value || ""} // Ensure value is never null or undefined
         onChange={onChange}
         onFocus={() => setIsFocused(true)}
         disabled={!isEditing || disabled}

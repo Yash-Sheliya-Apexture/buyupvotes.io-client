@@ -6,6 +6,8 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios"; // Import axios
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import Button from "../Dashboard/components/Button";
+import { FaSpinner } from "react-icons/fa";
 
 const Sign_Up = () => {
   const [email, setEmail] = useState("");
@@ -122,9 +124,8 @@ const Sign_Up = () => {
                   id="First name"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  className={`mt-1 block w-full px-3.5 py-3 border ${
-                    errors.firstName ? "border-red-500" : "border-gray-300"
-                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                  className={`mt-1 block w-full px-3.5 py-3 border ${errors.firstName ? "border-red-500" : "border-gray-300"
+                    } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="First name"
                 />
                 {errors.firstName && (
@@ -139,9 +140,8 @@ const Sign_Up = () => {
                   id="Last name"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  className={`mt-1 block w-full px-3.5 py-3 border ${
-                    errors.lastName ? "border-red-500" : "border-gray-300"
-                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                  className={`mt-1 block w-full px-3.5 py-3 border ${errors.lastName ? "border-red-500" : "border-gray-300"
+                    } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Last name"
                 />
                 {errors.lastName && (
@@ -158,9 +158,8 @@ const Sign_Up = () => {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`mt-1 block w-full px-3.5 py-3 border ${
-                  errors.email ? "border-red-500" : "border-gray-300"
-                } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                className={`mt-1 block w-full px-3.5 py-3 border ${errors.email ? "border-red-500" : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                 placeholder="Email address"
               />
               {errors.email && (
@@ -173,9 +172,8 @@ const Sign_Up = () => {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className={`block w-full px-3.5 py-3 border ${
-                  errors.password ? "border-red-500" : "border-gray-300"
-                } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                className={`block w-full px-3.5 py-3 border ${errors.password ? "border-red-500" : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                 placeholder="Password"
               />
               <button
@@ -196,9 +194,8 @@ const Sign_Up = () => {
                 type={showConfirmPassword ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className={`block w-full px-3.5 py-3 border ${
-                  errors.confirmPassword ? "border-red-500" : "border-gray-300"
-                } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                className={`block w-full px-3.5 py-3 border ${errors.confirmPassword ? "border-red-500" : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                 placeholder="Confirm Password"
               />
               <button
@@ -217,7 +214,7 @@ const Sign_Up = () => {
 
             {/* Submit Button */}
             <div className="">
-              <button
+              {/* <button
                 type="submit"
                 className={`mybtn w-full${
                   loading
@@ -227,7 +224,17 @@ const Sign_Up = () => {
                 disabled={loading}
               >
                 {loading ? "Signing up..." : "Sign Up"}
-              </button>
+              </button> */}
+
+              {loading ? (
+                <div className="flex items-center justify-center">
+                  <FaSpinner className="text-lg animate-spin" />
+                </div>
+              ) : (
+                <Button type="submit" onClick={handleSubmit} className="w-full">
+                  Sign Up
+                </Button>
+              )}
             </div>
           </form>
           <p className="text-[12px] text-center font-medium text-sub-color mt-6">
