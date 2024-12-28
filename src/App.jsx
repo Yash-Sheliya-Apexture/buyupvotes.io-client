@@ -5,14 +5,8 @@ import DashboardRoutes from "./routes/DashboardRoutes";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import speedInsights from '@vercel/speed-insights'; // Import speed insights (default export)
 
 const App = () => {
-
-    useEffect(() => {
-        // Initialize speed insights
-         speedInsights();
-    }, []);
 
     return (
         <Router>
