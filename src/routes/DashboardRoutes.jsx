@@ -6,7 +6,7 @@ import DashboardHome from "../Dashboard/pages/DashboardHome";
 import UpvoteOrder from "../Dashboard/pages/UpvoteOrder";
 import FundPricing from "../Dashboard/pages/FundPricing";
 import ContactUs from "../Dashboard/pages/ContactUs";
-import FaQ from "../Dashboard/pages/FaQ";
+import FAQ from "../Dashboard/pages/FAQ";
 import Blog from "../Dashboard/pages/Blog";
 import BlogDetails from "../Dashboard/pages/BlogDetails";
 import Error404 from "../Dashboard/pages/Error404";
@@ -24,7 +24,7 @@ const DashboardRoutes = () => {
           <Route path="upvoteorder" element={<UpvoteOrder />} />
           <Route path="fundprice" element={<FundPricing />} />
           <Route path="contactus" element={<ContactUs />} />
-          <Route path="faqs" element={<FaQ />} />
+          <Route path="faqs" element={<FAQ />} />
 
           {/* Nested Routes for Blog */}
           <Route path="blog">
