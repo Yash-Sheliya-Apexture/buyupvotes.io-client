@@ -10,6 +10,7 @@ const Dropdown = ({
   error = "",
   backgroundImage,
   className = "",
+  onBlur,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -18,6 +19,7 @@ const Dropdown = ({
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
+        if (onBlur) onBlur(); // Trigger onBlur when clicking outside
       }
     };
 
@@ -25,9 +27,12 @@ const Dropdown = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [onBlur]);
 
-  const isActive = isOpen || selectedValue;
+  const handleSelect = (option) => {
+    onSelect(option);
+    setIsOpen(false);
+  };
 
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
@@ -37,11 +42,12 @@ const Dropdown = ({
           error ? "border-red-500" : "border-gray-300"
         } hover:border-black transition-all ease-in duration-150 relative`}
         onClick={() => setIsOpen(!isOpen)}
+        onBlur={onBlur}
       >
         {/* Floating Label */}
         <span
-          className={`absolute left- transition-all duration-300 ${
-            isActive
+          className={`absolute left-3 transition-all duration-300 ${
+            selectedValue || isOpen
               ? "-top-2.5 text-sub-color bg-white px-1"
               : "top-3 text-sub-color"
           }`}
@@ -59,7 +65,9 @@ const Dropdown = ({
       </div>
 
       {/* Error Message */}
-      {error && <p className="text-sm text-[#FF0000] mt-1">{error}</p>}
+      {error && (
+        <div className="text-sm text-[#FF0000] mt-1">{error}</div> // Changed to div
+      )}
 
       {/* Dropdown Menu */}
       <div
@@ -81,10 +89,7 @@ const Dropdown = ({
           {options.map((option, index) => (
             <li
               key={index}
-              onClick={() => {
-                onSelect(option);
-                setIsOpen(false);
-              }}
+              onClick={() => handleSelect(option)}
               className={`p-2 my-1 text-black cursor-pointer rounded-md transition-all duration-150 ${
                 selectedValue === option
                   ? "bg-[#919eb229]"

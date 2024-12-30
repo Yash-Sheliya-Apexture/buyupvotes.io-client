@@ -7,29 +7,36 @@ const SignIn_Header = () => {
   return (
     <>
       {/* Menubar */}
-      <nav className="flex items-center justify-between p-4 lg:px-20">
-        <div className="flex items-center">
-          <Link to="/">
-            <img
-              src={logo}
-              alt="Logo"
-              className="hidden h-6 lg:block lg:h-10"
-            />
-          </Link>
-          <Link to="/">
-            <img
-              src={Uparrow}
-              alt="Logo Small"
-              className="block h-8 lg:hidden"
-            />
-          </Link>
+      <header className="simple-header">
+        <div className="container mx-auto">
+          <nav className="flex items-center justify-between py-4">
+            <div className="flex items-center">
+              <Link to="/">
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="hidden h-6 lg:block lg:h-10"
+                />
+              </Link>
+              <Link to="/">
+                <img
+                  src={Uparrow}
+                  alt="Logo Small"
+                  className="block h-8 lg:hidden"
+                />
+              </Link>
+            </div>
+            <div>
+              <Link
+                to="/dashboard/FAQ"
+                className="font-medium text-sub-color hover:underline"
+              >
+                Need help?
+              </Link>
+            </div>
+          </nav>
         </div>
-        <div>
-          <a href="#" className="font-medium text-sub-color hover:underline">
-            Need help?
-          </a>
-        </div>
-      </nav>
+      </header>
     </>
   );
 };
