@@ -29,7 +29,7 @@ const HeroSection = () => {
       <div className="flex flex-col lg:flex-row items-center justify-center container mx-auto">
         {/* Leftside */}
         <div className="lg:w-1/2 space-y-8 text-center lg:text-start flex flex-col">
-          <h1 className="font-bold tracking-[10px] text-xlarge md:text-5xl lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-main-color to-[#FF9D00] lg:mt-0 -mt-6">
+          <h1 className="font-bold tracking-[10px] text-xlarge md:text-5xl lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-main-color to-[#FF9D00] lg:mt-0 -mt-20">
             Buy Reddit Upvotes
           </h1>
           <p className="text-base text-main-color font-medium">

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaEye, FaEyeSlash, FaChevronLeft } from "react-icons/fa";
+import { ToastContainer } from "react-toastify";
 
 const Newpassword = () => {
   const [otp, setOtp] = useState(Array(6).fill(""));
@@ -10,13 +11,12 @@ const Newpassword = () => {
   const [showPasswords, setShowPasswords] = useState(false);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(""); // Success message state
+  const [successMessage, setSuccessMessage] = useState("");
   const otpRefs = useRef([]);
   const navigate = useNavigate();
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-  // OTP Change Handler
   const handleOtpChange = (index, value) => {
     if (isNaN(value) || value.length > 1) return;
     const newOtp = [...otp];
@@ -30,14 +30,12 @@ const Newpassword = () => {
     }
   };
 
-  // Handle Backspace
   const handleBackspace = (index) => {
     if (index > 0 && !otp[index]) {
       otpRefs.current[index - 1].focus();
     }
   };
 
-  // OTP Validation
   const validateOtp = () => {
     const isEmptyField = otp.some((digit) => digit.trim() === "");
     if (isEmptyField) {
@@ -50,7 +48,6 @@ const Newpassword = () => {
     return true;
   };
 
-  // Password Validation
   const validatePasswords = () => {
     const validationErrors = {};
 
@@ -70,11 +67,12 @@ const Newpassword = () => {
     return Object.keys(validationErrors).length === 0;
   };
 
-  // Form Submission Handler
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // First, validate OTP and passwords
+    // Clear all field-specific errors before validation
+    setErrors({});
+
     if (!validateOtp() || !validatePasswords()) return;
 
     setLoading(true);
@@ -85,16 +83,14 @@ const Newpassword = () => {
       });
 
       if (response.status === 200) {
-        setSuccessMessage("Password updated successfully!");
-
-        // Reset input fields and show/hide password toggle after 2 seconds
+        setSuccessMessage("Password was successfully created!");
         setTimeout(() => {
-          setOtp(Array(6).fill("")); // Reset OTP fields
-          setPassword(""); // Reset password field
-          setConfirmPassword(""); // Reset confirm password field
-          setShowPasswords(false); // Reset password visibility toggle
-          setSuccessMessage(""); // Clear success message
-        }, 2000); // Wait for the success message to show for 2 seconds
+          setOtp(Array(6).fill(""));
+          setPassword("");
+          setConfirmPassword("");
+          setShowPasswords(false);
+          setSuccessMessage("");
+        }, 1000);
       }
     } catch (error) {
       setErrors({
@@ -116,6 +112,9 @@ const Newpassword = () => {
               <p className="text-green-500 text-center mb-4">
                 {successMessage}
               </p>
+            )}
+            {errors.general && (
+              <p className="text-red-500 text-center mb-4">{errors.general}</p>
             )}
             <div className="flex justify-center">
               <svg
@@ -191,9 +190,19 @@ const Newpassword = () => {
                     onKeyDown={(e) =>
                       e.key === "Backspace" && handleBackspace(index)
                     }
+                    onPaste={(e) => {
+                      const pastedData = e.clipboardData.getData("Text").trim();
+                      if (/^\d{6}$/.test(pastedData)) {
+                        const newOtp = pastedData.split("");
+                        setOtp(newOtp);
+                        otpRefs.current[0].focus();
+                      }
+                    }}
                     ref={(el) => (otpRefs.current[index] = el)}
                     className={`p-2.5 w-full text-center rounded-md border ${
-                      errors.otp && digit.trim() === ""
+                      otpRefs.current[index] === document.activeElement
+                        ? "border-blue-500"
+                        : errors.otp && digit.trim() === ""
                         ? "border-red-300"
                         : "border-gray-300/50"
                     } hover:border-main-color transition-all ease-in duration-200`}
@@ -205,7 +214,7 @@ const Newpassword = () => {
                 <p className="my-2 text-xs text-red-500">{errors.otp}</p>
               )}
 
-              {/* Password Field */}
+              {/* Password Fields */}
               <div className="relative mb-4">
                 <input
                   type={showPasswords ? "text" : "password"}
@@ -228,7 +237,6 @@ const Newpassword = () => {
                 )}
               </div>
 
-              {/* Confirm Password Field */}
               <div className="relative mb-4">
                 <input
                   type={showPasswords ? "text" : "password"}
@@ -241,6 +249,13 @@ const Newpassword = () => {
                   } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Confirm Password"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPasswords(!showPasswords)}
+                  className="absolute text-gray-600 right-3 top-4"
+                >
+                  {showPasswords ? <FaEye /> : <FaEyeSlash />}
+                </button>
                 {errors.confirmPassword && (
                   <p className="mt-1 text-xs text-red-500">
                     {errors.confirmPassword}
@@ -248,7 +263,6 @@ const Newpassword = () => {
                 )}
               </div>
 
-              {/* Submit Button */}
               <button
                 type="submit"
                 className={`mybtn w-full ${
@@ -279,6 +293,7 @@ const Newpassword = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };

@@ -28,7 +28,7 @@ const Contact = () => {
         </p>
         <div className="flex justify-center">
           <Button>
-            <Link to="/dashboard/ContactUs">Contact us</Link>
+            <Link to="/dashboard/contactus">Contact us</Link>
           </Button>
         </div>
 

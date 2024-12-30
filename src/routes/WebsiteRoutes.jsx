@@ -32,10 +32,11 @@ const WebsiteRoutes = () => {
       )}
       <Routes>
         <Route path="/" element={<Home_Page />} />
-        <Route path="/TermAndConditions" element={<TermAndConditions />} />
-        <Route path="/Privacy" element={<Privacy />} />
+        <Route path="/terms-and-conditions" element={<TermAndConditions />} />
+        <Route path="/privacy-policy" element={<Privacy />} />
         <Route path="/*" element={<LoginRoutes />} />
       </Routes>
+
       {!isExcludedRoute && <Footer />}
     </>
   );

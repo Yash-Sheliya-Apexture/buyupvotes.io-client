@@ -110,7 +110,7 @@ const Error404 = () => {
         />
       </motion.div>
       {/* Home Page Redirect */}
-      <div className="text-center">
+      <div className="text-center mb-10">
         <Link to="/">
           <motion.div
             whileHover={{ scale: 1.1 }}

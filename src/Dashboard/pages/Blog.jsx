@@ -54,13 +54,13 @@ const Blog = () => {
         <h1 className="font-medium text-sub-color lg:text-base">
           Interested in guest posting on our blog? Please{" "}
           <span className="font-medium underline cursor-pointer text-main-color underline-offset-1">
-            <Link to="/dashboard/ContactUs">contact us</Link>
+            <Link to="/dashboard/contactus">contact us</Link>
           </span>{" "}
           we'd love to hear from you!
         </h1>
 
         {/* Dropdown Modify */}
-        <div className="flex items-center py-2 lg:w-1/4">
+        <div className="flex items-center py-2 lg:w-1/4 z-20">
           <span className="mr-2 text-nowrap text-sub-color font-medium">
             Sort By:
           </span>
@@ -74,12 +74,14 @@ const Blog = () => {
       </div>
 
       {/* Blog Cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {sortedBlogs.map((blog) => (
+      <div className="flex flex-wrap gap-4">
+        {sortedBlogs.map((blog, index) => (
           <Link
             key={blog.id}
-            to={`/dashboard/Blog/${sanitizeTitle(blog.title)}`} // Use sanitized title
-            className="bg-white text-sub-color relative shadow-main z-0 cursor-pointer overflow-hidden rounded-small"
+            to={`/dashboard/blog/${sanitizeTitle(blog.title)}`}
+            className={`bg-white text-sub-color relative shadow-main z-0  cursor-pointer overflow-hidden rounded-small ${
+              index === 0 ? "lg:w-[550px] w-full z-10" : "flex-0 md:flex-1" // flex-1 for remaining blogs
+            }`}
           >
             <div className="relative">
               <div className="absolute z-10 w-20 text-white h-9 left-2 -bottom-4">

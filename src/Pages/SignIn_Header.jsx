@@ -26,9 +26,12 @@ const SignIn_Header = () => {
             </Link>
           </div>
           <div>
-            <a href="#" className="text-sub-color font-medium hover:underline">
+            <Link
+              to="/dashboard/faqs"
+              className="text-sub-color font-medium hover:underline"
+            >
               Need help?
-            </a>
+            </Link>
           </div>
         </nav>
       </div>

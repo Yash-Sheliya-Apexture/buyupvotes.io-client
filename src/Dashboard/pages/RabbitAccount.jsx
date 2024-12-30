@@ -13,7 +13,7 @@ const RabbitAccount = () => {
           We are currently working hard on this page. <br />
           If you have any questions or requests, please{" "}
           <span className="text-[#FF5700] underline underline-offset-1 font-normal cursor-pointer">
-            <Link to="/Dashboard/ContactUs">contact us.</Link>
+            <Link to="/Dashboard/contactus">contact us.</Link>
           </span>
         </p>
         <div className="mt-10">

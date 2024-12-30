@@ -40,7 +40,7 @@ const ForgotPassword = () => {
     // Redirect to NewPassword component after 3 seconds
     setTimeout(() => {
       navigate("/newpassword");
-    }, 4000);
+    }, 3000);
 
     setLoading(false);
   };

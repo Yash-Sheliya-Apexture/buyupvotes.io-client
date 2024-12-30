@@ -190,7 +190,7 @@ const Sign_In = () => {
               </div>
 
               <button type="submit" className="mybtn w-full" disabled={loading}>
-                {loading ? "Signing In..." : "Sign In"}
+                {loading ? "Signing In.." : "Sign In"}
               </button>
             </form>
             <p className="text-xxs text-center font-normal text-sub-color mt-6">

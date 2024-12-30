@@ -58,37 +58,37 @@ const SideBar = () => {
       id: "Order Upvotes",
       icon: <BsBarChartFill />,
       label: "Order Upvotes",
-      link: "/dashboard/UpvoteOrder",
+      link: "/dashboard/upvoteorder",
     },
     {
       id: "Add Funds",
       icon: <HiCurrencyEuro />,
       label: "Add Funds-Princing",
-      link: "/dashboard/FundPrice",
+      link: "/dashboard/fundprice",
     },
     {
       id: "FAQs",
       icon: <MdContactPage />,
       label: "FAQ'S",
-      link: "/dashboard/FAQ",
+      link: "/dashboard/faqs",
     },
     {
       id: "Blogs Data",
       icon: <GoFileDirectoryFill />,
       label: "Blogs",
-      link: "/dashboard/Blog",
+      link: "/dashboard/blog",
     },
     {
       id: "Contact",
       icon: <MdContacts />,
       label: "Contact Us",
-      link: "/dashboard/ContactUs",
+      link: "/dashboard/contactus",
     },
     {
       id: "Account",
       icon: <RiAccountBoxFill />,
       label: "Account",
-      link: "/dashboard/Account/",
+      link: "/dashboard/account/",
     },
   ];
 
@@ -192,7 +192,7 @@ const SideBar = () => {
           {isSidebarExpanded && (
             <div className="p-2 mt-4">
               <Link
-                to="/dashboard/FundPrice"
+                to="/dashboard/fundprice"
                 className="mybtn"
                 style={{
                   padding: "8px 55px", // Custom padding

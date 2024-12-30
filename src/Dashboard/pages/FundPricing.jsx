@@ -20,7 +20,7 @@ const FundPricing = () => {
           Contact us and we'll get back to you as soon as possible.
         </p>
         <div className="my-6">
-          <Link to="/dashboard/ContactUs">
+          <Link to="/dashboard/contactus">
             <Button>Contact Us</Button>
           </Link>
         </div>

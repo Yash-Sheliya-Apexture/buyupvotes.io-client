@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import Button from "../Dashboard/components/Button";
 import { NearMeDisabled } from "@mui/icons-material";
+import { TbMenu4 } from "react-icons/tb";
+import { FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
   const [showTooltip, setShowTooltip] = useState(false); // Tooltip state
@@ -35,28 +37,15 @@ const Header = () => {
       <header className="sticky top-0 left-0 z-20 bg-white w-full bg-opacity-95 shadow-main">
         {/* Header */}
         <div className="container mx-auto">
-          <section className="flex items-center justify-between py-2.5 relative">
+          <section className="flex items-center justify-between py-2 relative">
             {/* Left Section: Logo & Small screen icons */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center">
               {/* Mobile Menu Button */}
               <button className="block md:hidden" onClick={toggleMenu}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-main-color"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16m-7 6h7"
-                  />
-                </svg>
+                <TbMenu4 className="text-large text-main-color" />
               </button>
               <button className="block md:hidden">
-                <img src={Uparrow} alt="upArrow" className="size-6" />
+                <img src={Uparrow} alt="upArrow" className="h-6 ml-4" />
               </button>
 
               {/* Logo for larger screens */}
@@ -65,7 +54,7 @@ const Header = () => {
                 <img
                   src={logo}
                   alt="Logo"
-                  className="hidden h-6 md:h-10 md:block"
+                  className="hidden h-6 md:h-8 md:block"
                 />
               </Link>
             </div>
@@ -74,59 +63,52 @@ const Header = () => {
             <div className="flex items-center justify-between space-x-6 md:w-auto">
               {/* Navigation Links */}
               <nav className="flex-grow hidden h-full space-x-10 cursor-pointer md:flex">
-                <Link
-                  to="/dashboard/FundPrice"
-                  className="text-small text-sub-color hover:opacity-50 transition-all ease-linear duration-150"
-                >
-                  Pricing
-                </Link>
-                <Link
-                  to="/dashboard/FAQ"
-                  href="#FaQ"
-                  className="text-small text-sub-color hover:opacity-50 transition-all ease-linear duration-150"
-                >
-                  FAQ
-                </Link>
-                <Link
-                  to="/dashboard/Blog"
-                  className="text-small text-sub-color hover:opacity-50 transition-all ease-linear duration-150"
-                >
-                  Blog
-                </Link>
-                <Link
-                  to="/dashboard/ContactUs"
-                  className="text-small text-sub-color hover:opacity-50 transition-all ease-linear duration-150"
-                >
-                  Contact
-                </Link>
+                {["Pricing", "FAQ", "Blog", "Contact"].map((item, index) => {
+                  const paths = [
+                    "/dashboard/fundprice",
+                    "/dashboard/faqs",
+                    "/dashboard/blog",
+                    "/dashboard/contactus",
+                  ];
+                  return (
+                    <Link
+                      key={index}
+                      to={paths[index]}
+                      className="relative text-small text-sub-color font-normal hover:text-main-color group"
+                    >
+                      {item}
+                      <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-transparent">
+                        <span className="block absolute top-0 left-0 h-full w-0 bg-main-color transition-all duration-300 ease-in-out group-hover:w-full"></span>
+                      </span>
+                    </Link>
+                  );
+                })}
               </nav>
 
               {/* Right Section */}
-              <div className="relative flex items-center space-x-4">
-                <div className="relative flex items-center space-x-4">
-                  {isLoggedIn ? (
-                    // If user is logged in, show Dashboard
-                    <Button>
-                      <Link to="/dashboard">Dashboard</Link>
-                    </Button>
-                  ) : (
-                    // If user is not logged in, show Sign-In and Sign-Up
-                    <>
-                      <button>
-                        <Link
-                          to="/signin"
-                          className="px-4 lg:px-0 py-1 text-main-color border-main-color font-medium rounded-full transition lg:block hidden"
-                        >
-                          Sign-In
-                        </Link>
-                      </button>
+              <div className="relative flex items-center space-x-2">
+                {isLoggedIn ? (
+                  // If user is logged in, show Dashboard
+                  <Button>
+                    <Link to="/dashboard">Dashboard</Link>
+                  </Button>
+                ) : (
+                  // If user is not logged in, show Sign-In and Sign-Up
+                  <>
+                    <button>
+                      <Link
+                        to="/signin"
+                        className="px-4 lg:px-0 py-1 text-main-color border-main-color font-medium rounded-full transition lg:block hidden"
+                      >
+                        Sign-In
+                      </Link>
+                    </button>
 
-                      <Button>
-                        <Link to="/signup">Sign-Up</Link>
-                      </Button>
-                    </>
-                  )}
-                </div>
+                    <Button>
+                      <Link to="/signup">Sign-Up</Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
 
@@ -143,8 +125,8 @@ const Header = () => {
                 </button>
               </div>
 
-              <div className="p-6 space-y-6">
-                <div className="flex items-center space-x-5">
+              <div className="px-4 py-2 space-y-6">
+                <div className="flex items-center gap-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -153,7 +135,7 @@ const Header = () => {
                     width="1em"
                     height="1em"
                     viewBox="0 0 24 24"
-                    className="size-6"
+                    className="size-8 text-main-color"
                   >
                     <path
                       fill="currentColor"
@@ -166,14 +148,14 @@ const Header = () => {
                     ></path>
                   </svg>
                   <Link
-                    to="/dashboard/FundPrice"
-                    className="block text-lg text-sub-color hover:opacity-50 transition-all ease-linear duration-200"
+                    to="/dashboard/fundprice"
+                    className="block text-lg text-sub-color hover:text-main-color transition-all ease-linear duration-200"
                   >
                     Pricing
                   </Link>
                 </div>
 
-                <div className="flex items-center space-x-5">
+                <div className="flex items-center gap-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -182,7 +164,7 @@ const Header = () => {
                     width="1em"
                     height="1em"
                     viewBox="0 0 24 24"
-                    className="size-6"
+                    className="size-8 text-main-color"
                   >
                     <path
                       fill="currentColor"
@@ -195,14 +177,14 @@ const Header = () => {
                     ></path>
                   </svg>
                   <Link
-                    to="/dashboard/FAQ"
-                    className="block text-lg text-sub-color hover:opacity-50 transition-all ease-linear duration-200"
+                    to="/dashboard/faqs"
+                    className="block text-lg text-sub-color hover:text-main-color transition-all ease-linear duration-200"
                   >
                     FAQ
                   </Link>
                 </div>
 
-                <div className="flex items-center space-x-5">
+                <div className="flex items-center gap-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -211,7 +193,7 @@ const Header = () => {
                     width="1em"
                     height="1em"
                     viewBox="0 0 24 24"
-                    className="size-6"
+                    className="size-8 text-main-color"
                   >
                     <path
                       fill="currentColor"
@@ -224,13 +206,13 @@ const Header = () => {
                     ></path>
                   </svg>
                   <Link
-                    to="/dashboard/Blog"
-                    className="block text-lg text-sub-color hover:opacity-50 transition-all ease-linear duration-200"
+                    to="/dashboard/blog"
+                    className="block text-lg text-sub-color hover:text-main-color transition-all ease-linear duration-200"
                   >
                     Blog
                   </Link>
                 </div>
-                <div className="flex items-center space-x-5">
+                <div className="flex items-center gap-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -239,7 +221,7 @@ const Header = () => {
                     width="1em"
                     height="1em"
                     viewBox="0 0 24 24"
-                    className="size-6"
+                    className="size-8 text-main-color"
                   >
                     <path
                       fill="currentColor"
@@ -263,19 +245,19 @@ const Header = () => {
                     ></path>
                   </svg>
                   <Link
-                    to="ContactUs"
+                    to="contactus"
                     href="#contact"
-                    className="block text-lg text-sub-color hover:opacity-50 transition-all ease-linear duration-200"
+                    className="block text-lg text-sub-color hover:text-main-color transition-all ease-linear duration-200"
                   >
                     Contact
                   </Link>
                 </div>
-                <div className="flex space-x-5 items-center">
-                  <FaUser className="size-6" />
+                <div className="flex gap-4 items-center">
+                  <FaUserCircle className="size-8  text-[#ff8b4c]" />
                   <Link
                     to="/dashboard"
                     href="#login"
-                    className="block text-lg text-sub-color hover:opacity-50 transition-all ease-linear duration-200"
+                    className="block text-lg text-sub-color hover:text-main-color transition-all ease-linear duration-200"
                   >
                     Dashboard
                   </Link>

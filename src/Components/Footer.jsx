@@ -10,7 +10,7 @@ const Footer = () => {
     <footer className="border-t border-slate-300/50 py-5" id="Footer">
       <section className="container mx-auto">
         <div className="bg-white py-2">
-          <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center lg:items-start space-y-8 lg:space-y-0">
+          <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start space-y-8 lg:space-y-0">
             {/* Left Section - Logo and Socials */}
             <div className="flex flex-col items-center lg:items-start space-y-5">
               <img src={logo} alt="logo" className="h-10" />
@@ -39,7 +39,7 @@ const Footer = () => {
                 <ul className="text-sub-color mt-2 lg:text-medium xs:text-small space-y-2">
                   <li>
                     <Link
-                      to="/dashboard/FAQ"
+                      to="/dashboard/faqs"
                       className="hover:text-main-color hover:underline underline-offset-1"
                     >
                       FAQs
@@ -47,7 +47,7 @@ const Footer = () => {
                   </li>
                   <li>
                     <Link
-                      to="/dashboard/FundPrice"
+                      to="/dashboard/fundprice"
                       className="hover:text-main-color hover:underline underline-offset-1"
                     >
                       Pricing
@@ -63,7 +63,7 @@ const Footer = () => {
                 <ul className="text-sub-color mt-2 lg:text-medium xs:text-small space-y-2">
                   <li>
                     <Link
-                      to="/dashboard/ContactUs"
+                      to="/dashboard/contactus"
                       className="hover:text-main-color hover:underline underline-offset-1"
                     >
                       Contact us
@@ -79,7 +79,7 @@ const Footer = () => {
                 <ul className="text-sub-color mt-2 lg:text-medium xs:text-small space-y-2">
                   <li>
                     <Link
-                      to="/TermAndConditions"
+                      to="/terms-and-conditions"
                       className="hover:text-main-color hover:underline underline-offset-1"
                     >
                       Terms and Conditions
@@ -87,7 +87,7 @@ const Footer = () => {
                   </li>
                   <li>
                     <Link
-                      to="/Privacy"
+                      to="/privacy-policy"
                       className="hover:text-main-color hover:underline underline-offset-1"
                     >
                       Privacy Policy

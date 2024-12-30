@@ -1296,27 +1296,6 @@ const Ordertable = () => {
 
       {/* Filter Section */}
       <div className="flex flex-wrap gap-4 p-3 lg:py-4 w-full border border-gray-border">
-        {/* <div className="w-full lg:w-auto">
-          <DatePicker
-            type="date"
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            dateFormat="yyyy/MM/dd"
-            placeholderText="Select start date"
-            className="w-full p-2.5 border border-gray-300 rounded-full text-gray-700 shadow-sm hover:border-black transition-all ease-in duration-150"
-          />
-        </div>
-        <div className="w-full lg:w-auto">
-          <DatePicker
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
-            dateFormat="yyyy/MM/dd"
-            placeholderText="Select end date"
-            className="w-full p-2.5 border border-gray-300 rounded-full text-gray-700 shadow-sm hover:border-black transition-all ease-in duration-150"
-            minDate={startDate} // Prevent selecting a date earlier than startDate
-          />
-        </div> */}
-
         {/* Start Date */}
         <div className="w-full lg:w-auto">
           <InputField
@@ -1342,7 +1321,7 @@ const Ordertable = () => {
           <InputField
             name="Search"
             type="text"
-            placeholder="Search by subreddit name"
+            placeholder="Searching Your Orders..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

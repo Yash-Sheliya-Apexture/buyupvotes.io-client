@@ -12,7 +12,7 @@ const DashboardLayout = () => {
           <Dashboard_header />
           <main className="flex-1 overflow-y-auto">
             <Outlet />
-          </main>
+          </main>          
         </div>
       </div>
     </div>

@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 font-face {
   font-family: "InterDisplay";
   font-style: normal;
@@ -136,18 +134,45 @@ font-face {
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
-  /* user-select: none; */
+  user-select: none;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 /* Apply Urbanist font globally */
 body {
   @apply font-InterDisplay;
+  height: 100vh;
 }
 
 .container {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0px 16px;
+}
+
+/* Custom horizontal scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background-color: #c5c5c5; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+  transition: all 0.3s ease-in-out; /* Animation for hover effect */
+}
+
+/* Scrollbar thumb hover effect */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ff5700; /* Color of the thumb when hovered */
+}
+
+/* Scrollbar track (the background part of the scrollbar) */
+::-webkit-scrollbar-track {
+  background-color: transparent; /* Make track background transparent */
 }
 
 .heading {
