@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Rocket from "../assets/Images/rocket.png";
 import { FaUpRightFromSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import Button from "../Dashboard/components//Button";
+import Button from "../Dashboard/components/Button";
 
 const Contact = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
@@ -19,7 +19,7 @@ const Contact = () => {
 
   return (
     <>
-      <section className="px-4 py-5 mx-auto lg:container mix-blend-overlay">
+      <section className="py-5 container mx-auto mix-blend-overlay">
         <h1 className="text-center text-[24px] font-bold text-[#2D2624]">
           Have any questions?
         </h1>
@@ -28,7 +28,7 @@ const Contact = () => {
         </p>
         <div className="flex justify-center">
           <Button>
-            <Link to="/dashboard/ContactUs">Contact us</Link>
+            <Link to="/dashboard/contactus">Contact us</Link>
           </Button>
         </div>
 
@@ -64,7 +64,7 @@ const Contact = () => {
 
                   <Link
                     to="/signin"
-                    className="bg-white text-[#FF5700] font-medium px-20 py-1.5 rounded-full hover:bg-[#9c7564] hover:text-white transition-all duration-200 ease-in"
+                    className="font-medium lg:px-20 px-16 py-1.5 rounded-full border-2 border-transparent flex items-center bg-white text-main-color transition-all  duration-200 ease-in"
                   >
                     Sign in
                   </Link>

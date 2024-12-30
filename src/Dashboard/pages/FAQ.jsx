@@ -81,7 +81,7 @@ const FAQ = () => {
   };
 
   return (
-    <div className="lg:container mx-auto">
+    <div className="container mx-auto">
       {/* Header Section */}
       <div
         className="relative lg:h-[550px] h-[350px] bg-cover bg-center rounded-small"
@@ -99,8 +99,8 @@ const FAQ = () => {
                 className={`block ${
                   visibleLines.includes(line)
                     ? "opacity-100 translate-x-0 animate-word-reveal"
-                    : "opacity-0 -translate-x-20"
-                } transition-all duration-500 ease-in`}
+                    : "opacity-0 translate-x-40"
+                } transition-all duration-500 ease-in-out`}
               >
                 {index === 0 ? (
                   <span className="text-main-color">{line}</span>

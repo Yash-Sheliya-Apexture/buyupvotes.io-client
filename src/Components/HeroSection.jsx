@@ -24,10 +24,10 @@ const HeroSection = () => {
         background: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${images.overlay_3})`,
       }}
     >
-      <div className="container flex flex-col items-center justify-center px-4 mx-auto lg:flex-row max-w-7xl">
+      <div className="flex flex-col lg:flex-row items-center justify-center container mx-auto">
         {/* Leftside */}
-        <div className="flex flex-col space-y-8 text-center lg:w-1/2 lg:text-start">
-          <h1 className="font-bold tracking-[10px] text-4xl lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-main-color to-[#FF9D00] lg:mt-0 -mt-6">
+        <div className="lg:w-1/2 space-y-8 text-center lg:text-start flex flex-col">
+          <h1 className="font-bold tracking-[10px] text-xlarge md:text-5xl lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-main-color to-[#FF9D00] lg:mt-0 -mt-20">
             Buy Reddit Upvotes
           </h1>
           <p className="text-base font-medium text-main-color">
@@ -53,10 +53,10 @@ const HeroSection = () => {
               <>
                 {/* SignIn And SignUp */}
                 <button
+                  style={{ backgroundColor: "#FF5700", color: "#fff" }}
                   className="mybtn"
-                  style={{ backgroundColor: "#FF5700", color: "#FFF" }}
                 >
-                  <Link to="/dashboard/FundPrice">Sign in</Link>
+                  <Link to="/signin">Sign in</Link>
                 </button>
                 <Button>
                   <Link to="/signup">
@@ -75,8 +75,8 @@ const HeroSection = () => {
             <div className="relative flex items-center justify-center hero-image">
               <img src={images.light2} alt="Image 1" className="w-2/3" />
             </div>
-            <div className="relative hero-image">
-              <img src={images.light1} alt="Image 2" className="w-3/5" />
+            <div className="hero-image relative">
+              <img src={images.light1} alt="Image 2" className="w-3/4" />
             </div>
           </div>
         </div>

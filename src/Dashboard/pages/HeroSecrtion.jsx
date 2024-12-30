@@ -39,12 +39,12 @@ const HeroSection = () => {
   }, [API_BASE_URL]);
   return (
     <>
-      <div className="flex flex-col items-center gap-4 lg:flex-row">
+      <div className="flex flex-col gap-4 lg:flex-row">
         {/* HeroCard Components */}
         <div className="flex flex-col lg:flex-row lg:w-full w-full bg-light-brown rounded-small lg:p-6 p-4 relative overflow-hidden">
           {/* Left Side - Text */}
           <div className="flex justify-center w-full lg:w-1/2">
-            <div className="mb-20 text-center space-y-5 lg:text-start max-w-[320px]">
+            <div className="mb-20 text-center space-y-5 lg:text-start max-w-[400px]">
               {loading ? (
                 <h2 className="font-bold text-dark-green lg:text-large text-[26px]">
                   Loading...
@@ -64,10 +64,10 @@ const HeroSection = () => {
                 You have 100 upvotes remaining on your balance. Continue
                 boosting your Reddit experience by placing an order!
               </p>
-              <Link to="/dashboard/UpvoteOrder">
+              <Link to="/dashboard/upvoteorder">
                 <Button>Order Now</Button>
               </Link>
-            </div>
+            </div>  
           </div>
 
           {/* Right Side - Image */}

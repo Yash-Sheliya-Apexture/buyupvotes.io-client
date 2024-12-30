@@ -59,7 +59,7 @@ const Dashboard_header = () => {
     <>
       {/* Header Section Start  */}
       <header className="sticky top-0 z-10 w-full backdrop-blur-[2px] bg-white/50">
-        <div className="flex items-center justify-end p-2 space-x-2 lg:space-x-4">
+        <div className="flex items-center justify-end p-3">
           <div className="relative" ref={dropdownRef}>
             <button
               className="px-6 py-2.5 rounded-full bg-main-color flex items-center relative focus:outline-none"

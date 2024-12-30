@@ -58,44 +58,44 @@ const SideBar = () => {
       id: "Order Upvotes",
       icon: <BsBarChartFill />,
       label: "Order Upvotes",
-      link: "/dashboard/UpvoteOrder",
+      link: "/dashboard/upvoteorder",
     },
     {
       id: "Add Funds",
       icon: <HiCurrencyEuro />,
       label: "Add Funds-Princing",
-      link: "/dashboard/FundPrice",
+      link: "/dashboard/fundprice",
     },
     {
       id: "FAQs",
       icon: <MdContactPage />,
       label: "FAQ'S",
-      link: "/dashboard/FAQ",
+      link: "/dashboard/faqs",
     },
     {
       id: "Blogs Data",
       icon: <GoFileDirectoryFill />,
       label: "Blogs",
-      link: "/dashboard/Blog",
+      link: "/dashboard/blog",
     },
     {
       id: "Contact",
       icon: <MdContacts />,
       label: "Contact Us",
-      link: "/dashboard/ContactUs",
+      link: "/dashboard/contactus",
     },
     {
       id: "Account",
       icon: <RiAccountBoxFill />,
       label: "Account",
-      link: "/dashboard/Account/",
+      link: "/dashboard/account/",
     },
   ];
 
   return (
     <>
       <button
-        className="absolute z-50 rounded-full top-4 left-4 xl:hidden"
+        className="absolute top-5 left-4 z-50 lg:hidden rounded-full"
         onClick={toggleSidebarVisibility}
       >
         <CgMenuRightAlt className="rounded-md text-main-color size-8" />
@@ -145,6 +145,7 @@ const SideBar = () => {
 
         <div className="h-[calc(100%-4rem)] overflow-y-auto custom-scroll">
           <ul className="space-y-2.5 mt-5">
+            {/* Dashboard Tab */}
             {menuItems.map((item) => (
               <li
                 key={item.id}
@@ -166,19 +167,14 @@ const SideBar = () => {
                     <span className="text-small text-nowrap">{item.label}</span>
                   )}
                 </Link>
+                {/* Tooltip */}
                 {!isSidebarExpanded && (
                   <Tooltip
                     id={item.id}
+                    className="tooltip-custom" // Apply custom animation classs
                     style={{
-                      position: "fixed", // Ensure the tooltip stays outside
-                      transform: "translateX(0px)", // Move slightly to the right
+                      position: "fixed",
                       zIndex: 10,
-                      backgroundColor: "#ff5700", // Custom background color
-                      fontSize: "14px", // Custom font size
-                      fontWeight: "bold", // Custom font weight
-                      color: "white", // Text color
-                      borderRadius: "5px", // Rounded corner
-                      textTransform: "capitalize",
                     }}
                   />
                 )}
@@ -196,10 +192,10 @@ const SideBar = () => {
           {isSidebarExpanded && (
             <div className="p-2 mt-4">
               <Link
-                to="/dashboard/FundPrice"
+                to="/dashboard/fundprice"
                 className="mybtn"
                 style={{
-                  padding: "8px 40px", // Custom padding
+                  padding: "8px 55px", // Custom padding
                 }}
               >
                 Add Funds

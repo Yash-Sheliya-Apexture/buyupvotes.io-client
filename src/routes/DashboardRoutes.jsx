@@ -4,11 +4,8 @@ import { Routes, Route } from "react-router-dom";
 // Dashboard Pages
 import DashboardHome from "../Dashboard/pages/DashboardHome";
 import UpvoteOrder from "../Dashboard/pages/UpvoteOrder";
-import OrderComment from "../Dashboard/pages/OrderComment";
-import DirectMassage from "../Dashboard/pages/DirectMassage";
 import FundPricing from "../Dashboard/pages/FundPricing";
 import ContactUs from "../Dashboard/pages/ContactUs";
-import RabbitAccount from "../Dashboard/pages/RabbitAccount";
 import FAQ from "../Dashboard/pages/FAQ";
 import Blog from "../Dashboard/pages/Blog";
 import BlogDetails from "../Dashboard/pages/BlogDetails";
@@ -24,22 +21,19 @@ const DashboardRoutes = () => {
         {/* Wrap all dashboard routes inside DashboardLayout */}
         <Route path="/" element={<DashboardLayout />}>
           <Route index element={<DashboardHome />} />
-          <Route path="UpvoteOrder" element={<UpvoteOrder />} />
-          <Route path="OrderComment" element={<OrderComment />} />
-          <Route path="DirectMassage" element={<DirectMassage />} />
-          <Route path="FundPrice" element={<FundPricing />} />
-          <Route path="ContactUs" element={<ContactUs />} />
-          <Route path="RabbitAcc" element={<RabbitAccount />} />
-          <Route path="FAQ" element={<FAQ />} />
+          <Route path="upvoteorder" element={<UpvoteOrder />} />
+          <Route path="fundprice" element={<FundPricing />} />
+          <Route path="contactus" element={<ContactUs />} />
+          <Route path="faqs" element={<FAQ />} />
 
           {/* Nested Routes for Blog */}
-          <Route path="Blog">
+          <Route path="blog">
             <Route index element={<Blog />} />
-            <Route path=":id" element={<BlogDetails />} />
+            <Route path=":title" element={<BlogDetails />} />
           </Route>
 
-          <Route path="Account" element={<Account />} />
-          <Route path="*" element={<Error404 />} />
+          <Route path="account" element={<Account />} />
+         
         </Route>
       </Routes>
     </AuthProvider>

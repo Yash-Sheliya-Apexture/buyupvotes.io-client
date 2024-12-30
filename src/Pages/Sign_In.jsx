@@ -301,14 +301,16 @@ const Sign_In = () => {
 
     try {
       // Send login request to the server
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password });
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, {
+        email,
+        password,
+      });
 
       const { accessToken, refreshToken } = response.data;
       TokenService.setToken(accessToken, refreshToken);
 
       // Navigate to the dashboard after successful login
       navigate("/dashboard");
-
     } catch (error) {
       // Handle error returned by the backend
       if (error.response) {
@@ -423,7 +425,7 @@ const Sign_In = () => {
                 to="/ForgotPassword"
                 className="text-sm underline text-sub-color"
               >
-                Forgot password?
+                Create an account
               </Link>
             </div>
 

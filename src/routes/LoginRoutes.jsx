@@ -9,31 +9,34 @@ import Newpassword from "../Pages/Newpassword"; // Import Newpassword
 
 const LogRoute = () => {
   return (
-    <div className="bg-center bg-cover background-image min-h-screen">
-      {/* Shared Header */}
-      <Signin_up_Header />
-      {/* Page Routes */}
-      <Routes>
-        <Route
-          path="signin"
-          element={
-            <RedirectIfLoggedIn>
-              <Sign_In />
-            </RedirectIfLoggedIn>
-          }
-        />
-        <Route
-          path="signup"
-          element={
-            <RedirectIfLoggedIn>
-              <Sign_Up />
-            </RedirectIfLoggedIn>
-          }
-        />
-        <Route path="forgotpassword" element={<ForgotPassword />} />
-        <Route path="newpassword" element={<Newpassword />} />
-      </Routes>
-    </div>
+    <>
+      <div className="bg-center bg-cover background-image min-h-screen">
+        {/* Shared Header */}
+        <Signin_up_Header />
+        {/* Page Routes */}
+        <Routes>
+          <Route
+            path="signin"
+            element={
+              <RedirectIfLoggedIn>
+                <Sign_In />
+              </RedirectIfLoggedIn>
+            }
+          />
+          <Route
+            path="signup"
+            element={
+              <RedirectIfLoggedIn>
+                <Sign_Up />
+              </RedirectIfLoggedIn>
+            }
+          />
+          <Route path="forgotpassword" element={<ForgotPassword />} />
+          <Route path="newpassword" element={<Newpassword />} />
+          {/* Catch-all route for unmatched paths */}
+        </Routes>
+      </div>
+    </>
   );
 };
 

@@ -429,7 +429,7 @@ const Sign_Up = () => {
                 />
                 {touched.firstName && errors.firstName && <p className="mt-0.5 text-xs text-[#FF0000]">{errors.firstName}</p>}
               </div>
-              <div className="w-1/2">
+              <div className="relative">
                 <input
                   type="text"
                   name="lastName"
@@ -535,3 +535,5 @@ const Sign_Up = () => {
 };
 
 export default Sign_Up;
+
+

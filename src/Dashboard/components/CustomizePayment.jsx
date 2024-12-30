@@ -90,7 +90,7 @@ const CustomizePayment = () => {
   return (
     <>
       {/* Tabs Section */}
-      <div className="my-2">
+      <div className="my-6">
         <h1 className="text-center text-para-color lg:text-basic text-base font-medium">
           Customize your{" "}
           <span className="text-main-color font-bold">payment</span> below :

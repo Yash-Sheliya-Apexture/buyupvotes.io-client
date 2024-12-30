@@ -5,7 +5,7 @@ import Ordertable from "./Ordertable";
 
 const DashboardHome = () => {
   return (
-    <div className="lg:container mx-auto">
+    <div className="container mx-auto">
       <HeroSecrtion />
       <DataSection />
       <Ordertable />

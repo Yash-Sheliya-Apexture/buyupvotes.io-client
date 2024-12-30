@@ -1,4 +1,3 @@
-// import React, { useState, useEffect, useRef } from "react";
 // import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 // import Breadcrumb from "../components/Breadcrumb";
 // import Button from "../components/Button";
@@ -675,7 +674,6 @@ const Account = () => {
       }
   };
 
-
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -809,7 +807,7 @@ const Account = () => {
               { label: "Account" },
             ]}
           />
-        </div>
+        </div>  
 
         {/* Account Tabs  */}
         <AccountTabNavigation

@@ -10,9 +10,9 @@ const DashboardLayout = () => {
       <div className="flex flex-wrap items-start flex-1 overflow-y-auto">
         <div className="w-full">
           <Dashboard_header />
-          <main className="flex-1 p-4 overflow-y-auto">
+          <main className="flex-1 overflow-y-auto">
             <Outlet />
-          </main>
+          </main>          
         </div>
       </div>
     </div>

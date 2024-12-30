@@ -6,24 +6,65 @@ import { FaShareAlt } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa";
 
 const BlogDetails = () => {
-  const { id } = useParams();
+  const { title } = useParams(); // Get the title from the URL
   const [blog, setBlog] = useState(null);
   const [showIcons, setShowIcons] = useState(false);
+  const [placement, setPlacement] = useState("top");
+  let leaveTimeout;
 
-  // Fetch blog data from JSON file
+  // Clear timeout when mouse enters again
+  const handleMouseEnter = () => {
+    clearTimeout(leaveTimeout);
+    setShowIcons(true);
+  };
+
+  // Delay hiding icons for 1 seconds
+  const handleMouseLeave = () => {
+    leaveTimeout = setTimeout(() => setShowIcons(false), 500);
+  };
+
+  useEffect(() => {
+    return () => clearTimeout(leaveTimeout); // Cleanup timeout on unmount
+  }, []);
+
+  // Fetch blog by title
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data.json`)
       .then((response) => response.json())
       .then((data) => {
-        const foundBlog = data.find((b) => b.id === parseInt(id, 10));
+        const sanitizedTitle = title.toLowerCase();
+        const foundBlog = data.find(
+          (b) =>
+            b.title
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-|-$/g, "") === sanitizedTitle
+        );
         setBlog(foundBlog);
       });
-  }, [id]);
+  }, [title]);
+
+  // Update placement based on screen size
+  useEffect(() => {
+    const updatePlacement = () => {
+      setPlacement(window.innerWidth >= 1024 ? "top" : "left");
+    };
+
+    // Initial check
+    updatePlacement();
+
+    // Add event listener for resizing
+    window.addEventListener("resize", updatePlacement);
+
+    // Cleanup event listener
+    return () => window.removeEventListener("resize", updatePlacement);
+  }, []);
+
   if (!blog) return <div className="text-base">Data Fetching...</div>;
 
   return (
     <>
-      <div className="lg:container mx-auto">
+      <div className="container mx-auto">
         {/* Blog Cover Section */}
         <div
           className="relative w-full h-[400px] bg-cover bg-center rounded-small overflow-hidden"
@@ -50,29 +91,29 @@ const BlogDetails = () => {
 
           {/* Share Button */}
           <div
-            className="absolute bottom-6 right-6 flex items-center"
-            onMouseEnter={() => setShowIcons(true)}
-            onMouseLeave={() => setShowIcons(false)}
+            className="absolute bottom-6 right-4 flex items-center"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
             {/* Social Media Icons */}
             <div
-              className={`absolute flex transition-all duration-300 gap-3
-          ${
-            showIcons
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
-          }
-        `}
+              className={`absolute flex transition-all duration-[0.5s] gap-3 lg:right-14 right-1.5 ${
+                showIcons
+                  ? "opacity-100 pointer-events-auto"
+                  : "opacity-0 pointer-events-none"
+              }`}
               style={{
-                flexDirection: window.innerWidth <= 375 ? "column" : "row", // Top for small screens, left for large screens
-                bottom: window.innerWidth <= 375 ? "auto" : "0",
-                top: window.innerWidth <= 375 ? "-150px" : "auto",
-                right: "60px", // Distance of icons from the main button
+                flexDirection: window.innerWidth <= 768 ? "column" : "row",
+                bottom: window.innerWidth <= 768 ? "auto" : "0",
+                top: window.innerWidth <= 768 ? "-160px" : "auto",
               }}
             >
-              <Tooltip placement="top" arrow content="Twitter">
-                <button
-                  className={`w-10 h-10 flex items-center justify-center bg-white rounded-full text-[#1DA1F2]   ${
+              {/* Twitter */}
+              <Tooltip placement={placement} arrow content="Twitter">
+                <a
+                  href="https://x.com/intent/post?text=How+to+Successfully+Transfer+a+Purchased+Reddit+Account&url=https%3A%2F%2Fbuyupvotes.io%2Fpost%2Fhow-to-successfully-transfer-a-purchased-reddit-account%2F"
+                  target="_blank"
+                  className={`w-10 h-10 flex items-center justify-center bg-white rounded-full text-[#1DA1F2] ${
                     showIcons
                       ? "scale-100 opacity-100 transform transition-all duration-200"
                       : "scale-0 opacity-0 duration-100"
@@ -80,16 +121,14 @@ const BlogDetails = () => {
                   style={{ transitionDelay: showIcons ? "0.1s" : "0s" }}
                 >
                   <FaTwitter />
-                </button>
+                </a>
               </Tooltip>
-              <Tooltip
-                title="LinkedIn"
-                placement="top"
-                arrow
-                content="LinkedIn"
-              >
-                <button
-                  className={`w-10 h-10 flex items-center justify-center bg-white rounded-full text-[#0077B5] transform transition-all  ${
+              {/* LinkedIn */}
+              <Tooltip placement={placement} arrow content="LinkedIn">
+                <a
+                  href="https://www.linkedin.com/feed/?shareActive=true&shareUrl=https%3A%2F%2Fbuyupvotes.io%2Fpost%2Fhow-to-successfully-transfer-a-purchased-reddit-account%2F"
+                  target="_blank"
+                  className={`w-10 h-10 flex items-center justify-center bg-white rounded-full text-[#0077B5] transform transition-all ${
                     showIcons
                       ? "scale-100 opacity-100 transform transition-all duration-150"
                       : "scale-0 opacity-0 duration-300"
@@ -97,16 +136,14 @@ const BlogDetails = () => {
                   style={{ transitionDelay: showIcons ? "0.1s" : "0s" }}
                 >
                   <FaLinkedinIn />
-                </button>
+                </a>
               </Tooltip>
-              <Tooltip
-                title="Facebook"
-                placement="top"
-                arrow
-                content="Facebook"
-              >
-                <button
-                  className={`w-10 h-10 flex items-center justify-center bg-white rounded-full text-[#1DA1F2] transform transition-all  ${
+              {/* Facebook */}
+              <Tooltip placement={placement} arrow content="Facebook">
+                <a
+                  href="https://www.facebook.com/share_channel/#"
+                  target="_blank"
+                  className={`w-10 h-10 flex items-center justify-center bg-white rounded-full text-[#1DA1F2] transform transition-all ${
                     showIcons
                       ? "scale-100 opacity-100 transform transition-all duration-100"
                       : "scale-0 opacity-0 duration-500"
@@ -114,7 +151,7 @@ const BlogDetails = () => {
                   style={{ transitionDelay: showIcons ? "0.1s" : "0s" }}
                 >
                   <FaFacebookF />
-                </button>
+                </a>
               </Tooltip>
             </div>
 
@@ -220,7 +257,7 @@ const BlogDetails = () => {
           })}
 
           {/* Blog Tags */}
-          <div className="flex space-x-2 mt-4">
+          <div className="flex space-x-2 my-6">
             <a
               href="#"
               className="border border-sub-color text-sub-color px-6 py-0.5  rounded-full"
