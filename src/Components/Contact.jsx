@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Rocket from "../assets/Images/rocket.webp";
+import Rocket from "../assets/Images/rocket.png";
 import { FaUpRightFromSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Button from "../Dashboard/components/Button";
@@ -36,7 +36,7 @@ const Contact = () => {
         <div className="bg-[#FF4C00] my-10 rounded-large pb-6">
           <div className="flex flex-wrap items-center lg:flex-nowrap">
             {/* Left Side: Image */}
-            <div className="w-full lg:w-1/3 flex justify-center lg:justify-start">
+            <div className="flex justify-center w-full lg:w-1/3 lg:justify-start">
               <img
                 src={Rocket}
                 alt="Rocket"
@@ -45,7 +45,7 @@ const Contact = () => {
             </div>
 
             {/* Right Side: Content */}
-            <div className="w-full lg:w-2/3 text-center lg:text-left mt-10 lg:mt-0">
+            <div className="w-full mt-10 text-center lg:w-2/3 lg:text-left lg:mt-0">
               <h1 className="text-white text-[24px] md:text-[32px] lg:text-[50px] font-black leading-tight">
                 Buy upvotes today & <br /> get instant delivery!
               </h1>

@@ -5,10 +5,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "clean": "rimraf dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serve": "vite preview"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -20,8 +22,6 @@
     "@mui/lab": "^6.0.0-beta.20",
     "@mui/material": "^6.2.1",
     "@mui/x-date-pickers": "^7.23.2",
-    "@vercel/speed-insights": "^1.1.0",
-    "animate.css": "^4.1.1",
     "axios": "^1.7.9",
     "dayjs": "^1.11.13",
     "flowbite": "^2.5.2",

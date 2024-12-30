@@ -39,7 +39,7 @@ const HeroSection = () => {
   }, [API_BASE_URL]);
   return (
     <>
-      <div className="flex flex-col items-center gap-4 lg:flex-row">
+      <div className="flex flex-col gap-4 lg:flex-row">
         {/* HeroCard Components */}
         <div className="flex flex-col lg:flex-row lg:w-full w-full bg-light-brown rounded-small lg:p-6 p-4 relative overflow-hidden">
           {/* Left Side - Text */}

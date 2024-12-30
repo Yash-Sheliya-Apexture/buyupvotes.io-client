@@ -4,8 +4,17 @@ import react from '@vitejs/plugin-react';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/', // Ensure this is set correctly for your deployment
+  server: {
+    historyApiFallback: true, 
+  },
   build: {
-    outDir: "dist", // Ensure Vite outputs the build here
+    outDir: 'dist', 
+  },
+  resolve: {
+    alias: {
+      '@': '/src', // Optional alias for cleaner imports
+    },
   },
   // Proxy configuration
   proxy: {

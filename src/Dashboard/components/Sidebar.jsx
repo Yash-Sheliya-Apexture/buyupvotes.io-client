@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logo from "../../assets/Images/logo.png";
+import logo from "../../assets/Images/Logo.png";
 import { Link, useLocation } from "react-router-dom"; // Import useLocation
 import { BsBarChartFill } from "react-icons/bs";
 import { PiSpeedometerFill } from "react-icons/pi";
@@ -98,12 +98,12 @@ const SideBar = () => {
         className="absolute top-5 left-4 z-50 lg:hidden rounded-full"
         onClick={toggleSidebarVisibility}
       >
-        <CgMenuRightAlt className="text-main-color size-8 rounded-md" />
+        <CgMenuRightAlt className="rounded-md text-main-color size-8" />
       </button>
 
       {isSidebarVisible && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-45 z-40 backdrop-blur-sm xl:hidden"
+          className="fixed inset-0 z-40 bg-black bg-opacity-45 backdrop-blur-sm xl:hidden"
           onClick={toggleSidebarVisibility}
         ></div>
       )}
