@@ -699,8 +699,8 @@ const ContactUs = () => {
                 backgroundRepeat: "no-repeat",
               }}
             ></div>
-            <div className="absolute inset-0 bg-black/70 z-0"></div>
-            <div className="lg:absolute flex py-20 items-center justify-center h-full px-6 text-center lg:text-left lg:mt-20">
+            <div className="absolute inset-0 z-0 bg-black/70"></div>
+            <div className="flex items-center justify-center h-full px-6 py-20 text-center lg:absolute lg:text-left lg:mt-20">
               <h1
                 className="z-0 font-black leading-10 text-white lg:text-largest text-xlarge lg:leading-20"
               >
@@ -712,9 +712,9 @@ const ContactUs = () => {
           </div>
 
           {/* Right Side */}
-          <div className="lg:w-1/2 w-full flex flex-col items-center justify-center">
-            <div className="text-center flex items-center border-b py-4">
-              <h2 className="text-nowrap text-medium font-bold text-sub-color mr-2">
+          <div className="flex flex-col items-center justify-center w-full lg:w-1/2">
+            <div className="flex items-center py-4 text-center border-b">
+              <h2 className="mr-2 font-bold text-nowrap text-medium text-sub-color">
                 Chat with us:
               </h2>
               <div className="flex items-center space-x-2">
@@ -763,27 +763,29 @@ const ContactUs = () => {
             </div>
 
             <div className="w-full max-w-2xl">
-              <h2 className="text-center text-base font-bold text-sub-color my-5">
+              <h2 className="my-5 text-base font-bold text-center text-sub-color">
                 Or send us an email below:
               </h2>
               <form className="space-y-3" onSubmit={handleSubmit}>
                 <div>
                   <input
-                    className="w-full px-4 py-2 border border-gray-300 rounded-full"
+                    className={`w-full px-4 py-2 border border-gray-300 rounded-full ${formData.name ? "opacity-50" : ""
+                      }`}
                     id="name"
                     type="text"
                     placeholder={formData.name ? formData.name : "Name"}
-                    value={formData.name || ""}  // Name will only appear after message is sent
+                    value={formData.name || ""}
                     disabled
                   />
                 </div>
                 <div>
                   <input
-                    className="w-full px-4 py-2 border border-gray-300 rounded-full"
+                    className={`w-full px-4 py-2 border border-gray-300 rounded-full ${formData.email ? "opacity-50" : ""
+                      }`}
                     id="email"
                     type="email"
                     placeholder={formData.email ? formData.email : "Enter Your Email"}
-                    value={formData.email || ""}  // Email will only appear after message is sent
+                    value={formData.email || ""}
                     disabled
                   />
                 </div>
