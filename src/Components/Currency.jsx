@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { CiCreditCard1 } from "react-icons/ci";
-import { MdCurrencyBitcoin } from "react-icons/md";
 import { Link } from "react-router-dom";
 import payment_logos from "../assets/Images/payment_logo.png";
 import Button from "../Dashboard/components/Button";
-import CustomizePayment from "../dashboard/Components/CustomizePayment";
+import CustomizePayment from "../Dashboard/Components/CustomizePayment";
 
 const Currency = () => {
   // const [selectedTab, setSelectedTab] = useState("creditCard");
