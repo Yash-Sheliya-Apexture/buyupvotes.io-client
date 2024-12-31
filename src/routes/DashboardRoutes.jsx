@@ -12,7 +12,7 @@ import Account from "../Dashboard/pages/Account";
 import DashboardLayout from "../Dashboard/layout/DashboardLayout"; // Import DashboardLayout
 import { AuthProvider } from "../auth/AuthContext";
 import Error404 from "../Dashboard/pages/Error404"; // Import Error404 page
-import Blog from "../Dashboard/pages/blog";
+import Blog from "../Dashboard/pages/Blog"; 
 
 const DashboardRoutes = () => {
   return (

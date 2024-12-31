@@ -34,6 +34,7 @@ const WebsiteRoutes = () => {
       !location.pathname.startsWith("/pricing") &&
       !location.pathname.startsWith("/faqs") &&
       !location.pathname.startsWith("/post") &&
+      !location.pathname.startsWith("/contact-us") &&
       !location.pathname.startsWith("/dashboard"));
 
   return (
