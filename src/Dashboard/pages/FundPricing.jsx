@@ -1,6 +1,6 @@
 import React from "react";
 import Pricing from "../../Components/Pricing";
-import CustomizePayment from "../components/CustomizePayment";
+import Customize_Payment from "../components/Customize_Payment";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
 
@@ -8,7 +8,7 @@ const FundPricing = () => {
   return (
     <div className="container mx-auto">
       <Pricing />
-      <CustomizePayment />
+      <Customize_Payment />
       <div className="text-center">
         <div className="flex justify-center mb-6">
           <hr className="border border-gray-300/50 w-4/5" />
