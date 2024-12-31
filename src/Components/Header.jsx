@@ -27,7 +27,7 @@ const Header = () => {
   return (
     <>
       {/* Blue background behind header */}
-      <header className="sticky top-0 left-0 z-20 w-full bg-white bg-opacity-95 shadow-main">
+      <header className="sticky top-0 left-0 z-20 w-full py-4 bg-white sm:py-0 bg-opacity-95 shadow-main">
         {/* Header */}
         <div className="container mx-auto">
           <section className="relative flex items-center justify-between ">
@@ -68,7 +68,7 @@ const Header = () => {
                       <Link
                         key={index}
                         to={paths[index]}
-                        className="relative py-5 font-normal text-small text-sub-color hover:text-main-color group"
+                        className="relative px-4 py-5 font-normal text-small text-sub-color hover:text-main-color group"
                       >
                         {item}
                         <span className="absolute bottom-0 left-0 w-full h-[2px] bg-transparent">
