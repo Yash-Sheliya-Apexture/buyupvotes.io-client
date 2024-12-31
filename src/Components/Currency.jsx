@@ -7,14 +7,14 @@ import Button from "../Dashboard/components/Button";
 import CustomizePayment from "../dashboard/Components/CustomizePayment";
 
 const Currency = () => {
-  const [selectedTab, setSelectedTab] = useState("creditCard");
+  // const [selectedTab, setSelectedTab] = useState("creditCard");
   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
   const [creditCardDeposit, setCreditCardDeposit] = useState("");
   const [cryptoDeposit, setCryptoDeposit] = useState("");
-  const [creditCardError, setCreditCardError] = useState("");
-  const [cryptoError, setCryptoError] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState("");
+  // const [creditCardError, setCreditCardError] = useState("");
+  // const [cryptoError, setCryptoError] = useState("");
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [modalContent, setModalContent] = useState("");
 
   useEffect(() => {
     // Check if there's a token or user info in localStorage to determine login status
@@ -22,7 +22,7 @@ const Currency = () => {
     if (authToken) {
       setIsLoggedIn(true); // If token exists, user is logged in
     } else {
-      setIsLoggedIn(false); // If no token, user is not logged in
+      setIsLoggedIn(false); 
     }
   }, []);
 
