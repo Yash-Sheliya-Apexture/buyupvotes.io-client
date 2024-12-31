@@ -28,6 +28,7 @@ const Header = () => {
   return (
     <>
       {/* Header */}
+      <header className="demo"></header>
       <header className="sticky top-0 z-30 bg-white/60 shadow-md backdrop-blur-sm">
         <div className="container mx-auto">
           <section className="flex items-center justify-between">
