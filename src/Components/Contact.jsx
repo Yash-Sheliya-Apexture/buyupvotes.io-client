@@ -19,7 +19,7 @@ const Contact = () => {
 
   return (
     <>
-      <section className="py-5 container mx-auto mix-blend-overlay">
+      <section className="container py-5 mx-auto mix-blend-overlay">
         <h1 className="text-center text-[24px] font-bold text-[#2D2624]">
           Have any questions?
         </h1>

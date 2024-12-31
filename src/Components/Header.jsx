@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import logo from "../assets/Images/Logo.png";
 import Uparrow from "../assets/Images/logo-mini.png";
 import { Link } from "react-router-dom";
+import Button from "../Dashboard/components/Button";
 import { TbMenu4 } from "react-icons/tb";
 import { FaUserCircle } from "react-icons/fa";
-import Button from "../Dashboard/components/Button";
 
 
 const Header = () => {
-  const [showTooltip, setShowTooltip] = useState(false); // Tooltip state
   const [showMenu, setShowMenu] = useState(false); // Menu toggle state for small screens
   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
 
@@ -22,10 +21,6 @@ const Header = () => {
     }
   }, []);
 
-  const toggleTooltip = () => {
-    setShowTooltip((prev) => !prev); // Toggle tooltip visibility
-  };
-
   const toggleMenu = () => {
     setShowMenu((prev) => !prev); // Toggle mobile menu
   };
@@ -35,7 +30,7 @@ const Header = () => {
       {/* Header */}
       <header className="sticky top-0 z-30 bg-white/60 shadow-md backdrop-blur-sm">
         <div className="container mx-auto">
-          <section className="flex items-center justify-between py-4">
+          <section className="flex items-center justify-between">
             {/* Left Section */}
             <div className="flex items-center">
               {/* Mobile Menu Button */}
@@ -60,23 +55,53 @@ const Header = () => {
             {/* Right Section */}
             <div className="flex items-center justify-between space-x-6 md:w-auto">
               {/* Navigation Links */}
-              <nav className="flex-grow hidden h-full space-x-10 cursor-pointer md:flex">
-                {["Pricing", "FAQ", "Blog", "Contact"].map((item, index) => {
-                  const paths = ["/pricing", "/faqs", "/post", "/contactus"];
-                  return (
-                    <Link
-                      key={index}
-                      to={paths[index]}
-                      className="relative text-small text-sub-color font-normal hover:text-main-color group"
-                    >
-                      {item}
-                      <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-transparent">
-                        <span className="block absolute top-0 left-0 h-full w-0 bg-main-color transition-all duration-300 ease-in-out group-hover:w-full"></span>
-                      </span>
-                    </Link>
-                  );
-                })}
-              </nav>
+              {isLoggedIn ? (
+                <nav className="flex-grow hidden h-full gap-2 cursor-pointer md:flex">
+                  {["Pricing", "FAQ", "Blog", "Contact"].map((item, index) => {
+                    const paths = [
+                      "/dashboard/fundprice",
+                      "/dashboard/faqs",
+                      "/dashboard/blog",
+                      "/dashboard/contactus",
+                    ];
+                    return (
+                      <Link
+                        key={index}
+                        to={paths[index]}
+                        className="relative px-4 py-5 font-normal text-small text-sub-color hover:text-main-color group"
+                      >
+                        {item}
+                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-transparent">
+                          <span className="absolute top-0 left-0 block w-0 h-full transition-all duration-300 ease-in-out bg-main-color group-hover:w-full"></span>
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </nav>) : (
+                <nav className="flex-grow hidden h-full gap-2 cursor-pointer md:flex">
+                  {["Pricing", "FAQ", "Blog", "Contact"].map((item, index) => {
+                    const paths = [
+                      "/pricing",
+                      "/faqs",
+                      "/post",
+                      "/contact-us",
+                    ];
+                    return (
+                      <Link
+                        key={index}
+                        to={paths[index]}
+                        className="relative px-4 py-5 font-normal text-small text-sub-color hover:text-main-color group"
+                      >
+                        {item}
+                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-transparent">
+                          <span className="absolute top-0 left-0 block w-0 h-full transition-all duration-300 ease-in-out bg-main-color group-hover:w-full"></span>
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </nav>
+              )}
+
 
               {/* Right Section */}
               <div className="relative flex items-center space-x-2">
@@ -91,7 +116,7 @@ const Header = () => {
                     <button>
                       <Link
                         to="/signin"
-                        className="px-4 lg:px-0 py-1 text-main-color border-main-color font-medium rounded-full transition lg:block hidden"
+                        className="hidden px-4 py-1 font-medium transition rounded-full lg:px-0 text-main-color border-main-color lg:block"
                       >
                         Sign-In
                       </Link>

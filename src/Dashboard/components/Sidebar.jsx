@@ -95,7 +95,7 @@ const SideBar = () => {
   return (
     <>
       <button
-        className="absolute top-5 left-4 z-50 lg:hidden rounded-full"
+        className="absolute z-50 rounded-full top-5 left-4 lg:hidden"
         onClick={toggleSidebarVisibility}
       >
         <CgMenuRightAlt className="rounded-md text-main-color size-8" />
@@ -109,9 +109,8 @@ const SideBar = () => {
       )}
 
       <section
-        className={`fixed xl:relative bg-white border-r z-50 border-dashed border-border-color h-screen transition-all duration-300 ${
-          isSidebarExpanded ? "w-60" : "w-16"
-        } ${isSidebarVisible ? "left-0" : "-left-60 xl:left-0"}`}
+        className={`fixed xl:relative bg-white border-r z-50 border-dashed border-border-color h-screen transition-all duration-300 ${isSidebarExpanded ? "w-60" : "w-16"
+          } ${isSidebarVisible ? "left-0" : "-left-60 xl:left-0"}`}
       >
         <div className="flex items-center justify-between p-3.5">
           {isSidebarExpanded ? (
@@ -149,11 +148,10 @@ const SideBar = () => {
             {menuItems.map((item) => (
               <li
                 key={item.id}
-                className={`relative group cursor-pointer font-semibold ${
-                  activeMenu === item.id
+                className={`relative group cursor-pointer font-semibold ${activeMenu === item.id
                     ? "bg-[#ff550034] text-main-color"
                     : "text-active hover:bg-[#ff550034] transition-all ease-in duration-150"
-                }`}
+                  }`}
                 onClick={() => handleMenuItemClick(item.id)}
               >
                 <Link
@@ -180,24 +178,19 @@ const SideBar = () => {
                 )}
                 <div
                   className={`absolute left-0 top-0 h-full w-1.5
-                     ${
-                       activeMenu === item.id
-                         ? "bg-main-color scale-y-100"
-                         : "bg-transparent scale-y-0"
-                     } transition-all duration-300`}
+                     ${activeMenu === item.id
+                      ? "bg-main-color scale-y-100"
+                      : "bg-transparent scale-y-0"
+                    } transition-all duration-300`}
                 ></div>
               </li>
             ))}
           </ul>
-          
           {isSidebarExpanded && (
-            <div className="p-2 mt-4">
+            <div className="p-2 mt-4 ">
               <Link
                 to="/dashboard/fundprice"
-                className="mybtn"
-                style={{
-                  padding: "8px 55px", // Custom padding
-                }}
+                className="block w-full text-center mybtn"
               >
                 Add Funds
               </Link>

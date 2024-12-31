@@ -11,7 +11,7 @@ const App = () => {
     <Router>
       {/* ToastContainer added globally */}
       <ToastContainer
-        autoClose={2500}
+        autoClose={3000}
         hideProgressBar={false}
         closeOnClick
         draggable

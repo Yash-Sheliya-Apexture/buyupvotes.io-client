@@ -12,6 +12,7 @@ import Pricedata from "../Pages/Pricedata";
 import FAQS from "../Pages/FAQS";
 import Blogs from "../Pages/Blogs";
 import BlogDetails from "../Dashboard/pages/BlogDetails";
+import ContactUs from "../Pages/ContactUs";
 
 const WebsiteRoutes = () => {
   const location = useLocation();
@@ -21,7 +22,7 @@ const WebsiteRoutes = () => {
     "/signin",
     "/signup",
     "/newpassword",
-    "/forgotpassword",
+    "/forgot-password",
   ];
 
   // Check if the current path matches any excluded route or is a 404
@@ -48,6 +49,7 @@ const WebsiteRoutes = () => {
       {/* Define routes */}
       <Routes>
         <Route path="/" element={<Home_Page />} />
+        <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/terms-and-conditions" element={<TermAndConditions />} />
         <Route path="/privacy-policy" element={<Privacy />} />
         <Route path="/*" element={<LoginRoutes />} />
