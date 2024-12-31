@@ -7,6 +7,7 @@ import LoginRoutes from "./LoginRoutes";
 import ScrollBorder from "../Components/ScrollBorder";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import ContactUs from "../Pages/ContactUs";
 
 const WebsiteRoutes = () => {
   const location = useLocation();
@@ -16,7 +17,7 @@ const WebsiteRoutes = () => {
     "/signin",
     "/signup",
     "/newpassword",
-    "/forgotpassword",
+    "/forgot-password",
   ];
   const isExcludedRoute = excludedRoutes.some((route) =>
     location.pathname.startsWith(route)
@@ -32,6 +33,7 @@ const WebsiteRoutes = () => {
       )}
       <Routes>
         <Route path="/" element={<Home_Page />} />
+        <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/terms-and-conditions" element={<TermAndConditions />} />
         <Route path="/privacy-policy" element={<Privacy />} />
         <Route path="/*" element={<LoginRoutes />} />

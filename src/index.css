@@ -170,11 +170,11 @@ body {
 }
 
 .heading {
-  @apply text-sub-color font-semibold lg:text-base text-medium;
+  @apply font-semibold text-sub-color lg:text-base text-medium;
 }
 
 .para {
-  @apply text-sub-color font-medium lg:text-small text-xs;
+  @apply text-xs font-medium text-sub-color lg:text-small;
 }
 
 /* Icon-Set */
@@ -312,9 +312,8 @@ textarea:focus {
   border-radius: 20px;
   border: 1px solid #ff5600;
   font-size: 14px;
-  text-transform: uppercase;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   background: transparent;
   color: #ff5600;
   overflow: hidden;
@@ -322,6 +321,7 @@ textarea:focus {
   -webkit-transition: all 0.5s ease-in;
   -moz-transition: all 0.5s ease-in;
   transition: all 0.5s ease-in;
+  font: "InterDisplay", sans-serif;
 }
 
 .nenewbtn {

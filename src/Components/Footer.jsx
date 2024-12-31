@@ -7,21 +7,21 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-slate-300/50 py-5" id="Footer">
+    <footer className="py-5 border-t border-slate-300/50" id="Footer">
       <section className="container mx-auto">
-        <div className="bg-white py-2">
-          <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start space-y-8 lg:space-y-0">
+        <div className="py-2 bg-white">
+          <div className="flex flex-col items-center justify-between space-y-8 lg:flex-row lg:items-start lg:space-y-0">
             {/* Left Section - Logo and Socials */}
-            <div className="flex flex-col items-center lg:items-start space-y-5">
+            <div className="flex flex-col items-center space-y-5 lg:items-start">
               <img src={logo} alt="logo" className="h-10" />
               <div className="flex items-center space-x-4">
                 <p className="text-sub-color text-small">Chat with us:</p>
                 <div className="flex space-x-4">
                   <a href="https://t.me/buyupvotessupport" target="_blank">
-                    <FaTelegram className="size-6 text-blue-500" />
+                    <FaTelegram className="text-blue-500 size-6" />
                   </a>
                   <a href="https://web.whatsapp.com/" target="_blank">
-                    <FaWhatsapp className="size-6 text-green-500" />
+                    <FaWhatsapp className="text-green-500 size-6" />
                   </a>
                 </div>
               </div>
@@ -31,12 +31,12 @@ const Footer = () => {
             </div>
 
             {/* Center Section - Links */}
-            <div className="flex flex-col lg:flex-row space-y-0 text-center lg:text-start lg:space-y-0 lg:space-x-28">
+            <div className="flex flex-col space-y-0 text-center lg:flex-row lg:text-start lg:space-y-0 lg:space-x-28">
               <div>
-                <h3 className="text-sub-color font-bold underline text-small hidden lg:block">
+                <h3 className="hidden font-bold underline text-sub-color text-small lg:block">
                   BuyUpvotes
                 </h3>
-                <ul className="text-sub-color mt-2 lg:text-medium xs:text-small space-y-2">
+                <ul className="mt-2 space-y-2 text-sub-color lg:text-medium xs:text-small">
                   <li>
                     <Link
                       to="/dashboard/faqs"
@@ -57,10 +57,10 @@ const Footer = () => {
               </div>
 
               <div>
-                <h3 className="text-sub-color font-bold underline text-small hidden lg:block">
+                <h3 className="hidden font-bold underline text-sub-color text-small lg:block">
                   Contact
                 </h3>
-                <ul className="text-sub-color mt-2 lg:text-medium xs:text-small space-y-2">
+                <ul className="mt-2 space-y-2 text-sub-color lg:text-medium xs:text-small">
                   <li>
                     <Link
                       to="/dashboard/contactus"
@@ -73,10 +73,10 @@ const Footer = () => {
               </div>
 
               <div>
-                <h3 className="text-sub-color font-bold underline text-small hidden lg:block">
+                <h3 className="hidden font-bold underline text-sub-color text-small lg:block">
                   Legal
                 </h3>
-                <ul className="text-sub-color mt-2 lg:text-medium xs:text-small space-y-2">
+                <ul className="mt-2 space-y-2 text-sub-color lg:text-medium xs:text-small">
                   <li>
                     <Link
                       to="/terms-and-conditions"

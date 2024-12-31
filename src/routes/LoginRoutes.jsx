@@ -10,7 +10,7 @@ import Newpassword from "../Pages/Newpassword"; // Import Newpassword
 const LogRoute = () => {
   return (
     <>
-      <div className="bg-center bg-cover background-image min-h-screen">
+      <div className="min-h-screen bg-center bg-cover background-image">
         {/* Shared Header */}
         <Signin_up_Header />
         {/* Page Routes */}
@@ -31,7 +31,7 @@ const LogRoute = () => {
               </RedirectIfLoggedIn>
             }
           />
-          <Route path="forgotpassword" element={<ForgotPassword />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="newpassword" element={<Newpassword />} />
           {/* Catch-all route for unmatched paths */}
         </Routes>
