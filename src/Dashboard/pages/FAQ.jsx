@@ -81,34 +81,30 @@ const FAQ = () => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="">
       {/* Header Section */}
       <div
-        className="relative lg:h-[550px] h-[350px] bg-cover bg-center rounded-small"
+        className="relative lg:h-[550px] h-[350px] bg-cover bg-center overflow-hidden"
         style={{
           backgroundImage: `url(${FaQbackground})`,
         }}
       >
         {/* Overlay with Backdrop Filter */}
-        <div className="absolute inset-0 bg-black/75 bg-opacity-70 flex items-center justify-center rounded-small"></div>
+        <div className="absolute inset-0 bg-black/75 bg-opacity-70 flex items-center justify-center"></div>
         <div className="absolute lg:bottom-20 md:bottom-10 bottom-32 left-4">
-          <h1 className="text-white lg:text-largest text-[40px] sm:text-start text-center leading-[40px] lg:leading-20 font-bold">
-            {lines.map((line, index) => (
-              <span
-                key={index}
-                className={`block ${
-                  visibleLines.includes(line)
-                    ? "opacity-100 translate-x-0 animate-word-reveal"
-                    : "opacity-0 translate-x-40"
-                } transition-all duration-500 ease-in-out`}
-              >
-                {index === 0 ? (
-                  <span className="text-main-color">{line}</span>
-                ) : (
-                  line
-                )}
-              </span>
-            ))}
+          <h1 className="text-white lg:text-largest text-[40px] sm:text-start xs:ml-8 text-center leading-[50px] lg:leading-20 font-black  ">
+            <div
+              className="text-main-color animate__animated animate__bounceInRight"
+              style={{ animationDuration: "1s", animationDelay: "0.2s" }}
+            >
+              How <br />
+            </div>
+            <div
+              className="animate__animated animate__bounceInLeft"
+              style={{ animationDuration: "1.5s", animationDelay: "0.5s" }}
+            >
+              Can Help You ?{" "}
+            </div>
           </h1>
         </div>
       </div>

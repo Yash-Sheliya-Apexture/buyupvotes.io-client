@@ -39,7 +39,7 @@ export default {
         "brown-hover": "#919eab14",
       },
       lineHeight: {
-        20: "60px",
+        20: "70px",
       },
       borderWidth: {
         1.5: "1.5px",

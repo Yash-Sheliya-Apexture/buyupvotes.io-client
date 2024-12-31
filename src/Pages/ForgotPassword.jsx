@@ -47,9 +47,9 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="h-[calc(100vh-50px)] layout flex items-center justify-center px-4">
         <div className="flex items-center justify-center">
-          <div className="lg:w-[30%] h-auto bg-white rounded-small lg:p-6 p-4 pb-10">
+          <div className="lg:w-[420px] h-auto bg-white rounded-small lg:p-6 p-4 pb-10">
             <p className="text-center text-sub-color font-normal leading-7">
               Enter your email address below and we'll email you a verification
               code to confirm your email and reset your password.

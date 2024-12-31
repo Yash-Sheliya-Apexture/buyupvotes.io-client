@@ -11,6 +11,8 @@ const Dropdown = ({
   backgroundImage,
   className = "",
   onBlur,
+  dropdownPadding = "p-3.5", // Add prop for dropdown padding
+  listPadding = "p-2 my-1",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -38,7 +40,7 @@ const Dropdown = ({
     <div className={`relative ${className}`} ref={dropdownRef}>
       {/* Dropdown Trigger */}
       <div
-        className={`w-full border rounded-full cursor-pointer p-3.5 shadow-main focus:outline-none ${
+        className={`w-full border rounded-full cursor-pointer shadow-main  ${dropdownPadding} focus:outline-none ${
           error ? "border-red-500" : "border-gray-300"
         } hover:border-black transition-all ease-in duration-150 relative`}
         onClick={() => setIsOpen(!isOpen)}
@@ -90,7 +92,7 @@ const Dropdown = ({
             <li
               key={index}
               onClick={() => handleSelect(option)}
-              className={`p-2 my-1 text-black cursor-pointer rounded-md transition-all duration-150 ${
+              className={`${listPadding} text-black cursor-pointer rounded-md transition-all duration-150 ${
                 selectedValue === option
                   ? "bg-[#919eb229]"
                   : "hover:bg-[#f3f2f2]"

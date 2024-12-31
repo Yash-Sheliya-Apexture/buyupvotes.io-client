@@ -134,7 +134,6 @@ font-face {
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
-  user-select: none;
 }
 
 html {
@@ -162,12 +161,7 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: #c5c5c5; /* Color of the scrollbar thumb */
   border-radius: 10px; /* Rounded corners for the thumb */
-  transition: all 0.3s ease-in-out; /* Animation for hover effect */
-}
-
-/* Scrollbar thumb hover effect */
-::-webkit-scrollbar-thumb:hover {
-  background-color: #ff5700; /* Color of the thumb when hovered */
+  transition: all 0.5s ease-in-out; /* Animation for hover effect */
 }
 
 /* Scrollbar track (the background part of the scrollbar) */
@@ -205,22 +199,54 @@ body {
   min-height: 100vh;
 }
 
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInTop {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 1s ease-out;
+}
+
+.animate-slide-in-top {
+  animation: fadeInTop 1.5s ease-out;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+}
+
 /* Tooltip Animation */
 
 @keyframes tooltipAppear {
   from {
     opacity: 0;
-    transform: translateX(-5px);
+    transform: translateX(-10px);
   }
   to {
     opacity: 1;
-    transform: translateX(10px);
+    transform: translateX(5px);
   }
 }
 
 .tooltip-custom {
-  animation: tooltipAppear 0.5s ease-out forwards;
-  background-color: #ff5700 !important;
+  animation: tooltipAppear 0.3s ease-out forwards;
+  background-color: rgb(17, 24, 35) !important;
   color: white;
   font-weight: bold;
   font-size: 14px;
@@ -230,8 +256,7 @@ body {
 }
 
 /* Table-css */
-
-.table-main thead tr th {
+tooltip-custom .table-main thead tr th {
   padding: 4px 24px;
   background-color: #f4f6f8;
   color: #2d2624;

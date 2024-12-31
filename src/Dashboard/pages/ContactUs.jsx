@@ -254,8 +254,6 @@
 
 // export default ContactUs;
 
-
-
 // import React, { useEffect, useRef, useState } from "react";
 // import gsap from "gsap";
 // import Breadcrumb from "../../Dashboard/components/Breadcrumb";
@@ -534,17 +532,6 @@
 
 // export default ContactUs;
 
-
-
-
-
-
-
-
-
-
-
-
 import React, { useEffect, useState } from "react";
 import Breadcrumb from "../../Dashboard/components/Breadcrumb";
 import background from "../../assets/Images/hero1.jpg";
@@ -553,9 +540,9 @@ import axios from "axios"; // Import Axios
 import { toast } from "react-toastify"; // Import toastify
 import "react-toastify/dist/ReactToastify.css";
 import { FaSpinner } from "react-icons/fa";
+import InputField from "../components/InputField";
 
 const ContactUs = () => {
-
   // State for form values, errors, touched status, loading, and error
   const [formData, setFormData] = useState({
     subject: "",
@@ -574,8 +561,8 @@ const ContactUs = () => {
     message: false,
   });
 
-  const [loading, setLoading] = useState(false);  // Loading state for API request
-  const [error, setError] = useState(null);  // Error state for API request
+  const [loading, setLoading] = useState(false); // Loading state for API request
+  const [error, setError] = useState(null); // Error state for API request
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -597,7 +584,7 @@ const ContactUs = () => {
       const token = localStorage.getItem("authToken");
       if (token) {
         try {
-          setLoading(true);  // Set loading to true while fetching
+          setLoading(true); // Set loading to true while fetching
           const response = await axios.get(`${API_BASE_URL}/auth/user`, {
             headers: { Authorization: `Bearer ${token}` },
           });
@@ -613,10 +600,10 @@ const ContactUs = () => {
         } catch (err) {
           setError("Error fetching user data");
         } finally {
-          setLoading(false);  // Set loading to false once fetching is done
+          setLoading(false); // Set loading to false once fetching is done
         }
       } else {
-        setLoading(false);  // Set loading to false if no token is found
+        setLoading(false); // Set loading to false if no token is found
       }
     };
 
@@ -643,7 +630,7 @@ const ContactUs = () => {
 
     // If no errors, proceed to submit the form
     if (!newErrors.subject && !newErrors.message) {
-      setLoading(true);  // Set loading to true when submission starts
+      setLoading(true); // Set loading to true when submission starts
 
       setTimeout(async () => {
         try {
@@ -661,7 +648,7 @@ const ContactUs = () => {
           setFormData({
             subject: "",
             message: "",
-            name: formData.name,  // Keep name and email as they are from user data
+            name: formData.name, // Keep name and email as they are from user data
             email: formData.email,
           });
 
@@ -669,7 +656,6 @@ const ContactUs = () => {
             subject: false,
             message: false,
           });
-
         } catch (error) {
           console.error("Error sending message:", error);
           toast.error("There was an error sending the message.");
@@ -701,9 +687,7 @@ const ContactUs = () => {
             ></div>
             <div className="absolute inset-0 bg-black/70 z-0"></div>
             <div className="lg:absolute flex py-20 items-center justify-center h-full px-6 text-center lg:text-left lg:mt-20">
-              <h1
-                className="z-0 font-black leading-10 text-white lg:text-largest text-xlarge lg:leading-20"
-              >
+              <h1 className="z-0 font-black leading-10 text-white lg:text-largest text-xlarge lg:leading-20">
                 <span>Looking to</span> <br />
                 <span className="text-main-color">contact</span> <br />
                 <span>us?</span>
@@ -773,7 +757,7 @@ const ContactUs = () => {
                     id="name"
                     type="text"
                     placeholder={formData.name ? formData.name : "Name"}
-                    value={formData.name || ""}  // Name will only appear after message is sent
+                    value={formData.name || ""} // Name will only appear after message is sent
                     disabled
                   />
                 </div>
@@ -782,14 +766,18 @@ const ContactUs = () => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-full"
                     id="email"
                     type="email"
-                    placeholder={formData.email ? formData.email : "Enter Your Email"}
-                    value={formData.email || ""}  // Email will only appear after message is sent
+                    placeholder={
+                      formData.email ? formData.email : "Enter Your Email"
+                    }
+                    value={formData.email || ""} // Email will only appear after message is sent
                     disabled
                   />
                 </div>
                 <div>
                   <input
-                    className={`w-full px-4 py-2 border ${errors.subject ? "border-red-500" : "border-gray-300"} rounded-full hover:border-black transition-all duration-150`}
+                    className={`w-full px-4 py-2 border ${
+                      errors.subject ? "border-red-500" : "border-gray-300"
+                    } rounded-full hover:border-black transition-all duration-150`}
                     id="subject"
                     type="text"
                     placeholder="Subject"
@@ -803,9 +791,12 @@ const ContactUs = () => {
                     </p>
                   )}
                 </div>
+
                 <div>
                   <textarea
-                    className={`w-full border ${errors.message ? "border-red-500" : "border-gray-300"} hover:border-black transition-all duration-150 ease-in rounded-small resize-none`}
+                    className={`w-full border ${
+                      errors.message ? "border-red-500" : "border-gray-300"
+                    } hover:border-black transition-all duration-150 ease-in rounded-small resize-none`}
                     id="message"
                     rows="8"
                     cols="20"

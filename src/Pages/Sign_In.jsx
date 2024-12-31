@@ -111,7 +111,6 @@
 //     checkAndLogoutOnExpiration();
 //   }, []);
 
-
 //   return (
 //     <>
 //       {/* Content Section */}
@@ -211,8 +210,6 @@
 // };
 
 // export default Sign_In;
-
-
 
 import React, { useState, useEffect } from "react";
 import google from "../assets/Images/google_logo.png";
@@ -352,8 +349,8 @@ const Sign_In = () => {
 
   return (
     <>
-      <div className="h-[calc(100vh-72px)] layout flex items-center justify-center px-4">
-        <div className="lg:w-[420px] h-auto bg-white rounded-small lg:p-6 p-4 pb-10">
+      <div className="h-[calc(100vh-72px)] layout flex items-center justify-center">
+        <div className="lg:w-[420px] bg-white rounded-small lg:p-6 p-4 pb-10">
           <h1 className="mb-4 text-base font-bold text-center lg:text-basic text-sub-color">
             Welcome to BuyUpvotes!
           </h1>
@@ -366,9 +363,7 @@ const Sign_In = () => {
           <button className="flex items-center justify-between w-full border border-gray-300 hover:bg-[#2d262414] hover:border-sub-color rounded-full px-2 py-2 lg:text-small text-sm font-semibold text-sub-color mb-4 transition-all ease-in duration-300">
             <img src={google} alt="Google Logo" className="w-6 h-6" />
             <div className="flex justify-center w-full">
-              <span className="text-xs">
-                Sign in with Google
-              </span>
+              <span className="text-xs">Sign in with Google</span>
             </div>
           </button>
           <form onSubmit={handleSubmit}>
@@ -376,10 +371,24 @@ const Sign_In = () => {
             {errors.general && (
               <>
                 <div className="flex items-center h-12 gap-3 px-4 py-2 bg-[#ffe9d5] rounded-xl shadow-box mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" className="text-xl text-light-orange" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" fillRule="evenodd" d="M7.843 3.802C9.872 2.601 10.886 2 12 2s2.128.6 4.157 1.802l.686.406c2.029 1.202 3.043 1.803 3.6 2.792c.557.99.557 2.19.557 4.594v.812c0 2.403 0 3.605-.557 4.594s-1.571 1.59-3.6 2.791l-.686.407C14.128 21.399 13.114 22 12 22s-2.128-.6-4.157-1.802l-.686-.407c-2.029-1.2-3.043-1.802-3.6-2.791C3 16.01 3 14.81 3 12.406v-.812C3 9.19 3 7.989 3.557 7s1.571-1.59 3.6-2.792zM13 16a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-1-9.75a.75.75 0 0 1 .75.75v6a.75.75 0 0 1-1.5 0V7a.75.75 0 0 1 .75-.75" clipRule="evenodd"></path></svg>
-                  <p className="text-xs text-[#7a0916]">
-                    {errors.general}
-                  </p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    aria-hidden="true"
+                    role="img"
+                    className="text-xl text-light-orange"
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      fillRule="evenodd"
+                      d="M7.843 3.802C9.872 2.601 10.886 2 12 2s2.128.6 4.157 1.802l.686.406c2.029 1.202 3.043 1.803 3.6 2.792c.557.99.557 2.19.557 4.594v.812c0 2.403 0 3.605-.557 4.594s-1.571 1.59-3.6 2.791l-.686.407C14.128 21.399 13.114 22 12 22s-2.128-.6-4.157-1.802l-.686-.407c-2.029-1.2-3.043-1.802-3.6-2.791C3 16.01 3 14.81 3 12.406v-.812C3 9.19 3 7.989 3.557 7s1.571-1.59 3.6-2.792zM13 16a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-1-9.75a.75.75 0 0 1 .75.75v6a.75.75 0 0 1-1.5 0V7a.75.75 0 0 1 .75-.75"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  <p className="text-xs text-[#7a0916]">{errors.general}</p>
                 </div>
               </>
             )}
@@ -391,11 +400,15 @@ const Sign_In = () => {
                   value={email}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className={`mt-1 block w-full px-3.5 py-2 h-11 border ${errors.email ? "border-red-500" : "border-gray-300"} hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                  className={`mt-1 block w-full px-3.5 py-2 h-11 border ${
+                    errors.email ? "border-red-500" : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Email address"
                 />
               </div>
-              {touched.email && errors.email && <p className="mt-0.5 text-xs text-[#FF0000]">{errors.email}</p>}
+              {touched.email && errors.email && (
+                <p className="mt-0.5 text-xs text-[#FF0000]">{errors.email}</p>
+              )}
             </div>
 
             <div className="mb-2">
@@ -406,7 +419,9 @@ const Sign_In = () => {
                   value={password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className={`mt-1 block w-full px-3.5 py-2 h-11 border ${errors.password ? "border-red-500" : "border-gray-300"} hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                  className={`mt-1 block w-full px-3.5 py-2 h-11 border ${
+                    errors.password ? "border-red-500" : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Password"
                 />
                 <div
@@ -417,15 +432,19 @@ const Sign_In = () => {
                   {showPassword ? <FaEye /> : <FaEyeSlash />}
                 </div>
               </div>
-              {touched.password && errors.password && <p className="mt-0.5 text-xs text-[#FF0000]">{errors.password}</p>}
+              {touched.password && errors.password && (
+                <p className="mt-0.5 text-xs text-[#FF0000]">
+                  {errors.password}
+                </p>
+              )}
             </div>
 
             <div className="flex items-center justify-end my-4">
               <Link
-                to="/ForgotPassword"
+                to="/forgotpassword"
                 className="text-sm underline text-sub-color"
               >
-                Create an account
+                Forgot Password
               </Link>
             </div>
 

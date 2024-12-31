@@ -76,8 +76,11 @@ const PricingWithMenu = () => {
 
   return (
     <div className="container mx-auto">
-      <section className="lg:pt-10">
-        <p className="lg:text-basic text-medium text-sub-color pb-8 text-center font-medium">
+      <section className="lg:pt-5">
+        <p
+          className="lg:text-basic text-medium text-sub-color lg:pb-8 pb-2
+         text-center font-medium animate__animated animate__fadeInDown"
+        >
           Choose the perfect tier for your needs
         </p>
 
@@ -131,7 +134,7 @@ const PricingWithMenu = () => {
         {/* Tablet/Small Screen Layout */}
         <div className="block lg:hidden">
           {/* Pricing Tab */}
-          <div className="flex overflow-x-auto md:space-x-12 space-x-4 pb-6 justify-center items-center">
+          <div className="flex overflow-x-auto gap-6 md:gap-10 pb-6 justify-center items-center">
             {pricingPlans.map((plan, index) => (
               <button
                 key={index}

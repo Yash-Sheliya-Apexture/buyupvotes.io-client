@@ -65,21 +65,26 @@ const Blog = () => {
             Sort By:
           </span>
           <Dropdown
+            type="text"
             options={filterOptions}
             selectedValue={selectedFilter}
             onSelect={(value) => setSelectedFilter(value)} // Update filter state
             className="w-full"
+            placeholder="Select Feature:"
+            dropdownPadding="p-3"
+            listPadding="p-2 my-1.5"
+            
           />
         </div>
       </div>
 
       {/* Blog Cards */}
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-4 mb-5">
         {sortedBlogs.map((blog, index) => (
           <Link
             key={blog.id}
-            to={`/dashboard/blog/${sanitizeTitle(blog.title)}`}
-            className={`bg-white text-sub-color relative shadow-main z-0  cursor-pointer overflow-hidden rounded-small ${
+            to={`${sanitizeTitle(blog.title)}`}
+            className={`bg-white text-sub-color relative shadow-main rounded-small z-0 cursor-pointer overflow-hidden ${
               index === 0 ? "lg:w-[550px] w-full z-10" : "flex-0 md:flex-1" // flex-1 for remaining blogs
             }`}
           >

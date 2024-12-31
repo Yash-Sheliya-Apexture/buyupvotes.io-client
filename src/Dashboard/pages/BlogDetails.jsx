@@ -165,7 +165,7 @@ const BlogDetails = () => {
         {/* Breadcrumbs */}
         <div className="lg:text-small text-xs mt-4 lg:space-x-44 space-x-6 flex">
           <div className="flex items-center">
-            <Link to="/dashboard/blog">
+            <Link to="/dashboard/post">
               <FaChevronLeft className="text-sub-color p-1 size-6 cursor-pointer border border-sub-color rounded-full" />
             </Link>
           </div>
@@ -178,7 +178,7 @@ const BlogDetails = () => {
             </a>
             <span className="px-3 text-gray-300">•</span>
             <Link
-              to="/dashboard/blog"
+              to="/dashboard/post"
               className="hover:underline text-sub-color font-medium"
             >
               Blog

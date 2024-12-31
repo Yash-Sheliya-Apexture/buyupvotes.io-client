@@ -76,7 +76,7 @@ const SideBar = () => {
       id: "Blogs Data",
       icon: <GoFileDirectoryFill />,
       label: "Blogs",
-      link: "/dashboard/blog",
+      link: "/dashboard/post",
     },
     {
       id: "Contact",
@@ -189,6 +189,7 @@ const SideBar = () => {
               </li>
             ))}
           </ul>
+          
           {isSidebarExpanded && (
             <div className="p-2 mt-4">
               <Link
