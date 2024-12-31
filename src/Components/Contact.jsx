@@ -46,7 +46,10 @@ const Contact = () => {
 
             {/* Right Side: Content */}
             <div className="w-full mt-10 text-center lg:w-2/3 lg:text-left lg:mt-0">
-              <h1 className="text-white text-[24px] md:text-[32px] lg:text-[50px] font-black leading-tight">
+              <h1
+                className="text-white text-[24px] md:text-[32px] lg:text-[50px] font-black leading-tight animate__animated animate__bounceInDown"
+                style={{ animationDuration: "1s", animationDelay: "0.3s" }}
+              >
                 Buy upvotes today & <br /> get instant delivery!
               </h1>
               {isLoggedIn ? (

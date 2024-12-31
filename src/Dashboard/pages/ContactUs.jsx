@@ -254,8 +254,6 @@
 
 // // export default ContactUs;
 
-
-
 // // import React, { useEffect, useRef, useState } from "react";
 // // import gsap from "gsap";
 // // import Breadcrumb from "../../Dashboard/components/Breadcrumb";
@@ -533,17 +531,6 @@
 // // };
 
 // // export default ContactUs;
-
-
-
-
-
-
-
-
-
-
-
 
 // import React, { useEffect, useState } from "react";
 // import Breadcrumb from "../../Dashboard/components/Breadcrumb";
@@ -844,7 +831,6 @@
 
 // export default ContactUs;
 
-
 // // Updated ContactUs Component
 // import React, { useEffect, useRef, useState } from "react";
 // import gsap from "gsap";
@@ -1100,8 +1086,6 @@
 // };
 
 // export default ContactUs;
-
-
 
 // import React, { useEffect, useRef, useState } from "react";
 // import gsap from "gsap";
@@ -1381,34 +1365,24 @@
 
 // export default ContactUs;
 
-
-
-
-
-
-
-
-
-
-
-
 import React from "react";
 import Breadcrumb from "../../Dashboard/components/Breadcrumb";
 import ContactInfo from "../../Components/ContactUs/ContactInfo";
 import ContactForm from "../../Components/ContactUs/ContactForm";
 
 const ContactUs = () => {
-
   const breadcrumbs = [
     { label: "Dashboard", link: "/dashboard" },
     { label: "Contact Us" },
-];
+  ];
 
   return (
     <>
       <section className="contact-us py-7">
         <div className="container mx-auto">
-          <h1 className="mb-2 font-bold text-sub-color text-basic">Contact Us</h1>
+          <h1 className="mb-2 font-bold text-sub-color text-basic">
+            Contact Us
+          </h1>
           <div className="flex items-center space-x-4">
             <Breadcrumb items={breadcrumbs} />
           </div>

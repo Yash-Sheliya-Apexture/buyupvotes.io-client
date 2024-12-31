@@ -19,7 +19,7 @@ const HeroSection = () => {
 
   return (
     <section
-      className="hero-section relative h-[550px] overflow-hidden bg-no-repeat bg-center bg-cover flex items-center justify-center"
+      className="hero-section relative h-[550px] overflow-hidden bg-no-repeat bg-center bg-cover flex items-center justify-center z-0"
       style={{
         background: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${images.overlay_3})`,
       }}

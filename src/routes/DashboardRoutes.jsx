@@ -7,12 +7,12 @@ import UpvoteOrder from "../Dashboard/pages/UpvoteOrder";
 import FundPricing from "../Dashboard/pages/FundPricing";
 import ContactUs from "../Dashboard/pages/ContactUs";
 import FAQ from "../Dashboard/pages/FAQ";
-import Blog from "../Dashboard/pages/Blog";
 import BlogDetails from "../Dashboard/pages/BlogDetails";
-import Error404 from "../Dashboard/pages/Error404";
 import Account from "../Dashboard/pages/Account";
 import DashboardLayout from "../Dashboard/layout/DashboardLayout"; // Import DashboardLayout
 import { AuthProvider } from "../auth/AuthContext";
+import Error404 from "../Dashboard/pages/Error404"; // Import Error404 page
+import Blog from "../Dashboard/pages/Blog"; 
 
 const DashboardRoutes = () => {
   return (
@@ -27,13 +27,16 @@ const DashboardRoutes = () => {
           <Route path="faqs" element={<FAQ />} />
 
           {/* Nested Routes for Blog */}
-          <Route path="blog">
+          <Route path="post">
             <Route index element={<Blog />} />
             <Route path=":title" element={<BlogDetails />} />
           </Route>
 
           <Route path="account" element={<Account />} />
-         
+
+          {/* Catch-all route for unmatched paths */}
+          {/* <Route path="*" element={<Error404 />} /> */}
+          <Route path="/*" element={<Error404 />} />
         </Route>
       </Routes>
     </AuthProvider>

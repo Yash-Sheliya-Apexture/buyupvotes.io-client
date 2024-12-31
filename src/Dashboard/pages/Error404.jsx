@@ -24,7 +24,7 @@ const Error404 = () => {
         </motion.h1>
         {/* Animated Description */}
         <motion.p
-          className="m-0 leading-6 text-small lg:font-medium text-[#403633]"
+          className="m-0 leading-6 text-small lg:font-medium text-active"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
@@ -110,7 +110,7 @@ const Error404 = () => {
         />
       </motion.div>
       {/* Home Page Redirect */}
-      <div className="text-center mb-10">
+      <div className="text-center pb-10">
         <Link to="/">
           <motion.div
             whileHover={{ scale: 1.1 }}
@@ -126,3 +126,5 @@ const Error404 = () => {
 };
 
 export default Error404;
+
+

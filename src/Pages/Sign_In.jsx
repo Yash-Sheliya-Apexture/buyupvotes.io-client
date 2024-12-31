@@ -111,7 +111,6 @@
 //     checkAndLogoutOnExpiration();
 //   }, []);
 
-
 //   return (
 //     <>
 //       {/* Content Section */}
@@ -603,8 +602,8 @@ const Sign_In = () => {
 
   return (
     <>
-      <div className="h-[calc(100vh-72px)] layout flex items-center justify-center px-4">
-        <div className="lg:w-[420px] h-auto bg-white rounded-small lg:p-6 p-4 pb-10">
+      <div className="h-[calc(100vh-72px)] layout flex items-center justify-center">
+        <div className="lg:w-[420px] bg-white rounded-small lg:p-6 p-4 pb-10">
           <h1 className="mb-4 text-base font-bold text-center lg:text-basic text-sub-color">
             Welcome to BuyUpvotes!
           </h1>
@@ -617,9 +616,7 @@ const Sign_In = () => {
           <button className="flex items-center justify-between w-full border border-gray-300 hover:bg-[#2d262414] hover:border-sub-color rounded-full px-2 py-2 lg:text-small text-sm font-semibold text-sub-color mb-4 transition-all ease-in duration-300">
             <img src={google} alt="Google Logo" className="w-6 h-6" />
             <div className="flex justify-center w-full">
-              <span className="text-xs">
-                Sign in with Google
-              </span>
+              <span className="text-xs">Sign in with Google</span>
             </div>
           </button>
           <form onSubmit={handleSubmit}>
@@ -642,11 +639,15 @@ const Sign_In = () => {
                   value={email}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className={`mt-1 block w-full px-3.5 py-2 h-11 border ${errors.email ? "border-red-500" : "border-gray-300"} hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                  className={`mt-1 block w-full px-3.5 py-2 h-11 border ${
+                    errors.email ? "border-red-500" : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Email address"
                 />
               </div>
-              {touched.email && errors.email && <p className="mt-0.5 text-xs text-[#FF0000]">{errors.email}</p>}
+              {touched.email && errors.email && (
+                <p className="mt-0.5 text-xs text-[#FF0000]">{errors.email}</p>
+              )}
             </div>
 
             <div className="mb-2">
@@ -657,7 +658,9 @@ const Sign_In = () => {
                   value={password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className={`mt-1 block w-full px-3.5 py-2 h-11 border ${errors.password ? "border-red-500" : "border-gray-300"} hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
+                  className={`mt-1 block w-full px-3.5 py-2 h-11 border ${
+                    errors.password ? "border-red-500" : "border-gray-300"
+                  } hover:border-sub-color transition-all ease-in duration-200 rounded-full sm:text-sm`}
                   placeholder="Password"
                 />
                 <div
@@ -668,7 +671,11 @@ const Sign_In = () => {
                   {showPassword ? <FaEye /> : <FaEyeSlash />}
                 </div>
               </div>
-              {touched.password && errors.password && <p className="mt-0.5 text-xs text-[#FF0000]">{errors.password}</p>}
+              {touched.password && errors.password && (
+                <p className="mt-0.5 text-xs text-[#FF0000]">
+                  {errors.password}
+                </p>
+              )}
             </div>
 
             <div className="flex items-center justify-end my-4">

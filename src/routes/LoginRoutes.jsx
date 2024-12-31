@@ -3,9 +3,10 @@ import { Route, Routes } from "react-router-dom";
 import Signin_up_Header from "../Pages/SignIn_Header";
 import Sign_In from "../Pages/Sign_In";
 import Sign_Up from "../Pages/Sign_Up";
-import RedirectIfLoggedIn from "./RedirectIfLoggedIn"; // Import RedirectIfLoggedIn
+import RedirectIfLoggedIn from "./RedirectIfLoggedIn";
 import ForgotPassword from "../Pages/ForgotPassword";
-import Newpassword from "../Pages/Newpassword"; // Import Newpassword
+import Newpassword from "../Pages/Newpassword";
+import Error404 from "../Dashboard/pages/Error404"; // Import the Error404 component
 
 const LogRoute = () => {
   return (
