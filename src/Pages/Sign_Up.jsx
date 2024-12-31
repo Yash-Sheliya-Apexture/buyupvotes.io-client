@@ -495,7 +495,6 @@ const Sign_Up = () => {
                   placeholder="Confirm Password"
                 />
                 <div
-                  type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500"
                 >

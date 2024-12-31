@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import logo from "../assets/Images/Logo.png"; // Replace with your logo image path
 import Uparrow from "../assets/Images/logo-mini.png";
 import { Link } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
 import Button from "../Dashboard/components/Button";
-import { NearMeDisabled } from "@mui/icons-material";
 import { TbMenu4 } from "react-icons/tb";
 import { FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
-  const [showTooltip, setShowTooltip] = useState(false); // Tooltip state
   const [showMenu, setShowMenu] = useState(false); // Menu toggle state for small screens
   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
 
@@ -23,10 +20,6 @@ const Header = () => {
     }
   }, []);
 
-  const toggleTooltip = () => {
-    setShowTooltip((prev) => !prev); // Toggle tooltip visibility
-  };
-
   const toggleMenu = () => {
     setShowMenu((prev) => !prev); // Toggle mobile menu
   };
@@ -34,10 +27,10 @@ const Header = () => {
   return (
     <>
       {/* Blue background behind header */}
-      <header className="sticky top-0 left-0 z-20 bg-white w-full bg-opacity-95 shadow-main">
+      <header className="sticky top-0 left-0 z-20 w-full bg-white bg-opacity-95 shadow-main">
         {/* Header */}
         <div className="container mx-auto">
-          <section className="flex items-center justify-between py-2 relative">
+          <section className="relative flex items-center justify-between ">
             {/* Left Section: Logo & Small screen icons */}
             <div className="flex items-center">
               {/* Mobile Menu Button */}
@@ -62,28 +55,53 @@ const Header = () => {
             {/* Combined Navigation Links and Right Section */}
             <div className="flex items-center justify-between space-x-6 md:w-auto">
               {/* Navigation Links */}
-              <nav className="flex-grow hidden h-full space-x-10 cursor-pointer md:flex">
-                {["Pricing", "FAQ", "Blog", "Contact"].map((item, index) => {
-                  const paths = [
-                    "/dashboard/fundprice",
-                    "/dashboard/faqs",
-                    "/dashboard/blog",
-                    "/dashboard/contactus",
-                  ];
-                  return (
-                    <Link
-                      key={index}
-                      to={paths[index]}
-                      className="relative text-small text-sub-color font-normal hover:text-main-color group"
-                    >
-                      {item}
-                      <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-transparent">
-                        <span className="block absolute top-0 left-0 h-full w-0 bg-main-color transition-all duration-300 ease-in-out group-hover:w-full"></span>
-                      </span>
-                    </Link>
-                  );
-                })}
-              </nav>
+              {isLoggedIn ? (
+                <nav className="flex-grow hidden h-full gap-2 cursor-pointer md:flex">
+                  {["Pricing", "FAQ", "Blog", "Contact"].map((item, index) => {
+                    const paths = [
+                      "/dashboard/fundprice",
+                      "/dashboard/faqs",
+                      "/dashboard/blog",
+                      "/dashboard/contactus",
+                    ];
+                    return (
+                      <Link
+                        key={index}
+                        to={paths[index]}
+                        className="relative py-5 font-normal text-small text-sub-color hover:text-main-color group"
+                      >
+                        {item}
+                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-transparent">
+                          <span className="absolute top-0 left-0 block w-0 h-full transition-all duration-300 ease-in-out bg-main-color group-hover:w-full"></span>
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </nav>) : (
+                <nav className="flex-grow hidden h-full gap-2 cursor-pointer md:flex">
+                  {["Pricing", "FAQ", "Blog", "Contact"].map((item, index) => {
+                    const paths = [
+                      "/pricing",
+                      "/faqs",
+                      "/post",
+                      "/contact-us",
+                    ];
+                    return (
+                      <Link
+                        key={index}
+                        to={paths[index]}
+                        className="relative px-4 py-5 font-normal text-small text-sub-color hover:text-main-color group"
+                      >
+                        {item}
+                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-transparent">
+                          <span className="absolute top-0 left-0 block w-0 h-full transition-all duration-300 ease-in-out bg-main-color group-hover:w-full"></span>
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </nav>
+              )}
+
 
               {/* Right Section */}
               <div className="relative flex items-center space-x-2">
@@ -98,7 +116,7 @@ const Header = () => {
                     <button>
                       <Link
                         to="/signin"
-                        className="px-4 lg:px-0 py-1 text-main-color border-main-color font-medium rounded-full transition lg:block hidden"
+                        className="hidden px-4 py-1 font-medium transition rounded-full lg:px-0 text-main-color border-main-color lg:block"
                       >
                         Sign-In
                       </Link>
@@ -114,9 +132,8 @@ const Header = () => {
 
             {/* Sidebar for mobile view */}
             <div
-              className={`fixed top-0 left-0 w-56 bg-white h-full border-r border-gray-300/50 shadow-main transition-transform duration-300 ease-in-out ${
-                showMenu ? "translate-x-0" : "-translate-x-full"
-              }`}
+              className={`fixed top-0 left-0 w-56 bg-white h-full border-r border-gray-300/50 shadow-main transition-transform duration-300 ease-in-out ${showMenu ? "translate-x-0" : "-translate-x-full"
+                }`}
               style={{ zIndex: 1000 }} // Ensure this is above the blur layer
             >
               <div className="relative flex justify-end p-4">
@@ -149,7 +166,7 @@ const Header = () => {
                   </svg>
                   <Link
                     to="/dashboard/fundprice"
-                    className="block text-lg text-sub-color hover:text-main-color transition-all ease-linear duration-200"
+                    className="block text-lg transition-all duration-200 ease-linear text-sub-color hover:text-main-color"
                   >
                     Pricing
                   </Link>
@@ -178,7 +195,7 @@ const Header = () => {
                   </svg>
                   <Link
                     to="/dashboard/faqs"
-                    className="block text-lg text-sub-color hover:text-main-color transition-all ease-linear duration-200"
+                    className="block text-lg transition-all duration-200 ease-linear text-sub-color hover:text-main-color"
                   >
                     FAQ
                   </Link>
@@ -207,7 +224,7 @@ const Header = () => {
                   </svg>
                   <Link
                     to="/dashboard/blog"
-                    className="block text-lg text-sub-color hover:text-main-color transition-all ease-linear duration-200"
+                    className="block text-lg transition-all duration-200 ease-linear text-sub-color hover:text-main-color"
                   >
                     Blog
                   </Link>
@@ -247,17 +264,17 @@ const Header = () => {
                   <Link
                     to="contactus"
                     href="#contact"
-                    className="block text-lg text-sub-color hover:text-main-color transition-all ease-linear duration-200"
+                    className="block text-lg transition-all duration-200 ease-linear text-sub-color hover:text-main-color"
                   >
                     Contact
                   </Link>
                 </div>
-                <div className="flex gap-4 items-center">
+                <div className="flex items-center gap-4">
                   <FaUserCircle className="size-8  text-[#ff8b4c]" />
                   <Link
                     to="/dashboard"
                     href="#login"
-                    className="block text-lg text-sub-color hover:text-main-color transition-all ease-linear duration-200"
+                    className="block text-lg transition-all duration-200 ease-linear text-sub-color hover:text-main-color"
                   >
                     Dashboard
                   </Link>
