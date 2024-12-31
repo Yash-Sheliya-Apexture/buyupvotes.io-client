@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import payment_logos from "../assets/Images/payment_logo.png";
 import Button from "../Dashboard/components/Button";
-import CustomizePayment from "../Dashboard/Components/CustomizePayment";
+import Customize_Payment from "../Dashboard/components/Customize_Payment";
 
 const Currency = () => {
   // const [selectedTab, setSelectedTab] = useState("creditCard");
@@ -117,7 +117,7 @@ const Currency = () => {
           </div>
         </div>
       ) : (
-        <CustomizePayment className="bg-red-500"/>
+        <Customize_Payment className="bg-red-500"/>
       )}
     </section>
   );
