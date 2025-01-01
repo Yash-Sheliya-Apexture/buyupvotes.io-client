@@ -1539,13 +1539,25 @@ const Ordertable = () => {
             setLoading(true);
             setError(null);
             try {
+                // const token = localStorage.getItem("authToken");
+                // if (!token) {
+                //     setError("Token missing or invalid.");
+                //     return;
+                // }
+                // const response = await axios.get(
+                //     `${API_BASE_URL}/auth/orders?timestamp=${new Date().getTime()}`,
+                //     {
+                //         headers: { Authorization: `Bearer ${token}` },
+                //     }
+                // );
+
                 const token = localStorage.getItem("authToken");
                 if (!token) {
                     setError("Token missing or invalid.");
                     return;
                 }
                 const response = await axios.get(
-                    `${API_BASE_URL}/auth/orders?timestamp=${new Date().getTime()}`,
+                    `${API_BASE_URL}/auth/orders`,
                     {
                         headers: { Authorization: `Bearer ${token}` },
                     }
