@@ -9,7 +9,6 @@
 // import { FaPlus } from "react-icons/fa6";
 // import { FaTrashAlt } from "react-icons/fa";
 
-
 // function parseAndFormatDate(dateString) {
 //   try {
 //     // Split date and time
@@ -23,8 +22,6 @@
 //     return "Invalid Date";
 //   }
 // }
-
-
 
 // const Ordertable = () => {
 //   const [activeTab, setActiveTab] = useState("All");
@@ -78,8 +75,6 @@
 //       scrollableRef.current.scrollBy({ left: 100, behavior: "smooth" });
 //     }
 //   };
-
-
 
 //   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -460,9 +455,6 @@
 
 // export default Ordertable;
 
-
-
-
 // import React, { useState, useEffect } from "react";
 // import Data from "../../assets/Images/nodata.svg"; // No data icon
 // import { FiSearch } from "react-icons/fi";
@@ -473,8 +465,6 @@
 // import InputField from "../components/InputField";
 // import { FaPlus } from "react-icons/fa6";
 // import { FaTrashAlt } from "react-icons/fa";
-
-
 
 // const Ordertable = () => {
 //   const [activeTab, setActiveTab] = useState("All");
@@ -528,8 +518,6 @@
 //       scrollableRef.current.scrollBy({ left: 100, behavior: "smooth" });
 //     }
 //   };
-
-
 
 //   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -630,7 +618,6 @@
 //   //   fetchData();
 //   // }, [activeTab, startDate, endDate, debouncedQuery]);
 
-
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       setLoading(true); // Start loading
@@ -708,11 +695,6 @@
 //     // Call fetchData only once when the dependencies change
 //     fetchData();
 //   }, [activeTab, startDate, endDate, debouncedQuery]);
-
-
-
-
-
 
 //   function formattedDate(date) {
 //     const parsedDate = new Date(date);
@@ -994,13 +976,6 @@
 
 // export default Ordertable;
 
-
-
-
-
-
-
-
 // import React, { useState, useEffect } from "react";
 // import Data from "../../assets/Images/nodata.svg"; // No data icon
 // import { FiSearch } from "react-icons/fi";
@@ -1012,8 +987,6 @@
 // import { FaPlus } from "react-icons/fa6";
 // import { FaTrashAlt } from "react-icons/fa";
 // import "react-datepicker/dist/react-datepicker.css";
-
-
 
 // const Ordertable = () => {
 //   const [activeTab, setActiveTab] = useState("All");
@@ -1037,8 +1010,6 @@
 //     Completed: 0,
 //     Canceled: 0,
 //   }); // To keep dynamic counts of each status
-
-
 
 //   useEffect(() => {
 //     // Set the indicator position and width for the default active tab
@@ -1070,8 +1041,6 @@
 //     }
 //   };
 
-
-
 //   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 //   const totalPages = Math.ceil(tableData.length / rowsPerPage);
@@ -1100,7 +1069,6 @@
 //     }, 500);
 //     return () => clearTimeout(timer);
 //   }, [searchQuery]);
-
 
 //   useEffect(() => {
 //     const fetchData = async () => {
@@ -1183,7 +1151,6 @@
 
 //     fetchData();
 //   }, [activeTab, startDate, endDate, debouncedQuery]);
-
 
 //   function formattedDate(date) {
 //     const parsedDate = new Date(date);
@@ -1472,7 +1439,6 @@
 
 // export default Ordertable;
 
-
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa6";
@@ -1483,264 +1449,256 @@ import OrderTable from "../../Dashboard/components/OrderTable/OrderTable";
 import OrderTableFilters from "../../Dashboard/components/OrderTable/OrderTableFilters";
 import OrderTablePagination from "../../Dashboard/components/OrderTable/OrderTablePagination";
 
-
 const Ordertable = () => {
-    const [activeTab, setActiveTab] = useState("All");
-    const [tableData, setTableData] = useState([]);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [debouncedQuery, setDebouncedQuery] = useState("");
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [tabCounts, setTabCounts] = useState({
-        All: 0,
-        Pending: 0,
-        "In Progress": 0,
-        Completed: 0,
-        Canceled: 0,
-        Partial: 0
-    });
-    const tabRefs = useRef([]);
+  const [activeTab, setActiveTab] = useState("All");
+  const [tableData, setTableData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [tabCounts, setTabCounts] = useState({
+    All: 0,
+    Pending: 0,
+    "In Progress": 0,
+    Completed: 0,
+    Canceled: 0,
+    Partial: 0,
+  });
+  const tabRefs = useRef([]);
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const totalPages = Math.ceil(tableData.length / rowsPerPage);
+  const paginatedData = tableData.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
-    const totalPages = Math.ceil(tableData.length / rowsPerPage);
-    const paginatedData = tableData.slice(
-        (currentPage - 1) * rowsPerPage,
-        currentPage * rowsPerPage
-    );
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
 
-    const handleNextPage = () => {
-        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-    };
+  const handlePreviousPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
 
-    const handlePreviousPage = () => {
-        if (currentPage > 1) setCurrentPage(currentPage - 1);
-    };
-
-
-    useEffect(() => {
-        if (searchQuery.trim() === "") {
-            setDebouncedQuery(""); // Clear debounced query when input is empty
-            return;
-        }
-        const timer = setTimeout(() => {
-            setDebouncedQuery(searchQuery);
-        }, 500);
-        return () => clearTimeout(timer);
-    }, [searchQuery]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const token = localStorage.getItem("authToken");
-                if (!token) {
-                    setError("Token missing or invalid.");
-                    return;
-                }
-                const response = await axios.get(
-                    `${API_BASE_URL}/auth/orders?timestamp=${new Date().getTime()}`,
-                    {
-                        headers: { Authorization: `Bearer ${token}` },
-                    }
-                );
-
-
-                if (!Array.isArray(response.data)) {
-                    setError("Invalid data format.");
-                    return;
-                }
-
-
-                const originalData = response.data;
-
-
-                let filteredData = [...originalData];
-
-                filteredData = filteredData.filter((item) => {
-                    if (
-                        debouncedQuery &&
-                        !(
-                            item.orderId
-                                .toLowerCase()
-                                .includes(debouncedQuery.toLowerCase()) ||
-                            item.service
-                                .toLowerCase()
-                                .includes(debouncedQuery.toLowerCase())
-                        )
-                    )
-                        return false;
-                    if (startDate && new Date(item.date) < new Date(startDate))
-                        return false;
-                    if (endDate && new Date(item.date) > new Date(endDate))
-                        return false;
-
-                    if (activeTab !== "All" && item.status !== activeTab)
-                        return false;
-
-                    return true;
-                });
-                filteredData.sort((a, b) => new Date(b.date) - new Date(a.date));
-                setTableData(filteredData);
-
-                const tabCounts = {
-                    All: originalData.length,
-                    Pending: originalData.filter((item) => item.status === "Pending")
-                        .length,
-                    "In Progress": originalData.filter(
-                        (item) => item.status === "In Progress"
-                    ).length,
-                    Completed: originalData.filter((item) => item.status === "Completed")
-                        .length,
-                    Canceled: originalData.filter((item) => item.status === "Canceled")
-                        .length,
-                    Partial: originalData.filter((item) => item.status === "Partial")
-                        .length,
-                };
-                setTabCounts(tabCounts);
-            } catch (err) {
-                console.error("Error fetching data:", err);
-                setError("There was an issue fetching the data. Please try again later.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [activeTab, startDate, endDate, debouncedQuery]);
-
-    function formattedDate(date) {
-        const parsedDate = new Date(date);
-        if (isNaN(parsedDate.getTime())) {
-            return "No Date Provided";
-        }
-        return parsedDate.toLocaleDateString();
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setDebouncedQuery(""); // Clear debounced query when input is empty
+      return;
     }
+    const timer = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
-    const tabs = [
-        {
-            label: "All",
-            count: tabCounts["All"],
-            color: "bg-[#919EAB29] text-para-color",
-            colors: "bg-black text-white",
-        },
-        {
-            label: "Pending",
-            count: tabCounts["Pending"] || 0,
-            color: "bg-[#FFAB0029] text-[#B76E00]",
-            colors: "bg-[#FFAB00] text-[#212B36]",
-        },
-        {
-            label: "In Progress",
-            count: tabCounts["In Progress"] || 0,
-            color: "bg-[#0ea5e92b] text-[#0ea5e9]",
-            colors: "bg-[#0ea5e9] text-white",
-        },
-        {
-            label: "Completed",
-            count: tabCounts["Completed"] || 0,
-            color: "bg-[#22C55E29] text-[#118D57]",
-            colors: "bg-[#22C55E] text-white",
-        },
-        {
-            label: "Partial",
-            count: tabCounts["Partial"] || 0,
-            color: "bg-[#919EAB29] text-para-color",
-            colors: "bg-sub-color text-white",
-        },
-        {
-            label: "Canceled",
-            count: tabCounts["Canceled"] || 0,
-            color: "bg-[#FF563029] text-[#B71D18]",
-            colors: "bg-light-orange text-white",
-        },
-    ];
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          setError("Token missing or invalid.");
+          return;
+        }
+        const response = await axios.get(
+          `${API_BASE_URL}/auth/orders?timestamp=${new Date().getTime()}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
-    const handleTabChange = (label) => {
-        setActiveTab(label);
+        if (!Array.isArray(response.data)) {
+          setError("Invalid data format.");
+          return;
+        }
+
+        const originalData = response.data;
+
+        let filteredData = [...originalData];
+
+        filteredData = filteredData.filter((item) => {
+          if (
+            debouncedQuery &&
+            !(
+              item.orderId
+                .toLowerCase()
+                .includes(debouncedQuery.toLowerCase()) ||
+              item.service.toLowerCase().includes(debouncedQuery.toLowerCase())
+            )
+          )
+            return false;
+          if (startDate && new Date(item.date) < new Date(startDate))
+            return false;
+          if (endDate && new Date(item.date) > new Date(endDate)) return false;
+
+          if (activeTab !== "All" && item.status !== activeTab) return false;
+
+          return true;
+        });
+        filteredData.sort((a, b) => new Date(b.date) - new Date(a.date));
+        setTableData(filteredData);
+
+        const tabCounts = {
+          All: originalData.length,
+          Pending: originalData.filter((item) => item.status === "Pending")
+            .length,
+          "In Progress": originalData.filter(
+            (item) => item.status === "In Progress"
+          ).length,
+          Completed: originalData.filter((item) => item.status === "Completed")
+            .length,
+          Canceled: originalData.filter((item) => item.status === "Canceled")
+            .length,
+          Partial: originalData.filter((item) => item.status === "Partial")
+            .length,
+        };
+        setTabCounts(tabCounts);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError(
+          "There was an issue fetching the data. Please try again later."
+        );
+      } finally {
+        setLoading(false);
+      }
     };
 
-    return (
-        <div className="mb-4 border rounded-small">
-            <h1 className="p-4 font-semibold text-sub-color lg:text-basic">
-                Your past upvote orders:
-            </h1>
+    fetchData();
+  }, [activeTab, startDate, endDate, debouncedQuery]);
 
-            {/* Tabs table */}
-            <OrderTableTabs
-                tabs={tabs}
-                activeTab={activeTab}
-                onTabChange={handleTabChange}
-            />
+  function formattedDate(date) {
+    const parsedDate = new Date(date);
+    if (isNaN(parsedDate.getTime())) {
+      return "No Date Provided";
+    }
+    return parsedDate.toLocaleDateString();
+  }
 
-            {/* Filter Section */}
-            <OrderTableFilters
-                startDate={startDate}
-                endDate={endDate}
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                setStartDate={setStartDate}
-                setEndDate={setEndDate}
-            />
+  const tabs = [
+    {
+      label: "All",
+      count: tabCounts["All"],
+      color: "bg-[#919EAB29] text-para-color",
+      colors: "bg-black text-white",
+    },
+    {
+      label: "Pending",
+      count: tabCounts["Pending"] || 0,
+      color: "bg-[#FFAB0029] text-[#B76E00]",
+      colors: "bg-[#FFAB00] text-[#212B36]",
+    },
+    {
+      label: "In Progress",
+      count: tabCounts["In Progress"] || 0,
+      color: "bg-[#0ea5e92b] text-[#0ea5e9]",
+      colors: "bg-[#0ea5e9] text-white",
+    },
+    {
+      label: "Completed",
+      count: tabCounts["Completed"] || 0,
+      color: "bg-[#22C55E29] text-[#118D57]",
+      colors: "bg-[#22C55E] text-white",
+    },
+    {
+      label: "Partial",
+      count: tabCounts["Partial"] || 0,
+      color: "bg-[#919EAB29] text-para-color",
+      colors: "bg-sub-color text-white",
+    },
+    {
+      label: "Canceled",
+      count: tabCounts["Canceled"] || 0,
+      color: "bg-[#FF563029] text-[#B71D18]",
+      colors: "bg-light-orange text-white",
+    },
+  ];
 
-            <div className="flex space-x-2">
-                {/* Status Check Section */}
-                {activeTab !== "All" && (
-                    <div className="p-2">
-                        <div className="flex items-center p-2 space-x-2 border border-dashed rounded-medium">
-                            <h1 className="font-medium text-sub-color">Status : </h1>
-                            <button
-                                onClick={() => {
-                                    setActiveTab("All")
-                                }}
-                                className="flex items-center px-2 py-1 text-xs text-white transition-all duration-300 ease-in rounded-full bg-sub-color hover:bg-slate-500/50"
-                            >
-                                {activeTab}
-                                <div className="flex items-center justify-center ml-2 bg-white rounded-full size-5">
-                                    <FaPlus className="h-3 text-gray-500 rotate-45" />
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-                )}
-                {activeTab !== "All" && (
-                    <div
-                        className="flex items-center cursor-pointer"
-                        onClick={() => {
-                            setActiveTab("All");
-                        }}
-                    >
-                        <FaTrashAlt className="size-5 text-light-orange" />
-                        <h1 className="ml-2 font-bold text-small text-light-orange">
-                            Clear
-                        </h1>
-                    </div>
-                )}
+  const handleTabChange = (label) => {
+    setActiveTab(label);
+  };
+
+  return (
+    <div className="mb-4 border rounded-small">
+      <h1 className="p-4 font-semibold text-sub-color lg:text-basic">
+        Your past upvote orders:
+      </h1>
+
+      {/* Tabs table */}
+      <OrderTableTabs
+        tabs={tabs}
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+      />
+
+      {/* Filter Section */}
+      <OrderTableFilters
+        startDate={startDate}
+        endDate={endDate}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+      />
+
+      <div className="flex space-x-2">
+        {/* Status Check Section */}
+        {activeTab !== "All" && (
+          <div className="p-2">
+            <div className="flex items-center p-2 space-x-2 border border-dashed rounded-medium">
+              <h1 className="font-medium text-sub-color">Status : </h1>
+              <button
+                onClick={() => {
+                  setActiveTab("All");
+                }}
+                className="flex items-center px-2 py-1 text-xs text-white transition-all duration-300 ease-in rounded-full bg-sub-color hover:bg-slate-500/50"
+              >
+                {activeTab}
+                <div className="flex items-center justify-center ml-2 bg-white rounded-full size-5">
+                  <FaPlus className="h-3 text-gray-500 rotate-45" />
+                </div>
+              </button>
             </div>
+          </div>
+        )}
+        {activeTab !== "All" && (
+          <div
+            className="flex items-center cursor-pointer"
+            onClick={() => {
+              setActiveTab("All");
+            }}
+          >
+            <FaTrashAlt className="size-5 text-light-orange" />
+            <h1 className="ml-2 font-bold text-small text-light-orange">
+              Clear
+            </h1>
+          </div>
+        )}
+      </div>
 
-            {/* Table Section */}
-            <OrderTable
-                loading={loading}
-                tableData={tableData}
-                formattedDate={formattedDate}
-                paginatedData={paginatedData}
-            />
+      {/* Table Section */}
+      <OrderTable
+        loading={loading}
+        tableData={tableData}
+        formattedDate={formattedDate}
+        paginatedData={paginatedData}
+      />
 
-            {/* Pagination */}
-            <OrderTablePagination
-                totalPages={totalPages}
-                currentPage={currentPage}
-                handlePreviousPage={handlePreviousPage}
-                handleNextPage={handleNextPage}
-            />
-        </div>
-    );
+      {/* Pagination */}
+      <OrderTablePagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        handlePreviousPage={handlePreviousPage}
+        handleNextPage={handleNextPage}
+      />
+    </div>
+  );
 };
 
 export default Ordertable;

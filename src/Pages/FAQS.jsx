@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const FAQS = () => {
   return (
-    <div>
+    <div className="py-5">
       <FAQ />
       <div className="flex justify-center items-center flex-col my-6">
         <h1 className="text-sub-color text-basic mb-6 font-medium text-center">

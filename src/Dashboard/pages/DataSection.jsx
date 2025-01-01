@@ -59,7 +59,7 @@ const DataSection = () => {
   };
 
   return (
-    <div className="px-2 lg:w-full w-full py-5">
+    <div className="lg:w-full w-full py-5">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {dataList.map((item) => (
           <div

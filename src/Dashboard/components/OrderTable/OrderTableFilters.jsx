@@ -28,7 +28,7 @@ const OrderTableFilters = ({startDate, endDate, setSearchQuery, searchQuery, set
             <InputField
                 name="Search"
                 type="text"
-                placeholder="Search by subreddit name"
+                placeholder="Search Raddit link"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
             />

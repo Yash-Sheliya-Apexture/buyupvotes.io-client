@@ -71,8 +71,8 @@ const Blog = () => {
             onSelect={(value) => setSelectedFilter(value)} // Update filter state
             className="w-full"
             placeholder="Select Feature:"
-            dropdownPadding="p-3"
-            listPadding="p-2 my-1.5"
+            dropdownPadding="p-2.5"
+            listPadding="p-1.5 my-1"
             
           />
         </div>
