@@ -81,10 +81,10 @@ const FAQ = () => {
   };
 
   return (
-    <div className="">
+    <div className="container mx-auto">
       {/* Header Section */}
       <div
-        className="relative lg:h-[550px] h-[350px] bg-cover bg-center overflow-hidden"
+        className="relative lg:h-[550px] h-[350px] bg-cover bg-center rounded-small overflow-hidden"
         style={{
           backgroundImage: `url(${FaQbackground})`,
         }}
@@ -92,16 +92,16 @@ const FAQ = () => {
         {/* Overlay with Backdrop Filter */}
         <div className="absolute inset-0 bg-black/75 bg-opacity-70 flex items-center justify-center"></div>
         <div className="absolute lg:bottom-20 md:bottom-10 bottom-32 left-4">
-          <h1 className="text-white lg:text-largest text-[40px] sm:text-start xs:ml-8 text-center leading-[50px] lg:leading-20 font-black  ">
+          <h1 className="text-white lg:text-largest text-[40px] sm:text-start xs:ml-3 text-center leading-[50px] lg:leading-20 font-black  ">
             <div
-              className="text-main-color animate__animated animate__bounceInRight"
+              className="text-main-color animate__animated animate__zoomIn"
               style={{ animationDuration: "1s", animationDelay: "0.2s" }}
             >
               How <br />
             </div>
             <div
-              className="animate__animated animate__bounceInLeft"
-              style={{ animationDuration: "1.5s", animationDelay: "0.5s" }}
+              className="animate__animated animate__zoomIn"
+              style={{ animationDuration: "1s", animationDelay: "0.5s" }}
             >
               Can Help You ?{" "}
             </div>

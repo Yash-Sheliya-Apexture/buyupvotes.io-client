@@ -136,7 +136,7 @@ const PricingWithMenu = () => {
             {/* Tablet/Small Screen Layout */}
             <div className="block lg:hidden">
               {/* Pricing Tab */}
-              <div className="flex overflow-x-auto gap-6 md:gap-10 pb-6 justify-center items-center">
+              <div className="flex overflow-x-auto gap-4 md:gap-10 pb-6 justify-center items-center">
                 {pricingPlans.map((plan, index) => (
                   <button
                     key={index}

@@ -6,7 +6,6 @@ import Button from "../Dashboard/components/Button";
 import { TbMenu4 } from "react-icons/tb";
 import { FaUserCircle } from "react-icons/fa";
 
-
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false); // Menu toggle state for small screens
   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
@@ -28,12 +27,11 @@ const Header = () => {
   return (
     <>
       {/* Header */}
-      <header className="demo"></header>
-      <header className="sticky top-0 z-30 bg-white/60 shadow-md backdrop-blur-sm">
+      <header className="sticky top-0 z-30 bg-white/60 shadow-md backdrop-blur-[2px]">
         <div className="container mx-auto">
           <section className="flex items-center justify-between">
             {/* Left Section */}
-            <div className="flex items-center">
+            <div className="flex items-center my-4">
               {/* Mobile Menu Button */}
               <button className="block md:hidden" onClick={toggleMenu}>
                 <TbMenu4 className="text-large text-main-color" />
@@ -78,15 +76,11 @@ const Header = () => {
                       </Link>
                     );
                   })}
-                </nav>) : (
+                </nav>
+              ) : (
                 <nav className="flex-grow hidden h-full gap-2 cursor-pointer md:flex">
                   {["Pricing", "FAQ", "Blog", "Contact"].map((item, index) => {
-                    const paths = [
-                      "/pricing",
-                      "/faqs",
-                      "/post",
-                      "/contact-us",
-                    ];
+                    const paths = ["/pricing", "/faqs", "/post", "/contact-us"];
                     return (
                       <Link
                         key={index}
@@ -102,7 +96,6 @@ const Header = () => {
                   })}
                 </nav>
               )}
-
 
               {/* Right Section */}
               <div className="relative flex items-center space-x-2">

@@ -5,14 +5,9 @@ import Button from "../Dashboard/components/Button";
 import Customize_Payment from "../Dashboard/components/Customize_Payment";
 
 const Currency = () => {
-  // const [selectedTab, setSelectedTab] = useState("creditCard");
   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
   const [creditCardDeposit, setCreditCardDeposit] = useState("");
   const [cryptoDeposit, setCryptoDeposit] = useState("");
-  // const [creditCardError, setCreditCardError] = useState("");
-  // const [cryptoError, setCryptoError] = useState("");
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [modalContent, setModalContent] = useState("");
 
   useEffect(() => {
     // Check if there's a token or user info in localStorage to determine login status
@@ -20,7 +15,7 @@ const Currency = () => {
     if (authToken) {
       setIsLoggedIn(true); // If token exists, user is logged in
     } else {
-      setIsLoggedIn(false); 
+      setIsLoggedIn(false);
     }
   }, []);
 
@@ -97,7 +92,7 @@ const Currency = () => {
   };
 
   return (
-    <section className="container mx-auto">
+    <section className="container mx-auto bg-white">
       {!isLoggedIn ? (
         <div className="Currency-main">
           <div className="flex items-center justify-center my-4">
@@ -117,7 +112,7 @@ const Currency = () => {
           </div>
         </div>
       ) : (
-        <Customize_Payment className="bg-red-500"/>
+        <Customize_Payment />
       )}
     </section>
   );
