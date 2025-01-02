@@ -51,18 +51,10 @@ const HeroSection = () => {
               </Link>
             ) : (
               <>
-                {/* SignIn And SignUp */}
-                <button
-                  style={{ backgroundColor: "#FF5700", color: "#fff" }}
-                  className="mybtn"
-                >
-                  <Link to="/signin">Sign in</Link>
-                </button>
-                <Button>
-                  <Link to="/signup">
-                    Sign up
-                    <FaUpRightFromSquare className="ml-1 absolute right-2.5 top-2.5" />
-                  </Link>
+                <Button to="/signin">Sign in</Button>
+                <Button to="/signup">
+                  Sign up
+                  <FaUpRightFromSquare className="ml-1 absolute right-2.5 top-2.5" />
                 </Button>
               </>
             )}

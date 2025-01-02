@@ -38,6 +38,8 @@ const WebsiteRoutes = () => {
       !location.pathname.startsWith("/contact-us") &&
       !location.pathname.startsWith("/dashboard"));
 
+  // Check if the current path is a dashboard path
+
   return (
     <>
       {/* Conditionally render header and scroll border */}

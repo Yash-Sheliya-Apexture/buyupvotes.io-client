@@ -1,40 +1,29 @@
-import { motion } from "framer-motion";
 import React from "react";
-import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import char_1 from "../../assets/Images/character_6.png";
+import { GoArrowLeft } from "react-icons/go";
 
 const Error404 = () => {
   return (
-    <div className="container mx-auto">
-      <motion.div
-        className="flex flex-col py-5 m-auto max-w-[400px] text-center justify-center relative"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-      >
-        {/* Animated Title */}
-        <motion.h1
-          className="text-sub-color font-bold lg:text-large text-base mb-4"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+    <div className="h-[calc(100vh-30px)] flex flex-col m-auto max-w-[450px] text-center justify-center">
+      <div className="relative">
+        <h1
+          className="text-center text-xlarge text-para-color font-medium animate__animated animate__bounceIn"
+          style={{ animationDuration: "0.7s", animationDelay: "0.1s" }}
         >
           Sorry, Page Not Found!
-        </motion.h1>
-        {/* Animated Description */}
-        <motion.p
-          className="m-0 leading-6 text-small lg:font-medium text-active"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
+        </h1>
+        <p
+          className="text-center text-para-color my-5 font-medium leading-7 text-medium animate__animated animate__bounceIn"
+          style={{ animationDuration: "0.7s", animationDelay: "0.2s" }}
         >
           Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve
           mistyped the URL? Be sure to check your spelling.
-        </motion.p>
+        </p>
         {/* SVG Animation */}
-        <motion.svg
-          className="my-10 w-full h-70 z-10"
+        <svg
+          className="w-full h-72 my-5 relative z-20 animate__animated animate__bounceIn"
+          style={{ animationDuration: "0.7s", animationDelay: "0.3s" }}
           viewBox="0 0 480 360"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -97,34 +86,29 @@ const Error404 = () => {
               <stop offset="1" stopColor="#FF4500"></stop>
             </linearGradient>
           </defs>
-        </motion.svg>
+          {/* Additional paths */}
+        </svg>
+
         {/* Animated Character */}
-        <motion.img
+        <img
           src={char_1}
           alt="Error_Char"
-          className="h-64 absolute lg:top-56 top-40 left-32 z-0"
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.5, ease: "easeOut" }}
-          whileHover={{ scale: 1.05 }}
+          className="h-56 absolute lg:top-52 top-40 left-48 z-0 animate__animated animate__bounceIn"
+          style={{ animationDuration: "0.7s", animationDelay: "0.3s" }}
         />
-      </motion.div>
-      {/* Home Page Redirect */}
-      <div className="text-center pb-10">
-        <Link to="/">
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Button>Back to Homepage</Button>
-          </motion.div>
-        </Link>
+
+        <div>
+          {/* Button Home */}
+          <Link to="/">
+            <button className="mybtn w-3/5">
+              Back to Homepage
+              <GoArrowLeft className="absolute top-1.5 left-1 size-6" />
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
 };
 
 export default Error404;
-
-

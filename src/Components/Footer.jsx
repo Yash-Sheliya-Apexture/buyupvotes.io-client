@@ -13,7 +13,9 @@ const Footer = () => {
           <div className="flex flex-col items-center justify-between space-y-8 lg:flex-row lg:items-start lg:space-y-0">
             {/* Left Section - Logo and Socials */}
             <div className="flex flex-col items-center space-y-5 lg:items-start">
-              <img src={logo} alt="logo" className="h-10" />
+              <Link to="/">
+                <img src={logo} alt="logo" className="h-10" />
+              </Link>
               <div className="flex items-center space-x-4">
                 <p className="text-sub-color text-small">Chat with us:</p>
                 <div className="flex space-x-4">
@@ -39,7 +41,7 @@ const Footer = () => {
                 <ul className="mt-2 space-y-2 text-sub-color lg:text-medium xs:text-small">
                   <li>
                     <Link
-                      to="/dashboard/faqs"
+                      to="/faqs"
                       className="hover:text-main-color hover:underline underline-offset-1"
                     >
                       FAQs
@@ -47,7 +49,7 @@ const Footer = () => {
                   </li>
                   <li>
                     <Link
-                      to="/dashboard/fundprice"
+                      to="/pricing"
                       className="hover:text-main-color hover:underline underline-offset-1"
                     >
                       Pricing
@@ -63,7 +65,7 @@ const Footer = () => {
                 <ul className="mt-2 space-y-2 text-sub-color lg:text-medium xs:text-small">
                   <li>
                     <Link
-                      to="/dashboard/contactus"
+                      to="/contact-us"
                       className="hover:text-main-color hover:underline underline-offset-1"
                     >
                       Contact us

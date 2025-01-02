@@ -1386,7 +1386,7 @@ const ContactUs = () => {
           <div className="flex items-center space-x-4">
             <Breadcrumb items={breadcrumbs} />
           </div>
-          <div className="flex flex-col gap-10 my-5 bg-white lg:flex-row">
+          <div className="flex flex-col gap-5 my-5 bg-white lg:flex-row">
             {/* Left Side */}
             <ContactInfo />
 

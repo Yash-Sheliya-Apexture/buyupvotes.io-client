@@ -35,6 +35,7 @@ const LogRoute = () => {
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="newpassword" element={<Newpassword />} />
           {/* Catch-all route for unmatched paths */}
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </div>
     </>

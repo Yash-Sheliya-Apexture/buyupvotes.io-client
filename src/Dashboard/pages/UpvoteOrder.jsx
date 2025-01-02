@@ -17,7 +17,6 @@ const UpvoteOrder = () => {
     link: "",
     quantity: "",
   });
-  
 
   // Consolidated error state
   const [errors, setErrors] = useState({

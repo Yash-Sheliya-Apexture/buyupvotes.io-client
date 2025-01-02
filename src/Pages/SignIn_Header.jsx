@@ -28,7 +28,7 @@ const SignIn_Header = () => {
             </div>
             <div>
               <Link
-                to="/dashboard/faqs"
+                to="/faqs"
                 className="font-medium text-sub-color hover:underline"
               >
                 Need help?
