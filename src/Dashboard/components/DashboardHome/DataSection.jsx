@@ -101,11 +101,117 @@
 
 
 
+// import React, { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+
+// const data = [
+//   {
+//     id: 1,
+//     remainingVotes: 1000,
+//     label: "Votes remaining",
+//     link: "dashboard/fundprice",
+//     icon: "fas fa-wallet",
+//   },
+//   {
+//     id: 2,
+//     remainingVotes: 0,
+//     label: "Total Orders",
+//     link: "dashboard/upvoteorder",
+//     icon: "fas fa-chart-line",
+//   },
+//   {
+//     id: 3,
+//     remainingVotes: 0,
+//     label: "Order in Progress",
+//     link: "dashboard/upvoteorder",
+//     icon: "fas fa-bolt",
+//   },
+//   {
+//     id: 4,
+//     label: "New Order",
+//     link: "dashboard/upvoteorder",
+//     icon: "fas fa-plus-circle",
+//   },
+//   {
+//     id: 5,
+//     label: "Buy Reddit Accounts",
+//     link: "dashboard/account",
+//     icon: "fab fa-reddit",
+//   },
+//   {
+//     id: 6,
+//     label: "API Documentation",
+//     link: "",
+//     icon: "fas fa-code",
+//   },
+// ];
+
+// const DataSection = () => {
+//   const [dataList, setDataList] = useState([]);
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const fetchData = () => {
+//       setDataList(data); // Replace with fetched JSON data if necessary.
+//     };
+//     fetchData();
+//   }, []);
+
+//   const handleCardClick = (link) => {
+//     if (link) navigate(`/${link}`);
+//   };
+
+//   return (
+//     <div className="w-full py-5 lg:w-full">
+//       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+//         {dataList.map((item) => (
+//           <div
+//             key={item.id}
+//             className="w-full h-full cursor-pointer"
+//             onClick={() => handleCardClick(item.link)}
+//           >
+//             <div
+//               className="flex items-center justify-between w-full h-full p-4 bg-white shadow-main rounded-small"
+//               style={{ minHeight: "100px" }}
+//             >
+//               {/* Left Section */}
+//               <div>
+//                 {item.remainingVotes !== undefined && (
+//                   <p className="mb-2 font-bold lg:text-large text-sub-color">
+//                     {item.remainingVotes}
+//                   </p>
+//                 )}
+//                 <p className="font-normal lg:text-base text-para-color">
+//                   {item.label}
+//                 </p>
+//               </div>
+
+//               {/* Icon Section */}
+//               <div className="p-4 text-main-color lg:text-large text-basic">
+//                 <i
+//                   className={`${item.icon} hover:bg-gray-hover rounded-full transition-all ease-in duration-150`}
+//                 ></i>
+//               </div>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default DataSection;
+
+
+
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import SkeletonDataSection from "./SkeletonDataSection"; // Import the SkeletonCard
+import { FaWallet, FaChartLine, FaBolt, FaPlusCircle } from "react-icons/fa";
+import { FaReddit } from "react-icons/fa";
+import {  FiCode  } from "react-icons/fi";
 
 const DataSection = () => {
   const [dataList, setDataList] = useState([]);
@@ -176,39 +282,39 @@ const DataSection = () => {
             remainingVotes: voteBalance,
             label: "Votes remaining",
             link: "dashboard/fundprice",
-            icon: "fas fa-wallet",
+            icon: <FaWallet />,
           },
           {
             id: 2,
             remainingVotes: totalOrders,
             label: "Total Orders",
             link: "dashboard/upvoteorder",
-            icon: "fas fa-chart-line",
+            icon: <FaChartLine />,
           },
           {
             id: 3,
             remainingVotes: ordersInProgress,
             label: "Order in Progress",
             link: "dashboard/upvoteorder",
-            icon: "fas fa-bolt",
+             icon: <FaBolt />,
           },
           {
             id: 4,
             label: "New Order",
             link: "dashboard/upvoteorder",
-            icon: "fas fa-plus-circle",
+            icon: <FaPlusCircle />,
           },
           {
             id: 5,
             label: "Buy Reddit Accounts",
             link: "dashboard/account",
-            icon: "fab fa-reddit",
+            icon: <FaReddit />,
           },
           {
             id: 6,
             label: "API Documentation",
             link: "",
-            icon: "fas fa-code",
+              icon: <FiCode />,
           },
         ];
 
@@ -226,7 +332,7 @@ const DataSection = () => {
   const handleCardClick = (link) => {
     if (link) navigate(`/${link}`);
   };
-    
+
     const renderSkeletons = () => (
         Array.from({length: 6}).map((_, index) => (
             <SkeletonDataSection key={index} />
@@ -262,10 +368,10 @@ const DataSection = () => {
                 </div>
 
                 {/* Icon Section */}
-                <div className="p-4 text-main-color lg:text-large text-basic">
-                  <i
-                    className={`${item.icon} hover:bg-gray-hover rounded-full transition-all ease-in duration-150`}
-                  ></i>
+               <div className="p-4 text-main-color lg:text-large text-basic">
+                     {item.icon && React.cloneElement(item.icon, {
+                        className: "transition-all ease-in duration-150"
+                       })}
                 </div>
               </div>
             </div>

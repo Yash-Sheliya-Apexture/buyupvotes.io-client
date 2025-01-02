@@ -15,7 +15,7 @@ const Home_Page = () => {
 
   return (
     <div>
-      <React.Fragment>
+      {/* <React.Fragment> */}
         <div className="scroll-smooth">
           <HeroSection />
           <Pricing />
@@ -24,13 +24,13 @@ const Home_Page = () => {
           <div className="relative z-10">
             <button
               onClick={scrollToTop}
-              className="lg:w-10 lg:h-10 w-8 h-8 bottom-16 right-5 bg-main-color flex justify-center items-center lg:right-6 rounded-full lg:bottom-6 fixed"
+              className="fixed flex items-center justify-center w-8 h-8 rounded-full lg:w-10 lg:h-10 bottom-16 right-5 bg-main-color lg:right-6 lg:bottom-6"
             >
-              <FaArrowUp className="h-4 w-5 text-white" />
+              <FaArrowUp className="w-5 h-4 text-white" />
             </button>
           </div>
         </div>
-      </React.Fragment>
+      {/* </React.Fragment> */}
     </div>
   );
 };
