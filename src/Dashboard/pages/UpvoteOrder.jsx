@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Ordertable from "../components/OrderTable/Ordertable";
+import Ordertable from "../components/OrderTable/OrderTable";
 import Breadcrumb from "../components/Breadcrumb";
 import Dropdown from "../components/Dropdown"; // Import reusable dropdown
 import Button from "../components/Button"; // Import reusable button

@@ -1717,7 +1717,7 @@ import OrderTableDesign from "./OrderTableDesign";
 import OrderTableFilters from "./OrderTableFilters";
 import OrderTablePagination from "./OrderTablePagination";
 
-const Ordertable = () => {
+const OrderTable = () => {
   const [activeTab, setActiveTab] = useState("All");
   const [tableData, setTableData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -1970,4 +1970,4 @@ const Ordertable = () => {
   );
 };
 
-export default Ordertable;
+export default OrderTable;
