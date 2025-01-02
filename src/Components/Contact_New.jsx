@@ -14,35 +14,53 @@ const ContactUS = () => {
 
   const [errors, setErrors] = useState({});
 
-  const validate = () => {
-    const errors = {};
-    if (!formData.name.trim()) errors.name = "Name is required.";
-    if (!formData.email.trim()) errors.email = "Email is required.";
-    else if (
-      !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(formData.email)
-    )
-      errors.email = "Enter a valid email.";
-    if (!formData.phone.trim()) errors.phone = "Phone number is required.";
-    else if (!/^\d{10}$/.test(formData.phone))
-      errors.phone = "Enter a valid 10-digit phone number.";
-    if (!formData.message.trim()) errors.message = "Message is required.";
-
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
+  const validateField = (fieldName, value) => {
+    let error = "";
+    switch (fieldName) {
+      case "name":
+        if (!value.trim()) error = "Name is required.";
+        break;
+      case "email":
+        if (!value.trim()) error = "Email is required.";
+        else if (
+          !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(value)
+        )
+          error = "Enter a valid email.";
+        break;
+      case "phone":
+        if (!value.trim()) error = "Phone number is required.";
+        else if (!/^\d{10}$/.test(value))
+          error = "Enter a valid 10-digit phone number.";
+        break;
+      case "message":
+        if (!value.trim()) error = "Message is required.";
+        break;
+      default:
+        break;
+    }
+    return error;
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  const handleBlur = () => {
-    validate();
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    const error = validateField(name, value);
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate()) {
+    const allErrors = {
+      name: validateField("name", formData.name),
+      email: validateField("email", formData.email),
+      phone: validateField("phone", formData.phone),
+      message: validateField("message", formData.message),
+    };
+    setErrors(allErrors);
+    if (Object.values(allErrors).every((error) => !error)) {
       toast.success("Message sent successfully!");
       setFormData({ name: "", email: "", phone: "", message: "" });
       setErrors({});
@@ -124,6 +142,7 @@ const ContactUS = () => {
                 placeholder="Your message"
                 value={formData.message}
                 onChange={handleChange}
+                onBlur={handleBlur}
               ></textarea>
               {errors.message && (
                 <p className="text-[#ff0000] text-sm mt-1">{errors.message}</p>
