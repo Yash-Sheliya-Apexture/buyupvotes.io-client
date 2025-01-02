@@ -204,8 +204,6 @@
 
 // export default SideBar;
 
-
-
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/Images/Logo.png";
 import { Link, useLocation } from "react-router-dom";
@@ -224,7 +222,6 @@ import "react-tooltip/dist/react-tooltip.css";
 const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
   const [activeMenu, setActiveMenu] = useState("Dashboard");
   const [isSidebarExpanded, setSidebarExpanded] = useState(true);
-
 
   const location = useLocation();
 
@@ -295,7 +292,6 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
 
   return (
     <>
-
       {isSidebarVisible && (
         <div
           className="fixed inset-0 z-40 bg-black bg-opacity-45 backdrop-blur-sm xl:hidden"
@@ -304,8 +300,9 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
       )}
 
       <section
-        className={`fixed xl:relative bg-white border-r z-50 border-dashed border-border-color h-screen transition-all duration-300 ${isSidebarExpanded ? "w-60" : "w-16"
-          } ${isSidebarVisible ? "left-0" : "-left-60 xl:left-0"}`}
+        className={`fixed xl:relative bg-white border-r z-50 border-dashed border-border-color h-screen transition-all duration-300 ${
+          isSidebarExpanded ? "w-60" : "w-16"
+        } ${isSidebarVisible ? "left-0" : "-left-60 xl:left-0"}`}
       >
         <div className="flex items-center justify-between p-3.5">
           {isSidebarExpanded ? (
@@ -327,12 +324,14 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
           )}
           <button
             onClick={toggleSidebar}
-            className={`relative ${isSidebarExpanded ? "" : "ml-auto"} xl:block hidden`}
+            className={`relative ${
+              isSidebarExpanded ? "" : "ml-auto"
+            } xl:block hidden`}
           >
             {isSidebarExpanded ? (
-              <FaAngleLeft className="text-gray-500 absolute top-4 left-0.5 backdrop-blur-sm p-1 size-6 lg:block hidden cursor-pointer border rounded-full" />
+              <FaAngleLeft className="text-gray-500 absolute top-1 left-0.5 backdrop-blur-sm p-1 size-6 lg:block hidden cursor-pointer border rounded-full" />
             ) : (
-              <FaAngleRight className="text-gray-500 absolute top-4 left-0.5 p-1 size-6 backdrop-blur-sm lg:block hidden cursor-pointer border rounded-full" />
+              <FaAngleRight className="text-gray-500 absolute top-1 left-0.5 p-1 size-6 backdrop-blur-sm lg:block hidden cursor-pointer border rounded-full" />
             )}
           </button>
         </div>
@@ -342,10 +341,11 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
             {menuItems.map((item) => (
               <li
                 key={item.id}
-                className={`relative group cursor-pointer font-semibold ${activeMenu === item.id
-                  ? "bg-[#ff550034] text-main-color"
-                  : "text-active hover:bg-[#ff550034] transition-all ease-in duration-150"
-                  }`}
+                className={`relative group cursor-pointer font-semibold ${
+                  activeMenu === item.id
+                    ? "bg-[#ff550034] text-main-color"
+                    : "text-active hover:bg-[#ff550034] transition-all ease-in duration-150"
+                }`}
                 onClick={() => handleMenuItemClick(item.id)}
               >
                 <Link
@@ -371,10 +371,11 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
                 )}
                 <div
                   className={`absolute left-0 top-0 h-full w-1.5
-                     ${activeMenu === item.id
-                      ? "bg-main-color scale-y-100"
-                      : "bg-transparent scale-y-0"
-                    } transition-all duration-300`}
+                     ${
+                       activeMenu === item.id
+                         ? "bg-main-color scale-y-100"
+                         : "bg-transparent scale-y-0"
+                     } transition-all duration-300`}
                 ></div>
               </li>
             ))}

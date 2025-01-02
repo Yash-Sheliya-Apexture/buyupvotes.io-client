@@ -67,7 +67,6 @@
 //         lastName: null,
 //     });
 
-
 //     const [originalUserData, setOriginalUserData] = useState({
 //         email: null,
 //         firstName: null,
@@ -209,7 +208,6 @@
 //       setIsSaving(false);
 //     setIsEditing(false);
 //   };
-
 
 //   const tabs = [
 //     {
@@ -546,8 +544,6 @@
 
 // export default Account;
 
-
-
 // // src/Dashboard/pages/Account.jsx
 // import React, { useState, useEffect } from "react";
 // import Breadcrumb from "../components/Breadcrumb";
@@ -586,9 +582,7 @@
 //     });
 //   const [isEditing, setIsEditing] = useState(false);
 
-
 //   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
 
 //   const handleInputChange = (e) => {
 //     const { name, value } = e.target;
@@ -604,7 +598,6 @@
 //       all: !prevState.all,
 //     }));
 //   };
-
 
 //   useEffect(() => {
 //     const fetchUserData = async () => {
@@ -678,12 +671,10 @@
 //     setIsEditing(true);
 //   };
 
-
 //   const handleCancelClick = () => {
 //       setUserData(originalUserData);
 //       setIsEditing(false);
 //   };
-
 
 //   const handleSaveChanges = async () => {
 //       setIsSaving(true);
@@ -703,7 +694,6 @@
 //               setIsSaving(false);
 //               return;
 //           }
-
 
 //         await axios.put(
 //             `${API_BASE_URL}/auth/user`,
@@ -795,7 +785,6 @@
 //     },
 //   ];
 
-
 //   return (
 //     <>
 //       <div className="container mx-auto">
@@ -807,7 +796,7 @@
 //               { label: "Account" },
 //             ]}
 //           />
-//         </div>  
+//         </div>
 
 //         {/* Account Tabs  */}
 //         <AccountTabNavigation
@@ -864,7 +853,6 @@
 
 // export default Account;
 
-
 // src/Dashboard/pages/Account.jsx
 import React, { useState, useEffect } from "react";
 import Breadcrumb from "../components/Breadcrumb";
@@ -890,22 +878,20 @@ const Account = () => {
     confirmPassword: "",
   });
 
-    const [userData, setUserData] = useState({
-        email: null,
-        firstName: null,
-        lastName: null,
-    });
+  const [userData, setUserData] = useState({
+    email: null,
+    firstName: null,
+    lastName: null,
+  });
 
-    const [originalUserData, setOriginalUserData] = useState({
-        email: null,
-        firstName: null,
-        lastName: null,
-    });
+  const [originalUserData, setOriginalUserData] = useState({
+    email: null,
+    firstName: null,
+    lastName: null,
+  });
   const [isEditing, setIsEditing] = useState(false);
 
-
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -921,7 +907,6 @@ const Account = () => {
       all: !prevState.all,
     }));
   };
-
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -947,101 +932,100 @@ const Account = () => {
   }, []);
 
   const handleSavePassword = async () => {
-      if (!oldPassword || !newPassword || !confirmPassword) {
-          toast.error("All fields are required. Please fill them out.");
-          return;
-      }
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      toast.error("All fields are required. Please fill them out.");
+      return;
+    }
 
-      if (newPassword !== confirmPassword) {
-        toast.error("Passwords do not match. Please try again.");
+    if (newPassword !== confirmPassword) {
+      toast.error("Passwords do not match. Please try again.");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        toast.error(
+          "You are not logged in. Please log in to reset your password."
+        );
         return;
       }
 
-      try {
-        const token = localStorage.getItem("authToken");
-          if (!token) {
-            toast.error("You are not logged in. Please log in to reset your password.");
-            return;
-          }
-
-        const response = await axios.post(
-            `${import.meta.env.VITE_API_BASE_URL}/auth/reset-password`,
-            {
-              oldPassword,
-              newPassword,
-              confirmPassword,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-        );
-
-        toast.success("Password updated successfully!");
-        setOldPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
-      } catch (error) {
-        if (error.response) {
-          toast.error(error.response.data.message || "An error occurred");
-        } else {
-          toast.error("Network error. Please try again.");
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/auth/reset-password`,
+        {
+          oldPassword,
+          newPassword,
+          confirmPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
+      );
+
+      toast.success("Password updated successfully!");
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message || "An error occurred");
+      } else {
+        toast.error("Network error. Please try again.");
       }
+    }
   };
 
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
-
   const handleCancelClick = () => {
-      setUserData(originalUserData);
-      setIsEditing(false);
+    setUserData(originalUserData);
+    setIsEditing(false);
   };
 
-
   const handleSaveChanges = async () => {
-      setIsSaving(true);
+    setIsSaving(true);
 
-        if (userData.firstName.trim() === userData.lastName.trim()) {
-          setUserData((prevData) => ({
-              ...prevData,
-            lastName: "",
-          }));
+    if (userData.firstName.trim() === userData.lastName.trim()) {
+      setUserData((prevData) => ({
+        ...prevData,
+        lastName: "",
+      }));
+    }
+
+    try {
+      const token = localStorage.getItem("authToken");
+
+      if (!token) {
+        toast.error("Authorization token is missing. Please log in again.");
+        setIsSaving(false);
+        return;
       }
 
-      try {
-        const token = localStorage.getItem("authToken");
+      await axios.put(
+        `${API_BASE_URL}/auth/user`,
+        {
+          email: userData.email,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-          if (!token) {
-              toast.error("Authorization token is missing. Please log in again.");
-              setIsSaving(false);
-              return;
-          }
-
-
-        await axios.put(
-            `${API_BASE_URL}/auth/user`,
-            {
-                email: userData.email,
-                firstName: userData.firstName,
-                lastName: userData.lastName,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        );
-
-          toast.success("Changes saved successfully!");
-      } catch (error) {
-          console.error("Error saving changes:", error);
-        toast.error("Failed to save changes.");
-      }
-      setIsSaving(false);
+      toast.success("Changes saved successfully!");
+    } catch (error) {
+      console.error("Error saving changes:", error);
+      toast.error("Failed to save changes.");
+    }
+    setIsSaving(false);
     setIsEditing(false);
   };
 
@@ -1112,7 +1096,6 @@ const Account = () => {
     },
   ];
 
-
   return (
     <>
       <div className="container mx-auto">
@@ -1124,49 +1107,46 @@ const Account = () => {
               { label: "Account" },
             ]}
           />
-        </div>  
+        </div>
 
-        
         {/* Account Tabs  */}
         <AccountTabNavigation
-            tabs={tabs}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
+          tabs={tabs}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
         />
 
-        <div className="w-full p-4 border shadow-md lg:p-10 border-gray-border lg:mt-10 rounded-small">
+        <div className="w-full p-4 border border-gray-300/50 shadow-main lg:p-6 rounded-small">
           {/* General Tab */}
           {activeTab === "general" && (
             <AccountGeneralTab
-                userData={userData}
-                isEditing={isEditing}
-                handleInputChange={handleInputChange}
-                handleEditClick={handleEditClick}
-                handleCancelClick={handleCancelClick}
-                handleSaveChanges={handleSaveChanges}
-                isSaving={isSaving}
-             />
+              userData={userData}
+              isEditing={isEditing}
+              handleInputChange={handleInputChange}
+              handleEditClick={handleEditClick}
+              handleCancelClick={handleCancelClick}
+              handleSaveChanges={handleSaveChanges}
+              isSaving={isSaving}
+            />
           )}
 
-          {activeTab === "transactions" && (
-             <AccountTransactionsTab />
-          )}
+          {activeTab === "transactions" && <AccountTransactionsTab />}
 
           {/* Security Tab */}
           {activeTab === "security" && (
-              <AccountSecurityTab
-                showPasswords={showPasswords}
-                toggleAllPasswordVisibility={toggleAllPasswordVisibility}
-                oldPassword={oldPassword}
-                newPassword={newPassword}
-                confirmPassword={confirmPassword}
-                setOldPassword={setOldPassword}
-                setNewPassword={setNewPassword}
-                setConfirmPassword={setConfirmPassword}
-                errors={errors}
-                isSaving={isSaving}
-                handleSavePassword={handleSavePassword}
-              />
+            <AccountSecurityTab
+              showPasswords={showPasswords}
+              toggleAllPasswordVisibility={toggleAllPasswordVisibility}
+              oldPassword={oldPassword}
+              newPassword={newPassword}
+              confirmPassword={confirmPassword}
+              setOldPassword={setOldPassword}
+              setNewPassword={setNewPassword}
+              setConfirmPassword={setConfirmPassword}
+              errors={errors}
+              isSaving={isSaving}
+              handleSavePassword={handleSavePassword}
+            />
           )}
         </div>
       </div>

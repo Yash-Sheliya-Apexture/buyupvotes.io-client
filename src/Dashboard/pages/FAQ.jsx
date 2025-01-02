@@ -91,19 +91,19 @@ const FAQ = () => {
       >
         {/* Overlay with Backdrop Filter */}
         <div className="absolute inset-0 bg-black/75 bg-opacity-70 flex items-center justify-center"></div>
-        <div className="absolute lg:bottom-20 md:bottom-10 bottom-32 left-4">
-          <h1 className="text-white lg:text-largest text-[40px] sm:text-start xs:ml-3 text-center leading-[50px] lg:leading-20 font-black  ">
+        <div className="flex items-center justify-center h-full px-6 py-20 text-center lg:absolute lg:text-left lg:mt-36">
+          <h1 className="font-bold leading-10 text-white lg:text-largest text-4xl lg:leading-20">
             <div
-              className="text-main-color animate__animated animate__zoomIn"
-              style={{ animationDuration: "1s", animationDelay: "0.2s" }}
+              className="text-main-color animate__animated animate__bounceInLeft"
+              style={{ animationDuration: "1s", animationDelay: "0.1s" }}
             >
-              How <br />
+              How
             </div>
             <div
-              className="animate__animated animate__zoomIn"
-              style={{ animationDuration: "1s", animationDelay: "0.5s" }}
+              className="animate__animated animate__bounceInLeft"
+              style={{ animationDuration: "1s", animationDelay: "0.2s" }}
             >
-              Can Help You ?{" "}
+              Can Help You ?
             </div>
           </h1>
         </div>

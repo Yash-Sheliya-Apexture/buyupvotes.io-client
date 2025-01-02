@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CiCreditCard1 } from "react-icons/ci";
 import { MdCurrencyBitcoin } from "react-icons/md";
 import payment_logos from "../../assets/Images/payment_logo.png";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Customize_Payment = () => {

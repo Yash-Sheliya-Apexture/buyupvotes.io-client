@@ -12,7 +12,7 @@ const Dropdown = ({
   className = "",
   onBlur,
   dropdownPadding = "p-3.5", // Add prop for dropdown padding
-  listPadding = "p-2 my-1",
+  listPadding = "p-2",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -73,7 +73,7 @@ const Dropdown = ({
 
       {/* Dropdown Menu */}
       <div
-        className={`absolute top-full left-0 w-full overflow-hidden bg-white border rounded-small mt-1 z-10 transition-transform duration-300 transform origin-top ${
+        className={`absolute top-full left-0 w-full overflow-hidden bg-white border rounded-2xl mt-2 z-10 transition-transform duration-300 transform origin-top ${
           isOpen ? "scale-y-100 translate-y-0" : "scale-y-0 pointer-events-none"
         }`}
       >

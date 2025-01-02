@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import logo from "../assets/Images/Logo.png";
 import Uparrow from "../assets/Images/logo-mini.png";
-import { Link } from "react-router-dom";
 import Button from "../Dashboard/components/Button";
 import { TbMenu4 } from "react-icons/tb";
 import { FaUserCircle } from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
+import { GoDotFill } from "react-icons/go";
 
 const Header = () => {
+  const location = useLocation();
+
   const [showMenu, setShowMenu] = useState(false); // Menu toggle state for small screens
   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
 
@@ -19,6 +22,20 @@ const Header = () => {
       setIsLoggedIn(false); // If no token, user is not logged in
     }
   }, []);
+
+  const navItems = [
+    { name: "Pricing", path: "/pricing" },
+    { name: "FAQ", path: "/faqs" },
+    { name: "Blog", path: "/post" },
+    { name: "Contact", path: "/contact-us" },
+  ];
+
+  const navItem = [
+    { label: "Pricing", path: "/dashboard/fundprice" },
+    { label: "FAQ", path: "/dashboard/faqs" },
+    { label: "Blog", path: "/dashboard/blog" },
+    { label: "Contact", path: "/dashboard/contactus" },
+  ];
 
   const toggleMenu = () => {
     setShowMenu((prev) => !prev); // Toggle mobile menu
@@ -56,41 +73,45 @@ const Header = () => {
               {/* Navigation Links */}
               {isLoggedIn ? (
                 <nav className="flex-grow hidden h-full gap-2 cursor-pointer md:flex">
-                  {["Pricing", "FAQ", "Blog", "Contact"].map((item, index) => {
-                    const paths = [
-                      "/dashboard/fundprice",
-                      "/dashboard/faqs",
-                      "/dashboard/blog",
-                      "/dashboard/contactus",
-                    ];
-                    return (
-                      <Link
-                        key={index}
-                        to={paths[index]}
-                        className="relative px-4 py-5 font-normal text-small text-sub-color hover:text-main-color group"
-                      >
-                        {item}
-                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-transparent">
-                          <span className="absolute top-0 left-0 block w-0 h-full transition-all duration-300 ease-in-out bg-main-color group-hover:w-full"></span>
-                        </span>
-                      </Link>
-                    );
-                  })}
+                  {navItem.map((item, index) => (
+                    <Link
+                      key={index}
+                      to={item.path}
+                      className="relative px-4 py-5 font-normal text-small text-sub-color hover:text-main-color group"
+                    >
+                      {item.label}
+                      <span className="absolute bottom-0 left-0 w-full h-[2px] bg-transparent">
+                        <span className="absolute top-0 left-0 block w-0 h-full transition-all duration-300 ease-in-out bg-main-color group-hover:w-full"></span>
+                      </span>
+                    </Link>
+                  ))}
                 </nav>
               ) : (
                 <nav className="flex-grow hidden h-full gap-2 cursor-pointer md:flex">
-                  {["Pricing", "FAQ", "Blog", "Contact"].map((item, index) => {
-                    const paths = ["/pricing", "/faqs", "/post", "/contact-us"];
+                  {navItems.map((item, index) => {
+                    const isActive = location.pathname === item.path;
                     return (
                       <Link
                         key={index}
-                        to={paths[index]}
-                        className="relative px-4 py-5 font-normal text-small text-sub-color hover:text-main-color group"
+                        to={item.path}
+                        className={`relative px-4 py-5 font-medium transition-all duration-500 ease-in-out group ${
+                          isActive
+                            ? "text-main-color"
+                            : "text-sub-color hover:text-main-color"
+                        }`}
                       >
-                        {item}
-                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-transparent">
-                          <span className="absolute top-0 left-0 block w-0 h-full transition-all duration-300 ease-in-out bg-main-color group-hover:w-full"></span>
-                        </span>
+                        {/* Icon visible only when active */}
+                        {isActive && (
+                          <GoDotFill className="text-main-color inline-block mr-2 animate-pop" />
+                        )}
+                        {item.name}
+                        <span
+                          className={`absolute bottom-0 left-0 transition-all duration-500 ease-in-out ${
+                            isActive
+                              ? ""
+                              : "w-0 bg-transparent h-[2px] group-hover:w-full group-hover:bg-main-color"
+                          }`}
+                        ></span>
                       </Link>
                     );
                   })}
@@ -101,9 +122,8 @@ const Header = () => {
               <div className="relative flex items-center space-x-2">
                 {isLoggedIn ? (
                   // If user is logged in, show Dashboard
-                  <Button>
-                    <Link to="/dashboard">Dashboard</Link>
-                  </Button>
+
+                  <Button to="/dashboard">Dashboard</Button>
                 ) : (
                   // If user is not logged in, show Sign-In and Sign-Up
                   <>
@@ -115,10 +135,7 @@ const Header = () => {
                         Sign-In
                       </Link>
                     </button>
-
-                    <Button>
-                      <Link to="/signup">Sign-Up</Link>
-                    </Button>
+                    <Button to="/signup">Sign-Up</Button>
                   </>
                 )}
               </div>

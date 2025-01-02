@@ -99,13 +99,8 @@ const Currency = () => {
             <img src={payment_logos} alt="" className="lg:max-w-screen-md" />
           </div>
           <div className="relative flex items-center justify-center space-x-4">
-            <Button>
-              <Link to="/signin">Sign-In</Link>
-            </Button>
-
-            <Button>
-              <Link to="/signup">Sign-Up</Link>
-            </Button>
+            <Button to="/signin">Sign-In</Button>
+            <Button to="/signup">Sign-Up</Button>
           </div>
           <div className="flex justify-center">
             <hr className="mt-10 w-[80%]" />

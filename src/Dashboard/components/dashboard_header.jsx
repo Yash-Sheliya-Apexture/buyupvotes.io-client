@@ -286,7 +286,7 @@ const Dashboard_header = ({ toggleSidebarVisibility }) => {
                   </li>
                   <li>
                     <Link
-                      to="/dashboard/user/account/"
+                      to="/dashboard/account"
                       className="lg:px-4 px-2 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150 block"
                     >
                       Settings
