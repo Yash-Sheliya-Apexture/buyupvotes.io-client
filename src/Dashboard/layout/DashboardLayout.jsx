@@ -24,7 +24,7 @@
 
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import Dashboard_header from "../components/dashboard_header";
+import Dashboard_header from "../components/Dashboard_header";
 import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {

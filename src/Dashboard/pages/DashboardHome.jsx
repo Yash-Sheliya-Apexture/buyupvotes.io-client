@@ -1,7 +1,7 @@
 import React from "react";
-import HeroSecrtion from "./HeroSecrtion";
-import DataSection from "./DataSection";
-import Ordertable from "./Ordertable";
+import HeroSecrtion from "../components/DashboardHome/HeroSecrtion";
+import DataSection from "../components/DashboardHome/DataSection";
+import Ordertable from "../components/OrderTable/Ordertable";
 
 const DashboardHome = () => {
   return (
