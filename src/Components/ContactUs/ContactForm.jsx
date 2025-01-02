@@ -4,7 +4,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaSpinner } from "react-icons/fa";
-import InputField from "../../Dashboard/components/InputField";
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -208,8 +207,7 @@ function ContactForm() {
       <h2 className="my-5 text-base font-bold text-center text-sub-color">
         Or send us an email below:
       </h2>
-      {/* Contact Form */}
-      <form className="space-y-3.5" onSubmit={handleSubmit}>
+      <form className="space-y-3" onSubmit={handleSubmit}>
         {/* Display general error message here */}
         {generalError && (
           <>
@@ -238,59 +236,75 @@ function ContactForm() {
           </>
         )}
         <div>
-          <InputField
-            name="name"
+          <input
+            className={`w-full px-4 py-2 border ${
+              errors.name ? "border-red-500" : "border-gray-300"
+            } rounded-full hover:border-black transition-all duration-150 ${
+              isUserDataFetched ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            id="name"
             type="text"
             placeholder="Name"
             value={formData.name}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={errors.name} // General error message
-            touched={touched} // Pass `touched` object
-            errors={errors} // Pass `errors` object
-            isUserDataFetched={isUserDataFetched} // Disable logic
+            disabled={isUserDataFetched}
           />
+          {touched.name && errors.name && (
+            <p className="text-[#FF0000] text-xs mt-1">{errors.name}</p>
+          )}
         </div>
         <div>
-          <InputField
-            name="email"
+          <input
+            className={`w-full px-4 py-2 border ${
+              isUserDataFetched ? "opacity-50 cursor-not-allowed" : ""
+            } ${
+              errors.email ? "border-red-500" : "border-gray-300"
+            } rounded-full hover:border-black transition-all duration-150`}
+            id="email"
             type="email"
-            placeholder="Email"
+            placeholder="Enter Your Email"
             value={formData.email}
             onChange={handleChange}
+            disabled={isUserDataFetched}
             onBlur={handleBlur}
-            error={errors.email} // General error message
-            touched={touched} // Pass `touched` object
-            errors={errors} // Pass `errors` object
-            isUserDataFetched={isUserDataFetched} // Disable logic
           />
+          {touched.email && errors.email && (
+            <p className="text-[#FF0000] text-xs mt-1">{errors.email}</p>
+          )}
         </div>
         <div>
-          <InputField
-            name="subject"
+          <input
+            className={`w-full px-4 py-2 border ${
+              errors.subject ? "border-red-500" : "border-gray-300"
+            } rounded-full hover:border-black transition-all duration-150`}
+            id="subject"
             type="text"
             placeholder="Subject"
             value={formData.subject}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={errors.subject} // General error message
-            touched={touched} // Pass `touched` object
-            errors={errors} // Pass `errors` object
-            isUserDataFetched={isUserDataFetched} // Disable logic
           />
+          {touched.subject && errors.subject && (
+            <p className="text-[#FF0000] text-xs mt-1">{errors.subject}</p>
+          )}
         </div>
         <div>
-          <InputField
-            type="textarea"
-            name="message"
+          <textarea
+            className={`w-full border ${
+              errors.message ? "border-red-500" : "border-gray-300"
+            } hover:border-black transition-all duration-150 ease-in rounded-small resize-none`}
+            id="message"
+            rows="8"
+            cols="20"
             placeholder="Your message"
             value={formData.message}
             onChange={handleChange}
             onBlur={handleBlur}
-            touched={touched}
-            errors={errors}
-            className="resize-none"
-          />
+          ></textarea>
+          {touched.message && errors.message && (
+            <p className="text-[#FF0000] text-xs mt-1">{errors.message}</p>
+          )}
         </div>
         {/* Submit Button */}
         <div className="text-center">
