@@ -57,7 +57,7 @@ const InputField = ({
         onFocus={() => setIsFocused(true)}
         onBlur={onBlur}
         disabled={!isEditing || disabled}
-        className={`w-full border rounded-full p-2.5 ${
+        className={`w-full border rounded-full py-2.5 ${
           error ? "border-red-500" : "border-gray-300"
         } placeholder-transparent hover:border-black transition-all ease-in duration-150 ${
           !isEditing || disabled ? "bg-gray-200 opacity-50" : ""
