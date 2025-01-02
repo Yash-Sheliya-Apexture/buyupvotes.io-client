@@ -13,6 +13,7 @@ import FAQS from "../Pages/FAQS";
 import Blogs from "../Pages/Blogs";
 import BlogDetails from "../Dashboard/pages/BlogDetails";
 import ContactUs from "../Pages/ContactUs";
+import Checkout from "../Pages/Checkout";
 
 const WebsiteRoutes = () => {
   const location = useLocation();
@@ -60,6 +61,8 @@ const WebsiteRoutes = () => {
         <Route path="*" element={<Error404 />} />
         <Route path="/pricing" element={<Pricedata />} />
         <Route path="/faqs" element={<FAQS />} />
+        <Route path="/checkout" element={<Checkout />} />
+
 
         <Route path="post">
           <Route index element={<Blogs />} />

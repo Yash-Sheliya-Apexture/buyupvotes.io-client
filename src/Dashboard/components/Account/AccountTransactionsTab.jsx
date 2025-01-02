@@ -1,149 +1,143 @@
-// src/Dashboard/components/Account/AccountTransactionsTab.jsx
-import React, { useState } from "react";
-import InputField from "../InputField";
-import { FiSearch } from "react-icons/fi";
+// // src/Dashboard/components/Account/AccountTransactionsTab.jsx
+// import React from 'react';
 
-const transactions = [
-  { date: "2024-03-15", description: "Grocery Shopping", amount: -50.25 },
-  { date: "2024-03-12", description: "Salary Deposit", amount: 2500 },
-  { date: "2024-03-10", description: "Online Purchase", amount: -75.8 },
-  { date: "2024-03-05", description: "Bill Payment", amount: -120 },
-  { date: "2024-03-01", description: "Restaurant Bill", amount: -35.5 },
-];
+// const AccountTransactionsTab = () => {
+//   return (
+//     <div className="space-y-5">
+//       <h2 className="font-semibold text-medium text-sub-color">
+//         Transaction History
+//       </h2>
+//       <p className="font-normal text-sub-color">
+//         You have no transactions.
+//       </p>
+//     </div>
+//   );
+// };
 
-const AccountTransactionsTab = ({
-  accountName = "Checking Account",
-  balance = 1100,
-}) => {
-  // Added props
-  const [searchTerm, setSearchTerm] = useState(""); // Search state
-  const [sortBy, setSortBy] = useState(null); // Sorting state
-  const [sortOrder, setSortOrder] = useState("asc"); // Sorting order
+// export default AccountTransactionsTab;
 
-  const filteredTransactions = transactions.filter((transaction) => {
-    return (
-      transaction.description
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase()) ||
-      transaction.date.includes(searchTerm)
-    );
-  });
 
-  const sortedTransactions = [...filteredTransactions].sort((a, b) => {
-    if (sortBy === null) return 0; // No sorting
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { MdOutlineRemoveRedEye } from "react-icons/md";
 
-    const aValue = a[sortBy];
-    const bValue = b[sortBy];
+const AccountTransactionsTab = () => {
+  const [transactions, setTransactions] = useState([]);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-    if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
-    if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
-    return 0;
-  });
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+          const response = await axios.get(`${API_BASE_URL}/payment`);
+        setTransactions(response.data);
+      } catch (error) {
+        console.error("Error fetching transactions:", error);
+      }
+    };
 
-  const handleSort = (field) => {
-    if (sortBy === field) {
-      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-    } else {
-      setSortBy(field);
-      setSortOrder("asc");
-    }
+      fetchTransactions();
+  }, [API_BASE_URL]);
+
+
+  const handleTransactionClick = (transaction) => {
+    setSelectedTransaction(transaction);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedTransaction(null);
   };
 
   return (
-    <div className="space-y-5">
-      <h2 className="lg:text-basic text-base font-bold text-sub-color">
-        {accountName}
+    <div className="">
+      <h2 className="font-semibold text-medium text-sub-color">
+        Transaction History
       </h2>
-      {/* Account Name */}
-      <p className="text-lg text-sub-color">
-        Balance:{" "}
-        <span className="font-bold">
-          {balance.toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD",
-          })}
-        </span>
-      </p>{" "}
-      {/* Account Balance */}
-      <div className="relative flex-grow w-full lg:w-1/4">
-        <InputField
-          name="Search"
-          type="text"
-          placeholder="Search transactions..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <FiSearch className="absolute top-3.5 right-3 size-5 text-light-gray" />
-      </div>
-      <h3 className="font-semibold text-medium text-sub-color mt-4">
-        Transaction History :
-      </h3>
-      {sortedTransactions.length === 0 ? ( // Use filtered and sorted transactions
+      {transactions.length === 0 ? (
         <p className="font-normal text-sub-color">
-          No matching transactions found.
-        </p> // Updated message
+          You have no transactions.
+        </p>
       ) : (
-        <div className="overflow-x-auto custom-scroll">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+        <div className="mt-5 overflow-x-auto">
+          <table className="w-full table-auto">
+            <thead className="bg-gray-100">
               <tr>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-bold text-sub-color uppercase tracking-wider cursor-pointer"
-                  onClick={() => handleSort("date")}
-                >
-                  Date {sortBy === "date" && (sortOrder === "asc" ? "▲" : "▼")}
-                </th>
-                {/* ... other table headers (Description and Amount) with click handlers for sorting */}
-
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-bold text-sub-color uppercase tracking-wider cursor-pointer"
-                  onClick={() => handleSort("description")}
-                >
-                  Description{" "}
-                  {sortBy === "description" &&
-                    (sortOrder === "asc" ? "▲" : "▼")}
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-right text-xs font-bold text-sub-color uppercase tracking-wider cursor-pointer"
-                  onClick={() => handleSort("amount")}
-                >
-                  Amount{" "}
-                  {sortBy === "amount" && (sortOrder === "asc" ? "▲" : "▼")}
-                </th>
+                <th className="px-4 py-2 font-semibold text-left text-gray-700">Date</th>
+                <th className="px-4 py-2 font-semibold text-left text-gray-700">Amount</th>
+                <th className="px-4 py-2 font-semibold text-left text-gray-700">Tokens</th>
+                  <th className="px-4 py-2 font-semibold text-left text-gray-700">Number</th>
+                <th className="px-4 py-2 font-semibold text-left text-gray-700">Email</th>
+                <th className="px-4 py-2 font-semibold text-left text-gray-700"></th>
               </tr>
             </thead>
-
-            <tbody className="bg-white divide-y divide-gray-200">
-              {sortedTransactions.map(
-                (
-                  transaction,
-                  index // Use filtered and sorted transactions
-                ) => (
-                  <tr
-                    key={index}
-                    className={index % 2 === 0 ? "bg-gray-50" : ""}
-                  >
-                    {/* ... table cells ... */}
-                    <td className="px-6 py-4 whitespace-nowrap  text-para-color">
-                      {transaction.date}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-small text-para-color">
-                      {transaction.description}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-para-color">
-                      {transaction.amount.toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "USD",
-                      })}
-                    </td>
-                  </tr>
-                )
-              )}
+            <tbody>
+              {transactions.map((transaction) => (
+                <tr
+                  key={transaction._id} // Use _id from backend
+                  className="cursor-pointer hover:bg-gray-50"
+                    onClick={() => handleTransactionClick(transaction)}
+                >
+                  <td className="px-4 py-2 text-gray-600">{new Date(transaction.createdAt).toLocaleDateString()}</td>
+                  <td className="px-4 py-2 text-gray-600">${transaction.amount.toFixed(2)}</td>
+                  <td className="px-4 py-2 text-gray-600">{transaction.tokens ? transaction.tokens : '-'}</td>
+                  <td className="px-4 py-2 text-gray-600">{transaction.cardNumber}</td>
+                  <td className="px-4 py-2 text-gray-600">{transaction.email}</td>
+                   <td className="px-4 py-2 text-center">
+                    <MdOutlineRemoveRedEye className="inline-block text-sub-color size-5" />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-100 bg-black/70">
+          <div className="w-4/5 p-4 bg-white shadow-lg lg:w-full lg:max-w-md lg:p-6 rounded-3xl">
+            <h2 className="mb-4 text-lg font-medium text-gray-800">
+              Transaction Details
+            </h2>
+            {selectedTransaction && (
+              <div className="space-y-3">
+                  <p>
+                    <span className="font-medium">Date:</span>{' '}
+                      {new Date(selectedTransaction.createdAt).toLocaleDateString()}
+                  </p>
+                <p>
+                  <span className="font-medium">Amount:</span>{' '}
+                  ${selectedTransaction.amount.toFixed(2)}
+                </p>
+                <p>
+                  <span className="font-medium">
+                    {selectedTransaction.type === 'creditCard' ? 'Tokens:' : 'Coins:'}
+                  </span>{' '}
+                  {selectedTransaction.type === 'creditCard'
+                    ? selectedTransaction.tokens
+                    : selectedTransaction.coins}
+                </p>
+                  <p>
+                      <span className="font-medium">Number:</span>{' '}
+                      {selectedTransaction.cardNumber}
+                  </p>
+                <p>
+                  <span className="font-medium">Email:</span>{' '}
+                  {selectedTransaction.email}
+                </p>
+              </div>
+            )}
+            <div className="flex justify-end mt-6 space-x-2">
+              <button
+                className="px-6 py-1 text-xs font-bold transition-all duration-150 ease-in border rounded-full text-sub-color hover:bg-gray-300/50 hover:border-black"
+                onClick={closeModal}
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

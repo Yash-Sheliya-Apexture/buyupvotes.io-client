@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import girl from "../../assets/Images/girl.png";
-import Slider from "./Slider";
+import girl from "../../../assets/Images/girl.png";
+import Slider from "../../pages/Slider";
 import { Link } from "react-router-dom";
 import axios from "axios"; // Make sure axios is imported
-import Button from "../components/Button";
-import heroimage from "../../assets/Images/Hero.svg";
+import Button from "../Button";
+import heroimage from "../../../assets/Images/Hero.svg";
 
 const HeroSection = () => {
   const [user, setUser] = useState(null);
@@ -42,7 +42,7 @@ const HeroSection = () => {
     <>
       <div className="flex flex-col gap-4 lg:flex-row">
         {/* HeroCard Components */}
-        <div className="flex flex-col lg:flex-row lg:w-full w-full bg-light-brown rounded-small lg:p-6 p-4 relative overflow-hidden">
+        <div className="relative flex flex-col w-full p-4 overflow-hidden lg:flex-row lg:w-full bg-light-brown rounded-small lg:p-6">
           {/* Left Side - Text */}
           <div className="flex justify-center w-full lg:w-1/2">
             <div className="mb-20 text-center space-y-5 lg:text-start max-w-[400px]">
@@ -53,7 +53,7 @@ const HeroSection = () => {
               ) : error ? (
                 <h2 className="font-bold text-[#FF0000] text-large">{error}</h2>
               ) : user ? (
-                <h2 className="flex items-center mb-2 font-black leading-10 text-dark-green lg:text-large text-[26px]">
+                <h2 className="flex items-center justify-center lg:justify-normal mb-2 font-black leading-10 text-dark-green lg:text-large text-[26px] ">
                   Welcome back, <br /> {user.firstName} 👋
                 </h2>
               ) : (
@@ -78,7 +78,7 @@ const HeroSection = () => {
               <img
                 src={girl}
                 alt="Girl Image"
-                className="absolute top-0 md:h-64 h-56 right-2 md:relative md:top-auto md:right-1/4"
+                className="absolute top-0 h-56 md:h-64 right-2 md:relative md:top-auto md:right-1/4"
               />
             </div>
           </div>

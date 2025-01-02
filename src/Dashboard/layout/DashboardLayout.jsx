@@ -24,7 +24,7 @@
 
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import Dashboard_header from "../components/dashboard_header";
+import DashboardHeader from "../components/DashboardHeader";
 import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
@@ -42,7 +42,7 @@ const DashboardLayout = () => {
       />
       <div className="flex flex-wrap items-start flex-1 overflow-y-auto">
         <div className="w-full">
-          <Dashboard_header toggleSidebarVisibility={toggleSidebarVisibility} />
+          <DashboardHeader toggleSidebarVisibility={toggleSidebarVisibility} />
           <main className="flex-1 overflow-y-auto">
             <Outlet />
           </main>
