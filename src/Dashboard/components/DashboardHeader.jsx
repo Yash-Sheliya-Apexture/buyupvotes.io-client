@@ -544,7 +544,7 @@ import skybackground from "../../assets/Images/blue-background.png";
 import axios from "axios";
 import { CgMenuRightAlt } from "react-icons/cg";
 
-const Dashboard_header = ({ toggleSidebarVisibility }) => {
+const DashboardHeader = ({ toggleSidebarVisibility }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [error, setError] = useState(null);
     const [user, setUser] = useState(null);
@@ -748,4 +748,4 @@ const Dashboard_header = ({ toggleSidebarVisibility }) => {
         </header>
     );
 };
-export default Dashboard_header;
+export default DashboardHeader;
