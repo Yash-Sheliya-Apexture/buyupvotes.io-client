@@ -563,6 +563,7 @@ textarea:focus {
 
 .custom-scroll::-webkit-scrollbar {
   width: 5px; /* Width of the scrollbar */
+  height: 5px;
 }
 
 /* Scrollbar track */
