@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import axios from "axios"; // Make sure axios is imported
 import Button from "../Button";
 import heroimage from "../../../assets/Images/Hero.svg";
+import { FaSpinner } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
+import { FiShoppingCart } from "react-icons/fi";
 
 const HeroSection = () => {
   const [user, setUser] = useState(null);
@@ -65,9 +68,18 @@ const HeroSection = () => {
                 You have 100 upvotes remaining on your balance. Continue
                 boosting your Reddit experience by placing an order!
               </p>
-              <Link to="/dashboard/upvoteorder">
-                <Button>Order Now</Button>
-              </Link>
+              <div className="flex justify-center lg:justify-start">
+                {loading ? (
+                  <div>
+                    <FaSpinner className="text-lg animate-spin" />
+                  </div>
+                ) : (
+                  <Button to="/dashboard/upvoteorder">
+                    Order Now
+                    <FiShoppingCart  className="size-4" />
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
 

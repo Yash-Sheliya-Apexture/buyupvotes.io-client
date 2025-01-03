@@ -20,7 +20,7 @@ export default defineConfig({
   proxy: {
     '/api': {
       target: process.env.NODE_ENV === 'production' 
-        ? 'https://buyupvotes-io-server.onrender.com'  // Production backend URL (Render)
+        ? 'https://buyupvotes-io-server-1.onrender.com'  // Production backend URL (Render)
         : 'http://localhost:5000', // Local development backend URL
       changeOrigin: true,
       rewrite: (path) => path.replace(/^\/api/, ''), // Rewrite path to remove '/api'

@@ -3,6 +3,8 @@ import Pricing from "../../Components/Pricing";
 import Customize_Payment from "../components/Customize_Payment";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
+import { FaAddressCard } from "react-icons/fa";
+import { FaEnvelope } from "react-icons/fa";
 
 const FundPricing = () => {
   return (
@@ -20,9 +22,9 @@ const FundPricing = () => {
           Contact us and we'll get back to you as soon as possible.
         </p>
         <div className="my-6">
-          <Link to="/dashboard/contactus">
-            <Button>Contact Us</Button>
-          </Link>
+          <Button to="/dashboard/contactus">
+            Contact Us <FaEnvelope className="size-5" />
+          </Button>
         </div>
       </div>
     </div>

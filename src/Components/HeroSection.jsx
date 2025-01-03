@@ -3,6 +3,7 @@ import { FaUpRightFromSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Button from "../Dashboard/components/Button";
 import images from "../assets/websiteImages/index"; // Import the central images file
+import { FaSignInAlt } from "react-icons/fa";
 
 const HeroSection = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
@@ -30,15 +31,15 @@ const HeroSection = () => {
           <h1 className="font-bold tracking-[10px] text-xlarge md:text-5xl lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-main-color to-[#FF9D00] lg:mt-0 -mt-20">
             Buy Reddit Upvotes
           </h1>
-          <p className="text-base font-medium text-main-color">
+          <p className="text-base font-medium text-sub-color">
             Boost your posts, dominate your conversion
           </p>
           <div className="flex flex-col space-y-2 text-start">
-            <p className="flex items-center text-xs font-medium lg:text-small text-sub-color">
+            <p className="flex items-center text-xs font-medium lg:text-small text-para-color">
               <span className="mr-2 text-base text-main-color">✔</span>
               Get trending by sending instant upvotes too any post or comments.
             </p>
-            <p className="flex items-center text-xs font-medium lg:text-small text-sub-color">
+            <p className="flex items-center text-xs font-medium lg:text-small text-para-color">
               <span className="mr-2 text-base text-main-color">✔</span>
               Take control of comments on your posts by upvotes and downvotes
             </p>
@@ -51,10 +52,20 @@ const HeroSection = () => {
               </Link>
             ) : (
               <>
-                <Button to="/signin">Sign in</Button>
+                {/* Signin button */}
+                <Link to="/signin">
+                  <button
+                    className="mybtn"
+                    style={{ backgroundColor: "#FF5700", color: "#fff" }}
+                  >
+                    Sign in
+                    <FaSignInAlt className="size-4" />
+                  </button>
+                </Link>
+
                 <Button to="/signup">
                   Sign up
-                  <FaUpRightFromSquare className="ml-1 absolute right-2.5 top-2.5" />
+                  <FaUpRightFromSquare className="size-4" />
                 </Button>
               </>
             )}

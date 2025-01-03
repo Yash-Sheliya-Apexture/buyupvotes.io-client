@@ -5,7 +5,7 @@ import { GoArrowLeft } from "react-icons/go";
 
 const Error404 = () => {
   return (
-    <div className="h-[calc(100vh-30px)] flex flex-col m-auto max-w-[450px] text-center justify-center">
+    <div className="h-[calc(100vh-72px)] flex flex-col m-auto max-w-[450px] text-center justify-center">
       <div className="relative">
         <h1
           className="text-center text-xlarge text-para-color font-medium animate__animated animate__bounceIn"
