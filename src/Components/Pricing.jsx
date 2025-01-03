@@ -78,9 +78,9 @@ const PricingWithMenu = () => {
     <>
       <section className="bg-white">
         <div className="container mx-auto">
-          <section className="lg:pt-5">
+          <section className="lg:pt-6">
             <p
-              className="lg:text-basic text-medium text-sub-color lg:pb-8 pb-2
+              className="lg:text-basic text-medium text-main-color lg:pb-8 pb-2
          text-center font-medium animate__animated animate__fadeInDown"
             >
               Choose the perfect tier for your needs

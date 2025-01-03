@@ -103,7 +103,7 @@ const Currency = () => {
             <Button to="/signup">Sign-Up</Button>
           </div>
           <div className="flex justify-center">
-            <hr className="mt-10 w-[80%]" />
+            {/* <hr className="mt-10 w-[80%]" /> */}
           </div>
         </div>
       ) : (

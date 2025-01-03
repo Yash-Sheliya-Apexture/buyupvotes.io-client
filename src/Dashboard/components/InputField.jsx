@@ -67,7 +67,7 @@ const InputField = ({
       />
 
       {/* Error Message */}
-      {error && <p className="text-sm text-[#FF0000] mt-2">{error}</p>}
+      {error && <p className="text-sm text-[#FF0000] mt-0.5">{error}</p>}
     </div>
   );
 };

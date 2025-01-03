@@ -111,14 +111,14 @@ const FAQ = () => {
 
       {/* FAQ Section */}
       <div className="max-w-6xl mx-auto space-y-2 my-10">
-        <h1 className="text-sub-color lg:text-large text-basic font-semibold container mx-auto">
+        <h1 className="text-sub-color lg:text-large text-basic font-bold ">
           Frequently asked questions
         </h1>
         {faqs.map((faq, index) => (
           <div key={index} className="border-b border-light-gray p-4">
             <button
               onClick={() => toggleFAQ(index)}
-              className={`flex justify-between items-center w-full ${
+              className={`flex justify-between items-center w-full gap-2 ${
                 openIndex === index ? "" : "bg-white"
               }`}
             >
@@ -129,10 +129,10 @@ const FAQ = () => {
 
               {/* Icon (+/-) */}
               <span
-                className={`transform transition-transform duration-500 text-base rounded-full lg:px-4 px-2 py-0.5 lg:py-2 ${
+                className={`transform transition-transform duration-500 text-base rounded-full px-3.5 py-1.5  ${
                   openIndex === index
                     ? "bg-main-color text-white"
-                    : "bg-gray-100 text-sub-color"
+                    : "bg-[#ffe5d7] text-sub-color"
                 }`}
               >
                 {openIndex === index ? (
