@@ -864,6 +864,7 @@ import AccountGeneralTab from "../../Dashboard/components/Account/AccountGeneral
 import AccountTransactionsTab from "../../Dashboard/components/Account/AccountTransactionsTab";
 import AccountSecurityTab from "../../Dashboard/components/Account/AccountSecurityTab";
 
+
 const Account = () => {
   const [activeTab, setActiveTab] = useState("general");
   const [newPassword, setNewPassword] = useState("");

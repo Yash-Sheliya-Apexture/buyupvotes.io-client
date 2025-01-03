@@ -3,7 +3,7 @@ import Button from "../../Dashboard/components/Button";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FaSpinner } from "react-icons/fa";
+import { FaEnvelope, FaSpinner } from "react-icons/fa";
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -203,9 +203,10 @@ function ContactForm() {
   };
 
   return (
-    <div className="w-full max-w-2xl">
-      <h2 className="my-5 text-base font-bold text-center text-sub-color">
-        Or send us an email below:
+    <div className="w-full max-w-2xl p-4">
+      <h2 className="my-5 text-basic font-bold text-center text-sub-color">
+        How Can We Assist You?{" "}
+        <span className="text-main-color font-bold">Contact Us</span>{" "}
       </h2>
       <form className="space-y-3" onSubmit={handleSubmit}>
         {/* Display general error message here */}
@@ -251,7 +252,7 @@ function ContactForm() {
             disabled={isUserDataFetched}
           />
           {touched.name && errors.name && (
-            <p className="text-[#FF0000] text-xs mt-1">{errors.name}</p>
+            <p className="text-[#FF0000] text-xs mt-0.5">{errors.name}</p>
           )}
         </div>
         <div>
@@ -270,7 +271,7 @@ function ContactForm() {
             onBlur={handleBlur}
           />
           {touched.email && errors.email && (
-            <p className="text-[#FF0000] text-xs mt-1">{errors.email}</p>
+            <p className="text-[#FF0000] text-xs mt-0.5">{errors.email}</p>
           )}
         </div>
         <div>
@@ -286,7 +287,7 @@ function ContactForm() {
             onBlur={handleBlur}
           />
           {touched.subject && errors.subject && (
-            <p className="text-[#FF0000] text-xs mt-1">{errors.subject}</p>
+            <p className="text-[#FF0000] text-xs mt-0.5">{errors.subject}</p>
           )}
         </div>
         <div>
@@ -295,15 +296,15 @@ function ContactForm() {
               errors.message ? "border-red-500" : "border-gray-300"
             } hover:border-black transition-all duration-150 ease-in rounded-small resize-none`}
             id="message"
-            rows="8"
-            cols="20"
+            rows="6"
+            cols="10"
             placeholder="Your message"
             value={formData.message}
             onChange={handleChange}
             onBlur={handleBlur}
           ></textarea>
           {touched.message && errors.message && (
-            <p className="text-[#FF0000] text-xs mt-1">{errors.message}</p>
+            <p className="text-[#FF0000] text-xs mt-0.5">{errors.message}</p>
           )}
         </div>
         {/* Submit Button */}
@@ -313,7 +314,9 @@ function ContactForm() {
               <FaSpinner className="text-lg animate-spin" />
             </div>
           ) : (
-            <Button type="submit">Send Message</Button>
+            <Button type="submit">
+              Send Message <FaEnvelope className="size-5" />
+            </Button>
           )}
         </div>
       </form>
