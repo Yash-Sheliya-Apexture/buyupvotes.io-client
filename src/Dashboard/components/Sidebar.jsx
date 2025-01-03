@@ -336,7 +336,7 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
           </button>
         </div>
 
-        <div className="h-[calc(100%-4rem)] overflow-y-auto custom-scroll">
+        <div className="h-[calc(100%-4rem)] overflow-y-auto custom-scroll relative">
           <ul className="space-y-2.5 mt-5">
             {menuItems.map((item) => (
               <li
@@ -350,7 +350,7 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
               >
                 <Link
                   to={item.link}
-                  className="w-full px-2.5 py-2.5 flex items-center transition-all duration-200 relative"
+                  className="w-full px-2.5 py-2.5 flex items-center transition-all duration-200"
                   data-tooltip-id={!isSidebarExpanded ? item.id : undefined}
                   data-tooltip-content={item.label}
                 >
@@ -381,7 +381,7 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
             ))}
           </ul>
           {isSidebarExpanded && (
-            <div className="p-2 mt-4 ">
+            <div className="p-2 mt-4">
               <Link
                 to="/dashboard/fundprice"
                 className="block w-full text-center mybtn"
