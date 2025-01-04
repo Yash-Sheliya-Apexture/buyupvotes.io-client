@@ -357,7 +357,11 @@ textarea:focus {
 /* Button Animation */
 .mybtn {
   position: relative;
-  padding: 6px 30px;
+  padding: 6px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   border-radius: 20px;
   border: 1px solid #ff5600;
   font-size: 14px;

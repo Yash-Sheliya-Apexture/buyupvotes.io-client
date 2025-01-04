@@ -17,8 +17,9 @@ export default {
       boxShadow: {
         Sidebar: "0px 0px 12px 5px #00000036",
         base: "0px 2px 5px 1px #ff8700",
-        btnShadow: "#FF5630 0px 0px 2px 1px",
-        newShadow: "#22C55E 0px 0px 2px 1px",
+        btnShadow: "#FF5630 0px 0px 3px 1px",
+        newShadow: "#22C55E 0px 0px 3px 1px",
+        redShadow: "#F05252 0px 0px 3px 1px",
         main: "rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;",
         blackshadow: "#000 0px 0px 1px 1px",
       },

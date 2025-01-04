@@ -109,6 +109,7 @@
 import React from "react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import InputField from "../InputField";
+import { FaBolt } from "react-icons/fa";
 
 const AccountSecurityTab = ({
   showPasswords,
@@ -194,12 +195,13 @@ const AccountSecurityTab = ({
         <div className="flex justify-end mt-5">
           <button
             onClick={handleSavePassword}
-            className={`px-6 py-1 border text-green-500 border-green-500 hover:shadow-newShadow transition-all ease-in duration-150 font-semibold rounded-full ${
+            className={`px-4 py-1 border text-green-500 flex items-center gap-2 border-green-500 hover:shadow-newShadow transition-all ease-in-out duration-200 font-semibold rounded-full ${
               isSaving ? "opacity-100" : ""
             }`}
             disabled={isSaving}
           >
             {isSaving ? "Saving..." : "Save Changes"}
+            <FaBolt className="size-4" />{" "}
           </button>
         </div>
       </div>

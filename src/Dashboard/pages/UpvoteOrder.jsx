@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaSpinner } from "react-icons/fa";
 import InputField from "../components/InputField";
-// import FloatingLabelInputField from "../components/FloatingLabelInputField";
+import { FaCheckCircle } from "react-icons/fa";
 
 const UpvoteOrder = () => {
   // Consolidated form state
@@ -198,7 +198,7 @@ const UpvoteOrder = () => {
       <div className="flex flex-col w-full gap-4 mt-6 lg:flex-row lg:gap-y-6">
         {/* Left Section */}
         <div className="w-full p-4 lg:w-1/2 shadow-main rounded-large lg:p-6">
-          <form onSubmit={handleSubmits} className="space-y-4 lg:space-y-6">
+          <form onSubmit={handleSubmits} className="space-y-4">
             {/* Service Dropdown */}
             <Dropdown
               type="text"
@@ -268,14 +268,15 @@ const UpvoteOrder = () => {
             )}
 
             {/* Submit Button */}
-            <div className="flex justify-center space-x-4">
+            <div className="flex lg:justify-start justify-center space-x-4 pt-5">
               {loading ? (
-                <div className="flex items-center">
+                <div>
                   <FaSpinner className="text-lg animate-spin" />
                 </div>
               ) : (
                 <Button type="submit" onClick={handleSubmit}>
                   Submit Order
+                  <FaCheckCircle className="size-4" />
                 </Button>
               )}
             </div>
