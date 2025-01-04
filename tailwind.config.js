@@ -8,6 +8,8 @@ export default {
     extend: {
       fontFamily: {
         InterDisplay: ["InterDisplay", "sans-serif"],
+        BasierSquare: ["Basiersquare", "sans-serif"],
+
       },
       screens: {
         xs: { min: "320px" },

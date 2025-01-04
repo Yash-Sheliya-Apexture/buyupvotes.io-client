@@ -138,6 +138,15 @@ font-face {
   src: url("./assets/fonts/Nunito-Bold.ttf") format("woff2");
 }
 
+
+
+@font-face {
+  font-family: "BasierSquare";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./assets/fonts/BasierSquareRegular.woff") format("woff");
+}
 * {
   margin: 0;
   padding: 0;
