@@ -50,8 +50,8 @@ const HeroSection = () => {
         <div className="container">
           <div className="pt-[100px] z-10 relative">
             <div className="flex justify-center">
-              <div className="flex flex-col items-center justify-center max-w-[750px] text-center">
-                <h1 className="mb-6 text-4xl font-semibold tracking-[-3px] md:text-5xl lg:text-[100px] font-BasierSquare">
+              <div className="flex flex-col items-center justify-center max-w-full lg:w-[750px]  text-center">
+                <h1 className="mb-6 text-5xl font-semibold tracking-[-3px] md:text-7xl lg:text-[100px] font-BasierSquare">
                   Boost Your Reddit
                   <span className="px-3 tracking-[-3px] text-transparent bg-clip-text bg-gradient-to-r from-[#ffb087] via-[#ff6518] to-main-color">
                     Upvotes.
@@ -83,7 +83,7 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-        <div className="pt-14">
+        <div className="pt-4 lg:pt-14">
           <div className="p-8 overflow-hidden bg-white rounded-3xl">
             <Slider {...sliderSettings}>
               {listItems.map((item, index) => (

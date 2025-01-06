@@ -56,23 +56,24 @@ const HeroSection = () => {
               ) : error ? (
                 <h2 className="font-bold text-[#FF0000] text-large">{error}</h2>
               ) : user ? (
-                <h2 className="flex items-center justify-center lg:justify-normal mb-2 font-black leading-10 text-dark-green lg:text-large text-[26px] ">
-                  Welcome back, <br /> {user.firstName} 👋
-                </h2>
+                <>
+                  <h2 className="mb-6 text-5xl font-bold tracking-[-3px] md:text-7xl lg:text-5xl font-BasierSquare">
+                  Welcome back, <br />
+                    <span className="pe-3 tracking-[-3px] text-transparent bg-clip-text bg-gradient-to-r from-[#ffb087] via-[#ff6518] to-main-color">{user.firstName}.
+                    </span><icon className="text-3xl">👋</icon>
+                  </h2>
+                </>
               ) : (
                 <h2 className="font-bold text-dark-green lg:text-large text-[26px]">
                   Welcome back, Guest 👋
                 </h2>
               )}
-              <p className="text-[#477677] font-semibold pb-6 max-w-[350px]">
+              <p className="text-[#333b52] max-w-[350px] text-lg font-BasierSquare">
                 You have 100 upvotes remaining on your balance. Continue
                 boosting your Reddit experience by placing an order!
               </p>
               <div className="flex justify-center lg:justify-start">
-                <Button to="/dashboard/upvoteorder">
-                  Order Now
-                  <FiShoppingCart className="size-4" />
-                </Button>
+                <Link to="/dashboard/upvoteorder" className="flex items-center justify-center gap-2 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border-2 rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600">Order Now</Link>
               </div>
             </div>
           </div>

@@ -585,7 +585,6 @@ const Header = () => {
                         <FaUserCircle className="size-8  text-[#ff8b4c]" />
                         <Link
                             to="/dashboard"
-                            href="#login"
                             className="block text-lg transition-all duration-200 ease-linear text-sub-color hover:text-main-color"
                         >
                             Dashboard
