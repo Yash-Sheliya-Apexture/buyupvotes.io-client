@@ -637,6 +637,184 @@
 
 
 
+// import React, { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { FaWallet, FaChartLine, FaBolt, FaPlusCircle } from "react-icons/fa";
+// import { SiReddit } from "react-icons/si";
+// import { AiOutlineCode } from "react-icons/ai";
+// import axios from "axios";
+// import SkeletonDataSection from "./SkeletonDataSection";
+
+// const data = [
+//   {
+//     id: 1,
+//     remainingVotes: 0,
+//     label: "Votes remaining",
+//     link: "dashboard/fundprice",
+//     icon: <FaWallet />,
+//   },
+//   {
+//     id: 2,
+//     remainingVotes: 0,
+//     label: "Total Orders",
+//     link: "dashboard/upvoteorder",
+//     icon: <FaChartLine />,
+//   },
+//   {
+//     id: 3,
+//     remainingVotes: 0,
+//     label: "Order in Progress",
+//     link: "dashboard/upvoteorder",
+//     icon: <FaBolt />,
+//   },
+//   {
+//     id: 4,
+//     label: "New Order",
+//     link: "dashboard/upvoteorder",
+//     icon: <FaPlusCircle />,
+//   },
+//   {
+//     id: 5,
+//     label: "Buy Reddit Accounts",
+//     link: "dashboard/account",
+//     icon: <SiReddit />,
+//   },
+//   {
+//     id: 6,
+//     label: "API Documentation",
+//     link: "",
+//     icon: <AiOutlineCode />,
+//   },
+// ];
+
+// const DataSection = () => {
+//   const [dataList, setDataList] = useState(data);
+//   const [loading, setLoading] = useState(true);
+//   const navigate = useNavigate();
+//   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//         const token = localStorage.getItem("authToken");
+//         if (!token) {
+//           setLoading(false);
+//           return;
+//         }
+
+//       try {
+//         setLoading(true);
+//         const headers = { Authorization: `Bearer ${token}` };
+
+//         const ordersResponse = await axios.get(
+//           `${API_BASE_URL}/auth/orders`,
+//           { headers }
+//         );
+
+//         let completedQuantityVotes = 0;
+//         if (ordersResponse.status === 200 && ordersResponse.data) {
+//          completedQuantityVotes = ordersResponse.data.reduce(
+//               (total, order) => total + parseInt(order.quantity || 0, 10),
+//                 0
+//               );
+//           }
+
+
+//           const ordersInProgress =
+//            ordersResponse.status === 200 && ordersResponse.data
+//             ? ordersResponse.data.filter((order) => order.status === "In Progress").length
+//             : 0;
+
+//           // Fetch Payments
+//           const paymentsResponse = await axios.get(`${API_BASE_URL}/payment`, { headers });
+
+//            let tokensTotal = 0;
+//           if (paymentsResponse.status === 200 && paymentsResponse.data) {
+//                  tokensTotal = paymentsResponse.data.tokens || 0;
+//              }
+
+//           const calculatedBalance = tokensTotal - completedQuantityVotes;
+
+
+//         const updatedData = data.map((item) => {
+//             if (item.id === 1) {
+//             return { ...item, remainingVotes: calculatedBalance >= 0 ? calculatedBalance : 0 };
+//             }
+//             if (item.id === 2) {
+//              return { ...item, remainingVotes: ordersResponse.status === 200 && ordersResponse.data ? ordersResponse.data.length : 0 };
+//             }
+//             if(item.id === 3) {
+//              return {...item, remainingVotes: ordersInProgress}
+//              }
+//             return item;
+//           });
+
+
+//            setDataList(updatedData);
+//          } catch (error) {
+//             console.error("Error fetching data:", error);
+//             setDataList(data.map((item) => {
+//               if(item.id === 1 || item.id === 2 || item.id ===3){
+//                return {...item, remainingVotes: 0}
+//               }
+//              return item;
+//            }));
+//         }finally{
+//             setLoading(false)
+//         }
+//     };
+
+//     fetchData();
+//   }, [API_BASE_URL]);
+
+//   const handleCardClick = (link) => {
+//     if (link) navigate(`/${link}`);
+//   };
+
+//   return (
+//     <div className="w-full py-5 lg:w-full">
+//       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+//         {loading ? (
+//             Array.from({ length: 6 }).map((_, index) => (
+//               <SkeletonDataSection key={index} />
+//             ))
+//         ) : (dataList.map((item) => (
+//           <div
+//             key={item.id}
+//             className="w-full h-full cursor-pointer"
+//             onClick={() => handleCardClick(item.link)}
+//           >
+//             <div
+//               className="flex items-center justify-between w-full h-full p-4 bg-white shadow-main rounded-small"
+//               style={{ minHeight: "100px" }}
+//             >
+//               {/* Left Section */}
+//               <div>
+//                 {item.remainingVotes !== undefined && (
+//                   <p className="mb-2 font-bold lg:text-large text-sub-color">
+//                     {item.remainingVotes}
+//                   </p>
+//                 )}
+//                 <p className="font-normal lg:text-base text-para-color">
+//                   {item.label}
+//                 </p>
+//               </div>
+
+//               {/* Icon Section */}
+//               <div className="p-4 text-main-color lg:text-large text-basic">
+//                 {item.icon}
+//               </div>
+//             </div>
+//           </div>
+//         )))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default DataSection;
+
+
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaWallet, FaChartLine, FaBolt, FaPlusCircle } from "react-icons/fa";
@@ -695,72 +873,83 @@ const DataSection = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-        const token = localStorage.getItem("authToken");
-        if (!token) {
-          setLoading(false);
-          return;
-        }
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        setLoading(false);
+        return;
+      }
 
       try {
         setLoading(true);
         const headers = { Authorization: `Bearer ${token}` };
 
-        const ordersResponse = await axios.get(
-          `${API_BASE_URL}/auth/orders`,
-          { headers }
-        );
+        const ordersResponse = await axios.get(`${API_BASE_URL}/auth/orders`, {
+          headers,
+        });
 
         let completedQuantityVotes = 0;
-        if (ordersResponse.status === 200 && ordersResponse.data) {
-         completedQuantityVotes = ordersResponse.data.reduce(
-              (total, order) => total + parseInt(order.quantity || 0, 10),
-                0
-              );
-          }
 
+        // Check if ordersResponse.data is an array before using reduce
+        if (ordersResponse.status === 200 && Array.isArray(ordersResponse.data)) {
+          completedQuantityVotes = ordersResponse.data.reduce(
+            (total, order) => total + parseInt(order.quantity || 0, 10),
+            0
+          );
+        }
 
-          const ordersInProgress =
-           ordersResponse.status === 200 && ordersResponse.data
-            ? ordersResponse.data.filter((order) => order.status === "In Progress").length
+        const ordersInProgress =
+          ordersResponse.status === 200 && Array.isArray(ordersResponse.data)
+            ? ordersResponse.data.filter(
+                (order) => order.status === "In Progress"
+              ).length
             : 0;
 
-          // Fetch Payments
-          const paymentsResponse = await axios.get(`${API_BASE_URL}/payment`, { headers });
+        // Fetch Payments
+        const paymentsResponse = await axios.get(`${API_BASE_URL}/payment`, {
+          headers,
+        });
 
-           let tokensTotal = 0;
-          if (paymentsResponse.status === 200 && paymentsResponse.data) {
-                 tokensTotal = paymentsResponse.data.tokens || 0;
-             }
+        let tokensTotal = 0;
+        if (paymentsResponse.status === 200 && paymentsResponse.data) {
+          tokensTotal = paymentsResponse.data.tokens || 0;
+        }
 
-          const calculatedBalance = tokensTotal - completedQuantityVotes;
-
+        const calculatedBalance = tokensTotal - completedQuantityVotes;
 
         const updatedData = data.map((item) => {
-            if (item.id === 1) {
-            return { ...item, remainingVotes: calculatedBalance >= 0 ? calculatedBalance : 0 };
+          if (item.id === 1) {
+            return {
+              ...item,
+              remainingVotes: calculatedBalance >= 0 ? calculatedBalance : 0,
+            };
+          }
+          if (item.id === 2) {
+            return {
+              ...item,
+              remainingVotes:
+                ordersResponse.status === 200 && Array.isArray(ordersResponse.data) ? ordersResponse.data.length : 0,
+            };
+          }
+          if (item.id === 3) {
+            return { ...item, remainingVotes: ordersInProgress };
+          }
+          return item;
+        });
+
+        setDataList(updatedData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setDataList(
+          data.map((item) => {
+            if (item.id === 1 || item.id === 2 || item.id === 3) {
+              return { ...item, remainingVotes: 0 };
             }
-            if (item.id === 2) {
-             return { ...item, remainingVotes: ordersResponse.status === 200 && ordersResponse.data ? ordersResponse.data.length : 0 };
-            }
-            if(item.id === 3) {
-             return {...item, remainingVotes: ordersInProgress}
-             }
             return item;
-          });
-
-
-           setDataList(updatedData);
-         } catch (error) {
-            console.error("Error fetching data:", error);
-            setDataList(data.map((item) => {
-              if(item.id === 1 || item.id === 2 || item.id ===3){
-               return {...item, remainingVotes: 0}
-              }
-             return item;
-           }));
-        }finally{
-            setLoading(false)
-        }
+          })
+        );
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
@@ -774,38 +963,40 @@ const DataSection = () => {
     <div className="w-full py-5 lg:w-full">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {loading ? (
-            Array.from({ length: 6 }).map((_, index) => (
-              <SkeletonDataSection key={index} />
-            ))
-        ) : (dataList.map((item) => (
-          <div
-            key={item.id}
-            className="w-full h-full cursor-pointer"
-            onClick={() => handleCardClick(item.link)}
-          >
+          Array.from({ length: 6 }).map((_, index) => (
+            <SkeletonDataSection key={index} />
+          ))
+        ) : (
+          dataList.map((item) => (
             <div
-              className="flex items-center justify-between w-full h-full p-4 bg-white shadow-main rounded-small"
-              style={{ minHeight: "100px" }}
+              key={item.id}
+              className="w-full h-full cursor-pointer"
+              onClick={() => handleCardClick(item.link)}
             >
-              {/* Left Section */}
-              <div>
-                {item.remainingVotes !== undefined && (
-                  <p className="mb-2 font-bold lg:text-large text-sub-color">
-                    {item.remainingVotes}
+              <div
+                className="flex items-center justify-between w-full h-full p-4 bg-white shadow-main rounded-small"
+                style={{ minHeight: "100px" }}
+              >
+                {/* Left Section */}
+                <div>
+                  {item.remainingVotes !== undefined && (
+                    <p className="mb-2 font-bold lg:text-large text-sub-color">
+                      {item.remainingVotes}
+                    </p>
+                  )}
+                  <p className="font-normal lg:text-base text-para-color">
+                    {item.label}
                   </p>
-                )}
-                <p className="font-normal lg:text-base text-para-color">
-                  {item.label}
-                </p>
-              </div>
+                </div>
 
-              {/* Icon Section */}
-              <div className="p-4 text-main-color lg:text-large text-basic">
-                {item.icon}
+                {/* Icon Section */}
+                <div className="p-4 text-main-color lg:text-large text-basic">
+                  {item.icon}
+                </div>
               </div>
             </div>
-          </div>
-        )))}
+          ))
+        )}
       </div>
     </div>
   );

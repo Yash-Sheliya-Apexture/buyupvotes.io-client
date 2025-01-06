@@ -131,6 +131,7 @@ const HeroSection = () => {
         const response = await axios.get(`${API_BASE_URL}/auth/user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+        
         if (response.status === 200) {
           setUser(response.data);
         } else {
