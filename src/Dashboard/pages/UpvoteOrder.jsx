@@ -268,7 +268,7 @@ const UpvoteOrder = () => {
             )}
 
             {/* Submit Button */}
-            <div className="flex lg:justify-start justify-center space-x-4 pt-5">
+            <div className="flex justify-center pt-5 space-x-4">
               {loading ? (
                 <div>
                   <FaSpinner className="text-lg animate-spin" />
@@ -276,7 +276,6 @@ const UpvoteOrder = () => {
               ) : (
                 <Button type="submit" onClick={handleSubmit}>
                   Submit Order
-                  <FaCheckCircle className="size-4" />
                 </Button>
               )}
             </div>
