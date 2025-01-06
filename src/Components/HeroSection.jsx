@@ -1,126 +1,69 @@
-// import React, { useEffect, useState } from "react";
-// import { FaUpRightFromSquare } from "react-icons/fa6";
-// import { Link } from "react-router-dom";
-// import Button from "../Dashboard/components/Button";
-// import images from "../assets/websiteImages/index"; // Import the central images file
-
-// const HeroSection = () => {
-//   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
-
-//   useEffect(() => {
-//     // Check if there's a token or user info in localStorage to determine login status
-//     const authToken = localStorage.getItem("authToken"); // or localStorage.getItem("user");
-//     if (authToken) {
-//       setIsLoggedIn(true); // If token exists, user is logged in
-//     } else {
-//       setIsLoggedIn(false); // If no token, user is not logged in
-//     }
-//   }, []);
-
-//   return (
-//     <section
-//       className="hero-section relative h-[550px] overflow-hidden bg-no-repeat bg-center bg-cover flex items-center justify-center z-0"
-//       style={{
-//         background: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${images.overlay_3})`,
-//       }}
-//     >
-//       <div className="container flex flex-col items-center justify-center mx-auto lg:flex-row">
-//         {/* Leftside */}
-//         <div className="flex flex-col space-y-8 text-center lg:w-1/2 lg:text-start">
-//           <h1 className="font-bold tracking-[10px] text-xlarge md:text-5xl lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-main-color to-[#FF9D00] lg:mt-0 -mt-20">
-//             Buy Reddit Upvotes
-//           </h1>
-//           <p className="text-base font-medium text-main-color">
-//             Boost your posts, dominate your conversion
-//           </p>
-//           <div className="flex flex-col space-y-2 text-start">
-//             <p className="flex items-center text-xs font-medium lg:text-small text-sub-color">
-//               <span className="mr-2 text-base text-main-color">✔</span>
-//               Get trending by sending instant upvotes too any post or comments.
-//             </p>
-//             <p className="flex items-center text-xs font-medium lg:text-small text-sub-color">
-//               <span className="mr-2 text-base text-main-color">✔</span>
-//               Take control of comments on your posts by upvotes and downvotes
-//             </p>
-//           </div>
-//           <div className="flex flex-row items-center justify-center space-x-2 lg:justify-start">
-//             {isLoggedIn ? (
-//               // If user is logged in, show Dashboard
-//               <Link to="/dashboard">
-//                 <Button>dashboard</Button>
-//               </Link>
-//             ) : (
-//               <>
-//                 <Button to="/signin">Sign in</Button>
-//                 <Button to="/signup">
-//                   Sign up
-//                   <FaUpRightFromSquare className="ml-1 absolute right-2.5 top-2.5" />
-//                 </Button>
-//               </>
-//             )}
-//           </div>
-//         </div>
-
-//         {/* RightSide */}
-//         <div className="relative items-center justify-center hidden lg:w-1/2 lg:mt-0 lg:flex">
-//           <div className="hero-image-wrap absolute flex -skew-x-[20deg] -space-x-10">
-//             <div className="relative flex items-center justify-center hero-image">
-//               <img src={images.light2} alt="Image 1" className="w-2/3" />
-//             </div>
-//             <div className="relative hero-image">
-//               <img src={images.light1} alt="Image 2" className="w-3/4" />
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default HeroSection;
-
-
-
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import images from "../assets/websiteImages/index"; // Import the central images file
-const HeroSection = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
+import images from "../assets/websiteImages/index";
+import { useAuth } from "../auth/AuthContextWeb";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./HeroSection.css";
+import { FaReddit } from 'react-icons/fa'; // Import React Icon
 
-  useEffect(() => {
-    // Check if there's a token or user info in localStorage to determine login status
-    const authToken = localStorage.getItem("authToken"); // or localStorage.getItem("user");
-    if (authToken) {
-      setIsLoggedIn(true); // If token exists, user is logged in
-    } else {
-      setIsLoggedIn(false); // If no token, user is not logged in
-    }
-  }, []);
+
+const HeroSection = () => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  const listItems = [
+    <span key="redditIcon" className="text-gray-600"><FaReddit size={40} className="mx-3 text-main-color" /></span>, // Insert the icon as a list item
+    "Get trending by sending instant upvotes to any post or comment",
+    <span key="redditIcon" className="text-gray-600"><FaReddit size={40} className="mx-3 text-main-color" /></span>, // Insert the icon as a list item
+    "Take control of comments on your posts by sending upvotes and downvotes",
+  ];
+
+  const sliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 6000,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 0,
+    cssEase: 'linear',
+    arrows: false,
+    pauseOnHover: false,
+    variableWidth: true,
+    centerMode: true,
+    centerPadding: '0px',
+    ltl: true
+  };
+
   return (
-    <section className="relative overflow-hidden">
-      <div className="px-14">
-            <div className="absolute inset-0 ">
-              <img src={images.overlay_1} className="w-full" alt="" />
-            </div>
-          {/* Hero Content */}
+    <section className="relative -mt-24 overflow-hidden">
+      <div className="pt-20 pb-14">
+        <div className="absolute inset-0">
+          <img src={images.overlay_1} className="object-cover w-full min-w-full min-h-full" alt="" />
+        </div>
+        {/* Hero Content */}
         <div className="container">
-          <div className="py-[100px] z-10 relative">
+          <div className="pt-[100px] z-10 relative">
             <div className="flex justify-center">
-              <div className="max-w-[750px] text-center flex justify-center flex-col items-center">
-                <h1 className="mb-6 text-4xl font-semibold md:text-5xl lg:text-[100px] font-BasierSquare tracking-[-3px]">
+              <div className="flex flex-col items-center justify-center max-w-[750px] text-center">
+                <h1 className="mb-6 text-4xl font-semibold tracking-[-3px] md:text-5xl lg:text-[100px] font-BasierSquare">
                   Boost Your Reddit
-                  <span className="tracking-[-3px] text-transparent bg-clip-text bg-gradient-to-r from-[#ffb087] via-[#ff6518] to-main-color px-3">
+                  <span className="px-3 tracking-[-3px] text-transparent bg-clip-text bg-gradient-to-r from-[#ffb087] via-[#ff6518] to-main-color">
                     Upvotes.
                   </span>
                 </h1>
-                <p className="mb-8 md:text-lg lg:text-2xl font-BasierSquare text-[#333b52] w-">
-                  Gain real engagement and grow your online audience quickly with our
-                  proven strategies and tools.
+                <p className="mb-8 w- font-BasierSquare text-[#333b52] md:text-lg lg:text-2xl">
+                  Gain real engagement and grow your online audience quickly with
+                  our proven strategies and tools.
                 </p>
 
                 <div className="flex flex-row items-center justify-center gap-5 lg:justify-start">
-                  {isLoggedIn ? (
-                    // If user is logged in, show Dashboard
+                  {user ? (
                     <Link to="/dashboard">
                       <button className="flex items-center justify-center gap-2 px-10 py-4 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
                         Get Started Now
@@ -140,8 +83,21 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
+        <div className="pt-14">
+          <div className="p-8 overflow-hidden bg-white rounded-3xl">
+            <Slider {...sliderSettings}>
+              {listItems.map((item, index) => (
+                <div key={index}>
+                  <div className="flex gap-3 text-3xl font-BasierSquare flex-nowrap">
+                    {typeof item === 'string' ? (<li className="list-none">{item}</li>) : item}
+                  </div>
+                </div>
+              ))}
+            </Slider>
+          </div>
+        </div>
       </div>
-    </section >
+    </section>
   );
 };
 

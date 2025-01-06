@@ -1,0 +1,32 @@
+/* Add these styles to your CSS file (e.g., HeroSection.css) */
+.slick-list {
+  overflow: visible;
+  padding: 0;
+}
+
+.slick-slide > div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: max-content;
+}
+
+.slick-track {
+    display: flex;
+    align-items: center;
+}
+
+.slick-track > div {
+  width: max-content;
+}
+
+.slick-slide {
+  width: max-content !important;
+  display: flex;
+  align-items: center;
+}
+
+.slick-slider {
+  position: relative;
+  padding-bottom: 15px;
+}

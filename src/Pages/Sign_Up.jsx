@@ -455,8 +455,8 @@ const Sign_Up = () => {
               )}
 
               {/* First Name and Last Name */}
-              <div className="flex flex-col lg:flex-row gap-2 mb-3">
-                <div className="lg:w-1/2 w-full">
+              <div className="flex flex-col gap-2 mb-3 lg:flex-row">
+                <div className="w-full lg:w-1/2">
                   <input
                     type="text"
                     name="firstName"
@@ -474,7 +474,7 @@ const Sign_Up = () => {
                     <p className="text-xs text-[#FF0000]">{errors.firstName}</p>
                   )}
                 </div>
-                <div className="lg:w-1/2 w-full">
+                <div className="w-full lg:w-1/2">
                   <input
                     type="text"
                     name="lastName"

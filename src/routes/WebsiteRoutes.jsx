@@ -14,6 +14,7 @@ import Blogs from "../Pages/Blogs";
 import BlogDetails from "../Dashboard/pages/BlogDetails";
 import ContactUs from "../Pages/ContactUs";
 import Checkout from "../Pages/Checkout";
+import { AuthProvider } from "../auth/AuthContextWeb";
 
 const WebsiteRoutes = () => {
   const location = useLocation();
@@ -42,36 +43,38 @@ const WebsiteRoutes = () => {
 
   return (
     <>
-      {/* Conditionally render header and scroll border */}
-      {!isExcludedRoute && (
-        <>
-          <Header />
-          <ScrollBorder />
-        </>
-      )}
+      <AuthProvider>
+        {/* Conditionally render header and scroll border */}
+        {!isExcludedRoute && (
+          <>
+            <Header />
+            <ScrollBorder />
+          </>
+        )}
 
-      {/* Define routes */}
-      <Routes>
-        <Route path="/" element={<Home_Page />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/terms-and-conditions" element={<TermAndConditions />} />
-        <Route path="/privacy-policy" element={<Privacy />} />
-        <Route path="/*" element={<LoginRoutes />} />
-        {/* 404 Route should be the last route */}
-        <Route path="*" element={<Error404 />} />
-        <Route path="/pricing" element={<Pricedata />} />
-        <Route path="/faqs" element={<FAQS />} />
-        <Route path="/checkout" element={<Checkout />} />
+        {/* Define routes */}
+        <Routes>
+          <Route path="/" element={<Home_Page />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/terms-and-conditions" element={<TermAndConditions />} />
+          <Route path="/privacy-policy" element={<Privacy />} />
+          <Route path="/*" element={<LoginRoutes />} />
+          {/* 404 Route should be the last route */}
+          <Route path="*" element={<Error404 />} />
+          <Route path="/pricing" element={<Pricedata />} />
+          <Route path="/faqs" element={<FAQS />} />
+          <Route path="/checkout" element={<Checkout />} />
 
 
-        <Route path="post">
-          <Route index element={<Blogs />} />
-          <Route path=":title" element={<BlogDetails />} />
-        </Route>
-      </Routes>
+          <Route path="post">
+            <Route index element={<Blogs />} />
+            <Route path=":title" element={<BlogDetails />} />
+          </Route>
+        </Routes>
+        {/* Conditionally render footer */}
+        {!isExcludedRoute && <Footer />}
+      </AuthProvider>
 
-      {/* Conditionally render footer */}
-      {!isExcludedRoute && <Footer />}
     </>
   );
 };
