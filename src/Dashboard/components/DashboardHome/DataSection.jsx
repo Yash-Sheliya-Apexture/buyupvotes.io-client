@@ -648,7 +648,7 @@ import SkeletonDataSection from "./SkeletonDataSection";
 const data = [
   {
     id: 1,
-    remainingVotes: 0, // Initial value
+    remainingVotes: 0,
     label: "Votes remaining",
     link: "dashboard/fundprice",
     icon: <FaWallet />,
@@ -689,11 +689,9 @@ const data = [
 
 const DataSection = () => {
   const [dataList, setDataList] = useState(data);
-    const [votesBalance, setVotesBalance] = useState(0);
-    const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -702,69 +700,71 @@ const DataSection = () => {
           setLoading(false);
           return;
         }
-      try {
-         setLoading(true);
-          const headers = { Authorization: `Bearer ${token}` };
-            // Fetch User Data
 
-        // Fetch Orders
+      try {
+        setLoading(true);
+        const headers = { Authorization: `Bearer ${token}` };
+
         const ordersResponse = await axios.get(
-          `${API_BASE_URL}/auth/orders?timestamp=${new Date().getTime()}`,
-            { headers }
+          `${API_BASE_URL}/auth/orders`,
+          { headers }
         );
 
-          let completedTotalVotes = 0;
-          if (ordersResponse.status === 200 && ordersResponse.data) {
-             completedTotalVotes = ordersResponse.data.reduce(
-                  (total, order) => total + parseInt(order.completedVotes || 0, 10),
-                    0
-                );
-            }
+        let completedQuantityVotes = 0;
+        if (ordersResponse.status === 200 && ordersResponse.data) {
+         completedQuantityVotes = ordersResponse.data.reduce(
+              (total, order) => total + parseInt(order.quantity || 0, 10),
+                0
+              );
+          }
 
-           const ordersInProgress =
-              ordersResponse.status === 200 && ordersResponse.data
-                ? ordersResponse.data.filter((order) => order.status === "In Progress").length
-                : 0;
 
-            // Fetch Payments
-           const paymentsResponse = await axios.get(`${API_BASE_URL}/payment`, { headers });
-            let tokensTotal = 0;
+          const ordersInProgress =
+           ordersResponse.status === 200 && ordersResponse.data
+            ? ordersResponse.data.filter((order) => order.status === "In Progress").length
+            : 0;
+
+          // Fetch Payments
+          const paymentsResponse = await axios.get(`${API_BASE_URL}/payment`, { headers });
+
+           let tokensTotal = 0;
           if (paymentsResponse.status === 200 && paymentsResponse.data) {
-                tokensTotal = paymentsResponse.data.tokens || 0;
-            }
+                 tokensTotal = paymentsResponse.data.tokens || 0;
+             }
 
-           const calculatedBalance = tokensTotal - completedTotalVotes;
-            setVotesBalance(calculatedBalance >= 0 ? calculatedBalance : 0);
+          const calculatedBalance = tokensTotal - completedQuantityVotes;
 
-           const updatedData = data.map((item) => {
+
+        const updatedData = data.map((item) => {
             if (item.id === 1) {
-              return { ...item, remainingVotes: calculatedBalance >= 0 ? calculatedBalance : 0 };
+            return { ...item, remainingVotes: calculatedBalance >= 0 ? calculatedBalance : 0 };
             }
             if (item.id === 2) {
-              return { ...item, remainingVotes: ordersResponse.status === 200 && ordersResponse.data ? ordersResponse.data.length : 0 };
+             return { ...item, remainingVotes: ordersResponse.status === 200 && ordersResponse.data ? ordersResponse.data.length : 0 };
             }
-              if(item.id === 3) {
-              return {...item, remainingVotes: ordersInProgress}
-            }
+            if(item.id === 3) {
+             return {...item, remainingVotes: ordersInProgress}
+             }
             return item;
           });
 
-          setDataList(updatedData);
-        } catch (error) {
-             setDataList(data.map((item) => {
+
+           setDataList(updatedData);
+         } catch (error) {
+            console.error("Error fetching data:", error);
+            setDataList(data.map((item) => {
               if(item.id === 1 || item.id === 2 || item.id ===3){
-                return {...item, remainingVotes: 0}
+               return {...item, remainingVotes: 0}
               }
-               return item;
-            }));
+             return item;
+           }));
         }finally{
-          setLoading(false)
+            setLoading(false)
         }
     };
 
     fetchData();
-      }, [API_BASE_URL]);
-
+  }, [API_BASE_URL]);
 
   const handleCardClick = (link) => {
     if (link) navigate(`/${link}`);

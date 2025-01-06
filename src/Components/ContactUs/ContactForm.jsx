@@ -423,7 +423,7 @@ function ContactForm() {
             }));
           }
         } catch (err) {
-          // setGeneralError("Error fetching user data");
+          setGeneralError("Error fetching user data");
           setIsUserDataFetched(false);
           setFormData((prev) => ({
             ...prev,

@@ -1374,7 +1374,7 @@ const DashboardHeader = ({ toggleSidebarVisibility }) => {
         let completedTotalVotes = 0;
         if (ordersResponse.status === 200 && ordersResponse.data) {
           for (const order of ordersResponse.data) {
-            completedTotalVotes += parseInt(order.completedVotes || 0, 10);
+            completedTotalVotes += parseInt(order.quantity || 0, 10);
           }
         }
 
@@ -1489,7 +1489,7 @@ const DashboardHeader = ({ toggleSidebarVisibility }) => {
                 <ul className="space-y-2">
                   <li>
                     <Link
-                      to="/"
+                      to="/dashboard"
                       className="lg:px-4 px-2 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150 block"
                     >
                       Home
@@ -1497,7 +1497,7 @@ const DashboardHeader = ({ toggleSidebarVisibility }) => {
                   </li>
                   <li>
                     <Link
-                      to="/dashboard/user/account/"
+                      to="/dashboard/account"
                       className="lg:px-4 px-2 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150 block"
                     >
                       Settings

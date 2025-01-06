@@ -14,7 +14,7 @@ const OrderTableDesign = ({ loading, tableData, formattedDate, paginatedData }) 
                 <th className="px-6 py-3">Details</th>
                 <th className="px-6 py-3">Started</th>
                 <th className="px-6 py-3">Date</th>
-                <th className="px-6 py-3">Completed Votes</th>
+                <th className="px-6 py-3">Deliver votes</th>
                 <th className="px-6 py-3">Total Votes</th>
                 <th className="px-6 py-3">Status</th>
               </tr>
