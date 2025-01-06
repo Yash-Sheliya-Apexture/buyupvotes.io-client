@@ -59,14 +59,10 @@ const HeroSection = () => {
                     style={{ backgroundColor: "#FF5700", color: "#fff" }}
                   >
                     Sign in
-                    <FaSignInAlt className="size-4" />
                   </button>
                 </Link>
 
-                <Button to="/signup">
-                  Sign up
-                  <FaUpRightFromSquare className="size-4" />
-                </Button>
+                <Button to="/signup">Sign up</Button>
               </>
             )}
           </div>

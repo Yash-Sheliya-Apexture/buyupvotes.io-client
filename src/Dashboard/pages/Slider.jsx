@@ -8,19 +8,16 @@ import { FaEye } from "react-icons/fa";
 import { IoMdShare } from "react-icons/io";
 
 export function Slider() {
-  const [sliderData, setSliderData] = useState([]);
+  const [blogs, setBlogs] = useState([]); // State to hold blog data
 
   // Fetch slider data from the public folder
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}sliderData.json`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch slider data");
-        }
-        return response.json();
+    fetch(`${import.meta.env.BASE_URL}data.json`)
+      .then((response) => response.json())
+      .then((data) => {
+        setBlogs(data);
       })
-      .then((data) => setSliderData(data))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error("Error fetching blog data:", error));
   }, []);
 
   return (
@@ -39,8 +36,8 @@ export function Slider() {
       modules={[Autoplay, Pagination]}
       className="w-full mySwiper rounded-small shadow-main"
     >
-      {sliderData.map((slide) => (
-        <SwiperSlide key={slide.id}>
+      {blogs.map((blog, index) => (
+        <SwiperSlide key={blog.id}>
           <div className="bg-[#fff] text-sub-color relative z-0 cursor-pointer overflow-hidden rounded-small">
             <div className="relative">
               <div className="w-[88px] h-[36px] text-white left-0 z-[9] -bottom-4 absolute">
@@ -57,36 +54,38 @@ export function Slider() {
                 </svg>
                 <div className="flex items-center justify-center shrink-0 w-10 h-10 rounded-full absolute -bottom-2.5 left-6 z-9">
                   <img
-                    src={slide.profileImage}
+                    src={blog.profileImage}
                     alt="Profile"
                     className="absolute top-0 left-0 object-cover w-full h-full rounded-full"
                   />
                 </div>
               </div>
-              <span className="overflow-hidden relative align-bottom inline-block w-full h-40 bg-[#FDE6D9]">
-                <img
-                  src={slide.logo}
-                  alt="Blog"
-                  className="absolute bottom-0 lg:h-8 h-7 right-2"
-                />
-              </span>
+              <span
+                className="overflow-hidden relative align-bottom inline-block w-full h-40 bg-[#FDE6D9]"
+                style={{
+                  backgroundImage: `url(${blog.coverImage})`,
+                  backgroundSize: "contain", // Ensures the logo fits within the container
+                  backgroundRepeat: "no-repeat", // Prevents the image from repeating
+                  backgroundPosition: "center", // Centers the logo
+                }}
+              ></span>
             </div>
             <div className="px-4 mt-8 text-start">
               <div className="space-y-1 text-xs">
-                <h1 className="text-sub-color">{slide.author}</h1>
-                <p className="text-light-gray font-medium">{slide.date}</p>
-                <p className="text-sub-color leading-6">{slide.title}</p>
+                <h1 className="text-sub-color">{blog.author}</h1>
+                <p className="text-light-gray font-medium">{blog.date}</p>
+                <p className="text-sub-color leading-6">{blog.title}</p>
               </div>
             </div>
             <div className="flex items-center justify-end p-8">
-              <div className="flex items-center text-light-gray font-medium text-xs  space-x-4">
+              <div className="flex items-center text-light-gray font-medium text-xs space-x-4">
                 <span className="flex items-center space-x-1">
                   <FaEye className="size-4" />
-                  <span>{slide.views}</span>
+                  <span>{blog.views}</span>
                 </span>
                 <span className="flex items-center space-x-1">
                   <IoMdShare className="size-4" />
-                  <span>{slide.shares}</span>
+                  <span>{blog.shares}</span>
                 </span>
               </div>
             </div>

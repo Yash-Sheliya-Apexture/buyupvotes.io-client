@@ -314,9 +314,7 @@ function ContactForm() {
               <FaSpinner className="text-lg animate-spin" />
             </div>
           ) : (
-            <Button type="submit">
-              Send Message <FaEnvelope className="size-5" />
-            </Button>
+            <Button type="submit">Send Message </Button>
           )}
         </div>
       </form>

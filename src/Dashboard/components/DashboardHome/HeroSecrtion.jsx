@@ -74,10 +74,7 @@ const HeroSection = () => {
                     <FaSpinner className="text-lg animate-spin" />
                   </div>
                 ) : (
-                  <Button to="/dashboard/upvoteorder">
-                    Order Now
-                    <FiShoppingCart  className="size-4" />
-                  </Button>
+                  <Button to="/dashboard/upvoteorder">Order Now</Button>
                 )}
               </div>
             </div>
