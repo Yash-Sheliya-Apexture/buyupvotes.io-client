@@ -7,9 +7,9 @@ import { useAuth } from "../auth/AuthContextWeb";
 const Currency = () => {
     const { user, loading } = useAuth();
   
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  // if (loading) {
+  //   return <p>Loading...</p>;
+  // }
 
   return (
     <section className="container mx-auto bg-white">

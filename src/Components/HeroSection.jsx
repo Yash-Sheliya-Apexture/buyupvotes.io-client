@@ -12,9 +12,9 @@ import { FaReddit } from 'react-icons/fa'; // Import React Icon
 const HeroSection = () => {
   const { user, loading } = useAuth();
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  // if (loading) {
+  //   return <p>Loading...</p>;
+  // }
 
   const listItems = [
     <span key="redditIcon" className="text-gray-600"><FaReddit size={40} className="mx-3 text-main-color" /></span>, // Insert the icon as a list item
