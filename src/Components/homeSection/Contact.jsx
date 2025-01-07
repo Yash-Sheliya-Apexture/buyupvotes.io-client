@@ -261,10 +261,10 @@
 // export default ContactUS;
 
 import React from "react";
-import metting from "../assets/Images/metting.webp";
-import Button from "../Dashboard/components/Button";
+import metting from "../../assets/Images/metting.webp";
+import Button from "../../Dashboard/components/Button";
 
-const Contact_New = () => {
+const Contact = () => {
   return (
     <div className="contact-main mt-10">
       <section className="relative max-w-full p-0 contact">
@@ -277,6 +277,7 @@ const Contact_New = () => {
                   {" "}
                   Let’s get acquainted
                 </div>
+
                 <div className="text-para-color text-small lg:text-medium leading-7 max-w-md">
                   {" "}
                   Whether you’re established or fast-growing business, we’re
@@ -303,4 +304,4 @@ const Contact_New = () => {
   );
 };
 
-export default Contact_New;
+export default Contact;

@@ -392,7 +392,7 @@ const Header = () => {
                                         <Link
                                             key={index}
                                             to={item.path}
-                                            className="relative px-4 py-5 font-normal text-small text-sub-color hover:text-main-color group"
+                                            className="relative px-4 py-5 text-xl font-normal font-BasierSquare text-small text-sub-color hover:text-main-color group"
                                         >
                                             {item.label}
                                         </Link>
@@ -406,7 +406,7 @@ const Header = () => {
                                             <Link
                                                 key={index}
                                                 to={item.path}
-                                                className={`relative px-4 py-5 text-lg font-medium transition-all duration-500 ease-in-out group ${isActive ? "text-main-color" : "text-sub-color hover:text-main-color"
+                                                className={`relative font-BasierSquare px-4 py-5 text-lg font-medium transition-all duration-500 ease-in-out group ${isActive ? "text-main-color" : "text-sub-color hover:text-main-color"
                                                     }`}
                                             >
                                                 {isActive && (
@@ -478,7 +478,7 @@ const Header = () => {
                         </svg>
                         <Link
                             to="/dashboard/fundprice"
-                            className="block text-lg transition-all duration-200 ease-linear text-sub-color hover:text-main-color"
+                            className="block text-lg font-normal transition-all duration-200 ease-linear font-BasierSquare text-sub-color hover:text-main-color"
                         >
                             Pricing
                         </Link>
@@ -507,7 +507,7 @@ const Header = () => {
                         </svg>
                         <Link
                             to="/dashboard/faqs"
-                            className="block text-lg transition-all duration-200 ease-linear text-sub-color hover:text-main-color"
+                            className="block text-lg font-normal transition-all duration-200 ease-linear font-BasierSquare text-sub-color hover:text-main-color"
                         >
                             FAQ
                         </Link>
@@ -536,7 +536,7 @@ const Header = () => {
                         </svg>
                         <Link
                             to="/dashboard/post"
-                            className="block text-lg transition-all duration-200 ease-linear text-sub-color hover:text-main-color"
+                            className="block text-lg font-normal transition-all duration-200 ease-linear font-BasierSquare text-sub-color hover:text-main-color"
                         >
                             Blog
                         </Link>
@@ -576,7 +576,7 @@ const Header = () => {
                         <Link
                             to="contactus"
                             href="#contact"
-                            className="block text-lg transition-all duration-200 ease-linear text-sub-color hover:text-main-color"
+                            className="block text-lg font-normal transition-all duration-200 ease-linear font-BasierSquare text-sub-color hover:text-main-color"
                         >
                             Contact
                         </Link>
@@ -585,8 +585,7 @@ const Header = () => {
                         <FaUserCircle className="size-8  text-[#ff8b4c]" />
                         <Link
                             to="/dashboard"
-                            href="#login"
-                            className="block text-lg transition-all duration-200 ease-linear text-sub-color hover:text-main-color"
+                            className="block text-lg font-normal transition-all duration-200 ease-linear font-BasierSquare text-sub-color hover:text-main-color"
                         >
                             Dashboard
                         </Link>

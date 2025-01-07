@@ -7,11 +7,14 @@ import { Link, useLocation } from "react-router-dom";
 const Footer = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
-  const footerBgColor = isHomePage ? "#ffcbae" : "#fff";
-  const borderTopClass = !isHomePage ? "border-t border-gray-200" : ""; // Added border class
-
   return (
-    <footer className={`bg-[${footerBgColor}] ${borderTopClass}`} id="Footer">
+    <footer
+      className={
+        !isHomePage
+          ? " bg-[#fff] border border-gray-200"
+          : "bg-[#ffcbae] border-t border-none"
+      }
+    >
       <section className="container mx-auto">
         <div className="pt-10">
           <div className="flex flex-col items-center justify-between space-y-8 lg:flex-row lg:items-start lg:space-y-0">
