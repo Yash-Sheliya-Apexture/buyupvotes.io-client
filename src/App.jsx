@@ -5,7 +5,7 @@ import DashboardRoutes from "./routes/DashboardRoutes";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ScrollToTop from "./components/ScrollToTop"; // Import the component
+import Scroll_To_Top from "./Components/Scroll_To_Top"; // Import the component
 
 const App = () => {
   return (
@@ -20,7 +20,7 @@ const App = () => {
         theme="light"
         toastStyle={{ fontFamily: "InterDisplay, sans-serif" }}
       />
-      <ScrollToTop> {/* Wrap the Routes with ScrollToTop */}
+      <Scroll_To_Top> {/* Wrap the Routes with ScrollToTop */}
         <Routes>
           <Route path="/*" element={<WebsiteRoutes />} />
           {/* Protected Dashboard Routes */}
@@ -32,7 +32,7 @@ const App = () => {
             }
           />
         </Routes>
-      </ScrollToTop>
+      </Scroll_To_Top>
     </Router>
   );
 };

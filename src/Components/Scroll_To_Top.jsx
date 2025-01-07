@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
-const ScrollToTop = ({ children }) => {
+const Scroll_To_Top = ({ children }) => {
   const { pathname } = useLocation();
   const previousPathname = useRef(); // Initialize ref without value
 
@@ -15,4 +15,4 @@ const ScrollToTop = ({ children }) => {
   return children;
 };
 
-export default ScrollToTop;
+export default Scroll_To_Top;
