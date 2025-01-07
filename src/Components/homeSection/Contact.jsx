@@ -1,9 +1,9 @@
 import React from "react";
-import men from "../assets/Images/contact.png";
+import men from "../../assets/Images/contact.png";
 import "react-toastify/dist/ReactToastify.css";
-import ContactForm from "../Components/ContactUs/ContactForm";
+import ContactForm from "../ContactUs/ContactForm";
 
-const ContactUS = () => {
+const Contact = () => {
   return (
     <>
       <div className="my-5">
@@ -40,4 +40,4 @@ const ContactUS = () => {
   );
 };
 
-export default ContactUS;
+export default Contact;
