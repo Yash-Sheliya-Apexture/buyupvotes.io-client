@@ -463,7 +463,7 @@ const PricingWithMenu = () => {
                 {pricingData.map((plan, index) => (
                  <div key={index} className={`p-5 border ${plan.isBestValue ? 'border-main-color' : 'border-gray-300'} rounded-2xl shadow-plan`}>
                   <div className="relative plan-header">
-                    {plan.isBestValue && <div className="text-white bg-main-color py-1 px-4 rounded-md text-sm absolute -top-9 left-[50%] translate-x-[-50%]">Best Value</div>}
+                    {plan.isBestValue && <div className="text-white bg-main-color py-1 px-3 rounded-md text-sm absolute -top-9 left-[50%] translate-x-[-50%]">Best Value</div>}
                     <img src={plan.icon} alt={plan.title} className="rounded-lg w-9 h-9" />
                     <div className="mt-4 space-y-2">
                       <h6 className="font-normal text-light-gray">{plan.title}</h6>
@@ -492,7 +492,7 @@ const PricingWithMenu = () => {
                 {
                     <div className={`p-5 border ${pricingData[activeTab].isBestValue ? 'border-main-color' : 'border-gray-300'} rounded-2xl shadow-plan`}>
                     <div className="relative plan-header">
-                      {pricingData[activeTab].isBestValue && <div className="text-white bg-main-color py-1 px-4 rounded-md text-sm absolute -top-9 left-[50%] translate-x-[-50%]">Best Value</div>}
+                      {pricingData[activeTab].isBestValue && <div className="text-white bg-main-color py-1 px-3 rounded-md text-sm absolute -top-9 left-[50%] translate-x-[-50%]">Best Value</div>}
                       <img src={pricingData[activeTab].icon} alt={pricingData[activeTab].title} className="rounded-lg w-9 h-9" />
                       <div className="mt-4 space-y-2">
                         <h6 className="font-normal text-light-gray">{pricingData[activeTab].title}</h6>

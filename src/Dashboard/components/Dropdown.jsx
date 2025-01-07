@@ -373,7 +373,7 @@ const Dropdown = ({
   backgroundImage,
   className = "",
   onBlur,
-  dropdownPadding = "p-3.5",
+  dropdownPadding = "",
   listPadding = "p-2",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -406,14 +406,14 @@ const Dropdown = ({
     <div className={`relative ${className}`} ref={dropdownRef}>
       {/* Dropdown Trigger */}
       <div
-        className={`w-full border rounded-full cursor-pointer shadow-main  ${dropdownPadding} focus:outline-none ${
+        className={`w-full border p-[18px] rounded-xl cursor-pointer ${dropdownPadding} focus:outline-none ${
           error ? "border-red-500" : "border-gray-300"
         } hover:border-black transition-all ease-in duration-150 relative`}
         onClick={handleDropdownClick}
       >
         {/* Floating Label */}
         <span
-          className={`absolute left-3 transition-all duration-300 ${
+          className={`absolute left-4 transition-all duration-300 ${
             selectedValue || isOpen
               ? "-top-2.5 text-sub-color bg-white px-1"
               : "top-3 text-sub-color"
