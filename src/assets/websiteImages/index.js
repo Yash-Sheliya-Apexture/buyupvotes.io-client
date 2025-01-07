@@ -3,6 +3,13 @@ import light1 from "../Images/light1.png";
 import light2 from "../Images/light2.png";
 import overlay_1 from "../Images/HeroModule1.png";
 import overlay_3 from "../Images/overlay_3.jpg";
+import plan_1 from "../Images/plan_Icon1.svg";
+import standard_Icon from "../Images/Standard-Icon.svg";
+import true_icon from "../Images/true_icon.svg";
+import standard from "../Images/Standard.png";
+
+
+
 
 
 
@@ -12,7 +19,10 @@ const images = {
   light2,
   overlay_1,
   overlay_3,
-
+  plan_1,
+  true_icon,
+  standard,
+  standard_Icon
 };
 
 export default images;

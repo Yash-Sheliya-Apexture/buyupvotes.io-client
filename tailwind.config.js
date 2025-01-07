@@ -21,7 +21,9 @@ export default {
         redShadow: "#F05252 0px 0px 3px 1px",
         main: "rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;",
         blackshadow: "#000 0px 0px 1px 1px",
-        header:"0 2px 16px 0 #10182814"
+        header:"0 2px 16px 0 #10182814",
+        plan:"0 16px 22px 0 #ececec",
+        plan_tab:"1px solid #d1d5db"
       },
       colors: {
         "main-color": "#FF5700",

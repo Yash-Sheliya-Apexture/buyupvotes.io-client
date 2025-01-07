@@ -904,7 +904,6 @@
 import React, { useState } from "react";
 import { CiCreditCard1 } from "react-icons/ci";
 import { MdCurrencyBitcoin } from "react-icons/md";
-import payment_logos from "../../assets/Images/payment_logo.png";
 import { useNavigate } from "react-router-dom";
 
 const Customize_Payment = () => {
@@ -1033,12 +1032,6 @@ const Customize_Payment = () => {
   return (
     <>
       {/* Tabs Section */}
-      <div className="my-6">
-        <h1 className="text-base font-medium text-center text-para-color lg:text-basic">
-          Customize your{" "}
-          <span className="font-bold text-main-color">payment</span> below :
-        </h1>
-      </div>
       <div className="py-5">
         <div className="flex items-center justify-center">
           <div className="max-w-lg overflow-hidden">
@@ -1186,14 +1179,6 @@ const Customize_Payment = () => {
           </div>
         </div>
 
-        {/* Payment Logos */}
-        <div className="flex items-center justify-center mt-6">
-          <img
-            src={payment_logos}
-            alt="currencyImage"
-            className="h-5 lg:h-10"
-          />
-        </div>
 
         {/* Modal */}
         {isModalOpen && (

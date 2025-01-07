@@ -114,6 +114,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./HeroSection.css";
 import { FaReddit } from "react-icons/fa"; // Import React Icon
+import GradientHeading from "./GradientHeading";
 
 const sliderSettings = {
   dots: false,
@@ -158,12 +159,23 @@ const HeroSection = () => {
           <div className="pt-[100px] z-10 relative">
             <div className="flex justify-center">
               <div className="flex flex-col items-center justify-center max-w-full lg:w-[750px] text-center">
-                <h1 className="mb-6 text-5xl font-semibold tracking-[-3px] md:text-7xl lg:text-[100px] font-BasierSquare">
+                {/* <h1 className="mb-6 text-5xl font-semibold tracking-[-3px] md:text-7xl lg:text-[100px] font-BasierSquare">
                   Boost Your Reddit
                   <span className="px-3 tracking-[-3px] text-transparent bg-clip-text bg-gradient-to-r from-[#ffb087] via-[#ff6518] to-main-color">
                     Upvotes.
                   </span>
-                </h1>
+                </h1> */}
+
+                <GradientHeading
+                  tag="h1"
+                  beforeText="Boost Your Reddit"
+                  gradientText="Upvotes."
+                  beforeSpanClassName="font-bold"
+                  textSize="text-5xl md:text-7xl lg:text-[100px]"
+                  tracking="tracking-[-3px]"
+                  className="mb-10"
+                />
+
                 <p className="mb-8 w- font-BasierSquare text-[#333b52] md:text-lg lg:text-2xl">
                   Gain real engagement and grow your online audience quickly with
                   our proven strategies and tools.
@@ -177,11 +189,11 @@ const HeroSection = () => {
                       </button>
                     </Link>
                   ) : (
-                      <Link to="/signin">
-                        <button className="flex items-center justify-center gap-2 px-10 py-4 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
-                          Get Started Now
-                        </button>
-                      </Link>
+                    <Link to="/signin">
+                      <button className="flex items-center justify-center gap-2 px-10 py-4 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
+                        Get Started Now
+                      </button>
+                    </Link>
                   )}
                 </div>
               </div>

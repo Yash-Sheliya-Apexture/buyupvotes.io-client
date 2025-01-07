@@ -3,7 +3,8 @@ import HeroSection from "../Components/HeroSection";
 import Pricing from "../Components/Pricing";
 import Currency from "../Components/Currency";
 import { FaArrowUp } from "react-icons/fa6";
-import Contact_New from "../Components/Contact_New";
+import Contact from "../Components/homeSection/Contact";
+import WhyChooseUsSection from "../Components/homeSection/WhyChooseUsSection";
 
 const Home_Page = () => {
   const scrollToTop = () => {
@@ -20,7 +21,8 @@ const Home_Page = () => {
         <HeroSection />
         <Pricing />
         <Currency />
-        <Contact_New />
+        <WhyChooseUsSection />
+        <Contact />
         <div className="relative z-10">
           <button
             onClick={scrollToTop}
