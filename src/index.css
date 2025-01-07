@@ -136,10 +136,6 @@ font-face {
   text-decoration: none;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 /* Apply Urbanist font globally */
 body {
   @apply font-InterDisplay;

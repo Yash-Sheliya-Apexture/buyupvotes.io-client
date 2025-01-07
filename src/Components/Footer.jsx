@@ -16,7 +16,7 @@ const Footer = () => {
       }
     >
       <section className="container mx-auto">
-        <div className="pt-10">
+        <div className="py-5">
           <div className="flex flex-col items-center justify-between space-y-8 lg:flex-row lg:items-start lg:space-y-0">
             {/* Left Section - Logo and Socials */}
             <div className="flex flex-col items-center space-y-5 lg:items-start">

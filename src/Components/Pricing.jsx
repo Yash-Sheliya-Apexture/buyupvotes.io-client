@@ -493,7 +493,7 @@ const PricingWithMenu = () => {
                 >
                   <div className="relative plan-header">
                     {plan.isBestValue && (
-                      <div className="text-white bg-main-color py-1 px-4 rounded-md text-sm absolute -top-9 left-[50%] translate-x-[-50%]">
+                      <div className="text-white bg-main-color py-1 px-3 rounded-md text-sm absolute -top-9 left-[50%] translate-x-[-50%]">
                         Best Value
                       </div>
                     )}
@@ -545,7 +545,7 @@ const PricingWithMenu = () => {
                 >
                   <div className="relative plan-header">
                     {pricingData[activeTab].isBestValue && (
-                      <div className="text-white bg-main-color py-1 px-4 rounded-md text-sm absolute -top-9 left-[50%] translate-x-[-50%]">
+                      <div className="text-white bg-main-color py-1 px-3 rounded-md text-sm absolute -top-9 left-[50%] translate-x-[-50%]">
                         Best Value
                       </div>
                     )}
