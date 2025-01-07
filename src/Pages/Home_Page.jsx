@@ -2,7 +2,6 @@ import React from "react";
 import HeroSection from "../Components/HeroSection";
 import Pricing from "../Components/Pricing";
 import Currency from "../Components/Currency";
-import Contact from "../Components/Contact";
 import { FaArrowUp } from "react-icons/fa6";
 import Contact_New from "../Components/Contact_New";
 

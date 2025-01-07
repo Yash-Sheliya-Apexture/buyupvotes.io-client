@@ -22,9 +22,7 @@ const FundPricing = () => {
           Contact us and we'll get back to you as soon as possible.
         </p>
         <div className="my-6">
-          <Button to="/dashboard/contactus">
-            Contact Us <FaEnvelope className="size-5" />
-          </Button>
+          <Button to="/dashboard/contactus">Contact Us</Button>
         </div>
       </div>
     </div>

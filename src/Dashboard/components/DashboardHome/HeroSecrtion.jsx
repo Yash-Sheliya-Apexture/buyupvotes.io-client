@@ -69,13 +69,7 @@ const HeroSection = () => {
                 boosting your Reddit experience by placing an order!
               </p>
               <div className="flex justify-center lg:justify-start">
-                {loading ? (
-                  <div>
-                    <FaSpinner className="text-lg animate-spin" />
-                  </div>
-                ) : (
-                  <Button to="/dashboard/upvoteorder">Order Now</Button>
-                )}
+                <Button to="/dashboard/upvoteorder">Order Now</Button>
               </div>
             </div>
           </div>

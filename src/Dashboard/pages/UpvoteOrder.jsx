@@ -276,7 +276,6 @@ const UpvoteOrder = () => {
               ) : (
                 <Button type="submit" onClick={handleSubmit}>
                   Submit Order
-                  <FaCheckCircle className="size-4" />
                 </Button>
               )}
             </div>

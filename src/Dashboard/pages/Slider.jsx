@@ -61,20 +61,20 @@ export function Slider() {
                 </div>
               </div>
               <span
-                className="overflow-hidden relative align-bottom inline-block w-full h-40 bg-[#FDE6D9]"
+                className="overflow-hidden relative align-bottom inline-block w-full h-44"
                 style={{
                   backgroundImage: `url(${blog.coverImage})`,
-                  backgroundSize: "contain", // Ensures the logo fits within the container
+                  backgroundSize: "cover", // Ensures the logo fits within the container
                   backgroundRepeat: "no-repeat", // Prevents the image from repeating
                   backgroundPosition: "center", // Centers the logo
                 }}
               ></span>
             </div>
-            <div className="px-4 mt-8 text-start">
-              <div className="space-y-1 text-xs">
+            <div className="px-6  mt-8 text-start">
+              <div className="space-y-1.5 text-small font-medium">
                 <h1 className="text-sub-color">{blog.author}</h1>
-                <p className="text-light-gray font-medium">{blog.date}</p>
-                <p className="text-sub-color leading-6">{blog.title}</p>
+                <p className="text-light-gray font-normal">{blog.date}</p>
+                <p className="text-sub-color">{blog.title}</p>
               </div>
             </div>
             <div className="flex items-center justify-end p-8">

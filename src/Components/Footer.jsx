@@ -1,15 +1,19 @@
 import React from "react";
 import logo from "../assets/Images/Logo.png";
 import { FaWhatsapp } from "react-icons/fa";
-
 import { FaTelegram } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  const footerBgColor = isHomePage ? "#ffcbae" : "#fff";
+  const borderTopClass = !isHomePage ? "border-t border-gray-200" : ""; // Added border class
+
   return (
-    <footer className="py-5 border-t border-slate-300/50" id="Footer">
+    <footer className={`bg-[${footerBgColor}] ${borderTopClass}`} id="Footer">
       <section className="container mx-auto">
-        <div className="py-2 bg-white">
+        <div className="pt-10">
           <div className="flex flex-col items-center justify-between space-y-8 lg:flex-row lg:items-start lg:space-y-0">
             {/* Left Section - Logo and Socials */}
             <div className="flex flex-col items-center space-y-5 lg:items-start">

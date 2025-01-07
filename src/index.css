@@ -122,7 +122,13 @@ font-face {
   src: url("./assets/fonts/InterDisplay-Black.woff2") format("woff2");
 }
 
-
+@font-face {
+  font-family: "BasierSquare";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./assets/fonts/BasierSquareRegular.woff") format("woff");
+}
 * {
   margin: 0;
   padding: 0;
@@ -333,7 +339,7 @@ textarea:focus {
 /* Button Animation */
 .mybtn {
   position: relative;
-  padding: 6px 30px;
+  padding: 6px 35px;
   border-radius: 20px;
   border: 1px solid #ff5600;
   font-size: 16px;
@@ -474,6 +480,15 @@ textarea:focus {
 }
 
 @media (max-width: 768px) {
+  .contact-main .contact .sub-content {
+    flex-wrap: wrap;
+    border-radius: 1.25rem;
+  }
+
+  .contact-main .contact .sub-content .right img {
+    border-radius: 1rem;
+  }
+
   /* Tabs Section - Horizontal Scrolling */
   .tabs-scrollable {
     overflow-x: auto;
@@ -608,3 +623,30 @@ textarea:focus {
 .animate-slide-out {
   animation: slideOut 0.5s ease-out forwards;
 }
+
+.contact::before {
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
+  height: 20%;
+  content: "";
+  position: absolute;
+  background-color: #ffcbae;
+}
+
+.contact .sub-content {
+  z-index: 2;
+  display: flex;
+  position: relative;
+  border-radius: 2.25rem;
+  background-color: #f2eee3;
+}
+
+/* faq.css */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+

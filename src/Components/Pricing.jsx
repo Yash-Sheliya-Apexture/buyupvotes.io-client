@@ -83,7 +83,7 @@ const PricingWithMenu = () => {
               className="lg:text-basic text-medium text-main-color lg:pb-8 pb-2
          text-center font-medium animate__animated animate__fadeInDown"
             >
-              Choose the perfect tier for your needs
+              Choose the perfect tier for your n  eeds
             </p>
 
             {/* Large Screen Layout */}
