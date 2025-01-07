@@ -252,12 +252,10 @@
 //             </div>
 //           </div>
 
-
 //           {/* Large Screen Layout */}
 //           {/* <div className="hidden lg:block">
 //             <div className="grid grid-cols-1 gap-6 mx-auto border max-w-7xl lg:grid-cols-5 border-gray-300/50 rounded-small">
 //               {pricingPlans.map((plan) => (
-
 
 //                 <div
 //                   key={plan.id}
@@ -369,22 +367,26 @@
 
 // export default PricingWithMenu;
 
-
-
-
 import React, { useState } from "react";
 import GradientHeading from "./GradientHeading";
 import images from "../assets/websiteImages/index";
+import { FaRegSmile, FaPaperPlane, FaRocket } from "react-icons/fa";
+
 
 const PricingWithMenu = () => {
   const pricingData = [
     {
-      icon: images.plan_1,
+      icon: images.plan_1,  
       title: "Starter",
       price: "$10",
       pricePerUpvote: "$0.05/upvote",
       discount: "10% discount",
-      features: ["Post upvotes", "Post downvotes", "Comment upvotes", "Comment downvotes"],
+      features: [
+        "Post upvotes",
+        "Post downvotes",
+        "Comment upvotes",
+        "Comment downvotes",
+      ],
       isBestValue: false,
     },
     {
@@ -393,7 +395,12 @@ const PricingWithMenu = () => {
       price: "$100",
       pricePerUpvote: "$0.03/upvote",
       discount: "14% discount",
-      features: ["Post upvotes", "Post downvotes", "Comment upvotes", "Comment downvotes"],
+      features: [
+        "Post upvotes",
+        "Post downvotes",
+        "Comment upvotes",
+        "Comment downvotes",
+      ],
       isBestValue: false,
     },
     {
@@ -402,7 +409,12 @@ const PricingWithMenu = () => {
       price: "$250",
       pricePerUpvote: "$0.025/upvote",
       discount: "50% discount",
-      features: ["Post upvotes", "Post downvotes", "Comment upvotes", "Comment downvotes"],
+      features: [
+        "Post upvotes",
+        "Post downvotes",
+        "Comment upvotes",
+        "Comment downvotes",
+      ],
       isBestValue: true,
     },
     {
@@ -411,7 +423,12 @@ const PricingWithMenu = () => {
       price: "$500",
       pricePerUpvote: "$0.02/upvote",
       discount: "60% discount",
-      features: ["Post upvotes", "Post downvotes", "Comment upvotes", "Comment downvotes"],
+      features: [
+        "Post upvotes",
+        "Post downvotes",
+        "Comment upvotes",
+        "Comment downvotes",
+      ],
       isBestValue: false,
     },
     {
@@ -420,7 +437,12 @@ const PricingWithMenu = () => {
       price: "$750",
       pricePerUpvote: "$0.015/upvote",
       discount: "70% discount",
-      features: ["Post upvotes", "Post downvotes", "Comment upvotes", "Comment downvotes"],
+      features: [
+        "Post upvotes",
+        "Post downvotes",
+        "Comment upvotes",
+        "Comment downvotes",
+      ],
       isBestValue: false,
     },
   ];
@@ -429,15 +451,15 @@ const PricingWithMenu = () => {
 
   return (
     <>
-      <section className="bg-white lg:pt-16">
+      <section className="bg-white pt-16">
         <div className="container mx-auto">
           <GradientHeading
             tag="h3"
             beforeText="Choose the perfect plan"
             gradientText="for your needs."
             beforeSpanClassName="font-bold"
-            textSize="text-5xl md:text-7xl lg:text-4xl"
-            className="mb-10 text-center"
+            textSize="text-3xl lg:text-5xl md:text-4xl"
+            className="mb-10 lg:text-center"
           />
 
           {/* Tab Navigation (Hidden on larger screens) */}
@@ -447,8 +469,10 @@ const PricingWithMenu = () => {
                 <button
                   key={index}
                   onClick={() => setActiveTab(index)}
-                   className={`py-2 px-4 border rounded-lg whitespace-nowrap ${
-                    activeTab === index ? "bg-main-color text-white border-main-color" : "border-gray-300 text-gray-700 hover:border-gray-400"
+                  className={`py-2 px-4 border rounded-lg whitespace-nowrap ${
+                    activeTab === index
+                      ? "bg-main-color text-white border-main-color"
+                      : "border-gray-300 text-gray-700 hover:border-gray-400"
                   }`}
                 >
                   {plan.title}
@@ -458,19 +482,39 @@ const PricingWithMenu = () => {
           </div>
 
           <div className="mb-10 plan-wrap">
-              {/* Grid of cards for large screens */}
-              <div className="hidden w-full grid-cols-5 gap-4 xl:inline-grid">
-                {pricingData.map((plan, index) => (
-                 <div key={index} className={`p-5 border ${plan.isBestValue ? 'border-main-color' : 'border-gray-300'} rounded-2xl shadow-plan`}>
+            {/* Grid of cards for large screens */}
+            <div className="hidden w-full grid-cols-5 gap-4 xl:inline-grid">
+              {pricingData.map((plan, index) => (
+                <div
+                  key={index}
+                  className={`p-5 border ${
+                    plan.isBestValue ? "border-main-color" : "border-gray-300"
+                  } rounded-2xl shadow-plan`}
+                >
                   <div className="relative plan-header">
-                    {plan.isBestValue && <div className="text-white bg-main-color py-1 px-3 rounded-md text-sm absolute -top-9 left-[50%] translate-x-[-50%]">Best Value</div>}
-                    <img src={plan.icon} alt={plan.title} className="rounded-lg w-9 h-9" />
+                    {plan.isBestValue && (
+                      <div className="text-white bg-main-color py-1 px-3 rounded-md text-sm absolute -top-9 left-[50%] translate-x-[-50%]">
+                        Best Value
+                      </div>
+                    )}
+                    <img
+                      src={plan.icon}
+                      alt={plan.title}
+                      className="rounded-lg w-9 h-9"
+                    />
                     <div className="mt-4 space-y-2">
-                      <h6 className="font-normal text-light-gray">{plan.title}</h6>
+                      <h6 className="font-normal text-light-gray">
+                        {plan.title}
+                      </h6>
                       <span className="block mt-3 text-3xl font-semibold font-BasierSquare">
-                        {plan.price}+ <span className="text-sm font-normal font-InterDisplay text-light-gray">{plan.pricePerUpvote}</span>
+                        {plan.price}+{" "}
+                        <span className="text-sm font-normal font-InterDisplay text-light-gray">
+                          {plan.pricePerUpvote}
+                        </span>
                       </span>
-                      <p className="text-xs font-medium text-main-color">{plan.discount}</p>
+                      <p className="text-xs font-medium text-main-color">
+                        {plan.discount}
+                      </p>
                     </div>
                   </div>
                   <hr className="my-2 border-t border-t-gray-300" />
@@ -478,7 +522,9 @@ const PricingWithMenu = () => {
                     <ul>
                       {plan.features.map((feature, i) => (
                         <li key={i} className="flex p-2">
-                          <span className="mt-[2px] mr-2 text-green-500 text-sm">✔</span>
+                          <span className="mt-[2px] mr-2 text-green-500 text-sm">
+                            ✔
+                          </span>
                           <span className="text-sm">{feature}</span>
                         </li>
                       ))}
@@ -486,36 +532,59 @@ const PricingWithMenu = () => {
                   </div>
                 </div>
               ))}
-              </div>
-             {/*  render single card for tablet/small screen */}
-              <div className="xl:hidden">
-                {
-                    <div className={`p-5 border ${pricingData[activeTab].isBestValue ? 'border-main-color' : 'border-gray-300'} rounded-2xl shadow-plan`}>
-                    <div className="relative plan-header">
-                      {pricingData[activeTab].isBestValue && <div className="text-white bg-main-color py-1 px-3 rounded-md text-sm absolute -top-9 left-[50%] translate-x-[-50%]">Best Value</div>}
-                      <img src={pricingData[activeTab].icon} alt={pricingData[activeTab].title} className="rounded-lg w-9 h-9" />
-                      <div className="mt-4 space-y-2">
-                        <h6 className="font-normal text-light-gray">{pricingData[activeTab].title}</h6>
-                        <span className="block mt-3 text-3xl font-semibold font-BasierSquare">
-                          {pricingData[activeTab].price}+ <span className="text-sm font-normal font-InterDisplay text-light-gray">{pricingData[activeTab].pricePerUpvote}</span>
-                        </span>
-                        <p className="text-xs font-medium text-main-color">{pricingData[activeTab].discount}</p>
+            </div>
+            {/*  render single card for tablet/small screen */}
+            <div className="xl:hidden">
+              {
+                <div
+                  className={`p-5 border ${
+                    pricingData[activeTab].isBestValue
+                      ? "border-main-color"
+                      : "border-gray-300"
+                  } rounded-2xl shadow-plan`}
+                >
+                  <div className="relative plan-header">
+                    {pricingData[activeTab].isBestValue && (
+                      <div className="text-white bg-main-color py-1 px-3 rounded-md text-sm absolute -top-9 left-[50%] translate-x-[-50%]">
+                        Best Value
                       </div>
-                    </div>
-                    <hr className="my-2 border-t border-t-gray-300" />
-                    <div className="plan-details">
-                      <ul>
-                        {pricingData[activeTab].features.map((feature, i) => (
-                          <li key={i} className="flex p-2">
-                            <span className="mt-[2px] mr-2 text-green-500 text-sm">✔</span>
-                            <span className="text-sm">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    )}
+                    <img
+                      src={pricingData[activeTab].icon}
+                      alt={pricingData[activeTab].title}
+                      className="rounded-lg w-9 h-9"
+                    />
+                    <div className="mt-4 space-y-2">
+                      <h6 className="font-normal text-light-gray">
+                        {pricingData[activeTab].title}
+                      </h6>
+                      <span className="block mt-3 text-3xl font-semibold font-BasierSquare">
+                        {pricingData[activeTab].price}+{" "}
+                        <span className="text-sm font-normal font-InterDisplay text-light-gray">
+                          {pricingData[activeTab].pricePerUpvote}
+                        </span>
+                      </span>
+                      <p className="text-xs font-medium text-main-color">
+                        {pricingData[activeTab].discount}
+                      </p>
                     </div>
                   </div>
-                }
-              </div>
+                  <hr className="my-2 border-t border-t-gray-300" />
+                  <div className="plan-details">
+                    <ul>
+                      {pricingData[activeTab].features.map((feature, i) => (
+                        <li key={i} className="flex p-2">
+                          <span className="mt-[2px] mr-2 text-green-500 text-sm">
+                            ✔
+                          </span>
+                          <span className="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              }
+            </div>
           </div>
         </div>
       </section>

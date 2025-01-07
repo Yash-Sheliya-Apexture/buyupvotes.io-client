@@ -9,10 +9,6 @@ import true_icon from "../Images/true_icon.svg";
 import standard from "../Images/Standard.png";
 
 
-
-
-
-
 // Export images as an object
 const images = {
   light1,

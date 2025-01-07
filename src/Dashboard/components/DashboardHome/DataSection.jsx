@@ -99,8 +99,6 @@
 
 // export default DataSection;
 
-
-
 // import React, { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 
@@ -202,9 +200,6 @@
 
 // export default DataSection;
 
-
-
-
 // import React, { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 // import axios from 'axios';
@@ -275,7 +270,6 @@
 
 //          const voteBalance = (totalTokens - totalCompletedVotes);
 
-
 //        const data = [
 //           {
 //             id: 1,
@@ -317,7 +311,6 @@
 //               icon: <FiCode />,
 //           },
 //         ];
-
 
 //         setDataList(data);
 //       } catch (error) {
@@ -384,11 +377,6 @@
 
 // export default DataSection;
 
-
-
-
-
-
 // import React, { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 // import axios from 'axios';
@@ -423,8 +411,6 @@
 //     fetchUserData();
 //   }, [API_BASE_URL]);
 
-
-
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       setLoading(true);
@@ -451,10 +437,8 @@
 //                    })
 //               ])
 
-
 //         let totalCompletedVotes = 0;
 //         let totalTokens = 0;
-
 
 //       if (Array.isArray(ordersResponse.data)) {
 //             const allOrders = ordersResponse.data;
@@ -567,7 +551,6 @@
 //        ]);
 //        }
 
-
 //       } catch (error) {
 //         console.error("Error fetching data:", error);
 //       } finally {
@@ -581,13 +564,11 @@
 //     if (link) navigate(`/${link}`);
 //   };
 
-
 //     const renderSkeletons = () => (
 //     Array.from({ length: 6 }).map((_, index) => (
 //         <SkeletonDataSection key={index} />
 //     ))
 //     )
-
 
 //   return (
 //     <div className="w-full py-5 lg:w-full">
@@ -817,11 +798,16 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaWallet, FaChartLine, FaBolt, FaPlusCircle } from "react-icons/fa";
-import { SiReddit } from "react-icons/si";
-import { AiOutlineCode } from "react-icons/ai";
+import { FaWallet } from "react-icons/fa";
 import axios from "axios";
 import SkeletonDataSection from "./SkeletonDataSection";
+import { FaClock } from "react-icons/fa6";
+import { FaSquarePlus } from "react-icons/fa6";
+import { FaReddit } from "react-icons/fa6";
+import { FaFileCode } from "react-icons/fa6";
+import { BsCartCheckFill } from "react-icons/bs";
+
+
 
 const data = [
   {
@@ -836,32 +822,32 @@ const data = [
     remainingVotes: 0,
     label: "Total Orders",
     link: "dashboard/upvoteorder",
-    icon: <FaChartLine />,
+    icon: <BsCartCheckFill />,
   },
   {
     id: 3,
     remainingVotes: 0,
     label: "Order in Progress",
     link: "dashboard/upvoteorder",
-    icon: <FaBolt />,
+    icon: <FaClock  />,
   },
   {
     id: 4,
     label: "New Order",
     link: "dashboard/upvoteorder",
-    icon: <FaPlusCircle />,
+    icon: <FaSquarePlus />,
   },
   {
     id: 5,
     label: "Buy Reddit Accounts",
     link: "dashboard/account",
-    icon: <SiReddit />,
+    icon: <FaReddit />,
   },
   {
     id: 6,
     label: "API Documentation",
     link: "",
-    icon: <AiOutlineCode />,
+    icon: <FaFileCode />,
   },
 ];
 

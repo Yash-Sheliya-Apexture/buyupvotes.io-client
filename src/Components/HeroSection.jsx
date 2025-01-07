@@ -152,7 +152,11 @@ const HeroSection = () => {
     <section className="relative -mt-24 overflow-hidden">
       <div className="pt-20 pb-14">
         <div className="absolute inset-0">
-          <img src={images.overlay_1} className="object-cover w-full min-w-full min-h-full" alt="" />
+          <img
+            src={images.overlay_1}
+            className="object-cover w-full min-w-full min-h-full"
+            alt=""
+          />
         </div>
         {/* Hero Content */}
         <div className="container">
@@ -177,8 +181,8 @@ const HeroSection = () => {
                 />
 
                 <p className="mb-8 w- font-BasierSquare text-[#333b52] md:text-lg lg:text-2xl">
-                  Gain real engagement and grow your online audience quickly with
-                  our proven strategies and tools.
+                  Gain real engagement and grow your online audience quickly
+                  with our proven strategies and tools.
                 </p>
 
                 <div className="flex flex-row items-center justify-center gap-5 lg:justify-start">
@@ -206,7 +210,11 @@ const HeroSection = () => {
               {listItems.map((item, index) => (
                 <div key={index}>
                   <div className="flex gap-3 text-3xl font-BasierSquare flex-nowrap">
-                    {typeof item === 'string' ? (<li className="list-none">{item}</li>) : item}
+                    {typeof item === "string" ? (
+                      <li className="list-none">{item}</li>
+                    ) : (
+                      item
+                    )}
                   </div>
                 </div>
               ))}

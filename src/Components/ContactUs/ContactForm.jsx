@@ -323,9 +323,6 @@
 
 // export default ContactForm;
 
-
-
-
 import React, { useState, useEffect } from "react";
 import Button from "../../Dashboard/components/Button";
 import axios from "axios";
@@ -532,9 +529,10 @@ function ContactForm() {
   };
 
   return (
-    <div className="w-full max-w-2xl">
-      <h2 className="my-5 text-base font-bold text-center text-sub-color">
-        Or send us an email below:
+    <div className="w-full max-w-2xl p-4">
+      <h2 className="mb-6 text-base font-bold text-center text-sub-color">
+        We'd <span className="text-main-color font-bold"> Love </span> to Hear
+        From You!
       </h2>
       <form className="space-y-3" onSubmit={handleSubmit}>
         {/* Display general error message here */}
@@ -574,9 +572,7 @@ function ContactForm() {
           disabled={isUserDataFetched}
           isEditing={!isUserDataFetched}
           className={`block w-full ${
-            !isUserDataFetched
-              ? "opacity-100"
-              : "opacity-50 "
+            !isUserDataFetched ? "opacity-100" : "opacity-50 "
           }`}
         />
         <InputField
@@ -590,9 +586,7 @@ function ContactForm() {
           disabled={isUserDataFetched}
           isEditing={!isUserDataFetched}
           className={`block w-full ${
-            !isUserDataFetched
-              ? "opacity-100"
-              : "opacity-50 "
+            !isUserDataFetched ? "opacity-100" : "opacity-50 "
           }`}
         />
         <InputField
@@ -603,16 +597,16 @@ function ContactForm() {
           onBlur={handleBlur}
           error={errors.subject}
         />
-         <InputField
+        <InputField
           name="message"
           placeholder="Your message"
           value={formData.message}
           onChange={handleChange}
           onBlur={handleBlur}
           error={errors.message}
-           rows="8"
-           cols="20"
-           as="textarea"
+          rows="8"
+          cols="20"
+          as="textarea"
         />
         {/* Submit Button */}
         <div className="text-center">
@@ -621,7 +615,7 @@ function ContactForm() {
               <FaSpinner className="text-lg animate-spin" />
             </div>
           ) : (
-            <Button type="submit">Send Message</Button>
+            <Button type="submit">Send Message </Button>
           )}
         </div>
       </form>
