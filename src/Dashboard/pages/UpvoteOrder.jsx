@@ -1232,9 +1232,9 @@ const UpvoteOrder = () => {
                   <FaSpinner className="text-lg animate-spin" />
                 </div>
               ) : (
-                <Button type="submit" disabled={isSubmitting}>
+                <button type="submit" disabled={isSubmitting} className="inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600">
                   Submit Order
-                </Button>
+                </button>
               )}
             </div>
           </form>

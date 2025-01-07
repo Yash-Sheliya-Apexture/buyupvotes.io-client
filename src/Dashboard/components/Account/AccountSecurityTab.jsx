@@ -140,7 +140,7 @@ const AccountSecurityTab = ({
             onChange={(e) => setOldPassword(e.target.value)}
           />
           <span
-            className="absolute text-sm cursor-pointer right-3 top-3"
+            className="absolute text-sm cursor-pointer right-3 top-[50%] translate-y-[-50%]"
             onClick={toggleAllPasswordVisibility}
           >
             {showPasswords.all ? (
@@ -161,7 +161,7 @@ const AccountSecurityTab = ({
             onChange={(e) => setNewPassword(e.target.value)}
           />
           <span
-            className="absolute text-sm cursor-pointer right-3 top-3"
+            className="absolute text-sm cursor-pointer right-3 top-[50%] translate-y-[-50%]"
             onClick={toggleAllPasswordVisibility}
           >
             {showPasswords.all ? (
@@ -182,7 +182,7 @@ const AccountSecurityTab = ({
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <span
-            className="absolute text-sm cursor-pointer right-3 top-3"
+            className="absolute text-sm cursor-pointer right-3 top-[50%] translate-y-[-50%]"
             onClick={toggleAllPasswordVisibility}
           >
             {showPasswords.all ? (
