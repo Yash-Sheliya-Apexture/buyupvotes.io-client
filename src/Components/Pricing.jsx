@@ -450,15 +450,15 @@ const PricingWithMenu = () => {
 
   return (
     <>
-      <section className="bg-white py-5">
+      <section className="bg-white">
         <div className="container mx-auto">
           <GradientHeading
             tag="h3"
             beforeText="Choose the perfect plan"
             gradientText="for your needs."
             beforeSpanClassName="font-bold"
-            textSize="md:text-large text-basic lg:text-[40px]"
-            className="mb-10 text-center"
+            textSize="text-3xl lg:text-[40px]"
+            className="lg:pb-14 lg:mt-4 py-6 text-center" 
           />
 
           {/* Tab Navigation (Hidden on larger screens) */}

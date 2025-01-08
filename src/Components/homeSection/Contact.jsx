@@ -271,9 +271,8 @@ const Contact = () => {
     <div className="contact-main mt-5">
       <section className="relative max-w-full p-0 contact">
         <div className="w-full mx-auto container max-w-[1360px]">
-          
           <div className="sub-content grid md:grid-cols-2">
-            <div className="left w-full p-4 lg:px-10 bg-[#FFEEE5] lg:rounded-small round lg:-mr-10 flex items-center z-10">
+            <div className="left w-full p-4 lg:px-10 bg-white border border-gray-300 lg:rounded-small round lg:-mr-10 flex items-center z-10">
               <div className="space-y-5">
                 {/* Leftside */}
                 <GradientHeading

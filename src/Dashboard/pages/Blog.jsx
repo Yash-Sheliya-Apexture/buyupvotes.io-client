@@ -127,13 +127,13 @@ const Blog = () => {
           : sortedBlogs.map((blog, index) => (
               <Link
                 key={blog.id}
-                to={`${sanitizeTitle(blog.title)}`}
-                className={`bg-[#fde5d9] text-sub-color relative shadow-main rounded-small z-0 cursor-pointer overflow-hidden ${
+                to={`/post/${sanitizeTitle(blog.title)}`}
+                className={`bg-[#fff] text-sub-color border border-gray-300 relative shadow-main rounded-small z-0 cursor-pointer overflow-hidden ${
                   index === 0 ? "lg:w-[550px] w-full z-10" : "flex-0 md:flex-1"
                 }`}
               >
                 <div className="relative">
-                  <div className="absolute z-10 w-20 text-[#fde5d9] h-9 left-2 -bottom-4">
+                  <div className="absolute z-10 w-20 text-[#fff] h-9 left-2 -bottom-4">
                     <svg
                       fill="none"
                       viewBox="0 0 144 62"

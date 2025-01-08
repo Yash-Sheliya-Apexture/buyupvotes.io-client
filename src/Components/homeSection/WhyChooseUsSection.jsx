@@ -8,18 +8,18 @@ import { IoEarth } from "react-icons/io5";
 
 const WhyChooseUsSection = () => {
   return (
-    <section className="py-5 bg-white">
+    <section className="bg-white">
       <div className="container mx-auto">
         {/* Top Section */}
-        <div className="grid grid-cols-1 gap-8 mb-10 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 lg:py-10 py-5 md:grid-cols-2">
           {/* Left Side */}
           <div className="lg:max-w-md">
             <GradientHeading
               tag="h3"
               beforeText="Boost your online presence "
-              gradientText="with ease!"
+              gradientText="with to ease!"
               beforeSpanClassName="font-bold"
-              textSize="md:text-large text-base lg:text-[40px] lg:leading-[45px]"
+              textSize="md:text-large text-basic lg:text-[40px] lg:leading-[45px]"
               className="text-center md:text-left"
             />
           </div>
@@ -40,63 +40,70 @@ const WhyChooseUsSection = () => {
           </div>
         </div>
 
-        {/* Cards Section */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Card 1 */}
-          <div className="lg:p-6 p-5 rounded-small bg-[#ffddcc]">
-            <div className="flex items-center mb-4">
-              <span className="inline-flex items-center justify-center w-8 h-8 text-white rounded-md bg-main-color">
-                <FaBolt className="size-5" />
-              </span>
-              <h4 className="ml-3 text-medium md:text-base font-bold text-para-color">
-                Instant Results
-              </h4>
+        <div className="lg:py-10 py-5">
+          {/* Cards Section */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-min">
+            {/* Card 1 */}
+            <div className="lg:p-6 p-5 rounded-lg bg-[#ffddcc] flex flex-col">
+              <div className="flex items-center mb-4">
+                <span className="inline-flex items-center justify-center p-2 text-white rounded-lg bg-main-color">
+                  <FaBolt className="size-5" />
+                </span>
+                <h4 className="ml-3 text-medium md:text-base font-bold text-para-color">
+                  Instant Results
+                </h4>
+              </div>
+              <p className="text-para-color font-medium text-small">
+                With our instant results, you'll be able to quickly analyze
+                data, track your progress, and make changes in real-time for
+                optimal performance.
+              </p>
             </div>
-            <p className="text-para-color font-medium text-small">
-              Watch your post rise in popularity within minutes.
-            </p>
-          </div>
-          {/* Card 2 */}
-          <div className="lg:p-6 p-5 rounded-lg bg-[#ffddcc]">
-            <div className="flex items-center mb-4">
-              <span className="inline-flex items-center justify-center w-8 h-8 text-white rounded-md bg-main-color">
-                <FaKey className="size-5" />
-              </span>
-              <h4 className="ml-3 text-medium md:text-base font-bold text-para-color">
-                Safe & Secure
-              </h4>
+            {/* Card 2 */}
+            <div className="lg:p-6 p-5 rounded-lg bg-[#ffddcc] flex flex-col">
+              <div className="flex items-center mb-4">
+                <span className="inline-flex items-center justify-center p-2 text-white rounded-lg bg-main-color">
+                  <FaKey className="size-5" />
+                </span>
+                <h4 className="ml-3 text-medium md:text-base font-bold text-para-color">
+                  Safe & Secure
+                </h4>
+              </div>
+              <p className="text-para-color font-medium text-small">
+                We continuously monitor and update our security measures to
+                ensure the highest level of protection.
+              </p>
             </div>
-            <p className="text-para-color font-medium text-small">
-              We use genuine accounts and avoid bots to keep your profile safe.
-            </p>
-          </div>
-          {/* Card 3 */}
-          <div className="lg:p-6 p-5 rounded-lg bg-[#ffddcc]">
-            <div className="flex items-center mb-4">
-              <span className="inline-flex items-center justify-center w-8 h-8 text-white rounded-md bg-main-color">
-                <FaDollarSign className="size-5" />
-              </span>
-              <h4 className="ml-3 text-medium md:text-base font-bold text-para-color">
-                Affordable Plans
-              </h4>
+            {/* Card 3 */}
+            <div className="lg:p-6 p-5 rounded-lg bg-[#ffddcc] flex flex-col">
+              <div className="flex items-center mb-4">
+                <span className="inline-flex items-center justify-center p-2 text-white rounded-lg bg-main-color">
+                  <FaDollarSign className="size-5" />
+                </span>
+                <h4 className="ml-3 text-medium md:text-base font-bold text-para-color">
+                  Affordable Plans
+                </h4>
+              </div>
+              <p className="text-para-color font-medium text-small">
+                Choose from a variety of plans with different feature sets to
+                meet your needs, all at affordable price points
+              </p>
             </div>
-            <p className="text-para-color font-medium text-small">
-              Flexible pricing tailored to your needs, starting as low as $5.
-            </p>
-          </div>
-          {/* Card 4 */}
-          <div className="lg:p-6 p-5 rounded-lg bg-[#ffddcc]">
-            <div className="flex items-center mb-4">
-              <span className="inline-flex items-center justify-center w-8 h-8 text-white rounded-md bg-main-color">
-                <IoEarth className="size-6" />
-              </span>
-              <h4 className="ml-3 text-medium md:text-base font-bold text-para-color">
-                Global Reach
-              </h4>
+            {/* Card 4 */}
+            <div className="lg:p-6 p-5 rounded-lg bg-[#ffddcc] flex flex-col">
+              <div className="flex items-center mb-4">
+                <span className="inline-flex items-center justify-center p-2 text-white rounded-lg bg-main-color">
+                  <IoEarth className="size-6" />
+                </span>
+                <h4 className="ml-3 text-medium md:text-base font-bold text-para-color">
+                  Global Reach
+                </h4>
+              </div>
+              <p className="text-para-color font-medium text-small">
+                Our platform is designed to provide you with seamless access to
+                a global audience, helping you expand your reach beyond borders
+              </p>
             </div>
-            <p className="text-para-color font-medium text-small">
-              Target specific platforms or regions to maximize impact.
-            </p>
           </div>
         </div>
       </div>
