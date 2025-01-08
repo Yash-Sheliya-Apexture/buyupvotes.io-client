@@ -110,20 +110,20 @@ const AccountGeneralTab = ({
   isSaving,
 }) => {
   return (
-    <div className="w-full space-y-4">
-      <div>
+    <div className="lg:w-1/2 w-full space-y-4">
+      <div className="relative">
         <InputField
           type="email"
           name="email"
           value={userData.email || ""}
           disabled
-          className="block w-full opacity-50 lg:w-1/2"
+          className="block text-gray-400"
           placeholder="Your Email"
            isEditing={false}
         />
       </div>
       <div className="flex flex-col space-y-4 md:flex-row md:space-x-2 md:space-y-0">
-        <div className="w-full lg:w-1/4 md:w-1/2">
+        <div className="w-full lg:w-1/2">
           <InputField
             type="text"
             name="firstName"
@@ -134,7 +134,7 @@ const AccountGeneralTab = ({
             className={`block w-full ${
               isEditing
                 ? "opacity-100"
-                : "opacity-50 "
+                : "text-gray-400"
             }`}
              isEditing={isEditing}
           />
@@ -144,7 +144,7 @@ const AccountGeneralTab = ({
             </p>
           )}
         </div>
-        <div className="w-full lg:w-1/4 md:w-1/2">
+        <div className="w-full lg:w-1/2">
           <InputField
             type="text"
             name="lastName"
@@ -155,7 +155,7 @@ const AccountGeneralTab = ({
             className={`block w-full ${
               isEditing
                 ? "opacity-100"
-                : "opacity-50"
+                : "text-gray-400"
             }`}
              isEditing={isEditing}
           />
@@ -166,20 +166,21 @@ const AccountGeneralTab = ({
           )}
         </div>
       </div>
-      <div className="flex justify-end w-full pt-4 space-x-4 lg:w-1/2">
+      <div className="flex justify-end w-full pt-4 space-x-4">
         {!isEditing ? (
-          <Button onClick={handleEditClick}>Edit</Button>
+
+          <button onClick={handleEditClick} className="inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600">Edit</button>
         ) : (
           <>
             <button
-              className="px-6 py-1 font-semibold border border-gray-300 rounded-full text-sub-color"
+              className="flex items-center justify-center gap-2 px-8 py-2 text-lg font-medium transition-colors duration-300 bg-white border border-gray-300 rounded-lg text-balck hover:bg-gray-100 hover:border-gray-400"
               onClick={handleCancelClick}
             >
               Cancel
             </button>
             <button
               onClick={handleSaveChanges}
-              className={`px-6 py-1 border text-green-500 border-green-500 hover:shadow-newShadow transition-all ease-in duration-150 font-semibold rounded-full ${
+              className={`inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-green-500 hover:bg-green-600 border-green-500 hover:border-green-600 ${
                 isSaving ? "opacity-100" : ""
               }`}
               disabled={isSaving}

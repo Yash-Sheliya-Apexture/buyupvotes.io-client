@@ -56,7 +56,7 @@ const OrderTableDesign = ({ loading, tableData, formattedDate, paginatedData }) 
                     <td className="px-6 py-3 text-center">{item.quantity}</td>
                     <td className="px-6 py-3 text-center">
                       <span
-                        className={`px-3 py-1.5 rounded-full text-xs font-bold tracking-wide inline-block ${item.status === "Completed"
+                        className={`px-3 py-1 rounded-full text-xs tracking-wide inline-block ${item.status === "Completed"
                           ? "bg-green-500 text-white"
                           : item.status === "Pending"
                             ? "bg-yellow-500 text-white"

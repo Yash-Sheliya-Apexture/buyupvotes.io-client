@@ -22,7 +22,7 @@ export default {
         main: "rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;",
         blackshadow: "#000 0px 0px 1px 1px",
         header:"0 2px 16px 0 #10182814",
-        plan:"0 16px 22px 0 #ececec",
+        plan:"0 10px 12px 0 #ececec99",
         plan_tab:"1px solid #d1d5db"
       },
       colors: {

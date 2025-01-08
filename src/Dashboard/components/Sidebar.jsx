@@ -384,7 +384,7 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
             <div className="p-2 mt-4">
               <Link
                 to="/dashboard/fundprice"
-                className="block w-full text-center mybtn"
+                className="flex items-center justify-center gap-2 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border-2 rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600"
               >
                 Add Funds
               </Link>

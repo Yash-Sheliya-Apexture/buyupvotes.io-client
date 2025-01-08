@@ -335,7 +335,7 @@ const Header = () => {
     const navItem = [
         { label: "Pricing", path: "/dashboard/fundprice" },
         { label: "FAQ", path: "/dashboard/faqs" },
-        { label: "Blog", path: "/dashboard/blog" },
+        { label: "Blog", path: "/dashboard/post" },
         { label: "Contact", path: "/dashboard/contactus" },
     ];
 
