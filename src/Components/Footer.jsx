@@ -12,7 +12,7 @@ const Footer = () => {
       className={
         !isHomePage
           ? " bg-[#fff] border border-gray-200"
-          : "bg-[#ffcbae] border-t border-none"
+          : "bg-[#FFEEE5] border-t border-none pt-24 -mt-[70px]"
       }
     >
       <section className="container mx-auto">

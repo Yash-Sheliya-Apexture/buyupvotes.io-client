@@ -372,11 +372,10 @@ import GradientHeading from "./GradientHeading";
 import images from "../assets/websiteImages/index";
 import { FaRegSmile, FaPaperPlane, FaRocket } from "react-icons/fa";
 
-
 const PricingWithMenu = () => {
   const pricingData = [
     {
-      icon: images.plan_1,  
+      icon: images.plan_1,
       title: "Starter",
       price: "$10",
       pricePerUpvote: "$0.05/upvote",
@@ -451,15 +450,15 @@ const PricingWithMenu = () => {
 
   return (
     <>
-      <section className="bg-white pt-16">
+      <section className="bg-white">
         <div className="container mx-auto">
           <GradientHeading
             tag="h3"
             beforeText="Choose the perfect plan"
             gradientText="for your needs."
             beforeSpanClassName="font-bold"
-            textSize="text-3xl lg:text-5xl md:text-4xl"
-            className="mb-10 lg:text-center"
+            textSize="text-3xl lg:text-[40px]"
+            className="lg:pb-14 lg:mt-4 py-6 text-center" 
           />
 
           {/* Tab Navigation (Hidden on larger screens) */}

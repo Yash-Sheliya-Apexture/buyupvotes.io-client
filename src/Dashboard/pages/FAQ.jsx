@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Image from "../../assets/Images/faqs.png";
+import Image from "../../assets/Images/faqnew.png";
 import GradientHeading from "../../Components/GradientHeading";
 import { FaChevronUp } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
@@ -7,7 +7,6 @@ import { FaChevronDown } from "react-icons/fa";
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(0);
   const [visibleLines, setVisibleLines] = useState([]);
-
 
   const faqs = [
     {
@@ -68,8 +67,6 @@ const FAQ = () => {
     },
   ];
 
-
-
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -77,18 +74,18 @@ const FAQ = () => {
   return (
     <div className="container mx-auto ">
       {/* Header Section */}
-      <div className="border border-gray-300/50 shadow-main rounded-small p-4 gap-4 md:grid md:grid-cols-2 md:gap-6 flex flex-col">
+      <div className="rounded-small gap-4 md:grid md:grid-cols-2 md:gap-6 flex flex-col">
         {/* Rightside */}
-        <div className="order-2 md:order-1">
+        <div className="order-2 md:order-1 mt-4">
           <GradientHeading
             tag="h3"
-            beforeText="We've compiled a list of"
-            gradientText="Frequently asked questions to help you."
+            beforeText="Quick Solutions to"
+            gradientText="Common Questions"
             beforeSpanClassName="font-bold"
             textSize="lg:text-large text-base"
             className="mb-4 md:mb-8"
           />
-          <p className="text-para-color font-medium lg:text-medium lg:leading-7">
+          <p className="text-para-color font-medium lg:text-medium lg:leading-8">
             Welcome to our FAQs! Here, you’ll find answers to the most commonly
             asked questions about our products and services. Whether you’re just
             getting started or looking for detailed insights, we’ve got you
