@@ -263,38 +263,48 @@
 import React from "react";
 import metting from "../../assets/Images/metting.webp";
 import Button from "../../Dashboard/components/Button";
+import GradientHeading from "../GradientHeading";
+import { Link } from "react-router-dom";
 
 const Contact = () => {
   return (
-    <div className="contact-main mt-10">
+    <div className="contact-main mt-5">
       <section className="relative max-w-full p-0 contact">
         <div className="w-full mx-auto container max-w-[1360px]">
+          
           <div className="sub-content grid md:grid-cols-2">
-            <div className="left w-full lg:px-20 md:px-6 px-4 py-4 bg-[#fff1e6] rounded-small lg:-mr-10 flex items-center z-10">
+            <div className="left w-full p-4 lg:px-10 bg-[#FFEEE5] lg:rounded-small round lg:-mr-10 flex items-center z-10">
               <div className="space-y-5">
                 {/* Leftside */}
-                <div className="text-main-color font-bold text-basic lg:text-xlarge">
-                  {" "}
-                  Let’s get acquainted
-                </div>
+                <GradientHeading
+                  tag="h3"
+                  beforeText="Let’s get"
+                  gradientText="Acquainted"
+                  beforeSpanClassName="font-bold"
+                  textSize="text-basic lg:text-xlarge"
+                />
 
-                <div className="text-para-color text-small lg:text-medium leading-7 max-w-md">
+                <div className="text-para-color font-medium text-small lg:text-medium leading-7 max-w-md">
                   {" "}
                   Whether you’re established or fast-growing business, we’re
                   here to help you gain a competitive edge — speak to one of our
                   human agents about how Yellow.ai might work for you.
                 </div>
-                <div className="button-div">
-                  <Button to="/contact-us">Get In Touch</Button>
-                </div>
+                <Link
+                  to="/faq"
+                  className="inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600"
+                >
+                  Get In Touch
+                </Link>
               </div>
             </div>
+
             {/* Rightside */}
             <div className="right w-full lg:max-w-[450px]">
               <img
                 src={metting}
                 alt="Image"
-                className="w-full h-auto rounded-large md:w-auto"
+                className="w-full h-auto lg:rounded-large round1 md:w-auto"
               />
             </div>
           </div>

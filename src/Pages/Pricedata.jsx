@@ -5,7 +5,6 @@ import Button from "../Dashboard/components/Button";
 import { Link } from "react-router-dom";
 
 const Pricedata = () => {
-  
   return (
     <div className="mt-10">
       <h1
@@ -16,7 +15,7 @@ const Pricedata = () => {
       </h1>
       <Pricing />
       <Currency />
-      <div className="pb-8 pt-4">
+      <div className="pb-8 py-6">
         <h1 className="text-center text-[24px] font-bold text-[#2D2624]">
           Have any questions?
         </h1>
