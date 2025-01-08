@@ -43,7 +43,7 @@ const WhyChooseUsSection = () => {
         {/* Cards Section */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {/* Card 1 */}
-          <div className="lg:p-7 p-5 rounded-small bg-[#FFB994]">
+          <div className="lg:p-6 p-5 rounded-small bg-[#ffddcc]">
             <div className="flex items-center mb-4">
               <span className="inline-flex items-center justify-center w-8 h-8 text-white rounded-md bg-main-color">
                 <FaBolt className="size-5" />
@@ -57,7 +57,7 @@ const WhyChooseUsSection = () => {
             </p>
           </div>
           {/* Card 2 */}
-          <div className="lg:p-7 p-5 rounded-lg bg-[#FFB994]">
+          <div className="lg:p-6 p-5 rounded-lg bg-[#ffddcc]">
             <div className="flex items-center mb-4">
               <span className="inline-flex items-center justify-center w-8 h-8 text-white rounded-md bg-main-color">
                 <FaKey className="size-5" />
@@ -71,7 +71,7 @@ const WhyChooseUsSection = () => {
             </p>
           </div>
           {/* Card 3 */}
-          <div className="lg:p-7 p-5 rounded-lg bg-[#FFB994]">
+          <div className="lg:p-6 p-5 rounded-lg bg-[#ffddcc]">
             <div className="flex items-center mb-4">
               <span className="inline-flex items-center justify-center w-8 h-8 text-white rounded-md bg-main-color">
                 <FaDollarSign className="size-5" />
@@ -85,7 +85,7 @@ const WhyChooseUsSection = () => {
             </p>
           </div>
           {/* Card 4 */}
-          <div className="lg:p-7 p-5 rounded-lg bg-[#FFB994]">
+          <div className="lg:p-6 p-5 rounded-lg bg-[#ffddcc]">
             <div className="flex items-center mb-4">
               <span className="inline-flex items-center justify-center w-8 h-8 text-white rounded-md bg-main-color">
                 <IoEarth className="size-6" />

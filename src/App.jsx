@@ -6,6 +6,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Scroll_To_Top from "./Components/Scroll_To_Top"; // Import the component
+import "react-loading-skeleton/dist/skeleton.css";
 
 const App = () => {
   return (
