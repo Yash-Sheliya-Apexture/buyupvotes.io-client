@@ -203,11 +203,12 @@ function ContactForm() {
   };
 
   return (
-    <div className="w-full max-w-2xl p-4">
-      <h2 className="mb-6 text-base font-bold text-center text-sub-color">
-        We'd <span className="text-main-color font-bold"> Love </span> to Hear
-        From You!
-      </h2>
+    <div className="w-full max-w-2xl">
+      <h6 className="mb-2 text-base font-bold text-sub-color">Get in Touch</h6>
+      <p className="mb-6 text-gray-700">
+        Please fill out the form below with your details and
+        message, and our team will get back to you as soon as possible.
+      </p>
       <form className="space-y-3" onSubmit={handleSubmit}>
         {/* Display general error message here */}
         {generalError && (
@@ -245,9 +246,8 @@ function ContactForm() {
           error={errors.name}
           disabled={isUserDataFetched}
           isEditing={!isUserDataFetched}
-          className={`block w-full ${
-            !isUserDataFetched ? "opacity-100" : "text-gray-400 "
-          }`}
+          className={`block w-full ${!isUserDataFetched ? "opacity-100" : "text-gray-400 "
+            }`}
         />
         <InputField
           type="email"
@@ -259,9 +259,8 @@ function ContactForm() {
           error={errors.email}
           disabled={isUserDataFetched}
           isEditing={!isUserDataFetched}
-          className={`block w-full ${
-            !isUserDataFetched ? "opacity-100" : "text-gray-400 "
-          }`}
+          className={`block w-full ${!isUserDataFetched ? "opacity-100" : "text-gray-400 "
+            }`}
         />
         <InputField
           name="subject"
