@@ -615,9 +615,6 @@
 
 // export default DataSection;
 
-
-
-
 // import React, { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { FaWallet, FaChartLine, FaBolt, FaPlusCircle } from "react-icons/fa";
@@ -699,7 +696,6 @@
 //               );
 //           }
 
-
 //           const ordersInProgress =
 //            ordersResponse.status === 200 && ordersResponse.data
 //             ? ordersResponse.data.filter((order) => order.status === "In Progress").length
@@ -715,7 +711,6 @@
 
 //           const calculatedBalance = tokensTotal - completedQuantityVotes;
 
-
 //         const updatedData = data.map((item) => {
 //             if (item.id === 1) {
 //             return { ...item, remainingVotes: calculatedBalance >= 0 ? calculatedBalance : 0 };
@@ -728,7 +723,6 @@
 //              }
 //             return item;
 //           });
-
 
 //            setDataList(updatedData);
 //          } catch (error) {
@@ -794,8 +788,6 @@
 
 // export default DataSection;
 
-
-
 // import React, { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { FaWallet } from "react-icons/fa";
@@ -806,8 +798,6 @@
 // import { FaReddit } from "react-icons/fa6";
 // import { FaFileCode } from "react-icons/fa6";
 // import { BsCartCheckFill } from "react-icons/bs";
-
-
 
 // const data = [
 //   {
@@ -990,8 +980,6 @@
 
 // export default DataSection;
 
-
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaWallet } from "react-icons/fa";
@@ -1002,7 +990,6 @@ import { FaSquarePlus } from "react-icons/fa6";
 import { FaReddit } from "react-icons/fa6";
 import { FaFileCode } from "react-icons/fa6";
 import { BsCartCheckFill } from "react-icons/bs";
-
 
 const data = [
   {
@@ -1069,13 +1056,16 @@ const DataSection = () => {
         });
 
         let completedQuantityVotes = 0;
-          // Check if ordersResponse.data is an array before using reduce
-          if (ordersResponse.status === 200 && Array.isArray(ordersResponse.data)) {
-              completedQuantityVotes = ordersResponse.data.reduce(
-                (total, order) => total + parseInt(order.quantity || 0, 10),
-                0
-              );
-            }
+        // Check if ordersResponse.data is an array before using reduce
+        if (
+          ordersResponse.status === 200 &&
+          Array.isArray(ordersResponse.data)
+        ) {
+          completedQuantityVotes = ordersResponse.data.reduce(
+            (total, order) => total + parseInt(order.quantity || 0, 10),
+            0
+          );
+        }
 
         const ordersInProgress =
           ordersResponse.status === 200 && Array.isArray(ordersResponse.data)
@@ -1090,10 +1080,9 @@ const DataSection = () => {
         });
 
         let tokensTotal = 0;
-          if (paymentsResponse.status === 200 && paymentsResponse.data) {
-              tokensTotal = paymentsResponse.data.tokens || 0;
-          }
-
+        if (paymentsResponse.status === 200 && paymentsResponse.data) {
+          tokensTotal = paymentsResponse.data.tokens || 0;
+        }
 
         const calculatedBalance = tokensTotal - completedQuantityVotes;
 
@@ -1108,10 +1097,13 @@ const DataSection = () => {
             return {
               ...item,
               remainingVotes:
-                ordersResponse.status === 200 && Array.isArray(ordersResponse.data) ? ordersResponse.data.length : 0,
+                ordersResponse.status === 200 &&
+                Array.isArray(ordersResponse.data)
+                  ? ordersResponse.data.length
+                  : 0,
             };
           }
-           if (item.id === 3) {
+          if (item.id === 3) {
             return { ...item, remainingVotes: ordersInProgress };
           }
           return item;
@@ -1141,61 +1133,56 @@ const DataSection = () => {
   };
 
   return (
-    <div className="w-full py-5 lg:w-full">
+    <section className="Data-Section my-5 w-full">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {loading ? (
-          Array.from({ length: 6 }).map((_, index) => (
-            <div
-              key={index}
-              className="w-full h-full"
-            >
-              <div
-                className="flex items-center justify-between w-full h-full p-4 bg-white shadow-main rounded-small"
-                style={{ minHeight: "100px" }}
-              >
-                <div>
-                  <Skeleton height={25} width={70} />
-                   <Skeleton height={20} width={100} />
-                </div>
-                 <div className="p-4 text-main-color lg:text-large text-basic">
-                  <Skeleton  height={30} width={30} />
+        {loading
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <div key={index} className="w-full h-full">
+                <div
+                  className="flex items-center justify-between w-full h-full p-4 bg-white shadow-main rounded-small"
+                  style={{ minHeight: "100px" }}
+                >
+                  <div>
+                    <Skeleton height={25} width={70} />
+                    <Skeleton height={20} width={100} />
+                  </div>
+                  <div className="p-4 text-main-color lg:text-large text-basic">
+                    <Skeleton height={30} width={30} />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        ) : (
-          dataList.map((item) => (
-            <div
-              key={item.id}
-              className="w-full h-full cursor-pointer"
-              onClick={() => handleCardClick(item.link)}
-            >
+            ))
+          : dataList.map((item) => (
               <div
-                className="flex items-center justify-between w-full h-full p-4 bg-white shadow-main rounded-small"
-                style={{ minHeight: "100px" }}
+                key={item.id}
+                className="w-full h-full cursor-pointer"
+                onClick={() => handleCardClick(item.link)}
               >
-                {/* Left Section */}
-                <div className="">
-                  {item.remainingVotes !== undefined && (
-                    <p className="mb-2 font-bold lg:text-large text-sub-color">
-                      {item.remainingVotes}
+                <div
+                  className="flex items-center justify-between w-full h-full p-4 bg-white shadow-main rounded-small"
+                  style={{ minHeight: "100px" }}
+                >
+                  {/* Left Section */}
+                  <div className="">
+                    {item.remainingVotes !== undefined && (
+                      <p className="mb-2 font-bold lg:text-large text-sub-color">
+                        {item.remainingVotes}
+                      </p>
+                    )}
+                    <p className="font-medium lg:text-base text-para-color">
+                      {item.label}
                     </p>
-                  )}
-                  <p className="font-normal lg:text-base text-para-color">
-                    {item.label}
-                  </p>
-                </div>
+                  </div>
 
-                {/* Icon Section */}
-                <div className="p-4 text-main-color lg:text-large text-basic">
-                  {item.icon}
+                  {/* Icon Section */}
+                  <div className="p-4 text-main-color lg:text-large text-basic">
+                    {item.icon}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        )}
+            ))}
       </div>
-    </div>
+    </section>
   );
 };
 

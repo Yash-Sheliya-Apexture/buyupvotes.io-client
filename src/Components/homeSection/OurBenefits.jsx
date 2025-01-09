@@ -33,8 +33,8 @@ const OurBenefits = () => {
   ];
 
   return (
-    <section className="bg-[#ffeee5] lg:py-16 py-5">
-      <div className="container">
+    <section className="Benefits-Cards bg-[#ffeee5] lg:py-10 py-5">
+      <div className="container mx-auto">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 mb-14">
           <div className="lg:max-w-md">
             <h3 className="font-semibold font-BasierSquare md:text-large text-basic lg:text-[40px] lg:leading-[45px] text-center md:text-left tracking-normal">
@@ -45,7 +45,7 @@ const OurBenefits = () => {
             </h3>
           </div>
           <div className="content-wrap">
-            <p className="mb-6 text-xl text-sub-color font-medium">
+            <p className="mb-6 text-xl text-gray-700 font-medium">
               Whether you're looking to rank higher on Reddit, Quora, YouTube,
               or other platforms, our upvote services are here to help you
               shine. With real engagement from verified users, we ensure your
@@ -61,32 +61,31 @@ const OurBenefits = () => {
           </div>
         </div>
       </div>
-      <div className="container">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ">
-        {icons.map((icon) => (
-          <div
-            key={icon.id}
-            className="relative bg-white p-6 rounded-2xl border border-gray-300"
-            style={{
-              boxShadow: "",
-            }}
-          >
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {icons.map((icon) => (
             <div
-              className={`absolute -top-7 left-6 rounded-full max-w-fit p-3 bg-white border border-gray-300`}
+              key={icon.id}
+              className="relative bg-white p-6 rounded-2xl border border-gray-300"
+              style={{
+                boxShadow: "",
+              }}
             >
-              {React.cloneElement(icon.icon, {
-                className: `w-5 h-5 text-main-color `,
-              })}
+              <div
+                className={`absolute -top-7 left-6 rounded-full max-w-fit p-3 bg-white border border-gray-300`}
+              >
+                {React.cloneElement(icon.icon, {
+                  className: `w-5 h-5 text-main-color `,
+                })}
+              </div>
+              <h3 className="text-xl font-semibold mt-3 text-black">{icon.title}</h3>
+              <p className="mt-3 text-small font-medium text-gray-700">
+                {icon.detail}
+              </p>
             </div>
-            <h3 className="text-xl font-semibold mt-3">{icon.title}</h3>
-            <p className="mt-3 text-small font-medium text-gray-700">
-              {icon.detail}
-            </p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-      </div>
-
     </section>
   );
 };

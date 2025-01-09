@@ -28,7 +28,7 @@ const FAQSection = ({ heading, description }) => {
             <img
               src={Image}
               alt="FAQ-Image"
-              className="max-w-full h-auto md:max-h-[550px] "
+              className="max-w-full h-auto md:max-h-[350px] lg:-mt-10"
             />
           </div>
         </div>

@@ -28,7 +28,7 @@ const PriceList = ({ heading, description }) => {
             <img
               src={pricing}
               alt="Pricing-Image"
-              className="max-w-full h-auto md:max-h-[450px]"
+              className="max-w-full h-auto md:max-h-[400px] lg:-mt-10"
             />
           </div>
         </div>

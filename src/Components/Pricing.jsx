@@ -450,7 +450,7 @@ const PricingWithMenu = () => {
 
   return (
     <>
-      <section className="bg-white">
+      <section className="Pricing-Plan bg-white">
         <div className="container mx-auto">
           <GradientHeading
             tag="h3"
@@ -458,7 +458,7 @@ const PricingWithMenu = () => {
             gradientText="for your needs."
             beforeSpanClassName="font-bold"
             textSize="text-3xl lg:text-[40px]"
-            className="lg:pb-14 lg:mt-4 py-6 text-center" 
+            className="lg:pb-14 lg:mt-4 py-6 text-center"
           />
 
           {/* Tab Navigation (Hidden on larger screens) */}
@@ -492,7 +492,7 @@ const PricingWithMenu = () => {
                 >
                   <div className="relative plan-header">
                     {plan.isBestValue && (
-                      <div className="text-white bg-main-color py-1 px-3 rounded-md text-sm absolute -top-9 left-[50%] translate-x-[-50%]">
+                      <div className="text-white bg-main-color p-1.5 rounded-md text-sm font-medium absolute -top-9 left-[50%] translate-x-[-50%]">
                         Best Value
                       </div>
                     )}

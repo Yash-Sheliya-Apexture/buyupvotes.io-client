@@ -262,7 +262,6 @@
 
 // export default Ordertable;
 
-
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa6";
@@ -446,11 +445,11 @@ const OrderTable = () => {
 
   const handleTabChange = (label) => {
     setActiveTab(label);
-      setCurrentPage(1); // Reset page to 1 on tab change
+    setCurrentPage(1); // Reset page to 1 on tab change
   };
 
   return (
-    <div className="mb-4 border rounded-small">
+    <section className="Order-Table mb-4 border border-gray-300 rounded-small">
       <h1 className="p-4 font-semibold text-sub-color lg:text-basic">
         Your past upvote orders:
       </h1>
@@ -522,7 +521,7 @@ const OrderTable = () => {
         handlePreviousPage={handlePreviousPage}
         handleNextPage={handleNextPage}
       />
-    </div>
+    </section>
   );
 };
 

@@ -3,9 +3,9 @@ import Blog from "../Dashboard/pages/Blog";
 
 const Blogs = () => {
   return (
-    <div className="my-5">
+    <main className="my-5">
       <Blog />
-    </div>
+    </main>
   );
 };
 

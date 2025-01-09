@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 const FAQList = ({ faqs }) => {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState(0); // Initialize with 0 for first item open by default
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section>
+    <section className="FAQ-List">
       <div className="container mx-auto">
-        <div className="space-y-2 mt-10">
+        <div className="space-y-2 mt-20">
           {faqs.map((faq, index) => (
             <div key={index} className="border-b border-gray-300 space-y-6">
               <button

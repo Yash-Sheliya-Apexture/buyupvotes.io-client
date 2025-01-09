@@ -16,9 +16,8 @@ const Home_Page = () => {
   };
 
   return (
-    <div>
-      {/* <React.Fragment> */}
-      <div className="scroll-smooth">
+    <main className="scroll-smooth">
+      <>
         <HeroSection />
         <Pricing />
         <Currency />
@@ -33,9 +32,8 @@ const Home_Page = () => {
             <FaArrowUp className="w-5 h-4 text-white" />
           </button>
         </div>
-      </div>
-      {/* </React.Fragment> */}
-    </div>
+      </>
+    </main>
   );
 };
 

@@ -69,11 +69,11 @@ const Blog = () => {
           <div className="bg-white my-5 lg:my-0 lg:mt-0">
             <div className="flex flex-col justify-between lg:flex-row lg:items-center lg:space-y-0 space-y-2">
               <h1 className="font-medium text-sub-color lg:text-base text-medium">
-                Interested in guest posting on our blog? Please{" "}
+                Interested in guest posting on our blog?
                 <span className="font-medium underline cursor-pointer text-main-color underline-offset-1">
                   <Link to="/dashboard/contactus">contact us</Link>
                 </span>{" "}
-                we'd love to hear from you!
+                we'd love from you! can want
               </h1>
 
               {/* Dropdown Blog */}
@@ -174,7 +174,7 @@ const Blog = () => {
                   </div>
 
                   <div className="px-6 pt-9">
-                    <div className="space-y-2 font-medium">
+                    <div className="space-y-1 font-medium">
                       <h1 className="text-sub-color">{blog.author}</h1>
                       <p className="text-light-gray">{blog.date}</p>
                       <p className="leading-6 text-sub-color text-small">

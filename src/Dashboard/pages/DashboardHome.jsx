@@ -5,11 +5,11 @@ import OrderTable from "../components/OrderTable/OrderTable";
 
 const DashboardHome = () => {
   return (
-    <div className="container mx-auto">
+    <main className="container mx-auto">
       <HeroSecrtion />
       <DataSection />
       <OrderTable />
-    </div>
+    </main>
   );
 };
 

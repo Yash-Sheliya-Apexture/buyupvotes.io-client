@@ -77,7 +77,7 @@ const FAQS = () => {
         commonly asked questions about our products and services. Whether
         you’re just getting started or looking for detailed insights,we’ve
         got you covered."
-      />  
+      />
       <FAQList faqs={faqs} />
     </main>
   );
