@@ -12,7 +12,7 @@
 //           <Dashboard_header />
 //           <main className="flex-1 overflow-y-auto">
 //             <Outlet />
-//           </main>          
+//           </main>
 //         </div>
 //       </div>
 //     </div>
@@ -20,7 +20,6 @@
 // };
 
 // export default DashboardLayout;
-
 
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";

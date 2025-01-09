@@ -279,8 +279,6 @@
 
 // export default Customize_Payment;
 
-
-
 // import React, { useState } from "react";
 // import { CiCreditCard1 } from "react-icons/ci";
 // import { MdCurrencyBitcoin } from "react-icons/md";
@@ -376,7 +374,6 @@
 
 //     closeModal();
 //   };
-
 
 //   return (
 //     <>
@@ -570,11 +567,6 @@
 
 // export default Customize_Payment;
 
-
-
-
-
-
 // import React, { useState } from "react";
 // import { CiCreditCard1 } from "react-icons/ci";
 // import { MdCurrencyBitcoin } from "react-icons/md";
@@ -672,7 +664,6 @@
 //             coins = amount * 55;
 //          }
 
-
 //       const roundedCoins = Math.round(coins);
 
 //     setModalContent(`$${amount} will purchase ${roundedCoins} coins.`);
@@ -700,7 +691,6 @@
 
 //     closeModal();
 //   };
-
 
 //   return (
 //     <>
@@ -894,13 +884,6 @@
 
 // export default Customize_Payment;
 
-
-
-
-
-
-
-
 // import React, { useState } from "react";
 // import { CiCreditCard1 } from "react-icons/ci";
 // import { MdCurrencyBitcoin } from "react-icons/md";
@@ -999,7 +982,6 @@
 //             coins = amount * 55;
 //          }
 
-
 //       const roundedCoins = Math.round(coins);
 
 //     setModalContent(`$${amount} will purchase ${roundedCoins} coins.`);
@@ -1027,7 +1009,6 @@
 
 //     closeModal();
 //   };
-
 
 //   return (
 //     <>
@@ -1179,7 +1160,6 @@
 //           </div>
 //         </div>
 
-
 //         {/* Modal */}
 //         {isModalOpen && (
 //           <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-100 bg-black/70">
@@ -1210,17 +1190,13 @@
 
 // export default Customize_Payment;
 
-
-
-
-
 import React, { useState } from "react";
 import { CiCreditCard1 } from "react-icons/ci";
 import { MdCurrencyBitcoin } from "react-icons/md";
 import payment_logos from "../../assets/Images/payment_logo.png";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { BiCalculator } from 'react-icons/bi'
+import { BiCalculator } from "react-icons/bi";
 import GradientHeading from "../../Components/GradientHeading";
 
 const Customize_Payment = () => {
@@ -1353,17 +1329,17 @@ const Customize_Payment = () => {
   return (
     <>
       {/* Tabs Section */}
-      <div className="py-5">
-      <div className="my-6">
-        <GradientHeading
-          tag="h4"
-          beforeText="Customize your payment"
-          gradientText="below."
-          beforeSpanClassName="font-bold"
-          textSize="md:text-large text-basic lg:text-[40px] lg:leading-[45px]"
-          className="text-center"
-        />
-      </div>
+      <section className="Payment-Customize">
+        <div className="my-6">
+          <GradientHeading
+            tag="h4"
+            beforeText="Customize your payment"
+            gradientText="below."
+            beforeSpanClassName="font-bold"
+            textSize="md:text-large text-basic lg:text-[40px] lg:leading-[45px]"
+            className="text-center"
+          />
+        </div>
         <div className="flex items-center justify-center">
           <div className="max-w-lg bg-white rounded-md">
             {/* Card Tabs */}
@@ -1371,26 +1347,29 @@ const Customize_Payment = () => {
               <div className="relative flex justify-center items-center bg-gray-100 overflow-hidden">
                 <div
                   className={`absolute left-0 top-0 h-full transition-all duration-300 bg-main-color rounded-lg
-            ${selectedTab === "creditCard"
-                      ? "w-1/2 translate-x-0" // Corrected translate for credit card
-                      : "w-0 translate-x-[100%]" // Move offscreen when not active
-                    }
+            ${
+              selectedTab === "creditCard"
+                ? "w-1/2 translate-x-0" // Corrected translate for credit card
+                : "w-0 translate-x-[100%]" // Move offscreen when not active
+            }
           `}
                   style={{ width: "50%" }}
                 ></div>
                 <div
                   className={`absolute left-0 top-0 h-full transition-all duration-300 bg-main-color rounded-lg
-            ${selectedTab === "crypto"
-                      ? "w-1/2 translate-x-full" // Corrected translate for crypto
-                      : "w-0 translate-x-0" // Retract when not active
-                    }
+            ${
+              selectedTab === "crypto"
+                ? "w-1/2 translate-x-full" // Corrected translate for crypto
+                : "w-0 translate-x-0" // Retract when not active
+            }
           `}
                   style={{ width: "50%" }}
                 ></div>
                 {/* Credit Card Tab */}
                 <button
-                  className={`relative flex items-center justify-center flex-col md:flex-row font-medium px-6 py-2 focus:outline-none transition-colors duration-300 w-1/2 ${selectedTab === "creditCard" ? "text-white z-10" : ""
-                    }`}
+                  className={`relative flex items-center justify-center flex-col md:flex-row font-medium px-6 py-2 focus:outline-none transition-colors duration-300 w-1/2 ${
+                    selectedTab === "creditCard" ? "text-white z-10" : ""
+                  }`}
                   onClick={() => setSelectedTab("creditCard")}
                 >
                   <span className="mr-2">
@@ -1400,8 +1379,9 @@ const Customize_Payment = () => {
                 </button>
                 {/* Cryptocurrency Tab */}
                 <button
-                  className={`relative flex items-center justify-center flex-col md:flex-row font-medium px-6 py-2 focus:outline-none transition-colors duration-300 w-1/2 ${selectedTab === "crypto" ? "text-white z-10" : ""
-                    }`}
+                  className={`relative flex items-center justify-center flex-col md:flex-row font-medium px-6 py-2 focus:outline-none transition-colors duration-300 w-1/2 ${
+                    selectedTab === "crypto" ? "text-white z-10" : ""
+                  }`}
                   onClick={() => setSelectedTab("crypto")}
                 >
                   <span className="mr-2">
@@ -1413,7 +1393,7 @@ const Customize_Payment = () => {
             </div>
 
             {/* Content Sections */}
-            <div className="p-6">
+            <div className="p-6 -mb-4">
               <AnimatePresence mode="wait">
                 {selectedTab === "creditCard" && (
                   <motion.div
@@ -1554,7 +1534,8 @@ const Customize_Payment = () => {
             </div>
           </div>
         )}
-      </div>
+      
+      </section>
     </>
   );
 };

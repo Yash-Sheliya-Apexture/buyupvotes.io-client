@@ -1362,13 +1362,6 @@
 
 // export default ContactUs;
 
-
-
-
-
-
-
-
 // import React from "react";
 // import Breadcrumb from "../Dashboard/components/Breadcrumb";
 // import ContactInfo from "../Components/ContactUs/ContactInfo";
@@ -1455,10 +1448,6 @@
 
 // export default ContactUs;
 
-
-
-
-
 import React from "react";
 import Breadcrumb from "../Dashboard/components/Breadcrumb";
 import ContactForm from "../Components/ContactUs/ContactForm";
@@ -1479,7 +1468,7 @@ function ContactUs() {
             {/* Contact Information */}
             <div className="w-full">
               <h1 className="mb-2 font-bold text-sub-color text-basic">
-                Contact Us
+                Contact-Us
               </h1>
               <div className="flex items-center space-x-4">
                 <Breadcrumb items={breadcrumbs} />
@@ -1490,14 +1479,14 @@ function ContactUs() {
                   beforeText="Have questions? We are always to help "
                   gradientText="you question!"
                   beforeSpanClassName="font-bold"
-                  textSize="text-3xl lg:text-5xl md:text-4xl"
+                  textSize="text-3xl lg:text-5xl md:text-4xl lg:leading-[55px]"
                   className="mb-5"
                 />
               </div>
               <p className="mb-6 lg:text-xl text-[16px] text-gray-700">
-                Get the oars in the water and start rowing. Execution is the single
-                biggest factor in achievement. The quicker you will get to the
-                goals!
+                Get the oars in the water and start rowing. Execution is the
+                single biggest factor in achievement. The quicker you will get
+                to the goals!
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8">
@@ -1507,8 +1496,12 @@ function ContactUs() {
                     Call Center
                   </h3>
                   <div className="flex flex-col">
-                    <a href="" className="text-gray-700">123 456-7890</a>
-                    <a href="" className="text-gray-700">+(000) 123-456-7890</a>
+                    <a href="" className="text-gray-700">
+                      123 456-7890
+                    </a>
+                    <a href="" className="text-gray-700">
+                      +(000) 123-456-7890
+                    </a>
                   </div>
                 </div>
 

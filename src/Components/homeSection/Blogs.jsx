@@ -4,15 +4,14 @@ import Blog from "../../Dashboard/pages/Blog";
 
 const Blogs = () => {
   return (
-    <section className="bg-white py-5">
-      <div>
+    <section className="Blog-Main bg-white">
+      <div className="lg:my-10 my-5">
         <GradientHeading
           tag="h3"
-          beforeText="Got Questions?"
-          gradientText="We Can Help"
+          beforeText="Explore Your Our"
+          gradientText="Latest Blogs"
           beforeSpanClassName="font-bold"
-          textSize="text-basic lg:text-xlarge text-center mb-6
-              "
+          textSize="text-basic lg:text-xlarge text-center"
         />
       </div>
       <div>

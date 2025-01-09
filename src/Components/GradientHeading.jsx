@@ -20,7 +20,7 @@ const GradientHeading = ({
         {...otherProps}
       >
         <span className={beforeSpanClassName}>{beforeText} </span>
-        <span className="pe-3 text-transparent bg-clip-text bg-gradient-to-r from-[#ffb087] via-[#ff6518] to-main-color">
+        <span className="pe-3 text-transparent bg-clip-text bg-gradient-to-r from-[#ffb087] via-[#ff6518] to-main-color ">
           {gradientText}
         </span>
   
