@@ -1175,7 +1175,7 @@ const DataSection = () => {
                 style={{ minHeight: "100px" }}
               >
                 {/* Left Section */}
-                <div>
+                <div className="">
                   {item.remainingVotes !== undefined && (
                     <p className="mb-2 font-bold lg:text-large text-sub-color">
                       {item.remainingVotes}

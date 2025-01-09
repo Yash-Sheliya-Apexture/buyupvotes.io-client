@@ -1,15 +1,15 @@
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home_Page from "../Pages/Home_Page";
-import TermAndConditions from "../Components/TermAndConditions";
-import Privacy from "../Components/Privacy";
+import TermAndConditions from "../Pages/TermAndConditions";
+import Privacy from "../Pages/Privacy";
 import LoginRoutes from "./LoginRoutes";
 import ScrollBorder from "../Components/ScrollBorder";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import Error404 from "../Dashboard/pages/Error404";
-import Pricedata from "../Pages/Pricedata";
-import FAQS from "../Pages/FAQS";
+import Price from "../Pages/Price";
+import FAQS from "../Components/FAQS";
 import Blogs from "../Pages/Blogs";
 import BlogDetails from "../Dashboard/pages/BlogDetails";
 import ContactUs from "../Pages/ContactUs";
@@ -61,10 +61,9 @@ const WebsiteRoutes = () => {
           <Route path="/*" element={<LoginRoutes />} />
           {/* 404 Route should be the last route */}
           <Route path="*" element={<Error404 />} />
-          <Route path="/pricing" element={<Pricedata />} />
+          <Route path="/pricing" element={<Price />} />
           <Route path="/faqs" element={<FAQS />} />
           <Route path="/checkout" element={<Checkout />} />
-
 
           <Route path="post">
             <Route index element={<Blogs />} />
@@ -74,7 +73,6 @@ const WebsiteRoutes = () => {
         {/* Conditionally render footer */}
         {!isExcludedRoute && <Footer />}
       </AuthProvider>
-
     </>
   );
 };

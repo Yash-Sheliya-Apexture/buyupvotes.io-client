@@ -1,9 +1,9 @@
 import React from "react";
-import HeadingBreadcrumbSection from "../../Components/HeadingBreadcrumbSection";
-import FAQSection from "../../Components/faqSection/FAQSection";
-import FAQQuestionAnswerSection from "../../Components/faqSection/FAQQuestionAnswerSection";
+import HeadingBreadcrumbSection from "../Components/HeadingBreadcrumbSection";
+import FAQSection from "../Components/faqSection/FAQSection";
+import FAQQuestionAnswerSection from "../Components/faqSection/FAQQuestionAnswerSection";
 
-const FAQ = () => {
+const FAQS = () => {
   const breadcrumbs = [
     { label: "Dashboard", link: "/dashboard" },
     { label: "FAQS" },
@@ -69,11 +69,18 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="py-6" id="FAQ">
+    <main className="py-6" id="FAQ">
       <HeadingBreadcrumbSection title="faqs" breadcrumbs={breadcrumbs} />
+      <FAQSection
+        heading="Frequently asked questions!"
+        description="Welcome to our FAQs! Here, you’ll find answers to the most
+        commonly asked questions about our products and services. Whether
+        you’re just getting started or looking for detailed insights,we’ve
+        got you covered."
+      />
       <FAQQuestionAnswerSection faqs={faqs} />
-    </section>
+    </main>
   );
 };
 
-export default FAQ;
+export default FAQS;
