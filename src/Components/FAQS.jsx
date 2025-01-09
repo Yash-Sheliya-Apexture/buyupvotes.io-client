@@ -1,7 +1,7 @@
 import React from "react";
-import HeadingBreadcrumbSection from "../Components/HeadingBreadcrumbSection";
+import BreadcrumbHeader from "./BreadcrumbHeader";
 import FAQSection from "../Components/faqSection/FAQSection";
-import FAQQuestionAnswerSection from "../Components/faqSection/FAQQuestionAnswerSection";
+import FAQList from "./faqSection/FAQList";
 
 const FAQS = () => {
   const breadcrumbs = [
@@ -69,16 +69,16 @@ const FAQS = () => {
   ];
 
   return (
-    <main className="py-6" id="FAQ">
-      <HeadingBreadcrumbSection title="faqs" breadcrumbs={breadcrumbs} />
+    <main className="py-10" id="FAQ">
+      <BreadcrumbHeader title="FAQS" breadcrumbs={breadcrumbs} />
       <FAQSection
         heading="Frequently asked questions!"
         description="Welcome to our FAQs! Here, you’ll find answers to the most
         commonly asked questions about our products and services. Whether
         you’re just getting started or looking for detailed insights,we’ve
         got you covered."
-      />
-      <FAQQuestionAnswerSection faqs={faqs} />
+      />  
+      <FAQList faqs={faqs} />
     </main>
   );
 };

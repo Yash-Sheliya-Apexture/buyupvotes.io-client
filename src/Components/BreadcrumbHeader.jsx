@@ -1,12 +1,12 @@
 import React from "react";
 import Breadcrumb from "../Dashboard/components/Breadcrumb";
 
-const HeadingBreadcrumbSection = ({ title, breadcrumbs }) => {
+const BreadcrumbHeader = ({ title, breadcrumbs }) => {
   return (
     <section className="haeding-wrap">
       <div className="container mx-auto">
         <div className="mainbread">
-          <h1 className="mb-2 font-bold text-sub-color text-basic uppercase">
+          <h1 className="mb-2 font-bold text-sub-color text-basic">
             {title}
           </h1>
           <div className="flex items-center space-x-4">
@@ -18,4 +18,4 @@ const HeadingBreadcrumbSection = ({ title, breadcrumbs }) => {
   );
 };
 
-export default HeadingBreadcrumbSection;
+export default BreadcrumbHeader;

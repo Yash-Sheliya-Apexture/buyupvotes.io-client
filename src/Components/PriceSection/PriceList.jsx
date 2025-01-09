@@ -1,10 +1,10 @@
 import React from "react";
-import Image from "../../assets/Images/faqImage.png";
-import GradientHeading from "../../Components/GradientHeading";
+import pricing from "../../assets/Images/Priceimage.png";
+import GradientHeading from "../GradientHeading";
 
-const FAQSection = ({ heading, description }) => {
+const PriceList = ({ heading, description }) => {
   return (
-    <section className="FaQ-Section">
+    <section className="Price-List">
       <div className="container mx-auto">
         <div className="rounded-small gap-4 md:grid md:grid-cols-2 md:gap-6 flex flex-col">
           {/* Rightside */}
@@ -12,7 +12,7 @@ const FAQSection = ({ heading, description }) => {
             <div className="lg:max-w-md lg:mt-10 mt-5">
               <GradientHeading
                 tag="h1"
-                beforeText="Get quick answers to Your"
+                beforeText="Affordable Plans Tailored to Your"
                 gradientText={heading}
                 beforeSpanClassName="font-bold"
                 textSize="text-3xl lg:text-5xl lg:leading-[55px]  md:text-4xl"
@@ -26,9 +26,9 @@ const FAQSection = ({ heading, description }) => {
           {/* Leftside */}
           <div className="order-1 md:order-2 flex items-center justify-center">
             <img
-              src={Image}
-              alt="FAQ-Image"
-              className="max-w-full h-auto md:max-h-[550px] "
+              src={pricing}
+              alt="Pricing-Image"
+              className="max-w-full h-auto md:max-h-[450px]"
             />
           </div>
         </div>
@@ -37,4 +37,4 @@ const FAQSection = ({ heading, description }) => {
   );
 };
 
-export default FAQSection;
+export default PriceList;

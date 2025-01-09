@@ -1,7 +1,6 @@
 import React from "react";
-import HeadingBreadcrumbSection from "../../Components/HeadingBreadcrumbSection";
-import FAQSection from "../../Components/faqSection/FAQSection";
-import FAQQuestionAnswerSection from "../../Components/faqSection/FAQQuestionAnswerSection";
+import BreadcrumbHeader from "../../Components/BreadcrumbHeader";
+import FAQList from "../../Components/faqSection/FAQList";
 
 const FAQ = () => {
   const breadcrumbs = [
@@ -70,8 +69,8 @@ const FAQ = () => {
 
   return (
     <section className="py-6" id="FAQ">
-      <HeadingBreadcrumbSection title="faqs" breadcrumbs={breadcrumbs} />
-      <FAQQuestionAnswerSection faqs={faqs} />
+      <BreadcrumbHeader title="faqs" breadcrumbs={breadcrumbs} />
+      <FAQList faqs={faqs} />
     </section>
   );
 };

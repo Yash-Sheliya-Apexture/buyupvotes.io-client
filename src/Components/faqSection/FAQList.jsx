@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
-const FAQQuestionAnswerSection = ({ faqs }) => {
+const FAQList = ({ faqs }) => {
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleFAQ = (index) => {
@@ -62,4 +62,4 @@ const FAQQuestionAnswerSection = ({ faqs }) => {
   );
 };
 
-export default FAQQuestionAnswerSection;
+export default FAQList;
