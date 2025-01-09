@@ -1,16 +1,17 @@
 import React from "react";
 import Pricing from "../../Components/Pricing";
 import Customize_Payment from "../components/Customize_Payment";
-import { Link } from "react-router-dom";
 import Button from "../components/Button";
-import { FaAddressCard } from "react-icons/fa";
-import { FaEnvelope } from "react-icons/fa";
+import payment_logos from "../../assets/Images/allPaymentIcons.png";
 
 const FundPricing = () => {
   return (
     <div className="container mx-auto">
       <Pricing />
       <Customize_Payment />
+      <div className="flex items-center justify-center my-5">
+        <img src={payment_logos} alt="" className="rounded-lg lg:max-w-3xl" />
+      </div>
       <div className="text-center">
         <div className="flex justify-center mb-6">
           <hr className="border border-gray-300/50 w-4/5" />
