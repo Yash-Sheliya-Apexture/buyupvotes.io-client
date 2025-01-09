@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 font-face {
   font-family: "InterDisplay";
   font-style: normal;
@@ -631,3 +629,4 @@ textarea:focus {
   position: relative;
   border-radius: 2.25rem;
 }
+
