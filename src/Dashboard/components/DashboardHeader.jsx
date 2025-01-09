@@ -1435,7 +1435,7 @@ const DashboardHeader = ({ toggleSidebarVisibility }) => {
         </div>
         <div className="relative" ref={dropdownRef}>
           <button
-            className="px-6 py-2.5 rounded-full bg-main-color flex items-center relative focus:outline-none"
+            className="px-6 py-2.5 rounded-xl bg-main-color flex items-center relative focus:outline-none"
             onClick={toggleDropdown}
           >
             <img
@@ -1490,7 +1490,7 @@ const DashboardHeader = ({ toggleSidebarVisibility }) => {
                   <li>
                     <Link
                       to="/dashboard"
-                      className="lg:px-4 px-2 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150 block"
+                      className="lg:px-4 px-2 py-2 cursor-pointer hover:bg-[#919eab14] rounded-lg transition-all ease-in duration-150 block"
                     >
                       Home
                     </Link>
@@ -1498,7 +1498,7 @@ const DashboardHeader = ({ toggleSidebarVisibility }) => {
                   <li>
                     <Link
                       to="/dashboard/account"
-                      className="lg:px-4 px-2 py-2 cursor-pointer hover:bg-[#919eab14] rounded-large transition-all ease-in duration-150 block"
+                      className="lg:px-4 px-2 py-2 cursor-pointer hover:bg-[#919eab14] rounded-lg transition-all ease-in duration-150 block"
                     >
                       Settings
                     </Link>
@@ -1507,7 +1507,7 @@ const DashboardHeader = ({ toggleSidebarVisibility }) => {
               </div>
               <hr className="border-t border-dashed " />
               <div
-                className="lg:px-4 px-2 py-2 hover:bg-[#919eab14] rounded-full transition-all ease-in duration-150 text-[#FF5D3A] font-bold tracking-wide cursor-pointer"
+                className="lg:px-4 px-2 py-2 hover:bg-[#919eab14] rounded-lg transition-all ease-in duration-150 text-[#FF5D3A] font-bold tracking-wide cursor-pointer"
                 onClick={handleSignOut}
               >
                 Sign Out

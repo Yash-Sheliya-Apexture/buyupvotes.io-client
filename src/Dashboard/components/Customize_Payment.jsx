@@ -370,7 +370,7 @@
 //     const handleContinue = () => {
 //       // Store the purchase details in local storage
 //       localStorage.setItem("purchaseDetails", JSON.stringify(purchaseDetails));
-      
+
 //     // Navigate to the checkout page
 //     navigate("/checkout");
 
@@ -694,7 +694,7 @@
 //     const handleContinue = () => {
 //       // Store the purchase details in local storage
 //       localStorage.setItem("purchaseDetails", JSON.stringify(purchaseDetails));
-      
+
 //     // Navigate to the checkout page
 //     navigate("/checkout");
 
@@ -1021,7 +1021,7 @@
 //     const handleContinue = () => {
 //       // Store the purchase details in local storage
 //       localStorage.setItem("purchaseDetails", JSON.stringify(purchaseDetails));
-      
+
 //     // Navigate to the checkout page
 //     navigate("/checkout");
 
@@ -1220,7 +1220,8 @@ import { MdCurrencyBitcoin } from "react-icons/md";
 import payment_logos from "../../assets/Images/payment_logo.png";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import {BiCalculator} from 'react-icons/bi'
+import { BiCalculator } from 'react-icons/bi'
+import GradientHeading from "../../Components/GradientHeading";
 
 const Customize_Payment = () => {
   const [selectedTab, setSelectedTab] = useState("creditCard");
@@ -1352,13 +1353,17 @@ const Customize_Payment = () => {
   return (
     <>
       {/* Tabs Section */}
-      <div className="my-6">
-        <h1 className="text-base font-medium text-center text-para-color lg:text-basic">
-          Customize your{" "}
-          <span className="font-bold text-main-color">payment</span> below :
-        </h1>
-      </div>
       <div className="py-5">
+      <div className="my-6">
+        <GradientHeading
+          tag="h4"
+          beforeText="Customize your payment"
+          gradientText="below."
+          beforeSpanClassName="font-bold"
+          textSize="md:text-large text-basic lg:text-[40px] lg:leading-[45px]"
+          className="text-center"
+        />
+      </div>
         <div className="flex items-center justify-center">
           <div className="max-w-lg bg-white rounded-md">
             {/* Card Tabs */}
@@ -1366,29 +1371,26 @@ const Customize_Payment = () => {
               <div className="relative flex justify-center items-center bg-gray-100 overflow-hidden">
                 <div
                   className={`absolute left-0 top-0 h-full transition-all duration-300 bg-main-color rounded-lg
-            ${
-              selectedTab === "creditCard"
-                ? "w-1/2 translate-x-0" // Corrected translate for credit card
-                : "w-0 translate-x-[100%]" // Move offscreen when not active
-            }
+            ${selectedTab === "creditCard"
+                      ? "w-1/2 translate-x-0" // Corrected translate for credit card
+                      : "w-0 translate-x-[100%]" // Move offscreen when not active
+                    }
           `}
                   style={{ width: "50%" }}
                 ></div>
                 <div
                   className={`absolute left-0 top-0 h-full transition-all duration-300 bg-main-color rounded-lg
-            ${
-              selectedTab === "crypto"
-                ? "w-1/2 translate-x-full" // Corrected translate for crypto
-                : "w-0 translate-x-0" // Retract when not active
-            }
+            ${selectedTab === "crypto"
+                      ? "w-1/2 translate-x-full" // Corrected translate for crypto
+                      : "w-0 translate-x-0" // Retract when not active
+                    }
           `}
                   style={{ width: "50%" }}
                 ></div>
                 {/* Credit Card Tab */}
                 <button
-                  className={`relative flex items-center justify-center flex-col md:flex-row font-medium px-6 py-2 focus:outline-none transition-colors duration-300 w-1/2 ${
-                    selectedTab === "creditCard" ? "text-white z-10" : ""
-                  }`}
+                  className={`relative flex items-center justify-center flex-col md:flex-row font-medium px-6 py-2 focus:outline-none transition-colors duration-300 w-1/2 ${selectedTab === "creditCard" ? "text-white z-10" : ""
+                    }`}
                   onClick={() => setSelectedTab("creditCard")}
                 >
                   <span className="mr-2">
@@ -1398,9 +1400,8 @@ const Customize_Payment = () => {
                 </button>
                 {/* Cryptocurrency Tab */}
                 <button
-                  className={`relative flex items-center justify-center flex-col md:flex-row font-medium px-6 py-2 focus:outline-none transition-colors duration-300 w-1/2 ${
-                    selectedTab === "crypto" ? "text-white z-10" : ""
-                  }`}
+                  className={`relative flex items-center justify-center flex-col md:flex-row font-medium px-6 py-2 focus:outline-none transition-colors duration-300 w-1/2 ${selectedTab === "crypto" ? "text-white z-10" : ""
+                    }`}
                   onClick={() => setSelectedTab("crypto")}
                 >
                   <span className="mr-2">
@@ -1460,7 +1461,7 @@ const Customize_Payment = () => {
                           type="submit"
                           className="px-3 py-2 rounded-md bg-main-color text-white font-semibold transform transition-transform duration-200 ease-in-out focus:ring-4 focus:ring-main-color-light active:scale-95 block xs:hidden"
                         >
-                           <BiCalculator  size={24} />
+                          <BiCalculator size={24} />
                         </button>
                       </div>
 
@@ -1515,7 +1516,7 @@ const Customize_Payment = () => {
                           type="submit"
                           className="px-3 py-2 rounded-md bg-main-color text-white font-semibold transform transition-transform duration-200 ease-in-out focus:ring-4 focus:ring-main-color-light active:scale-95 block xs:hidden"
                         >
-                           <BiCalculator  size={24} />
+                          <BiCalculator size={24} />
                         </button>
                       </div>
                       {cryptoError && (
@@ -1530,16 +1531,6 @@ const Customize_Payment = () => {
             </div>
           </div>
         </div>
-
-        {/* Payment Logos */}
-        <div className="flex items-center justify-center mt-6">
-          <img
-            src={payment_logos}
-            alt="currencyImage"
-            className="h-5 lg:h-10"
-          />
-        </div>
-
         {/* Modal */}
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-100 bg-black/70">

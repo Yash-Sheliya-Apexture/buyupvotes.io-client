@@ -354,11 +354,6 @@ const Header = () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
-
-    // if (loading) {
-    //     return <p>Loading...</p>;
-    // }
-
     return (
         <>
              <header
