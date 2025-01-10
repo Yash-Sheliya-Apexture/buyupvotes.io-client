@@ -133,72 +133,72 @@ const Blog = () => {
                   </div>
                 ))
             : sortedBlogs.map((blog, index) => (
-                <Link
-                  key={blog.id}
-                  to={`/post/${sanitizeTitle(blog.title)}`}
-                  className={`bg-[#fff] text-sub-color border border-gray-300 relative shadow-main rounded-small z-0 cursor-pointer overflow-hidden ${
-                    index === 0
-                      ? "lg:w-[550px] w-full z-10"
-                      : "flex-0 md:flex-1"
-                  }`}
-                >
-                  <div className="relative">
-                    <div className="absolute z-10 w-20 text-[#fff] h-9 left-2 -bottom-4">
-                      <svg
-                        fill="none"
-                        viewBox="0 0 144 62"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="m111.34 23.88c-10.62-10.46-18.5-23.88-38.74-23.88h-1.2c-20.24 0-28.12 13.42-38.74 23.88-7.72 9.64-19.44 11.74-32.66 12.12v26h144v-26c-13.22-.38-24.94-2.48-32.66-12.12z"
-                          fill="currentColor"
-                          fillRule="evenodd"
-                        ></path>
-                      </svg>
-                      <div className="flex items-center justify-center shrink-0 w-10 h-10 rounded-full absolute -bottom-2.5 left-5">
+                  <Link
+                    key={blog.id}
+                    to={`/post/${sanitizeTitle(blog.title)}`}
+                    className={`bg-[#fff] text-sub-color border border-gray-300 relative shadow-main rounded-small z-0 cursor-pointer overflow-hidden ${
+                      index === 0
+                        ? "lg:w-[550px] w-full z-10"
+                        : "flex-0 md:flex-1"
+                    }`}
+                  >
+                    <div className="relative">
+                      <div className="absolute z-10 w-20 text-[#fff] h-9 left-2 -bottom-4">
+                        <svg
+                          fill="none"
+                          viewBox="0 0 144 62"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="m111.34 23.88c-10.62-10.46-18.5-23.88-38.74-23.88h-1.2c-20.24 0-28.12 13.42-38.74 23.88-7.72 9.64-19.44 11.74-32.66 12.12v26h144v-26c-13.22-.38-24.94-2.48-32.66-12.12z"
+                            fill="currentColor"
+                            fillRule="evenodd"
+                          ></path>
+                        </svg>
+                        <div className="flex items-center justify-center shrink-0 w-10 h-10 rounded-full absolute -bottom-2.5 left-5">
+                          <img
+                            src={blog.profileImage}
+                            alt="profile"
+                            className="object-cover w-full h-full rounded-full"
+                          />
+                        </div>
+                      </div>
+                      <span className="overflow-hidden relative inline-block w-full h-[200px]">
                         <img
-                          src={blog.profileImage}
-                          alt="profile"
-                          className="object-cover w-full h-full rounded-full"
+                          src={blog.coverImage}
+                          alt="Background"
+                          className="absolute top-0 left-0 object-cover w-full h-full"
                         />
+                      </span>
+                    </div>
+
+                    <div className="px-6 pt-9">
+                      <div className="space-y-1 font-medium">
+                        <h1 className="text-sub-color">{blog.author}</h1>
+                        <p className="text-light-gray">{blog.date}</p>
+                        <p className="leading-6 text-sub-color text-small">
+                          {blog.title}
+                        </p>
                       </div>
                     </div>
-                    <span className="overflow-hidden relative inline-block w-full h-[200px]">
-                      <img
-                        src={blog.coverImage}
-                        alt="Background"
-                        className="absolute top-0 left-0 object-cover w-full h-full"
-                      />
-                    </span>
-                  </div>
 
-                  <div className="px-6 pt-9">
-                    <div className="space-y-1 font-medium">
-                      <h1 className="text-sub-color">{blog.author}</h1>
-                      <p className="text-light-gray">{blog.date}</p>
-                      <p className="leading-6 text-sub-color text-small">
-                        {blog.title}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-end p-8">
-                    <div className="flex items-center space-x-4 text-light-gray">
-                      <span className="flex items-center space-x-1">
-                        <FaEye className="size-4" />
-                        <span className="text-xs text-light-gray">
-                          {blog.views}
+                    <div className="flex items-center justify-end p-8">
+                      <div className="flex items-center space-x-4 text-light-gray">
+                        <span className="flex items-center space-x-1">
+                          <FaEye className="size-4" />
+                          <span className="text-xs text-light-gray">
+                            {blog.views}
+                          </span>
                         </span>
-                      </span>
-                      <span className="flex items-center space-x-1">
-                        <IoMdShare className="size-4" />
-                        <span className="text-xs text-light-gray">
-                          {blog.shares}
+                        <span className="flex items-center space-x-1">
+                          <IoMdShare className="size-4" />
+                          <span className="text-xs text-light-gray">
+                            {blog.shares}
+                          </span>
                         </span>
-                      </span>
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
               ))}
         </div>
       </div>

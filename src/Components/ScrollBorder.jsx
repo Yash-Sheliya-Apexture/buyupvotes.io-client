@@ -34,7 +34,7 @@ const ScrollBorder = () => {
         backgroundColor: "#FF5700", // Orange color
         boxShadow: `0 0px 10px rgba(255, 87, 0, ${shadowOpacity})`, // Dynamic shadow opacity
         transition: "all 1s ease-out", // Smooth easing for better effect
-        zIndex: 9999,
+        zIndex: 50,
       }}
     ></div>
   );

@@ -1393,7 +1393,7 @@ const Customize_Payment = () => {
             </div>
 
             {/* Content Sections */}
-            <div className="p-6 -mb-4">
+            <div className="p-4 -mb-4">
               <AnimatePresence mode="wait">
                 {selectedTab === "creditCard" && (
                   <motion.div

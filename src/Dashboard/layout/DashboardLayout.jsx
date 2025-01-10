@@ -42,9 +42,9 @@ const DashboardLayout = () => {
       <div className="flex flex-wrap items-start flex-1 overflow-y-auto">
         <div className="w-full">
           <DashboardHeader toggleSidebarVisibility={toggleSidebarVisibility} />
-          <main className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto">
             <Outlet />
-          </main>
+          </div>
         </div>
       </div>
     </div>
