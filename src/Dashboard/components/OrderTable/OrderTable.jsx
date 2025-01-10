@@ -449,7 +449,7 @@ const OrderTable = () => {
   };
 
   return (
-    <section className="Order-Table mb-4 border border-gray-300 rounded-small">
+    <section className="mb-4 border border-gray-300 Order-Table rounded-small">
       <h1 className="p-4 font-semibold text-sub-color lg:text-basic">
         Your past upvote orders:
       </h1>

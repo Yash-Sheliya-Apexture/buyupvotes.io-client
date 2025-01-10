@@ -12,7 +12,7 @@ const Price = () => {
   ];
 
   return (
-    <main className="my-10">
+    <main className="py-10" id="Pricing">
       {/* Pricing-Page */}
       <BreadcrumbHeader title="Pricing" breadcrumbs={breadcrumbs} />
       <PriceList

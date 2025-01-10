@@ -1,6 +1,7 @@
 import React from "react";
 import BreadcrumbHeader from "../../Components/BreadcrumbHeader";
 import FAQList from "../../Components/faqSection/FAQList";
+import FAQSection from "../../Components/faqSection/FAQSection";
 
 const FAQ = () => {
   const breadcrumbs = [
@@ -70,6 +71,13 @@ const FAQ = () => {
   return (
     <section id="FAQ">
       <BreadcrumbHeader title="FAQS" breadcrumbs={breadcrumbs} />
+      <FAQSection
+        heading="Frequently asked questions!"
+        description="Welcome to our FAQs! Here, you’ll find answers to the most
+        commonly asked questions about our products and services. Whether
+        you’re just getting started or looking for detailed insights,we’ve
+        got you covered."
+      />
       <FAQList faqs={faqs} />
     </section>
   );

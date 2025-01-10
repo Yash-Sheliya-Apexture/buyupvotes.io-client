@@ -1,6 +1,6 @@
 import React from "react";
 import GradientHeading from "../GradientHeading";
-import Blog from "../../Dashboard/pages/Blog";
+import BlogList from "../../Components/blog/BlogList";
 
 const Blogs = () => {
   return (
@@ -22,7 +22,7 @@ const Blogs = () => {
         </a>
       </div>
       <div className="py-6">
-        <Blog />
+        <BlogList />
       </div>
     </section>
   );

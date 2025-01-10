@@ -385,8 +385,8 @@ const Sign_In = () => {
 
   return (
     <>
-      <div className="h-[calc(100vh-72px)] layout flex items-center justify-center">
-        <div className="lg:w-[420px] bg-white rounded-small lg:p-6 p-4 pb-10">
+      <div className="h-[calc(100vh-72px)] layout flex items-center justify-center px-4 pb-6">
+        <div className="md:w-[420px] w-full bg-white rounded-small lg:p-6 p-4 pb-10">
           <h1 className="mb-4 text-base font-bold text-center lg:text-basic text-sub-color">
             Welcome to BuyUpvotes!
           </h1>
@@ -402,7 +402,7 @@ const Sign_In = () => {
               <span className="text-xs">Sign in with Google</span>
             </div>
           </button>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="pt-2">
             {errors.general && (
               <>
                 <div className="flex items-center min-h-12 gap-3 px-4 py-2 bg-[#ffe9d5] rounded-xl shadow-box mb-4">
