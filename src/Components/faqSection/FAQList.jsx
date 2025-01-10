@@ -11,9 +11,9 @@ const FAQList = ({ faqs }) => {
   return (
     <section className="FAQ-List">
       <div className="container mx-auto">
-        <div className="space-y-4 mt-10">
+        <div className="mt-10 space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="border-b border-gray-300 space-y-4">
+            <div key={index} className="space-y-4 border-b border-gray-300">
               <button
                 onClick={() => toggleFAQ(index)}
                 className={`flex justify-between items-center w-full gap-4 ${
@@ -21,7 +21,7 @@ const FAQList = ({ faqs }) => {
                 }`}
               >
                 {/* Question */}
-                <h2 className="lg:text-basic font-medium text-start text-sub-color">
+                <h2 className="font-medium lg:text-basic text-start text-sub-color">
                   {faq.question}
                 </h2>
 
@@ -29,7 +29,7 @@ const FAQList = ({ faqs }) => {
                 <span
                   className={`transition-all duration-300 text-base rounded-full lg:px-3.5 px-2.5 py-2 lg:py-2 flex items-center justify-center ${
                     openIndex === index
-                      ? "bg-gradient-to-bl from-[#ffe8d9] to-[#ff5700] text-white"
+                      ? "bg-gradient-to-bl from-[#ff5700] to-[#ffae78] text-white"
                       : "bg-[#d3d3d375] text-sub-color "
                   }`}
                 >
@@ -50,7 +50,7 @@ const FAQList = ({ faqs }) => {
                   openIndex === index ? "max-h-[150px]" : "max-h-0"
                 }`}
               >
-                <p className="text-gray-700 lg:text-medium font-medium lg:py-3 py-2">
+                <p className="py-2 font-medium text-gray-700 lg:text-medium lg:py-3">
                   {faq.answer}
                 </p>
               </div>
