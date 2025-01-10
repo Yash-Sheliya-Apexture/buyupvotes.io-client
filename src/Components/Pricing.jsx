@@ -3,6 +3,7 @@ import GradientHeading from "./GradientHeading";
 import { FaBolt } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa";
 import { BiSolidLayer } from "react-icons/bi";
+import { GiCheckMark } from "react-icons/gi";
 
 const PricingWithMenu = () => {
   return (
@@ -52,37 +53,11 @@ const PricingWithMenu = () => {
                 <h3 class="text-sm font-bold text-gray-600 mb-2">INCLUDES</h3>
                 <ul class="text-sm text-gray-500 space-y-2">
                   <li class="flex items-center gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-4 h-4 text-green-500"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M4.5 12.75l6 6 9-13.5"
-                      />
-                    </svg>
-                    1 editor & 3 guests
+                    <GiCheckMark className="size-4 text-green-500" />1 editor &
+                    3 guests
                   </li>
                   <li class="flex items-center gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-4 h-4 text-green-500"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M4.5 12.75l6 6 9-13.5"
-                      />
-                    </svg>
+                    <GiCheckMark className="size-4 text-green-500" />
                     125+ Al avatars
                   </li>
                   <li class="flex items-center gap-2">
