@@ -27,7 +27,7 @@ const Home_Page = () => {
         <div className="relative z-10">
           <button
             onClick={scrollToTop}
-            className="fixed flex items-center justify-center w-8 h-8 rounded-full lg:w-10 lg:h-10 bottom-16 right-5 bg-main-color lg:right-6 lg:bottom-6"
+            className="fixed flex items-center justify-center w-8 h-8 rounded-lg md:w-10 md:h-10 bottom- right-5 bg-main-color lg:right-2 md:right-6 md:bottom-6 lg:bottom-6"
           >
             <FaArrowUp className="w-5 h-4 text-white" />
           </button>

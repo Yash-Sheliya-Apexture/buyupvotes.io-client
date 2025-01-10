@@ -68,7 +68,7 @@ const HeroSection = () => {
                   className="mb-10"
                 />
 
-                <p className="mb-8 w- font-BasierSquare text-gray-700 font-medium md:text-lg lg:text-2xl">
+                <p className="mb-8 font-BasierSquare text-sub-color font-medium text-lg lg:text-2xl">
                   Gain real engagement and grow your online audience quickly
                   with our proven strategies and tools.
                 </p>
@@ -76,13 +76,13 @@ const HeroSection = () => {
                 <div className="flex flex-row items-center justify-center gap-5 lg:justify-start">
                   {user ? (
                     <Link to="/dashboard">
-                      <button className="flex items-center justify-center gap-2 px-10 py-4 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
+                      <button className="flex items-center justify-center gap-2 px-10 md:py-4 py-2 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
                         Get Started Now
                       </button>
                     </Link>
                   ) : (
                     <Link to="/signin">
-                      <button className="flex items-center justify-center gap-2 px-10 py-4 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
+                      <button className="flex items-center justify-center gap-2 px-10 md:py-4 py-2 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
                         Get Started Now
                       </button>
                     </Link>
@@ -97,7 +97,7 @@ const HeroSection = () => {
             <Slider {...sliderSettings}>
               {listItems.map((item, index) => (
                 <div key={index}>
-                  <div className="flex gap-3 lg:text-2xl text-base font-BasierSquare font-medium flex-nowrap">
+                  <div className="flex gap-3 lg:text-2xl text-basic font-BasierSquare font-medium flex-nowrap">
                     {typeof item === "string" ? (
                       <li className="list-none">{item}</li>
                     ) : (

@@ -359,7 +359,7 @@ const Header = () => {
              <header
                 className={`top-0 z-30 relative transition-shadow duration-300 ${
                     isHomePage
-                        ? `${isSticky ? "bg-white/60 shadow-header backdrop-blur-[2px] sticky" : ""}`
+                        ? `${isSticky ? "bg-white/60 shadow-header backdrop-blur-[4px] sticky" : ""}`
                         : "bg-white/60 shadow-header backdrop-blur-[2px] "
                 }  ${isSticky ? `sticky` : ""}`}
             >
@@ -440,7 +440,7 @@ const Header = () => {
             </header>
 
             <div
-                className={`fixed top-0 left-0 w-64 bg-white h-full border-r border-gray-300/50 shadow-main transition-transform duration-300 ease-in-out z-40 ${showMenu ? "translate-x-0" : "-translate-x-full"
+                className={`fixed top-0 left-0 w-64 bg-white  h-full border-r border-gray-300/50 shadow-main transition-transform duration-300 ease-in-out z-40 ${showMenu ? "translate-x-0" : "-translate-x-full"
                     }`}
             >
                 <div className="relative flex justify-end p-4">

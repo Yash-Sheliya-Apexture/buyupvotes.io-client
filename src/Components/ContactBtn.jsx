@@ -12,8 +12,8 @@ const ContactBtn = ({
   buttonClassName = "",
 }) => {
   return (
-    <section className="Contact-Reauable">
-      <div className="flex justify-center items-center flex-col my-6 space-y-2">
+    <section className="Contact-Reauable container mx-auto">  
+      <div className="flex justify-center items-center flex-col my-8 space-y-2">
         <GradientHeading
           tag="h1"
           beforeText={headingBeforeText}
