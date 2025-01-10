@@ -369,7 +369,7 @@ const PricingWithMenu = () => {
 
               <div className="mt-8">
                 <h3 className="mb-2 text-sm font-bold text-gray-300">INCLUDES</h3>
-                <ul className="space-y-2 text-sm text-gray-300">
+                <ul className="space-y-2 text-sm text-grayZ-300">
                   <li className="flex items-center gap-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
