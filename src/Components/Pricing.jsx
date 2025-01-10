@@ -458,7 +458,7 @@ const PricingWithMenu = () => {
             gradientText="for your needs."
             beforeSpanClassName="font-bold"
             textSize="text-3xl lg:text-[40px]"
-            className="lg:pb-14 lg:mt-4 py-6 text-center" 
+            className="py-6 text-center lg:pb-14 lg:mt-4" 
           />
 
           {/* Tab Navigation (Hidden on larger screens) */}
