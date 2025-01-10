@@ -328,7 +328,7 @@ const InputField = ({
               <div
                 type="button"
                 onClick={handleTogglePasswordVisibility}
-                className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500 cursor-pointer"
+                className="absolute inset-y-0 right-0 flex items-center pr-4 cursor-pointer text-slate-500"
               >
                 {showPassword ? <FaEye /> : <FaEyeSlash />}
               </div>
@@ -339,7 +339,7 @@ const InputField = ({
         {error && (
           <>
             <div className="text-[#FF0000] flex items-center gap-1 mt-1">
-              <MdError className="w-3 h-3" />
+              <MdError className="w-4 h-4" />
               <p className="text-sm">{error}</p>
             </div>
           </>
