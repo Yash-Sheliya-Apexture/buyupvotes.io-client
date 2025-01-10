@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 font-face {
   font-family: "InterDisplay";
   font-style: normal;
@@ -478,13 +476,8 @@ textarea:focus {
 }
 
 @media (max-width: 768px) {
-  .contact-main .contact .sub-content {
+  .Contact-Main .contact .sub-content {
     flex-wrap: wrap;
-    /* border-radius: 1.25rem; */
-  }
-
-  .contact-main .contact .sub-content .right img {
-    /* border-radius: 1rem; */
   }
 
   /* Tabs Section - Horizontal Scrolling */
@@ -637,9 +630,3 @@ textarea:focus {
   border-radius: 2.25rem;
 }
 
-/* faq.css */
-.transition-all {
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
