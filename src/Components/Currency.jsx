@@ -8,7 +8,7 @@ const Currency = () => {
   const { user } = useAuth();
 
   return (
-    <section className="Currency-Exchange bg-white pb-6">
+    <section className="Currency-Exchange bg-white pb-10">
       <div className="container mx-auto space-y-5">
         <div className="flex items-center justify-center">
           <img src={payment_logos} alt="" className="rounded-lg lg:max-w-3xl" />

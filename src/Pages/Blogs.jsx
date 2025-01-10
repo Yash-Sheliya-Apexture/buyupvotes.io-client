@@ -1,9 +1,9 @@
 import React from "react";
-import Blog from "../Dashboard/pages/Blog"; 
+import Blog from "../Dashboard/pages/Blog";
 
 const Blogs = () => {
   return (
-    <main className="my-5">
+    <main className="my-10">
       <Blog />
     </main>
   );
