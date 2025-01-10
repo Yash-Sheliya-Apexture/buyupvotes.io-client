@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WebsiteRoutes from "./routes/WebsiteRoutes";
 import DashboardRoutes from "./routes/DashboardRoutes";
+import ProtectedRoute from "./routes/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Scroll_To_Top from "./Components/Scroll_To_Top"; // Import the component
