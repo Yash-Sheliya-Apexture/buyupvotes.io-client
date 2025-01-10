@@ -6,9 +6,7 @@ const BreadcrumbHeader = ({ title, breadcrumbs }) => {
     <section className="haeding-wrap">
       <div className="container mx-auto">
         <div className="mainbread">
-          <h1 className="mb-2 font-bold text-sub-color text-basic">
-            {title}
-          </h1>
+          <h1 className="mb-2 font-bold text-sub-color text-basic">{title}</h1>
           <div className="flex items-center space-x-4">
             <Breadcrumb items={breadcrumbs} />
           </div>

@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../../assets/Images/blog-image.png";
 import { FaEye } from "react-icons/fa";
 import { IoMdShare } from "react-icons/io";
 import Dropdown from "../components/Dropdown";
 import Skeleton from "react-loading-skeleton";
 import Breadcrumb from "../../Dashboard/components/Breadcrumb";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -17,7 +13,6 @@ const Blog = () => {
   const filterOptions = ["Latest", "Popular", "Oldest"];
   const location = useLocation();
   const isHomePage = location.pathname === "/";
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
 
   const sanitizeTitle = (title) => {
     return title
@@ -25,18 +20,6 @@ const Blog = () => {
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "");
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -62,25 +45,13 @@ const Blog = () => {
     return 0;
   });
 
-  // Slider settings with autoplay and adaptive height
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000, // Adjust autoplay speed as needed (in milliseconds)
-    adaptiveHeight: true, // Enable adaptive height for slider
-  };
-
   const breadcrumbs = [
     { label: "Dashboard", link: "/dashboard" },
     { label: "Blogs" },
   ];
 
   return (
-    <section className="my-5">
+    <section>
       <div className="container mx-auto">
         {/* Blog Logo */}
         {!isHomePage && (
@@ -114,8 +85,8 @@ const Blog = () => {
                   options={filterOptions}
                   selectedValue={selectedFilter}
                   onSelect={(value) => setSelectedFilter(value)}
-                  className="lg:w-full w-40"
-                  placeholder="Select Feature:"
+                  className="w-full"
+                  placeholder="Select Feature"
                   dropdownPadding="p-2.5"
                   listPadding="p-1.5 my-1.5 -mt-0"
                 />
@@ -125,51 +96,53 @@ const Blog = () => {
         )}
 
         {/* Blog Cards-Main */}
-        <div className={`flex flex-wrap gap-4 mb-5 ${isSmallScreen ? "" : ""}`}>
-          {loading ? (
-            Array(3)
-              .fill()
-              .map((_, index) => (
-                <div
-                  key={index}
-                  className={`bg-white text-sub-color relative shadow-main rounded-small z-0  overflow-hidden ${
+        <div className="flex flex-wrap gap-4 mb-5">
+          {loading
+            ? Array(3)
+                .fill()
+                .map((_, index) => (
+                  <div
+                    key={index}
+                    className={`bg-white text-sub-color relative shadow-main rounded-small z-0  overflow-hidden ${
+                      index === 0
+                        ? "lg:w-[550px] w-full z-10"
+                        : "flex-0 md:flex-1"
+                    }`}
+                  >
+                    <div className="relative">
+                      <span className="overflow-hidden relative inline-block w-full h-[200px]">
+                        <Skeleton
+                          height={200}
+                          className="absolute top-0 left-0 w-full h-full"
+                        />
+                      </span>
+                    </div>
+                    <div className="px-6 pt-9">
+                      <div className="space-y-2 font-medium">
+                        <Skeleton width={100} />
+                        <Skeleton width={80} />
+                        <Skeleton count={2} />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-end p-8">
+                      <div className="flex items-center space-x-4 text-light-gray">
+                        <Skeleton width={40} />
+                        <Skeleton width={40} />
+                      </div>
+                    </div>
+                  </div>
+                ))
+            : sortedBlogs.map((blog, index) => (
+                <Link
+                  key={blog.id}
+                  to={`/post/${sanitizeTitle(blog.title)}`}
+                  className={`bg-[#fff] text-sub-color border border-gray-300 relative shadow-main rounded-small z-0 cursor-pointer overflow-hidden ${
                     index === 0
                       ? "lg:w-[550px] w-full z-10"
                       : "flex-0 md:flex-1"
                   }`}
                 >
                   <div className="relative">
-                    <span className="overflow-hidden relative inline-block w-full h-[200px]">
-                      <Skeleton
-                        height={200}
-                        className="absolute top-0 left-0 w-full h-full"
-                      />
-                    </span>
-                  </div>
-                  <div className="px-6 pt-9">
-                    <div className="space-y-2 font-medium">
-                      <Skeleton width={100} />
-                      <Skeleton width={80} />
-                      <Skeleton count={2} />
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-end p-8">
-                    <div className="flex items-center space-x-4 text-light-gray">
-                      <Skeleton width={40} />
-                      <Skeleton width={40} />
-                    </div>
-                  </div>
-                </div>
-              ))
-          ) : isSmallScreen ? (
-            <Slider {...sliderSettings}>
-              {sortedBlogs.map((blog) => (
-                <Link
-                  key={blog.id}
-                  to={`/post/${sanitizeTitle(blog.title)}`}
-                  className="bg-[#fff] text-sub-color border border-gray-300 relative shadow-main rounded-small z-0 cursor-pointer overflow-hidden"
-                >
-                  <div className="">
                     <div className="absolute z-10 w-20 text-[#fff] h-9 left-2 -bottom-4">
                       <svg
                         fill="none"
@@ -227,75 +200,6 @@ const Blog = () => {
                   </div>
                 </Link>
               ))}
-            </Slider>
-          ) : (
-            sortedBlogs.map((blog, index) => (
-              <Link
-                key={blog.id}
-                to={`/post/${sanitizeTitle(blog.title)}`}
-                className={`bg-[#fff] text-sub-color border border-gray-300 relative shadow-main rounded-small z-0 cursor-pointer overflow-hidden ${
-                  index === 0 ? "lg:w-[550px] w-full z-10" : "flex-0 md:flex-1"
-                }`}
-              >
-                <div className="relative">
-                  <div className="absolute z-10 w-20 text-[#fff] h-9 left-2 -bottom-4">
-                    <svg
-                      fill="none"
-                      viewBox="0 0 144 62"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m111.34 23.88c-10.62-10.46-18.5-23.88-38.74-23.88h-1.2c-20.24 0-28.12 13.42-38.74 23.88-7.72 9.64-19.44 11.74-32.66 12.12v26h144v-26c-13.22-.38-24.94-2.48-32.66-12.12z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                      ></path>
-                    </svg>
-                    <div className="flex items-center justify-center shrink-0 w-10 h-10 rounded-full absolute -bottom-2.5 left-5">
-                      <img
-                        src={blog.profileImage}
-                        alt="profile"
-                        className="object-cover w-full h-full rounded-full"
-                      />
-                    </div>
-                  </div>
-                  <span className="overflow-hidden relative inline-block w-full h-[200px]">
-                    <img
-                      src={blog.coverImage}
-                      alt="Background"
-                      className="absolute top-0 left-0 object-cover w-full h-full"
-                    />
-                  </span>
-                </div>
-
-                <div className="px-6 pt-9">
-                  <div className="space-y-1 font-medium">
-                    <h1 className="text-sub-color">{blog.author}</h1>
-                    <p className="text-light-gray">{blog.date}</p>
-                    <p className="leading-6 text-sub-color text-small">
-                      {blog.title}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-end p-8">
-                  <div className="flex items-center space-x-4 text-light-gray">
-                    <span className="flex items-center space-x-1">
-                      <FaEye className="size-4" />
-                      <span className="text-xs text-light-gray">
-                        {blog.views}
-                      </span>
-                    </span>
-                    <span className="flex items-center space-x-1">
-                      <IoMdShare className="size-4" />
-                      <span className="text-xs text-light-gray">
-                        {blog.shares}
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))
-          )}
         </div>
       </div>
     </section>

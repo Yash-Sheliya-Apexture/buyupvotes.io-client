@@ -1365,10 +1365,6 @@
 
 // export default ContactUs;
 
-
-
-
-
 // import React from "react";
 // import Breadcrumb from "../../Dashboard/components/Breadcrumb";
 // import ContactInfo from "../../Components/ContactUs/ContactInfo";
@@ -1455,10 +1451,6 @@
 
 // export default ContactUs;
 
-
-
-
-
 import React from "react";
 import Breadcrumb from "../../Dashboard/components/Breadcrumb";
 import ContactForm from "../../Components/ContactUs/ContactForm";
@@ -1473,9 +1465,9 @@ function ContactUs() {
 
   return (
     <>
-      <section className="py-4" id="contact">
+      <section className="Contact-Dashboard" id="contact">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 my-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 ">
             {/* Contact Information */}
             <div className="w-full">
               <h1 className="mb-2 font-bold text-sub-color text-basic">
@@ -1495,9 +1487,9 @@ function ContactUs() {
                 />
               </div>
               <p className="mb-6 lg:text-xl text-[16px] text-gray-700">
-                Get the oars in the water and start rowing. Execution is the single
-                biggest factor in achievement. The quicker you will get to the
-                goals!
+                Get the oars in the water and start rowing. Execution is the
+                single biggest factor in achievement. The quicker you will get
+                to the goals!
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8">
@@ -1507,8 +1499,12 @@ function ContactUs() {
                     Call Center
                   </h3>
                   <div className="flex flex-col">
-                    <a href="" className="text-gray-700">123 456-7890</a>
-                    <a href="" className="text-gray-700">+(000) 123-456-7890</a>
+                    <a href="" className="text-gray-700">
+                      123 456-7890
+                    </a>
+                    <a href="" className="text-gray-700">
+                      +(000) 123-456-7890
+                    </a>
                   </div>
                 </div>
 

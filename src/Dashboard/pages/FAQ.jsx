@@ -68,8 +68,8 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="py-6" id="FAQ">
-      <BreadcrumbHeader title="faqs" breadcrumbs={breadcrumbs} />
+    <section id="FAQ">
+      <BreadcrumbHeader title="FAQS" breadcrumbs={breadcrumbs} />
       <FAQList faqs={faqs} />
     </section>
   );

@@ -34,7 +34,7 @@ export function Slider() {
       }}
       navigation={false}
       modules={[Autoplay, Pagination]}
-      className="w-full mySwiper rounded-small shadow-main"
+      className="w-full mySwiper rounded-small shadow-main border border-gray-300"
     >
       {blogs.map((blog, index) => (
         <SwiperSlide key={blog.id}>

@@ -6,7 +6,7 @@ const FAQSection = ({ heading, description }) => {
   return (
     <section className="FaQ-Section">
       <div className="container mx-auto">
-        <div className="rounded-small gap-4 md:grid md:grid-cols-2 md:gap-6 flex flex-col">
+        <div className="rounded-small gap-4 md:grid md:grid-cols-2 md:gap-6 flex flex-col lg:pb-10">
           {/* Rightside */}
           <div className="order-2 md:order-1">
             <div className="lg:max-w-md lg:mt-10 mt-5">

@@ -11,9 +11,9 @@ const FAQList = ({ faqs }) => {
   return (
     <section className="FAQ-List">
       <div className="container mx-auto">
-        <div className="space-y-2 mt-20">
+        <div className="space-y-4 mt-10">
           {faqs.map((faq, index) => (
-            <div key={index} className="border-b border-gray-300 space-y-6">
+            <div key={index} className="border-b border-gray-300 space-y-4">
               <button
                 onClick={() => toggleFAQ(index)}
                 className={`flex justify-between items-center w-full gap-4 ${
@@ -29,7 +29,7 @@ const FAQList = ({ faqs }) => {
                 <span
                   className={`transition-all duration-300 text-base rounded-full lg:px-3.5 px-2.5 py-2 lg:py-2 flex items-center justify-center ${
                     openIndex === index
-                      ? "bg-main-color text-white"
+                      ? "bg-gradient-to-bl from-[#ffe8d9] to-[#ff5700] text-white"
                       : "bg-[#d3d3d375] text-sub-color "
                   }`}
                 >
@@ -50,7 +50,7 @@ const FAQList = ({ faqs }) => {
                   openIndex === index ? "max-h-[150px]" : "max-h-0"
                 }`}
               >
-                <p className="text-gray-700 lg:text-medium font-medium lg:py-4 py-2">
+                <p className="text-gray-700 lg:text-medium font-medium lg:py-3 py-2">
                   {faq.answer}
                 </p>
               </div>
