@@ -49,7 +49,7 @@ const PricingWithMenu = () => {
   ];
 
   return (
-    <section className="Hero-Home flex items-center justify-center bg-white">
+    <section className="flex items-center justify-center bg-white Hero-Home">
       <div className="container mx-auto">
         <GradientHeading
           tag="h3"
@@ -57,16 +57,16 @@ const PricingWithMenu = () => {
           gradientText="for your needs."
           beforeSpanClassName="font-bold"
           textSize="text-3xl lg:text-[40px]"
-          className="lg:pb-14 lg:mt-4 py-6 md:text-center text-left"
+          className="py-6 text-left lg:pb-14 lg:mt-4 md:text-center"
         />
 
         <div className="mb-10">
           {/* Grid of cards for large screens */}
-          <div className="flex justify-center items-center flex-wrap gap-8 lg:gap-5">
+          <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-5">
             {pricingData.map((plan, index) => (
               <div
                 key={index}
-                className={`p-4 border-2 lg:w-[250px] w-full pb-10 shadow-main ${
+                className={`p-4 border-2 lg:w-[320px] w-full pb-10 shadow-main ${
                   plan.isBestValue ? "border-main-color" : "border-gray-300/50"
                 } rounded-2xl`}
               >
@@ -85,7 +85,7 @@ const PricingWithMenu = () => {
                     <h6 className="font-medium text-sub-color">{plan.title}</h6>
                     <span className="block mt-3 text-3xl font-semibold font-BasierSquare">
                       {plan.price}+{"  "}
-                      <span className="text-small font-medium font-InterDisplay ml-2 text-para-color">
+                      <span className="ml-2 font-medium text-small font-InterDisplay text-para-color">
                         {plan.pricePerUpvote}
                       </span>
                     </span>
@@ -103,7 +103,7 @@ const PricingWithMenu = () => {
                         <span className="mr-1.5 mt-2 text-green-500 text-small">
                           ✔
                         </span>
-                        <span className="text-small font-normal">
+                        <span className="font-normal text-small">
                           {feature}
                         </span>
                       </li>
