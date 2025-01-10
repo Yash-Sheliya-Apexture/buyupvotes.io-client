@@ -166,11 +166,11 @@ body {
 }
 
 .heading {
-  @apply font-semibold text-sub-color lg:text-base text-medium;
+  @apply font-semibold  lg:text-[32px] text-medium;
 }
 
 .para {
-  @apply text-xs font-medium text-sub-color lg:text-small;
+  @apply text-xs font-medium text-gray-700 lg:text-small;
 }
 
 /* Icon-Set */

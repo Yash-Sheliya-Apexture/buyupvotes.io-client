@@ -3,7 +3,7 @@ import Blog from "../Dashboard/pages/Blog";
 
 const Blogs = () => {
   return (
-    <main className="my-10">
+    <main className="py-10" id="Blogs">
       <Blog />
     </main>
   );
