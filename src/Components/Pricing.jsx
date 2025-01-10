@@ -21,32 +21,34 @@ const PricingWithMenu = () => {
           <div class="flex flex-col md:flex-row gap-6">
             <div
               class="bg-white rounded-2xl shadow-main p-6 flex-1 relative
-                        bg-gradient-to-b from-pink-100 to-white space-y-3"
+                        bg-gradient-to-b from-pink-100 to-white"
             >
-              <div class="inline-flex justify-center items-center bg-main-color text-white text-medium font-medium py-1 px-4 rounded-full">
-                <span class="flex items-center gap-2">
-                  <FaBolt className="size-5 text-white" />
-                  Starter
-                </span>
+              <div className="flex justify-center items-center flex-col space-y-3">
+                <div class="inline-block bg-main-color text-white text-medium font-medium py-1 px-4 rounded-full">
+                  <span class="flex items-center gap-2">
+                    <FaBolt className="size-5 text-white" />
+                    Starter
+                  </span>
+                </div>
+
+                <h2 class="text-small font-bold text-gray-800 text-center">
+                  $0.05/upvote
+                </h2>
+                <h2 class="text-5xl font-bold text-main-color text-center">
+                  $10+
+                </h2>
+                <p class="text-small text-gray-800 text-center font-medium">
+                  10% discount
+                </p>
               </div>
 
-              <h2 class="text-small font-bold text-gray-800 text-center">
-                $0.05/upvote
-              </h2>
-              <h2 class="text-5xl font-bold text-main-color text-center">
-              $10+
-              </h2>
-              <p class="text-small text-gray-800 text-center font-medium">
-              10% discount
-              </p>
-
               <div class="mt-6">
-                <button class="bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 font-bold py-2 px-4 rounded-md w-full">
-                  Get started
+                <button class="bg-white border border-gray-300  text-gray-700 font-bold py-2 px-4 rounded-md w-full">
+                  Get Started
                 </button>
               </div>
 
-              <div class="mt-8">
+              <div class="mt-4">
                 <h3 class="text-sm font-bold text-gray-600 mb-2">INCLUDES</h3>
                 <ul class="text-sm text-gray-500 space-y-2">
                   <li class="flex items-center gap-2">
