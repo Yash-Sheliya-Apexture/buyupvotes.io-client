@@ -1,6 +1,7 @@
 import React from "react";
 import GradientHeading from "../GradientHeading";
 import BlogList from "../../Components/blog/BlogList";
+import { Link } from "react-router-dom";
 
 const Blogs = () => {
   return (
