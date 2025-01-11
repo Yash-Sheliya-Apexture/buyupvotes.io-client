@@ -15,8 +15,8 @@ const Blogs = () => {
         />
         <a
           className="inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600"
-          href="/signup"
-          data-discover="true"
+          href="/post"
+          
         >
           View More
         </a>
