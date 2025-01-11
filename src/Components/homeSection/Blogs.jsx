@@ -4,8 +4,8 @@ import BlogList from "../../Components/blog/BlogList";
 
 const Blogs = () => {
   return (
-    <section className="Blog-Main bg-white mt-10">
-      <div className="container mx-auto flex justify-between items-center flex-col md:flex-row space-y-5 md:space-y-0">
+    <section className="mt-10 bg-white Blog-Main">
+      <div className="container flex flex-col items-center justify-between mx-auto space-y-5 md:flex-row md:space-y-0">
         <GradientHeading
           tag="h3"
           beforeText="Explore Your Our"
@@ -18,7 +18,7 @@ const Blogs = () => {
           href="/signup"
           data-discover="true"
         >
-          Read blog
+          View More
         </a>
       </div>
       <div className="py-6">
