@@ -3,7 +3,7 @@ import logo from "../assets/Images/Logo.png";
 import Uparrow from "../assets/Images/logo-mini.png";
 import { Link } from "react-router-dom";
 
-const SignIn_Header = () => {
+const LoginHeader = () => {
   return (
     <>
       {/* Menubar */}
@@ -15,7 +15,7 @@ const SignIn_Header = () => {
                 <img
                   src={logo}
                   alt="Logo"
-                  className="hidden h-6 lg:block lg:h-10"
+                  className="hidden h-6 lg:block lg:h-8"
                 />
               </Link>
               <Link to="/">
@@ -41,4 +41,4 @@ const SignIn_Header = () => {
   );
 };
 
-export default SignIn_Header;
+export default LoginHeader;

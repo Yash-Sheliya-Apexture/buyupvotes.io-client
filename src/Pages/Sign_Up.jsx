@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaSpinner } from "react-icons/fa";
 import google from "../assets/Images/google_logo.png";
-import InputField from "../Dashboard/components/InputField"; // Import InputField
+import InputField from "../Dashboard/components/InputField";
 
 const Sign_Up = () => {
   const [email, setEmail] = useState("");
@@ -20,8 +20,11 @@ const Sign_Up = () => {
     lastName: false,
   });
   const [loading, setLoading] = useState(false);
+  const [overflow, setOverflow] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false); // Single state for visibility
   const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const scrollContainerRef = useRef(null);
 
   const validateField = (name, value) => {
     switch (name) {
@@ -142,9 +145,25 @@ const Sign_Up = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const hasErrors = Object.keys(errors).length > 0;
+      if (hasErrors) {
+        setOverflow(container.scrollHeight > container.clientHeight);
+      } else {
+        setOverflow(false);
+      }
+    }
+  }, [errors]);
+
   return (
     <>
-      <main className="h-[calc(100vh-72px)] layout flex items-center justify-center px-4 pb-6">
+      <section className="lg:h-[calc(100vh-72px)] layout flex items-center justify-center px-4 pb-6">
         <div className="md:w-[420px] w-full h-auto bg-white rounded-small p-4 pb-10">
           <h1 className="mb-2 text-base font-bold text-center lg:text-basic text-sub-color">
             Welcome to BuyUpvotes!
@@ -162,16 +181,19 @@ const Sign_Up = () => {
             Or register below
           </div>
           <button className="flex items-center justify-center w-full gap-4 px-8 py-2.5 text-lg font-semibold transition-colors duration-300 bg-white border border-gray-300 rounded-xl text-balck hover:bg-gray-100 hover:border-gray-400 mb-4">
-                      <img src={google} alt="Google Logo" className="w-6 h-6" />
-                      <div className="flex justify-center">
-                        <span className="text-xs">Sign in with Google</span>
-                      </div>
-                    </button>
+            <img src={google} alt="Google Logo" className="w-6 h-6" />
+            <div className="flex justify-center">
+              <span className="text-xs">Sign in with Google</span>
+            </div>
+          </button>
 
           <div
-            className={`relative overflow-y-auto custom-scroll md:max-h-[320px] max-h-[420px]`}
+            ref={scrollContainerRef}
+            className={`relative ${
+              overflow ? "overflow-y-auto custom-scroll pr-2" : ""
+            } md:max-h-[310px] max-h-[420px]`}
           >
-            <form onSubmit={handleSubmit} className="pt-2">
+            <form onSubmit={handleSubmit} className="form-handle">
               {errors.general && (
                 <>
                   <div className="flex items-center min-h-12 gap-3 px-4 py-2 bg-[#ffe9d5] rounded-xl shadow-box mb-3">
@@ -227,7 +249,7 @@ const Sign_Up = () => {
 
               <div className="mb-3">
                 <InputField
-                  type="email"
+                  type={passwordVisible ? "text" : "password"} // Use the passwordVisible state
                   name="email"
                   placeholder="Email"
                   value={email}
@@ -241,7 +263,7 @@ const Sign_Up = () => {
 
               <div className="mb-3">
                 <InputField
-                  type="password"
+                  type={passwordVisible ? "text" : "password"} // Use the passwordVisible state
                   name="password"
                   placeholder="Password"
                   value={password}
@@ -250,12 +272,12 @@ const Sign_Up = () => {
                   error={errors.password}
                   inputPadding="p-3"
                   labelPosition="top-3.5"
-                  togglePasswordVisibility={true}
+                  togglePasswordVisibility={togglePasswordVisibility} // Pass the toggle function
                 />
               </div>
               <div className="mb-3">
                 <InputField
-                  type="password"
+                  type={passwordVisible ? "text" : "password"} // Use the passwordVisible state
                   name="confirmPassword"
                   placeholder="Confirm Password"
                   value={confirmPassword}
@@ -264,7 +286,7 @@ const Sign_Up = () => {
                   error={errors.confirmPassword}
                   inputPadding="p-3"
                   labelPosition="top-3.5"
-                  togglePasswordVisibility={true}
+                  togglePasswordVisibility={togglePasswordVisibility} // Pass the toggle function
                 />
               </div>
               {loading ? (
@@ -279,20 +301,20 @@ const Sign_Up = () => {
                   Create Account
                 </button>
               )}
-              <p className="text-[12px] text-center font-medium text-sub-color mt-6">
+              <p className="text-[13px] text-center font-medium text-sub-color mt-3.5">
                 By signing up, I agree to{" "}
-                <a href="#" className="underline decoration-[#2d262466]">
+                <a href="#" className="underline-hover">
                   Terms and Service
                 </a>{" "}
                 and{" "}
-                <a href="#" className="underline decoration-[#2d262466]">
+                <a href="#" className="underline-hover">
                   Privacy Policy
                 </a>
               </p>
             </form>
           </div>
         </div>
-      </main>
+      </section>
     </>
   );
 };

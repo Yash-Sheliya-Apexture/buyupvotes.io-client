@@ -2,6 +2,7 @@ import React from "react";
 import pricing from "../../assets/Images/Priceimage.png";
 import GradientHeading from "../GradientHeading";
 
+
 const PriceList = ({ heading, description }) => {
   return (
     <section className="Price-List">
@@ -28,7 +29,7 @@ const PriceList = ({ heading, description }) => {
             <img
               src={pricing}
               alt="Pricing-Image"
-              className="max-w-full h-auto md:max-h-[400px] lg:-mt-10"
+              className="max-w-full h-auto md:max-h-[450px] lg:-mt-4 mt-0"
             />
           </div>
         </div>

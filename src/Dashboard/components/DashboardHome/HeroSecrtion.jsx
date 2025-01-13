@@ -47,7 +47,7 @@ const HeroSection = () => {
         <div className="relative flex flex-col w-full p-4 overflow-hidden lg:flex-row lg:w-full bg-light-brown rounded-small lg:p-6">
           {/* Left Side - Text */}
           <div className="flex justify-center w-full lg:w-1/2 lg:mt-5">
-            <div className="mb-10 text-center space-y-5 lg:text-start max-w-[400px]">
+            <div className="mb-10 text-center space-y-5 lg:text-start max-w-[350px]">
               {loading ? (
                 <h2 className="font-bold text-black lg:text-large text-2xl flex items-center gap-2">
                   Loading...
@@ -69,7 +69,7 @@ const HeroSection = () => {
                   Welcome back, Guest 👋
                 </h2>
               )}
-              <p className="text-[#333b52] leading-7 text-center lg:text-left text-lg font-BasierSquare">
+              <p className="text-sub-color leading-7 text-center lg:text-left text-lg font-BasierSquare">
                 You have 100 upvotes remaining on your balance. Continue
                 boosting your Reddit experience by placing an order now !
               </p>

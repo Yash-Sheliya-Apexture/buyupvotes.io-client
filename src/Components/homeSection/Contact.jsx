@@ -14,23 +14,23 @@ const Contact = () => {
                 {/* Leftside */}
                 <GradientHeading
                   tag="h3"
-                  beforeText="Let’s get"
-                  gradientText="Acquainted"
+                  beforeText="Have Questions? We’ve "
+                  gradientText="Got Answers!"
                   beforeSpanClassName="font-bold"
                   textSize="text-basic lg:text-xlarge"
                 />
 
                 <div className="text-para-color font-medium text-small lg:text-medium leading-7 max-w-md">
-                  {" "}
-                  Whether you’re established or fast-growing business, we’re
-                  here to help you gain a competitive edge — speak to one of our
-                  human agents about how Yellow.ai might work for you.
+                  "Have questions, feedback, or need assistance? We’re here to
+                  help! Reach out to us through the form below, send us an
+                  email, or give us a call. Our team is ready to assist you and
+                  ensure you get the answers or support you need.
                 </div>
                 <Link
-                  to="/faq"
+                  to="/contact-us"
                   className="inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600"
                 >
-                  Get In Touch
+                  Talk to Us
                 </Link>
               </div>
             </div>

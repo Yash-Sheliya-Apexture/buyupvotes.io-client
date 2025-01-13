@@ -136,6 +136,23 @@ font-face {
   text-decoration: none;
 }
 
+.underline-hover {
+  @apply text-[#FF5700] font-bold relative;
+}
+.underline-hover::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: #ff5700;
+  transition: width 0.2s ease-in-out;
+}
+.underline-hover:hover::after {
+  width: 100%;
+}
+
 /* Apply Urbanist font globally */
 body {
   @apply font-InterDisplay;
@@ -574,6 +591,7 @@ textarea:focus {
   background: #c1c7c8; /* Color of the thumb */
   border-radius: 10px; /* Round the thumb */
 }
+
 
 /* Add animation for smooth fade-in effect */
 @keyframes fadeIn {

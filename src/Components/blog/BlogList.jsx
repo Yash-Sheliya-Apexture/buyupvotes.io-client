@@ -6,58 +6,47 @@ import Dropdown from "../../Dashboard/components/Dropdown";
 import Skeleton from "react-loading-skeleton";
 
 const blogLIst = () => {
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedFilter, setSelectedFilter] = useState("Latest");
+  const filterOptions = ["Latest", "Popular", "Oldest"];
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
-    const [blogs, setBlogs] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [selectedFilter, setSelectedFilter] = useState("Latest");
-    const filterOptions = ["Latest", "Popular", "Oldest"];
-    const location = useLocation();
-    const isHomePage = location.pathname === "/";
-  
-    const sanitizeTitle = (title) => {
-      return title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "");
-    };
-  
-    useEffect(() => {
-      setLoading(true);
-      fetch(`${import.meta.env.BASE_URL}data.json`)
-        .then((response) => response.json())
-        .then((data) => {
-          setBlogs(data);
-        })
-        .catch((error) => console.error("Error fetching blog data:", error))
-        .finally(() => setLoading(false));
-    }, []);
-  
-    const sortedBlogs = [...blogs].sort((a, b) => {
-      if (selectedFilter === "Latest") {
-        return new Date(b.date) - new Date(a.date);
-      }
-      if (selectedFilter === "Popular") {
-        return b.views - a.views;
-      }
-      if (selectedFilter === "Oldest") {
-        return new Date(a.date) - new Date(b.date);
-      }
-      return 0;
-    });
+  const sanitizeTitle = (title) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`${import.meta.env.BASE_URL}data.json`)
+      .then((response) => response.json())
+      .then((data) => {
+        setBlogs(data);
+      })
+      .catch((error) => console.error("Error fetching blog data:", error))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const sortedBlogs = [...blogs].sort((a, b) => {
+    if (selectedFilter === "Latest") {
+      return new Date(b.date) - new Date(a.date);
+    }
+    if (selectedFilter === "Popular") {
+      return b.views - a.views;
+    }
+    if (selectedFilter === "Oldest") {
+      return new Date(a.date) - new Date(b.date);
+    }
+    return 0;
+  });
   return (
     <>
-      <section className="Blog">
+      <section className="Blog-data">
         <div className="container mx-auto">
-          {/* Blog Logo */}
-          {/* {!isHomePage && (
-          <div className="bg-white">
-            <h1 className="mb-2 font-bold text-sub-color text-basic">Blogs</h1>
-            <div className="flex items-center space-x-4">
-              <Breadcrumb items={breadcrumbs} />
-            </div>
-          </div>
-        )} */}
-
           {/* Blog Header with Filter */}
           {!isHomePage && (
             <div className="bg-white my-5 lg:my-0 lg:mt-0">
@@ -65,7 +54,7 @@ const blogLIst = () => {
                 <h1 className="font-medium text-sub-color lg:text-base text-medium">
                   Interested in guest posting on our blog?
                   <span className="font-medium underline cursor-pointer text-main-color underline-offset-1">
-                    <Link to="/dashboard/contactus">contact us</Link>
+                    <Link to="/contact-us">contact us</Link>
                   </span>{" "}
                   we'd love from you! can want
                 </h1>
@@ -119,7 +108,7 @@ const blogLIst = () => {
                           <Skeleton count={2} />
                         </div>
                       </div>
-                      <div className="flex items-center justify-end p-8">
+                      <div className="flex items-center justify-end p-4">
                         <div className="flex items-center space-x-4 text-light-gray">
                           <Skeleton width={40} />
                           <Skeleton width={40} />
@@ -131,7 +120,7 @@ const blogLIst = () => {
                   <Link
                     key={blog.id}
                     to={`/post/${sanitizeTitle(blog.title)}`}
-                    className={`bg-[#fff] text-sub-color border border-gray-300 relative shadow-main rounded-small z-0 cursor-pointer overflow-hidden ${
+                    className={`bg-[#fff] text-sub-color border border-gray-300 relative shadow-main rounded-small z-0 cursor-pointer overflow-hidden  ${
                       index === 0
                         ? "lg:w-[550px] w-full z-10"
                         : "flex-0 md:flex-1"
@@ -171,13 +160,13 @@ const blogLIst = () => {
                       <div className="space-y-1 font-medium">
                         <h1 className="text-sub-color">{blog.author}</h1>
                         <p className="text-light-gray">{blog.date}</p>
-                        <p className="leading-6 text-sub-color text-small">
+                        <p className="leading-6 text-sub-color text-small max-w-80">
                           {blog.title}
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-end p-8">
+                    <div className="flex items-center justify-end p-4">
                       <div className="flex items-center space-x-4 text-light-gray">
                         <span className="flex items-center space-x-1">
                           <FaEye className="size-4" />

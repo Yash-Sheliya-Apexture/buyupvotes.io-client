@@ -1,4 +1,3 @@
-// Error404.jsx
 import React from "react";
 
 const Error404 = () => {
