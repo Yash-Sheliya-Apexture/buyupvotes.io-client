@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FaSpinner } from "react-icons/fa";
-import InputField from "../../Dashboard/components/InputField"; // Import the InputField component
+import { FaSpinner } from "react-icons/fa"; 
+import InputField from "../../Dashboard/components/InputField"; 
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -206,10 +206,10 @@ function ContactForm() {
     <div className="w-full max-w-2xl">
       <h6 className="mb-2 text-base font-bold text-sub-color">Get in Touch</h6>
       <p className="mb-6 text-gray-700">
-        Please fill out the form below with your details and
-        message, and our team will get back to you as soon as possible.
+        Please fill out the form below with your details and message, and our
+        team will get back to you as soon as possible.
       </p>
-      <form className="space-y-3" onSubmit={handleSubmit}>
+      <form className="space-y-4" onSubmit={handleSubmit}>
         {/* Display general error message here */}
         {generalError && (
           <>
@@ -237,50 +237,65 @@ function ContactForm() {
             </div>
           </>
         )}
-        <InputField
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.name}
-          disabled={isUserDataFetched}
-          isEditing={!isUserDataFetched}
-          className={`block w-full ${!isUserDataFetched ? "opacity-100" : "text-gray-400 "
+
+        <div>
+          <InputField
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.name}
+            disabled={isUserDataFetched}
+            isEditing={!isUserDataFetched}
+            className={`block w-full ${
+              !isUserDataFetched ? "opacity-100" : "text-gray-400 "
             }`}
-        />
-        <InputField
-          type="email"
-          name="email"
-          placeholder="Enter Your Email"
-          value={formData.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.email}
-          disabled={isUserDataFetched}
-          isEditing={!isUserDataFetched}
-          className={`block w-full ${!isUserDataFetched ? "opacity-100" : "text-gray-400 "
+          />
+        </div>
+
+        <div>
+          <InputField
+            type="email"
+            name="email"
+            placeholder="Enter Your Email"
+            value={formData.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.email}
+            disabled={isUserDataFetched}
+            isEditing={!isUserDataFetched}
+            className={`block w-full ${
+              !isUserDataFetched ? "opacity-100" : "text-gray-400 "
             }`}
-        />
-        <InputField
-          name="subject"
-          placeholder="Subject"
-          value={formData.subject}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.subject}
-        />
-        <InputField
-          name="message"
-          placeholder="Your message"
-          value={formData.message}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.message}
-          rows="8"
-          cols="20"
-          as="textarea"
-        />
+          />
+        </div>
+
+        <div>
+          <InputField
+            name="subject"
+            placeholder="Subject"
+            value={formData.subject}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.subject}
+          />
+        </div>
+
+        <div>
+          <InputField
+            name="message"
+            placeholder="Your message"
+            value={formData.message}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.message}
+            rows="8"
+            cols="20"
+            as="textarea"
+          />
+        </div>
+
         {/* Submit Button */}
         <div className="text-center">
           {loading ? (
@@ -288,7 +303,12 @@ function ContactForm() {
               <FaSpinner className="text-lg animate-spin" />
             </div>
           ) : (
-            <button type="submit" className="inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600">Send Message </button>
+            <button
+              type="submit"
+              className="inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600"
+            >
+              Send Message{" "}
+            </button>
           )}
         </div>
       </form>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Signin_up_Header from "../Pages/SignIn_Header";
+import LoginHeader from "../Pages/LoginHeader";
 import Sign_In from "../Pages/Sign_In";
 import Sign_Up from "../Pages/Sign_Up";
 import RedirectIfLoggedIn from "./RedirectIfLoggedIn";
@@ -11,9 +11,9 @@ import Error404 from "../Dashboard/pages/Error404"; // Import the Error404 compo
 const LogRoute = () => {
   return (
     <>
-      <div className="min-h-screen bg-center bg-cover background-image">
+      <main className="min-h-screen bg-center bg-cover background-image">
         {/* Shared Header */}
-        <Signin_up_Header />
+        <LoginHeader />
         {/* Page Routes */}
         <Routes>
           <Route
@@ -37,7 +37,7 @@ const LogRoute = () => {
           {/* Catch-all route for unmatched paths */}
           <Route path="*" element={<Error404 />} />
         </Routes>
-      </div>
+      </main>
     </>
   );
 };

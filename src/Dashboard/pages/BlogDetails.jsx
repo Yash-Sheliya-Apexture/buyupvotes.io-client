@@ -64,7 +64,7 @@ const BlogDetails = () => {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="container mx-auto ">
         {/* Blog Cover Section */}
         <div
           className="relative w-full h-[400px] bg-cover bg-center rounded-small overflow-hidden"
@@ -165,7 +165,7 @@ const BlogDetails = () => {
         {/* Breadcrumbs */}
         <div className="lg:text-small text-xs mt-4 lg:space-x-44 space-x-6 flex">
           <div className="flex items-center">
-            <Link to="/dashboard/post">
+            <Link to="/post">
               <FaChevronLeft className="text-sub-color p-1 size-6 cursor-pointer border border-sub-color rounded-full" />
             </Link>
           </div>

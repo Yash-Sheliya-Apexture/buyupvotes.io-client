@@ -7,12 +7,14 @@ import { Link, useLocation } from "react-router-dom";
 const Footer = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
+
+  const textColorClass = isHomePage ? "text-white" : "text-sub-color";
   return (
     <footer
       className={
         !isHomePage
           ? " bg-[#fff] border border-gray-200"
-          : "bg-[#FFEEE5] border-t border-none pt-24 -mt-[70px]"
+          : "bg-[#110f0f] border-t border-none pt-24 -mt-[70px]"
       }
     >
       <section className="container mx-auto">
@@ -24,7 +26,7 @@ const Footer = () => {
                 <img src={logo} alt="logo" className="h-10" />
               </Link>
               <div className="flex items-center space-x-4">
-                <p className="text-sub-color text-small">Chat with us:</p>
+                <p className={`${textColorClass} text-small`}>Chat with us:</p>
                 <div className="flex space-x-4">
                   <a href="https://t.me/buyupvotessupport" target="_blank">
                     <FaTelegram className="text-blue-500 size-6" />
@@ -34,7 +36,9 @@ const Footer = () => {
                   </a>
                 </div>
               </div>
-              <p className="text-sub-color text-[14px] hidden lg:block xs:order-1 order-3">
+              <p
+                className={`${textColorClass} text-[14px] hidden lg:block xs:order-1 order-3`}
+              >
                 © 2024 All rights reserved
               </p>
             </div>
@@ -42,14 +46,16 @@ const Footer = () => {
             {/* Center Section - Links */}
             <div className="flex flex-col space-y-0 text-center lg:flex-row lg:text-start lg:space-y-0 lg:space-x-28">
               <div>
-                <h3 className="hidden font-bold underline text-sub-color text-small lg:block">
+                <h3
+                  className={`hidden font-bold underline ${textColorClass} text-small lg:block`}
+                >
                   BuyUpvotes
                 </h3>
-                <ul className="mt-2 space-y-2 text-sub-color lg:text-medium xs:text-small">
+                <ul className="mt-2 space-y-2 lg:text-medium xs:text-small">
                   <li>
                     <Link
                       to="/faqs"
-                      className="hover:text-main-color hover:underline underline-offset-1"
+                      className={`hover:text-main-color hover:underline underline-offset-1 ${textColorClass}`}
                     >
                       FAQs
                     </Link>
@@ -57,7 +63,7 @@ const Footer = () => {
                   <li>
                     <Link
                       to="/pricing"
-                      className="hover:text-main-color hover:underline underline-offset-1"
+                      className={`hover:text-main-color hover:underline underline-offset-1 ${textColorClass}`}
                     >
                       Pricing
                     </Link>
@@ -66,14 +72,16 @@ const Footer = () => {
               </div>
 
               <div>
-                <h3 className="hidden font-bold underline text-sub-color text-small lg:block">
+                <h3
+                  className={`hidden font-bold underline ${textColorClass} text-small lg:block`}
+                >
                   Contact
                 </h3>
-                <ul className="mt-2 space-y-2 text-sub-color lg:text-medium xs:text-small">
+                <ul className="mt-2 space-y-2 lg:text-medium xs:text-small">
                   <li>
                     <Link
                       to="/contact-us"
-                      className="hover:text-main-color hover:underline underline-offset-1"
+                      className={`hover:text-main-color hover:underline underline-offset-1 ${textColorClass}`}
                     >
                       Contact us
                     </Link>
@@ -82,14 +90,16 @@ const Footer = () => {
               </div>
 
               <div>
-                <h3 className="hidden font-bold underline text-sub-color text-small lg:block">
+                <h3
+                  className={`hidden font-bold underline ${textColorClass} text-small lg:block`}
+                >
                   Legal
                 </h3>
-                <ul className="mt-2 space-y-2 text-sub-color lg:text-medium xs:text-small">
+                <ul className="mt-2 space-y-2 lg:text-medium xs:text-small">
                   <li>
                     <Link
                       to="/terms-and-conditions"
-                      className="hover:text-main-color hover:underline underline-offset-1"
+                      className={`hover:text-main-color hover:underline underline-offset-1 ${textColorClass}`}
                     >
                       Terms and Conditions
                     </Link>
@@ -97,7 +107,7 @@ const Footer = () => {
                   <li>
                     <Link
                       to="/privacy-policy"
-                      className="hover:text-main-color hover:underline underline-offset-1"
+                      className={`hover:text-main-color hover:underline underline-offset-1 ${textColorClass}`}
                     >
                       Privacy Policy
                     </Link>

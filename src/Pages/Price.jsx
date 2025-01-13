@@ -1,8 +1,6 @@
 import React from "react";
 import Pricing from "../Components/Pricing";
 import Currency from "../Components/Currency";
-import { Link } from "react-router-dom";
-import GradientHeading from "../Components/GradientHeading";
 import BreadcrumbHeader from "../Components/BreadcrumbHeader";
 import PriceList from "../Components/PriceSection/PriceList";
 const Price = () => {

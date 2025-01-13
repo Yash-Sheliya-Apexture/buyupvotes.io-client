@@ -77,7 +77,7 @@ const HeroSection = () => {
                   {user ? (
                     <Link to="/dashboard">
                       <button className="flex items-center justify-center gap-2 px-10 md:py-4 py-2 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
-                        Get Started Now
+                        Dashboard
                       </button>
                     </Link>
                   ) : (

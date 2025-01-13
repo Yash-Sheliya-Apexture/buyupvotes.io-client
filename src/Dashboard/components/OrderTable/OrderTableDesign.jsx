@@ -1,5 +1,5 @@
 import React from "react";
-import Data from "../../../assets/Images/nodata.svg"; // No data icon
+import Data from "../../../assets/Images/nodata.svg"; 
 import { HiLink } from "react-icons/hi";
 
 const OrderTableDesign = ({ loading, tableData, formattedDate, paginatedData }) => {

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Blogs = () => {
   return (
-    <section className="mt-10 bg-white Blog-Main">
+    <section className="mt-20 bg-white Blog-Main">
       <div className="container flex flex-col items-center justify-between mx-auto space-y-5 md:flex-row md:space-y-0">
         <GradientHeading
           tag="h3"

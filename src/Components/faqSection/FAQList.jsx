@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 const FAQList = ({ faqs }) => {
-  const [openIndex, setOpenIndex] = useState(0); // Initialize with 0 for first item open by default
+  const [openIndex, setOpenIndex] = useState(0); 
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -29,7 +29,7 @@ const FAQList = ({ faqs }) => {
                 <span
                   className={`transition-all duration-300 text-base rounded-full lg:px-3.5 px-2.5 py-2 lg:py-2 flex items-center justify-center ${
                     openIndex === index
-                      ? "bg-gradient-to-bl from-[#ff5700] to-[#ffae78] text-white"
+                      ? "bg-gradient-to-bl from-[#ff5700] to-[#fdbb90] text-white"
                       : "bg-[#d3d3d375] text-sub-color "
                   }`}
                 >
@@ -50,7 +50,7 @@ const FAQList = ({ faqs }) => {
                   openIndex === index ? "max-h-[150px]" : "max-h-0"
                 }`}
               >
-                <p className="py-2 font-medium text-gray-700 lg:text-medium lg:py-3">
+                <p className="py-2 font-medium text-gray-700 lg:text-medium lg:py-4">
                   {faq.answer}
                 </p>
               </div>

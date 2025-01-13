@@ -62,12 +62,12 @@ const PricingWithMenu = () => {
 
         <div className="mb-10">
           {/* Grid of cards for large screens */}
-          <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-5">
+          <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-4">
             {pricingData.map((plan, index) => (
               <div
                 key={index}
                 className={`p-4 border-2 lg:w-[320px] w-full pb-10 shadow-main ${
-                  plan.isBestValue ? "border-main-color" : "border-gray-300/50"
+                  plan.isBestValue ? "border-main-color" : "border-gray-300"
                 } rounded-2xl`}
               >
                 <div className="relative plan-header">
