@@ -3,6 +3,7 @@
 import React from "react";
 import { FaBolt, FaKey, FaDollarSign } from "react-icons/fa";
 import { IoEarth } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const OurBenefits = () => {
   const icons = [
@@ -45,28 +46,27 @@ const OurBenefits = () => {
             </h3>
           </div>
           <div className="content-wrap">
-            <p className="mb-6 text-xl text-gray-700 font-medium">
+            <p className="mb-6 text-xl font-medium text-gray-700">
               Whether you're looking to rank higher on Reddit, Quora, YouTube,
               or other platforms, our upvote services are here to help you
               shine. With real engagement from verified users, we ensure your
               content gets the visibility it deserves.
             </p>
-            <a
+            <Link
               className="inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600"
-              href="/signup"
-              data-discover="true"
+              to="/contact-us"
             >
               Learn more
-            </a>
+            </Link>
           </div>
         </div>
       </div>
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {icons.map((icon) => (
             <div
               key={icon.id}
-              className="relative bg-white p-6 rounded-2xl border border-gray-300"
+              className="relative p-6 bg-white border border-gray-300 rounded-2xl"
               style={{
                 boxShadow: "",
               }}
@@ -78,8 +78,8 @@ const OurBenefits = () => {
                   className: `w-5 h-5 text-main-color `,
                 })}
               </div>
-              <h3 className="text-xl font-semibold mt-3 text-black">{icon.title}</h3>
-              <p className="mt-3 text-small font-medium text-gray-700">
+              <h3 className="mt-3 text-xl font-semibold text-black">{icon.title}</h3>
+              <p className="mt-3 font-medium text-gray-700 text-small">
                 {icon.detail}
               </p>
             </div>
