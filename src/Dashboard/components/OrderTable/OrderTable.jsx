@@ -185,7 +185,7 @@ const OrderTable = () => {
   };
 
   return (
-    <section className="Upvotes-Table mb-4 border border-gray-300 Order-Table rounded-small">
+    <div className="Upvotes-Table mb-4 border border-gray-300 Order-Table rounded-small">
       <h1 className="p-4 font-semibold text-sub-color lg:text-basic">
         Your past upvote orders:
       </h1>
@@ -257,7 +257,7 @@ const OrderTable = () => {
         handlePreviousPage={handlePreviousPage}
         handleNextPage={handleNextPage}
       />
-    </section>
+    </div>
   );
 };
 

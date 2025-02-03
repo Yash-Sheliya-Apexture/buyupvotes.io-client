@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Tooltip } from "flowbite-react";
 import { Link, useParams } from "react-router-dom";
 import { FaTwitter, FaLinkedinIn, FaFacebookF } from "react-icons/fa";
-import { FaShareAlt } from "react-icons/fa";
+import { FaShareAlt, FaRegCopy } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const BlogDetails = () => {
   const { title } = useParams(); // Get the title from the URL
@@ -60,6 +61,16 @@ const BlogDetails = () => {
     return () => window.removeEventListener("resize", updatePlacement);
   }, []);
 
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      toast.success("Link copied to clipboard"); // Notification
+    } catch (err) {
+      toast.error("Failed to copy link");
+    }
+  };
+
   if (!blog) return <div className="text-base">Data Fetching...</div>;
 
   return (
@@ -104,7 +115,7 @@ const BlogDetails = () => {
               }`}
               style={{
                 flexDirection: window.innerWidth <= 768 ? "column" : "row",
-                bottom: window.innerWidth <= 768 ? "auto" : "0",
+                bottom: window.innerWidth <= 768 ? "auto" : "4px",
                 top: window.innerWidth <= 768 ? "-160px" : "auto",
               }}
             >
@@ -152,6 +163,20 @@ const BlogDetails = () => {
                 >
                   <FaFacebookF />
                 </a>
+              </Tooltip>
+
+              <Tooltip placement={placement} arrow content="CopyLink">
+                <div
+                  onClick={copyLink}
+                  className={`w-10 h-10 flex items-center justify-center bg-white rounded-full text-gray-800 cursor-pointer transform transition-all ${
+                    showIcons
+                      ? "scale-100 opacity-100 transform transition-all duration-100"
+                      : "scale-0 opacity-0 duration-500"
+                  }`}
+                  style={{ transitionDelay: showIcons ? "0.1s" : "0s" }}
+                >
+                 <FaRegCopy />
+                </div>
               </Tooltip>
             </div>
 
@@ -278,3 +303,4 @@ const BlogDetails = () => {
 };
 
 export default BlogDetails;
+

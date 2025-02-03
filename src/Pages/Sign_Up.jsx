@@ -191,7 +191,7 @@ const Sign_Up = () => {
             ref={scrollContainerRef}
             className={`relative ${
               overflow ? "overflow-y-auto custom-scroll pr-2" : ""
-            } md:max-h-[310px] max-h-[420px]`}
+            } max-h-[400px]`}
           >
             <form onSubmit={handleSubmit} className="form-handle">
               {errors.general && (

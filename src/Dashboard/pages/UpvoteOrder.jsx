@@ -495,7 +495,9 @@ const UpvoteOrder = () => {
 
       <section className="Upvotes-table">
         {/* Order Tables Data*/}
-        <Ordertable />
+        <div className="container mx-auto">
+          <Ordertable />
+        </div>
       </section>
     </>
   );
