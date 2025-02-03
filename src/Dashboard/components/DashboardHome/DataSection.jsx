@@ -14,7 +14,7 @@ const data = [
     id: 1,
     remainingVotes: 0,
     label: "Votes remaining",
-    link: "dashboard/fundprice",
+    link: "dashboard/pricing",
     icon: <FaWallet />,
   },
   {
@@ -30,24 +30,6 @@ const data = [
     label: "Order in Progress",
     link: "dashboard/upvoteorder",
     icon: <FaClock />,
-  },
-  {
-    id: 4,
-    label: "New Order",
-    link: "dashboard/upvoteorder",
-    icon: <FaSquarePlus />,
-  },
-  {
-    id: 5,
-    label: "Buy Reddit Accounts",
-    link: "dashboard/account",
-    icon: <FaReddit />,
-  },
-  {
-    id: 6,
-    label: "API Documentation",
-    link: "/",
-    icon: <FaFileCode />,
   },
 ];
 
@@ -151,10 +133,10 @@ const DataSection = () => {
   };
 
   return (
-    <section className="Data-Section my-5 w-full">
+    <section className="w-full my-5 Data-Section">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {loading
-          ? Array.from({ length: 6 }).map((_, index) => (
+          ? Array.from({ length: 3 }).map((_, index) => (
               <div key={index} className="w-full h-full">
                 <div
                   className="flex items-center justify-between w-full h-full p-4 bg-white shadow-main rounded-small"
@@ -177,7 +159,7 @@ const DataSection = () => {
                 onClick={() => handleCardClick(item.link)}
               >
                 <div
-                  className="flex items-center justify-between w-full h-full p-4 bg-white shadow-main border border-slate-300/50 rounded-small"
+                  className="flex items-center justify-between w-full h-full p-4 bg-white border border-gray-300 shadow-main rounded-small"
                   style={{ minHeight: "100px" }}
                 >
                   {/* Left Section */}

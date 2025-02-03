@@ -292,12 +292,6 @@ const Account = () => {
             )}
           </div>
         </div>
-        {/* Delete button */}
-        <div className="mt-4 text-center opacity-50">
-          <button className="px-14 py-1.5 bg-slate-300 text-xs cursor-default rounded-full font-bold text-sub-color">
-            Delete Account
-          </button>
-        </div>
       </section>
     </>
   );

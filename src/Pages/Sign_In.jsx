@@ -121,7 +121,7 @@ const Sign_In = () => {
 
   return (
     <>
-      <section className="lg:h-[calc(100vh-72px)] layout flex items-center justify-center">
+      <section className="h-[calc(100vh-72px)] layout flex items-center justify-center">
         <div className="px-4 pb-6">
           <div className="md:w-[420px] w-full bg-white rounded-small lg:p-6 p-4 pb-10">
             <h1 className="mb-4 text-base font-bold text-center lg:text-basic text-sub-color">
@@ -222,13 +222,13 @@ const Sign_In = () => {
             </form>
             <p className="text-[13px] text-center font-medium text-sub-color mt-3.5">
               By signing up, I agree to{" "}
-              <a href="#" className="underline-hover">
+              <Link to="/terms-and-conditions" className="underline-hover">
                 Terms and Service
-              </a>{" "}
+              </Link>{" "}
               and{" "}
-              <a href="#" className="underline-hover">
+              <Link to="/privacy-policy" className="underline-hover">
                 Privacy Policy
-              </a>
+              </Link>
             </p>
           </div>
         </div>
