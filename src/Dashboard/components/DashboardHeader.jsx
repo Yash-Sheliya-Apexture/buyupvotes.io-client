@@ -4,7 +4,8 @@ import rocket from "../../assets/Images/rocket-1.png";
 import { FaAngleDown } from "react-icons/fa6";
 import skybackground from "../../assets/Images/blue-background.png";
 import axios from "axios";
-import { CgMenuRightAlt } from "react-icons/cg";
+import { CgMenuLeftAlt } from "react-icons/cg";
+import logo1 from "../../assets/Images/logo-mini.png";
 
 const DashboardHeader = ({ toggleSidebarVisibility }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -98,12 +99,21 @@ const DashboardHeader = ({ toggleSidebarVisibility }) => {
     <header className="sticky top-0 z-10 w-full backdrop-blur-[2px] bg-white/50">
       <div className="flex items-center justify-between p-3 xl:justify-end">
         <div className="block xl:hidden">
-          <button
-            className="z-50 rounded-full"
-            onClick={toggleSidebarVisibility}
-          >
-            <CgMenuRightAlt className="rounded-md cursor-pointer text-main-color size-8" />
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              className="z-50 rounded-full"
+              onClick={toggleSidebarVisibility}
+            >
+              <CgMenuLeftAlt className="rounded-md cursor-pointer text-main-color size-8" />
+            </button>
+            <Link to="/">
+              <img
+                src={logo1}
+                alt="Collapsed Logo"
+                className="h-6 transition-all duration-300 ease-in-out"
+              />
+            </Link>
+          </div>
         </div>
         <div className="relative" ref={dropdownRef}>
           <button
@@ -122,17 +132,15 @@ const DashboardHeader = ({ toggleSidebarVisibility }) => {
               </span>
             </p>
             <FaAngleDown
-              className={`text-white ml-2 transform transition-transform ${
-                isDropdownOpen ? "rotate-180" : ""
-              }`}
+              className={`text-white ml-2 transform transition-transform ${isDropdownOpen ? "rotate-180" : ""
+                }`}
             />
           </button>
           <div
-            className={`absolute min-w-60 overflow-hidden top-12 right-0 w-full bg-gradient-to-r from-[#fef2f0af] shadow-main bg-white rounded-[14px] border border-gray-border z-10 transform transition-all duration-300 ease-in-out ${
-              isDropdownOpen
-                ? "opacity-100 scale-100 translate-y-0"
-                : "opacity-0 scale-95 -translate-y-10 pointer-events-none"
-            }`}
+            className={`absolute min-w-60 overflow-hidden top-12 right-0 w-full bg-gradient-to-r from-[#fef2f0af] shadow-main bg-white rounded-[14px] border border-gray-border z-10 transform transition-all duration-300 ease-in-out ${isDropdownOpen
+              ? "opacity-100 scale-100 translate-y-0"
+              : "opacity-0 scale-95 -translate-y-10 pointer-events-none"
+              }`}
             style={{
               backgroundImage: `url(${skybackground})`,
               backgroundSize: "cover",

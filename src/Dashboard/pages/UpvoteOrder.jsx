@@ -248,7 +248,7 @@ const UpvoteOrder = () => {
       if (error.response) {
         setGeneralError(
           error.response.data.message ||
-            "Submit order failed. Please try again."
+          "Submit order failed. Please try again."
         );
       } else if (error.request) {
         setGeneralError("Network error. Please check your connection.");
@@ -315,7 +315,7 @@ const UpvoteOrder = () => {
 
           <div className="flex flex-col w-full gap-4 mt-6 lg:flex-row lg:gap-y-6">
             {/* Left Section */}
-            <div className="w-full p-4 lg:w-1/2 shadow-main rounded-large lg:p-6">
+            <div className="w-full p-4 border border-gray-300 lg:w-1/2 rounded-large lg:p-6 shadow-main">
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Display general error message here */}
                 {generalError && (
@@ -439,7 +439,7 @@ const UpvoteOrder = () => {
             </div>
 
             {/* Right Section */}
-            <div className="w-full lg:w-1/2 shadow-main rounded-large lg:p-10 xs:p-4">
+            <div className="w-full p-4 border border-gray-300 lg:w-1/2 shadow-main rounded-large lg:p-6">
               <p className="text-[16px] font-medium underline underline-offset-1 text-sub-color mb-2">
                 Upvotes & downvotes:
               </p>
@@ -494,8 +494,10 @@ const UpvoteOrder = () => {
       </section>
 
       <section className="Upvotes-table">
-        {/* Order Tables Data*/}
-        <Ordertable />
+        <div className="container mx-auto">
+          {/* Order Tables Data*/}
+          <Ordertable />
+        </div>
       </section>
     </>
   );

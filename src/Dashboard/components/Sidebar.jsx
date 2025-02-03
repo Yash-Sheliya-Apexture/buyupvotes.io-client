@@ -56,7 +56,7 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
       id: "Add Funds",
       icon: <HiCurrencyEuro />,
       label: "Add Funds-Princing",
-      link: "/dashboard/fundprice",
+      link: "/dashboard/pricing",
     },
     {
       id: "FAQs",
@@ -94,38 +94,39 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
       )}
 
       <section
-        className={`fixed xl:relative bg-white border-r z-50 border-dashed border-border-color h-screen transition-all duration-300 ${
-          isSidebarExpanded ? "w-60" : "w-16"
-        } ${isSidebarVisible ? "left-0" : "-left-60 xl:left-0"}`}
+        className={`fixed xl:relative bg-white border-r z-50 border-dashed border-border-color h-screen transition-all duration-300 ${isSidebarExpanded ? "w-60" : "w-16"
+          } ${isSidebarVisible ? "left-0" : "-left-60 xl:left-0"}`}
       >
-        <div className="flex items-center justify-between p-3.5">
-          {isSidebarExpanded ? (
-            <Link to="/">
-              <img
-                src={logo}
-                alt="Expanded Logo"
-                className="h-8 transition-all duration-300 ease-in-out"
-              />
-            </Link>
-          ) : (
-            <Link to="/">
-              <img
-                src={logo1}
-                alt="Collapsed Logo"
-                className="h-8 transition-all duration-300 ease-in-out"
-              />
-            </Link>
-          )}
+        <div className="relative">
+          <div className={`flex items-center p-3.5 ${isSidebarExpanded ? "justify-between" : "justify-center"} `}>
+            {isSidebarExpanded ? (
+              <Link to="/">
+                <img
+                  src={logo}
+                  alt="Expanded Logo"
+                  className="h-8 transition-all duration-300 ease-in-out"
+                />
+              </Link>
+            ) : (
+              <Link to="/">
+                <img
+                  src={logo1}
+                  alt="Collapsed Logo"
+                  className="h-8 transition-all duration-300 ease-in-out"
+                />
+              </Link>
+            )}
+
+          </div>
           <button
             onClick={toggleSidebar}
-            className={`relative ${
-              isSidebarExpanded ? "" : "ml-auto"
-            } xl:block hidden`}
+            className={`absolute top-2/4 -right-3 bg-white p-1 size-6 hidden cursor-pointer border rounded-full ${isSidebarExpanded ? "" : "ml-auto"
+              }  xl:block hidden`}
           >
             {isSidebarExpanded ? (
-              <FaAngleLeft className="text-gray-500 absolute -top-2.5 left-0.5 backdrop-blur-sm p-1 size-6 lg:block hidden cursor-pointer border rounded-full" />
+              <FaAngleLeft className="text-gray-500"/>
             ) : (
-              <FaAngleRight className="text-gray-500 absolute -top-2.5 left-0.5 p-1 size-6 backdrop-blur-sm lg:block hidden cursor-pointer border rounded-full" />
+              <FaAngleRight className="text-gray-500"/>
             )}
           </button>
         </div>
@@ -135,11 +136,10 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
             {menuItems.map((item) => (
               <li
                 key={item.id}
-                className={`relative group cursor-pointer font-semibold ${
-                  activeMenu === item.id
+                className={`relative group cursor-pointer font-semibold ${activeMenu === item.id
                     ? "bg-[#ff550034] text-main-color"
                     : "text-active hover:bg-[#ff550034] transition-all ease-in duration-150"
-                }`}
+                  }`}
                 onClick={() => handleMenuItemClick(item.id)}
               >
                 <Link
@@ -148,7 +148,7 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
                   data-tooltip-id={!isSidebarExpanded ? item.id : undefined}
                   data-tooltip-content={item.label}
                 >
-                  <span className="mr-4 text-large">{item.icon}</span>
+                  <span className="ml-[6px] me-2 text-large">{item.icon}</span>
                   {isSidebarExpanded && (
                     <span className="text-small text-nowrap">{item.label}</span>
                   )}
@@ -165,11 +165,10 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
                 )}
                 <div
                   className={`absolute left-0 top-0 h-full w-1.5
-                     ${
-                       activeMenu === item.id
-                         ? "bg-main-color scale-y-100"
-                         : "bg-transparent scale-y-0"
-                     } transition-all duration-300`}
+                     ${activeMenu === item.id
+                      ? "bg-main-color scale-y-100"
+                      : "bg-transparent scale-y-0"
+                    } transition-all duration-300`}
                 ></div>
               </li>
             ))}
@@ -177,7 +176,7 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
           {isSidebarExpanded && (
             <div className="p-2 mt-4">
               <Link
-                to="/dashboard/fundprice"
+                to="/dashboard/pricing"
                 className="flex items-center justify-center gap-2 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border-2 rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600"
               >
                 Add Funds
