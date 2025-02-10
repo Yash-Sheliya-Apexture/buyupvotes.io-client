@@ -123,7 +123,7 @@ const blogLIst = () => {
                     className={`bg-[#fff] text-sub-color border border-gray-300 relative shadow-main rounded-small z-0 cursor-pointer overflow-hidden  ${
                       index === 0
                         ? "lg:w-[550px] w-full z-10"
-                        : "flex-0 md:flex-1"
+                        : "flex-0 md:flex-1 w-full"
                     }`}
                   >
                     <div className="relative">
