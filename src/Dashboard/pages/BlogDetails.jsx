@@ -372,6 +372,11 @@ const BlogDetails = () => {
     return () => window.removeEventListener("resize", updatePlacement);
   }, []);
 
+  //Copy link functionality
+  const copyLink = () => {
+    navigator.clipboard.writeText(currentUrl);
+    toast.success("Link copied to clipboard!");
+  };
 
   if (loading) {
     return (
