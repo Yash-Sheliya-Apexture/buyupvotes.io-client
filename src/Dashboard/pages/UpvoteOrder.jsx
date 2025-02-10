@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Ordertable from "../components/OrderTable/OrderTable";
 import Breadcrumb from "../components/Breadcrumb";
-import Dropdown from "../Components/Dropdown";
+import DropdownField from "../components/DropdownField";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaSpinner } from "react-icons/fa";
@@ -343,7 +343,7 @@ const UpvoteOrder = () => {
                 )}
 
                 {/* Service Dropdown */}
-                <Dropdown
+                <DropdownField
                   type="text"
                   options={services}
                   selectedValue={formData.service}
@@ -389,7 +389,7 @@ const UpvoteOrder = () => {
                 </div>
 
                 {/* Speed Dropdown */}
-                <Dropdown
+                <DropdownField
                   options={speeds}
                   selectedValue={formData.speed}
                   onSelect={(value) => {

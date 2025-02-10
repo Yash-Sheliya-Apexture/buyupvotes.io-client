@@ -139,7 +139,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import { MdError } from "react-icons/md";
 import defaultBackground from "../../assets/Images/blue-background.png";
 
-const Dropdown = ({
+const DropdownField = ({
   options = [],
   selectedValue,
   onSelect,
@@ -271,4 +271,4 @@ const Dropdown = ({
   );
 };
 
-export default Dropdown;
+export default DropdownField;
