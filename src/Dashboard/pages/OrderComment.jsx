@@ -287,7 +287,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Dropdown from "../../DashBoard/Components/Dropdown";
+import Dropdown from "../Components/Dropdown";
 import InputField from "../../Dashboard/components/InputField";
 import Breadcrumb from "../components/Breadcrumb";
 
