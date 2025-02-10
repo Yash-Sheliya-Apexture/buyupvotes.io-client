@@ -294,8 +294,9 @@ import React, { useState, useEffect } from "react";
 import { Tooltip } from "flowbite-react";
 import { Link, useParams } from "react-router-dom";
 import { FaTwitter, FaLinkedinIn, FaFacebookF } from "react-icons/fa";
-import { FaShareAlt } from "react-icons/fa";
+import { FaShareAlt, FaRegCopy } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const BlogDetails = () => {
   const { title } = useParams();
@@ -371,6 +372,11 @@ const BlogDetails = () => {
     return () => window.removeEventListener("resize", updatePlacement);
   }, []);
 
+  //Copy link functionality
+  const copyLink = () => {
+    navigator.clipboard.writeText(currentUrl);
+    toast.success("Link copied to clipboard!");
+  };
 
   if (loading) {
     return (
@@ -428,7 +434,7 @@ const BlogDetails = () => {
               }`}
               style={{
                 flexDirection: window.innerWidth <= 768 ? "column" : "row",
-                bottom: window.innerWidth <= 768 ? "auto" : "0",
+                bottom: window.innerWidth <= 768 ? "auto" : "4px",
                 top: window.innerWidth <= 768 ? "-160px" : "auto",
               }}
             >
@@ -476,6 +482,20 @@ const BlogDetails = () => {
                 >
                   <FaFacebookF />
                 </a>
+              </Tooltip>
+
+              <Tooltip placement={placement} arrow content="CopyLink">
+                <div
+                  onClick={copyLink}
+                  className={`w-10 h-10 flex items-center justify-center bg-white rounded-full text-gray-800 cursor-pointer transform transition-all ${
+                    showIcons
+                      ? "scale-100 opacity-100 transform transition-all duration-100"
+                      : "scale-0 opacity-0 duration-500"
+                  }`}
+                  style={{ transitionDelay: showIcons ? "0.1s" : "0s" }}
+                >
+                 <FaRegCopy />
+                </div>
               </Tooltip>
             </div>
 

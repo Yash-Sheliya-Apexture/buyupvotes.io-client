@@ -13,6 +13,7 @@ import DashboardLayout from "../Dashboard/layout/DashboardLayout"; // Import Das
 import { AuthProvider } from "../auth/AuthContext";
 import Error404 from "../Dashboard/pages/Error404"; // Import Error404 page
 import Blog from "../Dashboard/pages/Blog"; 
+import OrderComment from "../Dashboard/pages/OrderComment";
 
 const DashboardRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const DashboardRoutes = () => {
         <Route path="/" element={<DashboardLayout />}>
           <Route index element={<DashboardHome />} />
           <Route path="upvoteorder" element={<UpvoteOrder />} />
+          <Route path="ordercomment" element={<OrderComment />}/>
           <Route path="pricing" element={<FundPricing />} />
           <Route path="contactus" element={<ContactUs />} />
           <Route path="faqs" element={<FAQ />} />

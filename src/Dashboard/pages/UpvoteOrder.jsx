@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Ordertable from "../components/OrderTable/OrderTable";
 import Breadcrumb from "../components/Breadcrumb";
-import Dropdown from "../components/Dropdown";
+import DropdownField from "../components/DropdownField";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaSpinner } from "react-icons/fa";
@@ -343,20 +343,19 @@ const UpvoteOrder = () => {
                 )}
 
                 {/* Service Dropdown */}
-                <Dropdown
+                <DropdownField
                   type="text"
                   options={services}
                   selectedValue={formData.service}
                   onSelect={(value) => {
                     setFormData({ ...formData, service: value });
-                    // Call handleDropdownBlur only when an option is selected
-                    if (touched.service) {
-                      handleDropdownBlur("service", value);
-                    }
+                    setErrors((prevErrors) => ({ ...prevErrors, service: '' })); // Clear error on selection
                   }}
                   placeholder="Service"
-                  error={touched.service && errors.service}
+                  error={errors.service}
+                  setError={(error) => setErrors((prevErrors) => ({ ...prevErrors, service: error }))}
                   onBlur={() => handleDropdownBlur("service", formData.service)}
+                  isRequired={true}
                 />
 
                 {/* Raddit link */}
@@ -390,19 +389,18 @@ const UpvoteOrder = () => {
                 </div>
 
                 {/* Speed Dropdown */}
-                <Dropdown
+                <DropdownField
                   options={speeds}
                   selectedValue={formData.speed}
                   onSelect={(value) => {
                     setFormData({ ...formData, speed: value });
-                    // Call handleDropdownBlur only when an option is selected
-                    if (touched.speed) {
-                      handleDropdownBlur("speed", value);
-                    }
+                    setErrors((prevErrors) => ({ ...prevErrors, speed: '' }));
                   }}
                   placeholder="Select Delivery Speed"
                   onBlur={() => handleDropdownBlur("speed", formData.speed)}
-                  error={touched.speed && errors.speed}
+                  error={errors.speed}
+                  setError={(error) => setErrors((prevErrors) => ({ ...prevErrors, speed: error }))}
+                  isRequired={true}
                 />
 
                 {/* Balance Error */}

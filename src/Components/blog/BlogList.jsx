@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { IoMdShare } from "react-icons/io";
-import Dropdown from "../../Dashboard/components/Dropdown";
+import DropdownField from "../../Dashboard/components/DropdownField";
 import Skeleton from "react-loading-skeleton";
 
 const blogLIst = () => {
@@ -64,7 +64,7 @@ const blogLIst = () => {
                   <span className="mr-2 text-nowrap text-sub-color font-medium">
                     Sort By:
                   </span>
-                  <Dropdown
+                  <DropdownField
                     type="text"
                     options={filterOptions}
                     selectedValue={selectedFilter}
@@ -123,7 +123,7 @@ const blogLIst = () => {
                     className={`bg-[#fff] text-sub-color border border-gray-300 relative shadow-main rounded-small z-0 cursor-pointer overflow-hidden  ${
                       index === 0
                         ? "lg:w-[550px] w-full z-10"
-                        : "flex-0 md:flex-1"
+                        : "flex-0 md:flex-1 w-full"
                     }`}
                   >
                     <div className="relative">
