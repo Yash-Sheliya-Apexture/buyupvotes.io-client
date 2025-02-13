@@ -291,7 +291,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import DropdownField from "../components/DropdownField";
+import Dropdown from "../components/Dropdown";
 import InputField from "../../Dashboard/components/InputField";
 import Breadcrumb from "../components/Breadcrumb";
 
@@ -501,7 +501,7 @@ const OrderComments = () => {
             <div className="border shadow-main rounded-2xl">
               <div className="flex flex-col items-center gap-2 p-4 border-gray-border my-4 md:flex-row">
                 <div className="w-full relative">
-                  <DropdownField
+                  <Dropdown
                     id="comments"
                     name="comments"
                     placeholder="Number of comments"
@@ -511,7 +511,7 @@ const OrderComments = () => {
                   />
                 </div>
                 <div className="w-full relative">
-                  <DropdownField
+                  <Dropdown
                     id="commentSpeed"
                     name="commentSpeed"
                     placeholder="Speed (time between comments)"

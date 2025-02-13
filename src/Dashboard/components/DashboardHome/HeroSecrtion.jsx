@@ -70,7 +70,8 @@ const HeroSection = () => {
                 </h2>
               )}
               <p className="text-sub-color leading-7 text-center lg:text-left text-lg font-BasierSquare">
-                You have 100 upvotes remaining on your balance. Continue
+                You have 100 up
+                 on your balance. Continue
                 boosting your Reddit experience by placing an order now !
               </p>
               <div className="flex justify-center lg:justify-start lg:pt-4">
