@@ -504,6 +504,7 @@ const OrderTableDesign = ({ loading, tableData, formattedDate, paginatedData, ac
                                     <th className="px-6 py-3">Date</th>
                                     <th className="px-6 py-3">Deliver votes</th>
                                     <th className="px-6 py-3">Total Votes</th>
+                                    <th className="px-6 py-3">Withheld Price</th>
                                     <th className="px-6 py-3">Status</th>
                                     {activeTab === "Pending" && <th className="px-6 py-3">Cancel</th>}
                                 </tr>
@@ -545,6 +546,7 @@ const OrderTableDesign = ({ loading, tableData, formattedDate, paginatedData, ac
                                             </td>
                                             <td className="px-6 py-3 text-center">{item.completedVotes}</td>
                                             <td className="px-6 py-3 text-center">{item.quantity}</td>
+                                            <td className="px-6 py-3 text-center">${item.calculatedPrice}</td>
                                             <td className="px-6 py-3 text-center">
                                                 <span
                                                     className={`px-3 py-1 rounded-full text-xs tracking-wide inline-block ${item.status === "Completed"

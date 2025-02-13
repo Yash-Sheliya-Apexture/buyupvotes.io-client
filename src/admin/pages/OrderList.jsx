@@ -362,6 +362,227 @@
 
 
 
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import moment from 'moment';
+// import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
+// import { HiLink } from 'react-icons/hi';
+// import DeleteConfirmationPopup from '../components/OrderList/DeleteConfirmationPopup';
+// import EditOrderPopup from '../components/OrderList/EditOrderPopup';
+// import ViewOrderPopup from '../components/OrderList/ViewOrderPopup';
+
+// const OrderList = () => {
+//     const [orders, setOrders] = useState([]);
+//     const [loading, setLoading] = useState(true);
+//     const [error, setError] = useState(null);
+//     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+//     const [orderToDelete, setOrderToDelete] = useState(null);
+//     const [showEditPopup, setShowEditPopup] = useState(false);
+//     const [showViewPopup, setShowViewPopup] = useState(false);
+//     const [selectedOrder, setSelectedOrder] = useState(null);
+
+//     // Use API base URL from environment variable
+//     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+//     useEffect(() => {
+//         const fetchOrders = async () => {
+//             try {
+//                 const token = localStorage.getItem("authToken");
+//                 if (!token) {
+//                     setError("Token missing or invalid.");
+//                     setLoading(false);
+//                     return;
+//                 }
+//                 const response = await axios.get(
+//                     `${API_BASE_URL}/admin/orders`,
+//                     {
+//                         headers: { Authorization: `Bearer ${token}` },
+//                     }
+//                 );
+//                 if (Array.isArray(response.data)) {
+//                     setOrders(response.data);
+//                 } else {
+//                     console.error('Response data is not an array:', response.data);
+//                     setOrders([]);
+//                     setError('Invalid data format received from the API');
+//                 }
+//                 console.log(response.data)
+//                 setLoading(false);
+//             } catch (err) {
+//                 console.error('Error fetching orders:', err);
+//                 setError(err.message || 'Failed to fetch orders');
+//                 setLoading(false);
+//             }
+//         };
+
+//         fetchOrders();
+
+//     }, [API_BASE_URL]);
+//     const handleEdit = (order) => {
+//         setSelectedOrder(order);
+//         setShowEditPopup(true);
+//     };
+
+//     const handleView = (order) => {
+//         setSelectedOrder(order);
+//         setShowViewPopup(true);
+//     };
+
+
+//     const handleDeleteClick = (orderId) => {
+//         setOrderToDelete(orderId);
+//         setShowDeleteConfirmation(true);
+//     };
+
+//     const handleDeleteConfirm = async () => {
+//         try {
+//             const token = localStorage.getItem("authToken");
+//             if (!token) {
+//                 setError("Token missing or invalid.");
+//                 return;
+//             }
+
+//             await axios.delete(`${API_BASE_URL}/admin/orders/${orderToDelete}`, {
+//                 headers: { Authorization: `Bearer ${token}` }
+//             });
+//             setOrders(prevOrders => prevOrders.filter(order => order.orderId !== orderToDelete));
+//         } catch (err) {
+//             console.error('Error deleting order:', err);
+//             setError(err.message || 'Failed to delete order');
+//         } finally {
+//             setShowDeleteConfirmation(false);
+//             setOrderToDelete(null);
+//         }
+//     };
+
+//     const handleDeleteCancel = () => {
+//         setShowDeleteConfirmation(false);
+//         setOrderToDelete(null);
+//     };
+
+
+//     const truncateId = (id) => {
+//         if (!id) return '';
+
+//         const parts = id.split('-');
+//         if (parts.length > 0) {
+//             return parts.slice(0, Math.min(4, parts.length)).join('-');
+//         }
+//         return id;
+//     };
+
+//     const formatDate = (dateString) => {
+//         if (!dateString) return '';
+//         return moment(dateString).format('MMMM D, YYYY'); // Format the date
+//     };
+
+//     if (loading) {
+//         return <div className="text-center py-4">Loading orders...</div>;
+//     }
+
+//     if (error) {
+//         return <div className="text-red-500 text-center py-4">Error: {error}</div>;
+//     }
+
+//     return (
+//         <div className="container mx-auto p-4">
+//             <h1 className="text-2xl font-bold mb-4">Order List (Admin)</h1>
+//             <div className="overflow-x-auto">
+//                 <table className="min-w-full bg-white border border-gray-200">
+//                     <thead className="bg-gray-50">
+//                         <tr>
+//                             <th className="px-4 py-2 text-left">Order ID</th>
+//                             <th className="px-4 py-2 text-left">User ID</th>
+//                             <th className="px-4 py-2 text-left">Category</th>
+//                             <th className="px-4 py-2 text-left">Service</th>
+//                             <th className="px-4 py-2 text-left">Quantity</th>
+//                             <th className="px-4 py-2 text-left">Status</th>
+//                             <th className="px-4 py-2 text-left">Deliver votes</th>
+//                             <th className="px-4 py-2 text-left">Order Date</th>
+//                             <th className="px-4 py-2 text-left">Actions</th>
+//                         </tr>
+//                     </thead>
+//                     <tbody>
+//                         {orders.map((order) => (
+//                             <tr key={order._id} className="border-b border-gray-200">
+//                                 <td className="px-4 py-2">{truncateId(order.orderId.substring(0, 4))}</td>
+//                                 <td className="px-4 py-2">{truncateId(order.userId.substring(0, 4))}</td>
+//                                 <td className="px-4 py-2">{order.category}</td>
+//                                 <td className="px-4 py-2 flex gap-2">
+//                                     {order.service}
+//                                     <a href={order.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 p-1 bg-gray-200 rounded-full"><HiLink className="text-sm" /></a>
+//                                 </td>
+//                                 <td className="px-4 py-2">{order.quantity}</td>
+//                                 <td className="px-4 py-2">
+//                                     {order.status}
+//                                 </td>
+//                                 <td className="px-4 py-2">
+//                                     {order.completedVotes || 0}
+//                                 </td>
+//                                 <td className="px-4 py-2">{formatDate(order.createdAt)}</td>
+//                                 <td className="px-4 py-2">
+//                                     <div className="flex space-x-2">
+//                                         <button
+//                                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+//                                             onClick={() => handleEdit(order)}
+//                                         >
+//                                             <FaEdit />
+//                                         </button>
+//                                         <button
+//                                             className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+//                                             onClick={() => handleDeleteClick(order.orderId)}
+//                                         >
+//                                             <FaTrash />
+//                                         </button>
+//                                         <button
+//                                             className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+//                                             onClick={() => handleView(order)}
+//                                         >
+//                                             <FaEye />
+//                                         </button>
+//                                     </div>
+//                                 </td>
+//                             </tr>
+//                         ))}
+//                     </tbody>
+//                 </table>
+//             </div>
+//             {/* Delete Confirmation Popup */}
+//             {showDeleteConfirmation && (
+//                 <DeleteConfirmationPopup
+//                     onCancel={handleDeleteCancel}
+//                     onConfirm={handleDeleteConfirm}
+//                     setShowDeleteConfirmation = {setShowDeleteConfirmation}
+//                 />
+//             )}
+
+//             {/* Edit Popup */}
+//             {showEditPopup && selectedOrder && (
+//                 <EditOrderPopup
+//                     order={selectedOrder}
+//                     onClose={() => setShowEditPopup(false)}
+//                     onSave={() => {
+//                         // Implement the logic to save the data
+//                         setShowEditPopup(false);
+//                     }}
+//                 />
+//             )}
+
+//             {/* View Popup */}
+//             {showViewPopup && selectedOrder && (
+//                 <ViewOrderPopup
+//                     order={selectedOrder}
+//                     onClose={() => setShowViewPopup(false)}
+//                 />
+//             )}
+//         </div>
+//     );
+// };
+
+// export default OrderList;
+
+
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
@@ -473,7 +694,16 @@ const OrderList = () => {
 
     const formatDate = (dateString) => {
         if (!dateString) return '';
-        return moment(dateString).format('MMMM D, YYYY'); // Format the date
+        return moment(dateString).format('DD/MM/YYYY'); // Format the date
+    };
+
+    // Function to update order in the state
+    const updateOrderInState = (updatedOrder) => {
+        setOrders(prevOrders =>
+            prevOrders.map(order =>
+                order.orderId === updatedOrder.orderId ? updatedOrder : order
+            )
+        );
     };
 
     if (loading) {
@@ -497,7 +727,9 @@ const OrderList = () => {
                             <th className="px-4 py-2 text-left">Service</th>
                             <th className="px-4 py-2 text-left">Quantity</th>
                             <th className="px-4 py-2 text-left">Status</th>
-                            <th className="px-4 py-2 text-left">Deliver votes</th>
+                            <th className="px-4 py-2 text-left">Started Votes</th>
+                            <th className="px-4 py-2 text-left">Deliver Votes</th>
+                            <th className="px-4 py-2 text-left">Withheld Price</th>
                             <th className="px-4 py-2 text-left">Order Date</th>
                             <th className="px-4 py-2 text-left">Actions</th>
                         </tr>
@@ -517,7 +749,13 @@ const OrderList = () => {
                                     {order.status}
                                 </td>
                                 <td className="px-4 py-2">
+                                    {order.started}
+                                </td>
+                                <td className="px-4 py-2">
                                     {order.completedVotes || 0}
+                                </td>
+                                 <td className="px-4 py-2">
+                                    ${order.calculatedPrice}
                                 </td>
                                 <td className="px-4 py-2">{formatDate(order.createdAt)}</td>
                                 <td className="px-4 py-2">
@@ -552,7 +790,7 @@ const OrderList = () => {
                 <DeleteConfirmationPopup
                     onCancel={handleDeleteCancel}
                     onConfirm={handleDeleteConfirm}
-                    setShowDeleteConfirmation = {setShowDeleteConfirmation}
+                    setShowDeleteConfirmation={setShowDeleteConfirmation}
                 />
             )}
 
@@ -561,9 +799,35 @@ const OrderList = () => {
                 <EditOrderPopup
                     order={selectedOrder}
                     onClose={() => setShowEditPopup(false)}
-                    onSave={() => {
-                        // Implement the logic to save the data
-                        setShowEditPopup(false);
+                    onSave={async (updatedFields) => {
+                        try {
+                            const token = localStorage.getItem("authToken");
+                            if (!token) {
+                                setError("Token missing or invalid.");
+                                return;
+                            }
+
+                            const response = await axios.put(
+                                `${API_BASE_URL}/admin/orders/${selectedOrder.orderId}`,
+                                updatedFields,  // Send updated fields to the backend
+                                {
+                                    headers: { Authorization: `Bearer ${token}` }
+                                }
+                            );
+
+                            if (response.status === 200) {
+                                // Update the order in the state with the new values
+                                const updatedOrder = { ...selectedOrder, ...updatedFields };
+                                updateOrderInState(updatedOrder);
+                            } else {
+                                setError("Failed to update order. " + (response.data?.message || ""));
+                            }
+                        } catch (err) {
+                            console.error('Error updating order:', err);
+                            setError(err.message || 'Failed to update order');
+                        } finally {
+                            setShowEditPopup(false);
+                        }
                     }}
                 />
             )}
