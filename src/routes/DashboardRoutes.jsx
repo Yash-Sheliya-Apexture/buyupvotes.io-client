@@ -10,14 +10,12 @@ import FAQ from "../Dashboard/pages/FAQ";
 import BlogDetails from "../Dashboard/pages/BlogDetails";
 import Account from "../Dashboard/pages/Account";
 import DashboardLayout from "../Dashboard/layout/DashboardLayout"; // Import DashboardLayout
-import { AuthProvider } from "../auth/AuthContext";
 import Error404 from "../Dashboard/pages/Error404"; // Import Error404 page
 import Blog from "../Dashboard/pages/Blog"; 
 import OrderComment from "../Dashboard/pages/OrderComment";
 
 const DashboardRoutes = () => {
   return (
-    <AuthProvider>
       <Routes>
         {/* Wrap all dashboard routes inside DashboardLayout */}
         <Route path="/" element={<DashboardLayout />}>
@@ -41,7 +39,6 @@ const DashboardRoutes = () => {
           <Route path="/*" element={<Error404 />} />
         </Route>
       </Routes>
-    </AuthProvider>
   );
 };
 
