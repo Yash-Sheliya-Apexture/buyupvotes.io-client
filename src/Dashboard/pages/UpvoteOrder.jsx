@@ -1489,9 +1489,15 @@ const UpvoteOrder = () => {
     setLoading(true);
     const token = localStorage.getItem("authToken");
     try {
+      // Include calculatedPrice when sending data
+      const dataToSend = {
+        ...formData,
+        calculatedPrice: formData.calculatedPrice, // Make sure to send the calculatedPrice
+      };
+
       const response = await axios.post(
         `${API_BASE_URL}/auth/submit-order`,
-        formData,
+        dataToSend,  // Send the modified dataToSend object
         {
           headers: {
             "Content-Type": "application/json",
@@ -1499,6 +1505,7 @@ const UpvoteOrder = () => {
           },
         }
       );
+
       const data = response.data;
       if (response.status === 200) {
         toast.success(data.message || "Order submitted successfully!");
