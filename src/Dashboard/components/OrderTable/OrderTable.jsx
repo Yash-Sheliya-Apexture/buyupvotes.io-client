@@ -1162,7 +1162,7 @@ const OrderTable = () => {
 
     const formatDate = (dateString) => {
         if (!dateString) return '';
-        return moment(dateString).format('MMMM D, YYYY'); // Format the date
+        return moment(dateString).format('DD/MM/YYYY'); // Format the date
     };
 
     const tabs = [
