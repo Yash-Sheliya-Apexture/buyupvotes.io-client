@@ -218,7 +218,7 @@ const EditOrderPopup = ({ order, onClose, onSave }) => {
   }
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 font-sans">
+    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
       <ClickAwayListener onClickAway={handleOutsideClick}>
       <div className="bg-white rounded-2xl shadow-xl overflow-hidden w-full max-w-md transition-all transform duration-300 ease-in-out scale-100">
         {/* Header */}
