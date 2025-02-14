@@ -210,6 +210,7 @@ import moment from "moment";
 import { FcFilledFilter } from "react-icons/fc";
 import Dropdown from "../../Dashboard/components/Dropdown";
 import InputField from "../../Dashboard/components/InputField";
+import { IoClose } from "react-icons/io5"
 
 const FilterSidebar = ({ isOpen, onClose, onFilter, initialFilters }) => {
   const [category, setCategory] = useState(initialFilters.category || "");
@@ -311,17 +312,27 @@ const FilterSidebar = ({ isOpen, onClose, onFilter, initialFilters }) => {
   }, [isOpen, onClose]);
 
   return (
+    <>
+     {isOpen && (
+      <div className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40" onClick={onClose}></div>
+    )}
     <div
-      className={`fixed top-0 right-0 h-full w-96 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
-        isOpen ? "translate-x-0" : "translate-x-full"
+      className={`fixed m-3 top-0 right-0 h-[calc(100%-24px)] w-96 border rounded-xl bg-white transform transition-transform duration-300 ease-in-out ${
+        isOpen ? "translate-x-0" : "translate-x-full -right-2"
       } z-50`}
       ref={sidebarRef}
     >
-      <div className="p-5 bg-gray-200">
-        <h2 className="text-xl font-semibold flex items-center tracking-wider uppercase">
+      <div className="p-5 rounded-t-lg bg-gray-200 flex justify-between items-center">
+        <h2 className="text-xl font-semibold flex items-center tracking-wider">
           <FcFilledFilter className="mr-3" size={28} />
           Filter Orders
         </h2>
+        <button
+          onClick={onClose} // Call the onClose function when the button is clicked
+          className="text-gray-900" // Styling for the button
+        >
+          <IoClose size={24} /> {/* Render the close icon */}
+        </button>
       </div>
 
       <div className="p-6 overflow-y-auto">
@@ -422,6 +433,8 @@ const FilterSidebar = ({ isOpen, onClose, onFilter, initialFilters }) => {
         </div>
       </div>
     </div>
+    </>
+
   );
 };
 

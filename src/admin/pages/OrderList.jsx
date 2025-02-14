@@ -1576,7 +1576,7 @@ const OrderList = () => {
   const [isFilterApplied, setIsFilterApplied] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1); // Current page state
-  const [ordersPerPage] = useState(1); // Orders per page
+  const [ordersPerPage] = useState(12); // Orders per page
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
