@@ -273,42 +273,36 @@ const ViewOrderPopup = ({ order, onClose }) => {
         return {
           color: "yellow",
           icon: IoTimeOutline,
-          message: "Order is awaiting processing.",
           tailwindClass: "bg-yellow-400",
         };
       case "In Progress":
         return {
           color: "blue",
           icon: IoInformationCircle,
-          message: "Order is currently being processed.",
           tailwindClass: "bg-blue-500",
         };
       case "Completed":
         return {
           color: "green",
           icon: IoCheckmarkCircle,
-          message: "Order has been completed.",
           tailwindClass: "bg-green-500",
         };
       case "Partial":
         return {
           color: "orange",
           icon: IoAlertCircle,
-          message: "Order was partially completed.",
           tailwindClass: "bg-orange-500",
         };
       case "Canceled":
         return {
           color: "red",
           icon: IoAlertCircle,
-          message: "Order has been canceled.",
           tailwindClass: "bg-red-500",
         };
       default:
         return {
           color: "gray",
           icon: IoInformationCircle,
-          message: "Unknown order status.",
           tailwindClass: "bg-gray-500",
         };
     }
@@ -344,7 +338,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
       <ClickAwayListener onClickAway={handleOutsideClick}>
         <div className="relative rounded-3xl shadow-2xl w-full max-w-3xl overflow-hidden bg-white ">
           <div className="py-5 px-6 bg-gray-300 ">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between">
               <h2 className="text-3xl font-extrabold tracking-tight">
                 Order Details
               </h2>
@@ -355,11 +349,8 @@ const ViewOrderPopup = ({ order, onClose }) => {
                 {order.status}
               </div>
             </div>
-            <p className="text-sm italic">{message}</p>
           </div>
           <div className="p-8">
-            
-
             <div className="grid grid-cols-3 gap-6">
               {/* Order ID */}
               <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
@@ -498,7 +489,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
           <div className="px-8 py-4 flex justify-end">
             <button
               type="button"
-              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 transition-colors duration-200"
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md transition-colors duration-200"
               onClick={onClose}
             >
               Close
