@@ -147,7 +147,7 @@ const DeleteConfirmationPopup = ({
               </div>
             </div>
           </div>
-          <div className="px-6 py-2">
+          <div className="">
             <h2 className="text-lg font-semibold text-gray-800 text-center">
               Confirm Deletion
             </h2>
@@ -155,15 +155,15 @@ const DeleteConfirmationPopup = ({
               Are you sure you want to delete this order?
             </p>
           </div>
-          <div className="px-6 py-4 flex justify-center items-center space-x-4">
+          <div className="mt-6 flex justify-center items-center space-x-4">
             <button
-              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 transition-colors duration-200"
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md transition-colors duration-200"
               onClick={() => setShowDeleteConfirmation(false)}
             >
               Cancel
             </button>
             <button
-              className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-3 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 transition-colors duration-200"
+              className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-3 rounded-md transition-colors duration-200"
               onClick={onConfirm}
             >
               <div className="flex items-center gap-2">
