@@ -662,7 +662,7 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
           </button>
         </div>
 
-        <div className="h-[calc(100%-4rem)] overflow-y-auto custom-scroll relative">
+        <div className="h-[calc(100%-143px)] overflow-y-auto custom-scroll relative">
           <ul className="space-y-2.5 mt-2.5">
             {menuItems.map((item) => (
               <li
