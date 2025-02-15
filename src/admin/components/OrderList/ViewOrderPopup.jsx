@@ -334,7 +334,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <ClickAwayListener onClickAway={handleOutsideClick}>
         <div className="relative rounded-3xl shadow-2xl w-full max-w-3xl overflow-hidden bg-white ">
           <div className="py-5 px-6 bg-gray-300 ">
