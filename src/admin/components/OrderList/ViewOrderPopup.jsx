@@ -316,7 +316,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
 
   const linkStyle = {
     display: "-webkit-box",
-    WebkitLineClamp: 2,
+    WebkitLineClamp: 1,
     WebkitBoxOrient: "vertical",
     overflow: "hidden",
   };
@@ -354,7 +354,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
             <div className="grid grid-cols-3 gap-6">
               {/* Order ID */}
               <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold  uppercase tracking-wide mb-2">
+                <label className="block text-small font-bold tracking-wide mb-2">
                   Order ID
                 </label>
                 <p className="font-medium text-xs text-gray-500">
@@ -364,7 +364,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
 
               {/* User ID */}
               <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold  uppercase tracking-wide mb-2">
+                <label className="block text-small font-bold tracking-wide mb-2">
                   User ID
                 </label>
                 <p className="font-medium text-xs text-gray-500">
@@ -374,7 +374,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
 
               {/* Category */}
               <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold  uppercase tracking-wide mb-2">
+                <label className="block text-small font-bold tracking-wide mb-2">
                   Category
                 </label>
                 <p className="font-medium text-xs text-gray-500">
@@ -384,7 +384,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
 
               {/* Service */}
               <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold  uppercase tracking-wide mb-2">
+                <label className="block text-small font-bold tracking-wide mb-2">
                   Service
                 </label>
                 <p className="font-medium text-xs text-gray-500">
@@ -394,7 +394,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
 
               {/* Quantity */}
               <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold  uppercase tracking-wide mb-2">
+                <label className="block text-small font-bold tracking-wide mb-2">
                   Quantity
                 </label>
                 <p className="font-medium text-xs text-gray-500">
@@ -404,7 +404,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
 
               {/* Completed Votes */}
               <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold  uppercase tracking-wide mb-2">
+                <label className="block text-small font-bold tracking-wide mb-2">
                   Completed Votes
                 </label>
                 <p className="font-medium text-xs text-gray-500">
@@ -414,7 +414,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
 
               {/* Order Date */}
               <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold  uppercase tracking-wide mb-2">
+                <label className="block text-small font-bold tracking-wide mb-2">
                   Order Date
                 </label>
                 <p className="font-medium text-xs text-gray-500">
@@ -424,7 +424,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
 
               {/* Started Votes */}
               <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold  uppercase tracking-wide mb-2">
+                <label className="block text-small font-bold tracking-wide mb-2">
                   Started Votes
                 </label>
                 <p className="font-medium text-xs text-gray-500">
@@ -434,7 +434,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
 
               {/* Deliver Votes */}
               <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold  uppercase tracking-wide mb-2">
+                <label className="block text-small font-bold tracking-wide mb-2">
                   Deliver Votes
                 </label>
                 <p className="font-medium text-xs text-gray-500">
@@ -444,7 +444,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
 
               {/* Withheld Price */}
               <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold  uppercase tracking-wide mb-2">
+                <label className="block text-small font-bold tracking-wide mb-2">
                   Withheld Price
                 </label>
                 <p className="font-medium text-xs text-gray-500">
@@ -454,7 +454,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
 
               {/* Link */}
               <div className="rounded-2xl p-4 border border-gray-300 shadow-main col-span-2">
-                <label className="block text-small font-bold  uppercase tracking-wide mb-2">
+                <label className="block text-small font-bold tracking-wide mb-2">
                   Link
                 </label>
                 <a
@@ -472,7 +472,7 @@ const ViewOrderPopup = ({ order, onClose }) => {
             {/* Comments */}
             {order.comments && (
               <div className="mt-8">
-                <label className="block text-small font-bold  uppercase tracking-wide mb-2">
+                <label className="block text-small font-bold tracking-wide mb-2">
                   Comments
                 </label>
                 <div
