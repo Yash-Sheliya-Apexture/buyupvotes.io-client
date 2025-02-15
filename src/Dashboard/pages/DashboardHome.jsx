@@ -7,8 +7,8 @@ import NewHeroSection from "../components/DashboardHome/NewHeroSection";
 const DashboardHome = () => {
   return (
     <div className="container mx-auto">
-      {/* <HeroSecrtion /> */}
-      <NewHeroSection/>
+      <HeroSecrtion />
+      {/* <NewHeroSection/> */}
       <DataSection />
       <OrderTable />
     </div>

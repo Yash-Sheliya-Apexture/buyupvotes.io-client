@@ -1031,7 +1031,6 @@ const OrderTable = () => {
                     setError("Invalid data format.");
                     return;
                 }
-                console.log(response.data)
                 const originalData = response.data;
 
                 let filteredData = [...originalData];
@@ -1095,7 +1094,6 @@ const OrderTable = () => {
             }
 
             setLoading(true);
-            console.log(`Cancelling order with ID: ${orderId}`); // Console log
             await axios.put(`${API_BASE_URL}/auth/orders/${orderId}`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
