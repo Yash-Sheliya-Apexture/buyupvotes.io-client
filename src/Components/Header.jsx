@@ -610,6 +610,7 @@ const Header = () => {
     }
 
     return (
+<<<<<<< HEAD
         <>
             <header
                 className={`top-0 z-30 relative transition-shadow duration-300 ${isHomePage
@@ -723,6 +724,149 @@ const Header = () => {
                 <div className="relative flex justify-end p-4">
                     <button onClick={toggleMenu}>
                         <img src={logo} alt="sidelogo" />
+=======
+      <header
+        className={`top-0 z-30 relative transition-shadow duration-300 ${isHomePage
+          ? `${isSticky
+            ? "bg-white/60 shadow-header backdrop-blur-[4px] sticky"
+            : ""
+          }`
+          : "bg-white/60 shadow-header backdrop-blur-[2px] "
+          }  ${isSticky ? `sticky` : ""}`}
+      >
+        <div className="container mx-auto">
+          <section className="flex items-center justify-between">
+            <div className="flex items-center my-4">
+              <button className="block md:hidden" onClick={toggleMenu}>
+                <CgMenuLeftAlt className="text-large text-main-color" />
+              </button>
+              <button className="block md:hidden">
+                <Link to="/">
+                  <img src={Uparrow} alt="upArrow" className="h-6 ml-4" />
+                </Link>
+              </button>
+              <Link to="/">
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="hidden h-6 md:h-8 md:block"
+                />
+              </Link>
+            </div>
+            <div className="flex items-center justify-between space-x-6 md:w-auto">
+              <div className="relative flex items-center space-x-4">
+                <>
+                  <button>
+                    <Link
+                      to="/signin"
+                      className="hidden px-4 py-1 text-lg font-medium transition rounded-full lg:px-0 text-main-color border-main-color lg:block"
+                    >
+                      Sign-In
+                    </Link>
+                  </button>
+                  <Link
+                    to="/signup"
+                    className="flex items-center justify-center gap-2 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border-2 rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600"
+                  >
+                    Sign-Up
+                  </Link>
+                </>
+              </div>
+            </div>
+          </section>
+        </div>
+      </header>
+    );
+  }
+  return (
+    <>
+      <header
+        className={`top-0 z-30 relative transition-shadow duration-300 ${isHomePage
+          ? `${isSticky
+            ? "bg-white/60 shadow-header backdrop-blur-[4px] sticky"
+            : ""
+          }`
+          : "bg-white/60 shadow-header backdrop-blur-[2px] "
+          }  ${isSticky ? `sticky` : ""}`}
+      >
+        <div className="container mx-auto">
+          <section className="flex items-center justify-between">
+            <div className="flex items-center my-4">
+              <button className="block md:hidden" onClick={toggleMenu}>
+                <CgMenuLeftAlt className="text-large text-main-color" />
+              </button>
+              <button className="block md:hidden">
+                <Link to="/">
+                  <img src={Uparrow} alt="upArrow" className="h-6 ml-4" />
+                </Link>
+              </button>
+              <Link to="/">
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="hidden h-6 md:h-8 md:block"
+                />
+              </Link>
+            </div>
+            <div className="flex items-center justify-between space-x-6 md:w-auto">
+              {user ? (
+                <nav className="flex-grow hidden h-full gap-2 cursor-pointer md:flex">
+                  {navItem.map((item, index) => (
+                    <Link
+                      key={index}
+                      to={item.path}
+                      className="relative px-4 py-5 text-xl font-normal font-BasierSquare text-small text-sub-color hover:text-main-color group"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </nav>
+              ) : (
+                <nav className="flex-grow hidden h-full gap-2 cursor-pointer md:flex">
+                  {navItems.map((item, index) => {
+                    const isActive = location.pathname === item.path;
+                    return (
+                      <Link
+                        key={index}
+                        to={item.path}
+                        className={`relative font-BasierSquare px-4 py-5 text-lg font-medium transition-all duration-500 ease-in-out group ${isActive
+                          ? "text-main-color"
+                          : "text-sub-color hover:text-main-color"
+                          }`}
+                      >
+                        {isActive && (
+                          <GoDotFill className="inline-block mr-2 text-main-color animate-pop" />
+                        )}
+                        {item.name}
+                        <span
+                          className={`absolute bottom-0 left-0 transition-all duration-500 ease-in-out ${isActive
+                            ? ""
+                            : "w-0 bg-transparent h-[2px] group-hover:w-full group-hover:bg-main-color"
+                            }`}
+                        ></span>
+                      </Link>
+                    );
+                  })}
+                </nav>
+              )}
+              <div className="relative flex items-center space-x-4">
+                {user ? (
+                  <Link
+                    to="/dashboard"
+                    className="flex items-center justify-center gap-2 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border-2 rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600"
+                  >
+                    Dashboard
+                  </Link>
+                ) : (
+                  <>
+                    <button>
+                      <Link
+                        to="/signin"
+                        className="hidden px-4 py-1 text-lg font-medium transition rounded-full lg:px-0 text-main-color border-main-color lg:block"
+                      >
+                        Sign-In
+                      </Link>
+>>>>>>> 87c97d108dcf6a2d0249ec19c76d00523c6c3da9
                     </button>
                 </div>
 
