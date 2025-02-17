@@ -48,11 +48,11 @@ const Header = () => {
     return (
       <header
         className={`top-0 z-30 relative transition-shadow duration-300 ${isHomePage
-            ? `${isSticky
-              ? "bg-white/60 shadow-header backdrop-blur-[4px] sticky"
-              : ""
-            }`
-            : "bg-white/60 shadow-header backdrop-blur-[2px] "
+          ? `${isSticky
+            ? "bg-white/60 shadow-header backdrop-blur-[4px] sticky"
+            : ""
+          }`
+          : "bg-white/60 shadow-header backdrop-blur-[2px] "
           }  ${isSticky ? `sticky` : ""}`}
       >
         <div className="container mx-auto">
@@ -103,11 +103,11 @@ const Header = () => {
     <>
       <header
         className={`top-0 z-30 relative transition-shadow duration-300 ${isHomePage
-            ? `${isSticky
-              ? "bg-white/60 shadow-header backdrop-blur-[4px] sticky"
-              : ""
-            }`
-            : "bg-white/60 shadow-header backdrop-blur-[2px] "
+          ? `${isSticky
+            ? "bg-white/60 shadow-header backdrop-blur-[4px] sticky"
+            : ""
+          }`
+          : "bg-white/60 shadow-header backdrop-blur-[2px] "
           }  ${isSticky ? `sticky` : ""}`}
       >
         <div className="container mx-auto">
@@ -151,8 +151,8 @@ const Header = () => {
                         key={index}
                         to={item.path}
                         className={`relative font-BasierSquare px-4 py-5 text-lg font-medium transition-all duration-500 ease-in-out group ${isActive
-                            ? "text-main-color"
-                            : "text-sub-color hover:text-main-color"
+                          ? "text-main-color"
+                          : "text-sub-color hover:text-main-color"
                           }`}
                       >
                         {isActive && (
@@ -161,8 +161,8 @@ const Header = () => {
                         {item.name}
                         <span
                           className={`absolute bottom-0 left-0 transition-all duration-500 ease-in-out ${isActive
-                              ? ""
-                              : "w-0 bg-transparent h-[2px] group-hover:w-full group-hover:bg-main-color"
+                            ? ""
+                            : "w-0 bg-transparent h-[2px] group-hover:w-full group-hover:bg-main-color"
                             }`}
                         ></span>
                       </Link>

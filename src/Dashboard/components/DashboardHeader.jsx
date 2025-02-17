@@ -492,7 +492,11 @@ const DashboardHeader = ({ toggleSidebarVisibility }) => {
 
   return (
     <header className="sticky top-0 z-10 w-full backdrop-blur-[2px] bg-white/50">
-      <div className="flex items-center justify-between p-3 xl:justify-end">
+      <div className="flex items-center justify-between p-3 xl:justify-end gap-4">
+        {/* Admin Profile */}
+        <div>
+          bgf2
+        </div>
         <div className="block xl:hidden">
           <div className="flex items-center gap-4">
             <button
@@ -521,7 +525,7 @@ const DashboardHeader = ({ toggleSidebarVisibility }) => {
               className="absolute top-0 left-0 h-10 animate-rocket"
             />
             <p className="ml-6 font-medium text-white">
-            Current Balance: 
+              Current Balance:
               <span className="underline underline-offset-1">
                 {loading ? "Loading..." : `${currentBalance} $`}
               </span>
