@@ -8,7 +8,6 @@ const DashboardHome = () => {
   return (
     <div className="container mx-auto">
       <HeroSecrtion />
-      {/* <NewHeroSection/> */}
       <DataSection />
       <OrderTable />
     </div>

@@ -175,6 +175,159 @@
 // export const useAuth = () => useContext(AuthContext);
 
 
+
+
+
+
+// import React, { createContext, useState, useEffect, useContext } from 'react';
+// import axios from 'axios';
+// import TokenService from '../utils/TokenService';
+// import { useNavigate } from 'react-router-dom';
+// import { toast } from 'react-toastify';
+
+// const AuthContext = createContext();
+
+// export const AuthProvider = ({ children }) => {
+//     const [user, setUser] = useState(null);
+//     const [loading, setLoading] = useState(true);
+//     const navigate = useNavigate();
+
+//     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+//     useEffect(() => {
+//         const checkAuthStatus = async () => {
+//             const token = TokenService.getToken();
+//             if (token) {
+//                 try {
+//                     const headers = { Authorization: `Bearer ${token}` };
+//                     const response = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
+
+//                     if (response.status === 200) {
+//                         setUser(response.data);
+//                     } else if (response.status === 401) {  //Token is expired and unauthorized
+//                         // Attempt to refresh the token
+//                         try {
+//                             const refreshToken = localStorage.getItem("refreshToken");  // get from local storage
+//                             if (!refreshToken) {
+//                                 TokenService.removeToken();
+//                                 setUser(null);
+//                                 return;
+//                             }
+
+//                             const refreshResponse = await axios.post(`${API_BASE_URL}/auth/refresh-token`, {}, {  //Empty body because refresh token is in cookies
+//                                 headers: { 'Content-Type': 'application/json' },
+//                                 withCredentials: true
+//                             });
+//                             if (refreshResponse.status === 200) {
+//                                 // Update the access token in TokenService
+//                                 TokenService.setToken(refreshResponse.data.accessToken);
+
+//                                 // Retry fetching user data with the new access token
+//                                 const newHeaders = { Authorization: `Bearer ${refreshResponse.data.accessToken}` };
+//                                 const newUserResponse = await axios.get(`${API_BASE_URL}/auth/user`, { newHeaders });
+
+//                                 if (newUserResponse.status === 200) {
+//                                     setUser(newUserResponse.data);
+//                                 } else {
+//                                     TokenService.removeToken();
+//                                     localStorage.removeItem("refreshToken");
+//                                     setUser(null);  // Logout if retrying user data fetch fails
+//                                 }
+//                             } else {
+//                                 TokenService.removeToken();
+//                                 localStorage.removeItem("refreshToken");
+//                                 setUser(null);  // Logout if refresh fails
+//                             }
+//                         } catch (refreshError) {
+//                             console.error("Token refresh error:", refreshError);
+//                             TokenService.removeToken();
+//                             localStorage.removeItem("refreshToken");
+//                             setUser(null);  // Logout if refresh fails
+//                         }
+//                     } else {
+//                         TokenService.removeToken();
+//                         localStorage.removeItem("refreshToken");
+//                         setUser(null);
+//                     }
+//                 } catch (error) {
+//                     console.error("Error fetching user data:", error);
+//                     TokenService.removeToken();
+//                     localStorage.removeItem("refreshToken");
+//                     setUser(null);
+//                 }
+//             }
+//             setLoading(false);
+//         };
+
+//         checkAuthStatus();
+//     }, [API_BASE_URL, navigate]);
+
+//     const login = async (email, password) => {
+//         try {
+//             const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password }, { withCredentials: true });
+//             if (response.status === 200) {
+//                 TokenService.setToken(response.data.tokens.accessToken);
+//                 localStorage.setItem("refreshToken", response.data.refreshToken) // Save refreshToken to local storage
+
+//                 // Fetch user data after login to determine the role
+//                 const headers = { Authorization: `Bearer ${response.data.tokens.accessToken}` };
+//                 const userResponse = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
+
+//                 if (userResponse.status === 200) {
+//                     setUser(userResponse.data);
+
+//                     // Redirect based on role
+//                     if (userResponse.data.role === 'admin') {
+//                         navigate('/admin');  // Redirect to admin panel
+//                     } else {
+//                         navigate('/dashboard');  // Redirect to user dashboard
+//                     }
+//                     toast.success("Login successful!");
+//                 } else {
+//                     TokenService.removeToken();
+//                     localStorage.removeItem("refreshToken");
+//                     setUser(null);
+//                     toast.error("Failed to fetch user details.");
+//                 }
+//             } else {
+//                 toast.error("Login failed.");
+//             }
+//         } catch (error) {
+//             console.error("Login error:", error);
+//             TokenService.removeToken();
+//             localStorage.removeItem("refreshToken");
+//             setUser(null);
+//             toast.error(error.response?.data?.message || "Login failed.");
+//         } finally {
+//             setLoading(false);
+//         }
+//     };
+//     const logout = () => {
+//         TokenService.removeToken();
+//         localStorage.removeItem("refreshToken");
+//         setUser(null);
+//         navigate('/');
+//     };
+
+//     const contextValue = {
+//         user,
+//         setUser,
+//         login,
+//         logout,
+//         loading
+//     };
+
+//     return (
+//         <AuthContext.Provider value={contextValue}>
+//             {!loading && children}
+//         </AuthContext.Provider>
+//     );
+// };
+// export const useAuth = () => useContext(AuthContext);
+
+
+
+// AuthContext.jsx (Modified)
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import TokenService from '../utils/TokenService';
@@ -184,139 +337,136 @@ import { toast } from 'react-toastify';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-    useEffect(() => {
-        const checkAuthStatus = async () => {
-            const token = TokenService.getToken();
-            if (token) {
-                try {
-                    const headers = { Authorization: `Bearer ${token}` };
-                    const response = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      const accessToken = TokenService.getToken();
+      const refreshToken = TokenService.getRefreshToken();
 
-                    if (response.status === 200) {
-                        setUser(response.data);
-                    } else if (response.status === 401) {  //Token is expired and unauthorized
-                        // Attempt to refresh the token
-                        try {
-                            const refreshToken = localStorage.getItem("refreshToken");  // get from local storage
-                            if (!refreshToken) {
-                                TokenService.removeToken();
-                                setUser(null);
-                                return;
-                            }
+      if (!accessToken && !refreshToken) {
+        setLoading(false);
+        return;
+      }
 
-                            const refreshResponse = await axios.post(`${API_BASE_URL}/auth/refresh-token`, {}, {  //Empty body because refresh token is in cookies
-                                headers: { 'Content-Type': 'application/json' },
-                                withCredentials: true
-                            });
-                            if (refreshResponse.status === 200) {
-                                // Update the access token in TokenService
-                                TokenService.setToken(refreshResponse.data.accessToken);
-
-                                // Retry fetching user data with the new access token
-                                const newHeaders = { Authorization: `Bearer ${refreshResponse.data.accessToken}` };
-                                const newUserResponse = await axios.get(`${API_BASE_URL}/auth/user`, { newHeaders });
-
-                                if (newUserResponse.status === 200) {
-                                    setUser(newUserResponse.data);
-                                } else {
-                                    TokenService.removeToken();
-                                    localStorage.removeItem("refreshToken");
-                                    setUser(null);  // Logout if retrying user data fetch fails
-                                }
-                            } else {
-                                TokenService.removeToken();
-                                localStorage.removeItem("refreshToken");
-                                setUser(null);  // Logout if refresh fails
-                            }
-                        } catch (refreshError) {
-                            console.error("Token refresh error:", refreshError);
-                            TokenService.removeToken();
-                            localStorage.removeItem("refreshToken");
-                            setUser(null);  // Logout if refresh fails
-                        }
-                    } else {
-                        TokenService.removeToken();
-                        localStorage.removeItem("refreshToken");
-                        setUser(null);
-                    }
-                } catch (error) {
-                    console.error("Error fetching user data:", error);
-                    TokenService.removeToken();
-                    localStorage.removeItem("refreshToken");
-                    setUser(null);
-                }
-            }
-            setLoading(false);
-        };
-
-        checkAuthStatus();
-    }, [API_BASE_URL, navigate]);
-
-    const login = async (email, password) => {
+      if (accessToken) {
         try {
-            const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password }, { withCredentials: true });
-            if (response.status === 200) {
-                TokenService.setToken(response.data.tokens.accessToken);
-                localStorage.setItem("refreshToken", response.data.refreshToken) // Save refreshToken to local storage
+          const headers = { Authorization: `Bearer ${accessToken}` };
+          const response = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
 
-                // Fetch user data after login to determine the role
-                const headers = { Authorization: `Bearer ${response.data.tokens.accessToken}` };
-                const userResponse = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
-
-                if (userResponse.status === 200) {
-                    setUser(userResponse.data);
-
-                    // Redirect based on role
-                    if (userResponse.data.role === 'admin') {
-                        navigate('/admin');  // Redirect to admin panel
-                    } else {
-                        navigate('/dashboard');  // Redirect to user dashboard
-                    }
-                    toast.success("Login successful!");
-                } else {
-                    TokenService.removeToken();
-                    localStorage.removeItem("refreshToken");
-                    setUser(null);
-                    toast.error("Failed to fetch user details.");
-                }
-            } else {
-                toast.error("Login failed.");
-            }
+          if (response.status === 200) {
+            setUser(response.data);
+            setLoading(false); // Move setLoading(false) here after successful fetch
+            return;
+          }
         } catch (error) {
-            console.error("Login error:", error);
-            TokenService.removeToken();
-            localStorage.removeItem("refreshToken");
-            setUser(null);
-            toast.error(error.response?.data?.message || "Login failed.");
-        } finally {
-            setLoading(false);
+          console.error("Error fetching user data:", error);
         }
+      }
+
+      if (refreshToken) {
+        try {
+          const refreshResponse = await axios.post(`${API_BASE_URL}/auth/refresh-token`, {}, {
+            withCredentials: true
+          });
+
+          if (refreshResponse.status === 200) {
+            TokenService.setToken(refreshResponse.data.accessToken);
+            const headers = { Authorization: `Bearer ${refreshResponse.data.accessToken}` };
+            const userResponse = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
+
+            if (userResponse.status === 200) {
+              setUser(userResponse.data);
+            } else {
+              TokenService.removeToken();
+              TokenService.removeRefreshToken();
+              setUser(null);
+            }
+          } else {
+            TokenService.removeToken();
+            TokenService.removeRefreshToken();
+            setUser(null);
+          }
+        } catch (refreshError) {
+          console.error("Token refresh error:", refreshError);
+          TokenService.removeToken();
+          TokenService.removeRefreshToken();
+          setUser(null);
+        }
+      }
+
+      setLoading(false); // Ensure setLoading is called in all code paths
     };
+
+    checkAuthStatus();
+  }, [API_BASE_URL, navigate]);
+
+
+  const login = async (email, password) => {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password }, { withCredentials: true });
+      if (response.status === 200) {
+        TokenService.setToken(response.data.tokens.accessToken);
+        TokenService.setRefreshToken(response.data.refreshToken);
+
+        // Fetch user data after login to determine the role
+        const headers = { Authorization: `Bearer ${response.data.tokens.accessToken}` };
+        const userResponse = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
+
+        if (userResponse.status === 200) {
+          setUser(userResponse.data);
+
+          // Redirect based on role
+          if (userResponse.data.role === 'admin') {
+            navigate('/admin');  // Redirect to admin panel
+          } else {
+            navigate('/dashboard');  // Redirect to user dashboard
+          }
+          toast.success("Login successful!");
+        } else {
+          TokenService.removeToken();
+          TokenService.removeRefreshToken();
+          setUser(null);
+          toast.error("Failed to fetch user details.");
+        }
+      } else {
+        toast.error("Login failed.");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      TokenService.removeToken();
+      TokenService.removeRefreshToken();
+      setUser(null);
+      toast.error(error.response?.data?.message || "Login failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
     const logout = () => {
         TokenService.removeToken();
-        localStorage.removeItem("refreshToken");
+        TokenService.removeRefreshToken();
         setUser(null);
         navigate('/');
     };
 
-    const contextValue = {
-        user,
-        setUser,
-        login,
-        logout,
-        loading
-    };
+  const contextValue = {
+    user,
+    setUser,
+    login,
+    logout,
+    loading
+  };
 
-    return (
-        <AuthContext.Provider value={contextValue}>
-            {!loading && children}
-        </AuthContext.Provider>
-    );
+  return (
+    <AuthContext.Provider value={contextValue}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 };
+
 export const useAuth = () => useContext(AuthContext);

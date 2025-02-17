@@ -934,6 +934,377 @@
 
 
 
+// import React, { useState, useEffect } from 'react';
+// import { useParams, useNavigate } from 'react-router-dom';
+// import axios from 'axios';
+// import moment from 'moment';
+// import { FiEye } from 'react-icons/fi';
+// import { FaEdit, FaTrash, FaUser, FaMoneyBillWave } from "react-icons/fa"; // Added FaMoneyBillWave Icon
+// import DeleteConfirmationPopup from "../components/OrderList/DeleteConfirmationPopup";
+// import EditOrderPopup from "../components/OrderList/EditOrderPopup";
+// import ViewOrderPopup from "../components/OrderList/ViewOrderPopup";
+// import PaymentHistoryPopup from '../components/PaymentHistoryPopup'; // PaymentHistoryPopup
+
+// const UserProfile = () => {
+//     const { userId } = useParams();
+//     const [user, setUser] = useState(null);
+//     const [orders, setOrders] = useState([]);
+//     const [loading, setLoading] = useState(true);
+//     const [error, setError] = useState(null);
+//     const navigate = useNavigate();
+//     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+//     const [orderToDelete, setOrderToDelete] = useState(null);
+//     const [showEditPopup, setShowEditPopup] = useState(false);
+//     const [showViewPopup, setShowViewPopup] = useState(false);
+//     const [selectedOrder, setSelectedOrder] = useState(null);
+//     const [payments, setPayments] = useState([]); // Added payments state
+//     const [totalAmount, setTotalAmount] = useState(0); // Added state for total amount
+//     const [showPaymentHistoryPopup, setShowPaymentHistoryPopup] = useState(false);  //Payment History popup
+
+//     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+//     useEffect(() => {
+//         const fetchUserAndOrders = async () => {
+//             setLoading(true);
+//             setError(null);
+
+//             try {
+//                 const token = localStorage.getItem("authToken");
+//                 if (!token) {
+//                     setError("Authentication token not found");
+//                     setLoading(false);
+//                     return;
+//                 }
+
+//                 const userResponse = await axios.get(`${API_BASE_URL}/admin/users/${userId}`, {
+//                     headers: {
+//                         Authorization: `Bearer ${token}`
+//                     }
+//                 });
+
+//                 if (userResponse.status !== 200) {
+//                     throw new Error(`Failed to fetch user. Status code: ${userResponse.status}`);
+//                 }
+
+//                 setUser(userResponse.data);
+
+//                 const ordersResponse = await axios.get(`${API_BASE_URL}/admin/users/${userId}/orders`, {
+//                     headers: {
+//                         Authorization: `Bearer ${token}`
+//                     }
+//                 });
+
+//                 if (ordersResponse.status !== 200) {
+//                     throw new Error(`Failed to fetch orders. Status code: ${ordersResponse.status}`);
+//                 }
+
+//                 if (Array.isArray(ordersResponse.data)) {
+//                     setOrders(ordersResponse.data);
+//                 } else {
+//                     throw new Error("Data returned was not of the right type (should be an array)");
+//                 }
+
+//             } catch (err) {
+//                 setError(err.message || "Failed to load user and/or orders");
+//                 console.error("Error fetching user:", err);
+//             } finally {
+//                 setLoading(false);
+//             }
+//         };
+
+//         const fetchPayments = async () => {
+//             try {
+//                 const token = localStorage.getItem('authToken');
+//                 if (!token) {
+//                     console.error('Authentication token not found');
+//                     return;
+//                 }
+
+//                 const paymentsResponse = await axios.get(`${API_BASE_URL}/admin/users/${userId}/payments`, {
+//                     headers: { Authorization: `Bearer ${token}` },
+//                 });
+
+//                 setPayments(paymentsResponse.data.payments); // Set payment state
+
+//             } catch (error) {
+//                 console.error('Error fetching payments:', error);
+//             }
+//         };
+//         fetchPayments();
+//         fetchUserAndOrders();
+//     }, [API_BASE_URL, userId]);
+
+//     useEffect(() => {
+//         // Calculate total amount from payments
+//         const calculateTotalAmount = () => {
+//             const total = payments.reduce((acc, payment) => acc + payment.amount, 0);
+//             setTotalAmount(total);
+//         };
+
+//         calculateTotalAmount();
+//     }, [payments]);
+
+//     // Calculating Balance
+//     const currentBalance = user && totalAmount - (user.spentAmount || 0);
+
+
+//     const handleGoBack = () => {
+//         navigate(-1);
+//     };
+
+//     const truncateId = (id) => {
+//         if (!id) return "";
+
+//         const parts = id.split("-");
+//         if (parts.length > 0) {
+//             return parts.slice(0, Math.min(4, parts.length)).join("-");
+//         }
+//         return id;
+//     };
+
+//     const formatDate = (dateString) => {
+//         if (!dateString) return "";
+//         return moment(dateString).format("DD/MM/YYYY");
+//     };
+
+//     const handleEdit = (order) => {
+//         setSelectedOrder(order);
+//         setShowEditPopup(true);
+//     };
+
+//     const handleView = (order) => {
+//         setSelectedOrder(order);
+//         setShowViewPopup(true);
+//     };
+
+//     const handleDeleteClick = (orderId) => {
+//         setOrderToDelete(orderId);
+//         setShowDeleteConfirmation(true);
+//     };
+
+//     const handleDeleteConfirm = async () => {
+//         try {
+//             const token = localStorage.getItem("authToken");
+//             if (!token) {
+//                 setError("Token missing or invalid.");
+//                 return;
+//             }
+
+//             await axios.delete(`${API_BASE_URL}/admin/orders/${orderToDelete}`, {
+//                 headers: { Authorization: `Bearer ${token}` },
+//             });
+//             setOrders((prevOrders) =>
+//                 prevOrders.filter((order) => order.orderId !== orderToDelete)
+//             );
+//         } catch (err) {
+//             console.error("Error deleting order:", err);
+//             setError(err.message || "Failed to delete order");
+//         } finally {
+//             setShowDeleteConfirmation(false);
+//             setOrderToDelete(null);
+//         }
+//     };
+
+//     const handleDeleteCancel = () => {
+//         setShowDeleteConfirmation(false);
+//         setOrderToDelete(null);
+//     };
+
+//     const updateOrderInState = (updatedOrder) => {
+//         setOrders((prevOrders) =>
+//             prevOrders.map((order) =>
+//                 order.orderId === updatedOrder.orderId ? updatedOrder : order
+//             )
+//         );
+//     };
+
+//     //Function to payment history to toggle open or not
+//     const togglePaymentHistoryPopup = () => {
+//         setShowPaymentHistoryPopup(!showPaymentHistoryPopup);
+//     };
+
+//     if (loading) {
+//         return <div className="flex justify-center items-center h-48">Loading user details...</div>;
+//     }
+
+//     if (error) {
+//         return <div className="text-red-500">Error: {error}</div>;
+//     }
+
+//     if (!user) {
+//         return <div>User not found.</div>;
+//     }
+
+//     return (
+//         <div className="container mx-auto p-6">
+//             <h2 className="text-3xl font-bold text-gray-800 mb-2 md:mb-0">User Profile</h2>
+//             <div className="my-4 inline-block" >
+//                 <div className="flex justify-start gap-4 border border-gray-300 p-3 rounded-full">
+//                     <div className="bg-main-color text-white py-3 px-8 border border-main-color rounded-full cursor-pointer" onClick={handleGoBack}>Go Back</div>
+//                     <div className="bg-white text-gray-900 py-3 px-8 border border-gray-300 rounded-full cursor-pointer" onClick={togglePaymentHistoryPopup}>Payment History</div>
+//                 </div>
+//             </div>
+//             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//                 {/* User Details Card */}
+//                 <div className="bg-white shadow-md rounded-lg p-6">
+//                     <div className="flex items-center space-x-6 mb-4">
+//                         <div className="flex items-center justify-center h-16 w-16 rounded-full bg-gray-200 text-gray-600">
+//                             <FaUser className="h-8 w-8" />
+//                         </div>
+//                         <div>
+//                             <h3 className="text-xl font-semibold text-gray-800">{user.firstName} {user.lastName}</h3>
+//                             <p className="text-gray-500">{user.email}</p>
+//                         </div>
+//                     </div>
+//                     <div className="mb-4">
+//                         <h4 className="text-lg font-semibold text-gray-700">Information</h4>
+//                         <p><strong>Role:</strong> {user.role}</p>
+//                         <p><strong>Total Amount Paid:</strong> ${totalAmount.toFixed(2)}</p>
+//                         {user.spentAmount !== undefined && (
+//                             <p><strong>Amount Spent:</strong> ${user.spentAmount.toFixed(2)}</p>
+//                         )}
+//                         {currentBalance !== undefined && (
+//                             <p><strong>Current Balance:</strong> ${currentBalance.toFixed(2)}</p>
+//                         )}
+//                     </div>
+//                 </div>
+//             </div>
+//             <h3 className="text-xl font-semibold mb-2">User Orders</h3>
+//             <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-md">
+//                 <table className="min-w-full bg-white">
+//                     <thead className="bg-gray-200">
+//                         <tr>
+//                             <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Order ID</th>
+//                             <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Category</th>
+//                             <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Service</th>
+//                             <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Quantity</th>
+//                             <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Status</th>
+//                             <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Started Votes</th>
+//                             <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Deliver Votes</th>
+//                             <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Withheld Price</th>
+//                             <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Order Date</th>
+//                             <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+//                                 Actions
+//                             </th>
+//                         </tr>
+//                     </thead>
+//                     <tbody>
+//                         {orders.map((order, index) => (
+//                             <tr key={order._id} className={`${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+//                                 <td className="px-4 py-2 whitespace-nowrap text-sm font-semibold text-gray-900">{truncateId(order.orderId.substring(0, 4))}</td>
+//                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{order.category}</td>
+//                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{order.service}</td>
+//                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{order.quantity}</td>
+//                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{order.status}</td>
+//                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{order.started}</td>
+//                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{order.completedVotes || 0}</td>
+//                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">${order.calculatedPrice}</td>
+//                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{formatDate(order.createdAt)}</td>
+//                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+//                                     <div className="flex items-center justify-center gap-2">
+//                                         <button
+//                                             className="px-2 py-2 rounded-md border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-colors duration-200"
+//                                             onClick={() => handleEdit(order)}
+//                                             title="Edit Order"
+//                                         >
+//                                             <FaEdit className="h-4 w-4" />
+//                                         </button>
+//                                         <button
+//                                             className="px-2 py-2 rounded-md border border-red-500 text-red-500 hover:text-white hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-200 transition-colors duration-200"
+//                                             onClick={() => handleDeleteClick(order.orderId)}
+//                                             title="Delete Order"
+//                                         >
+//                                             <FaTrash className="h-4 w-4" />
+//                                         </button>
+//                                         <button
+//                                             className="px-2 py-2 rounded-md border border-gray-500 text-gray-500 hover:text-white hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 transition-colors duration-200"
+//                                             onClick={() => handleView(order)}
+//                                             title="View Order"
+//                                         >
+//                                             <FiEye className="h-4 w-4" />
+//                                         </button>
+//                                     </div>
+//                                 </td>
+//                             </tr>
+//                         ))}
+//                     </tbody>
+//                 </table>
+//             </div>
+//             {orders.length === 0 && !loading && !error && (
+//                 <p className="mt-4 text-gray-600">No orders found for this user.</p>
+//             )}
+
+
+//             {/* Modals */}
+//             {showDeleteConfirmation && (
+//                 <DeleteConfirmationPopup
+//                     onCancel={handleDeleteCancel}
+//                     onConfirm={handleDeleteConfirm}
+//                     setShowDeleteConfirmation={setShowDeleteConfirmation}
+//                 />
+//             )}
+
+//             {showEditPopup && selectedOrder && (
+//                 <EditOrderPopup
+//                     order={selectedOrder}
+//                     onClose={() => setShowEditPopup(false)}
+//                     onSave={async (updatedFields) => {
+//                         try {
+//                             const token = localStorage.getItem("authToken");
+//                             if (!token) {
+//                                 setError("Token missing or invalid.");
+//                                 return;
+//                             }
+
+//                             const response = await axios.put(
+//                                 `${API_BASE_URL}/admin/orders/${selectedOrder.orderId}`,
+//                                 updatedFields,
+//                                 {
+//                                     headers: { Authorization: `Bearer ${token}` },
+//                                 }
+//                             );
+
+//                             if (response.status === 200) {
+//                                 const updatedOrder = { ...selectedOrder, ...updatedFields };
+//                                 updateOrderInState(updatedOrder);
+//                             } else {
+//                                 setError(
+//                                     "Failed to update order. " + (response.data?.message || "")
+//                                 );
+//                             }
+//                         } catch (err) {
+//                             console.error("Error updating order:", err);
+//                             setError(err.message || "Failed to update order");
+//                         } finally {
+//                             setShowEditPopup(false);
+//                         }
+//                     }}
+//                 />
+//             )}
+
+//             {showViewPopup && selectedOrder && (
+//                 <ViewOrderPopup
+//                     order={selectedOrder}
+//                     onClose={() => setShowViewPopup(false)}
+//                 />
+//             )}
+
+//             {showPaymentHistoryPopup && ( // Show Payment History
+//                 <PaymentHistoryPopup
+//                     payments={payments}
+//                     onClose={togglePaymentHistoryPopup}
+//                     formatDate={formatDate}
+//                 />
+//             )}
+//         </div>
+//     );
+// };
+
+// export default UserProfile;
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -944,6 +1315,7 @@ import DeleteConfirmationPopup from "../components/OrderList/DeleteConfirmationP
 import EditOrderPopup from "../components/OrderList/EditOrderPopup";
 import ViewOrderPopup from "../components/OrderList/ViewOrderPopup";
 import PaymentHistoryPopup from '../components/PaymentHistoryPopup'; // PaymentHistoryPopup
+import TokenService from "../../utils/TokenService";  // Import TokenService
 
 const UserProfile = () => {
     const { userId } = useParams();
@@ -962,6 +1334,8 @@ const UserProfile = () => {
     const [showPaymentHistoryPopup, setShowPaymentHistoryPopup] = useState(false);  //Payment History popup
 
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const token = TokenService.getToken();  // Get token from TokenService
+
 
     useEffect(() => {
         const fetchUserAndOrders = async () => {
@@ -969,17 +1343,18 @@ const UserProfile = () => {
             setError(null);
 
             try {
-                const token = localStorage.getItem("authToken");
                 if (!token) {
                     setError("Authentication token not found");
                     setLoading(false);
                     return;
                 }
 
+                const headers = {
+                    Authorization: `Bearer ${token}`
+                };
+
                 const userResponse = await axios.get(`${API_BASE_URL}/admin/users/${userId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                    headers
                 });
 
                 if (userResponse.status !== 200) {
@@ -989,9 +1364,7 @@ const UserProfile = () => {
                 setUser(userResponse.data);
 
                 const ordersResponse = await axios.get(`${API_BASE_URL}/admin/users/${userId}/orders`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                    headers
                 });
 
                 if (ordersResponse.status !== 200) {
@@ -1014,7 +1387,6 @@ const UserProfile = () => {
 
         const fetchPayments = async () => {
             try {
-                const token = localStorage.getItem('authToken');
                 if (!token) {
                     console.error('Authentication token not found');
                     return;
@@ -1032,7 +1404,7 @@ const UserProfile = () => {
         };
         fetchPayments();
         fetchUserAndOrders();
-    }, [API_BASE_URL, userId]);
+    }, [API_BASE_URL, userId, token]);
 
     useEffect(() => {
         // Calculate total amount from payments
@@ -1084,7 +1456,6 @@ const UserProfile = () => {
 
     const handleDeleteConfirm = async () => {
         try {
-            const token = localStorage.getItem("authToken");
             if (!token) {
                 setError("Token missing or invalid.");
                 return;
@@ -1250,7 +1621,7 @@ const UserProfile = () => {
                     onClose={() => setShowEditPopup(false)}
                     onSave={async (updatedFields) => {
                         try {
-                            const token = localStorage.getItem("authToken");
+                            const token = TokenService.getToken();  // Get token from TokenService
                             if (!token) {
                                 setError("Token missing or invalid.");
                                 return;

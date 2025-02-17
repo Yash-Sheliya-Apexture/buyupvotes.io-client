@@ -1980,6 +1980,469 @@
 
 // export default OrderList;
 
+
+
+
+
+
+// import React, { useState, useEffect, useRef } from "react";
+// import axios from "axios";
+// import moment from "moment";
+// import { FcFilledFilter } from "react-icons/fc";
+// import DeleteConfirmationPopup from "../components/OrderList/DeleteConfirmationPopup";
+// import EditOrderPopup from "../components/OrderList/EditOrderPopup";
+// import ViewOrderPopup from "../components/OrderList/ViewOrderPopup";
+// import FilterSidebar from "../components/FilterSidebar";
+// import Pagination from "../components/Pagination"; // Import Pagination component
+// import { RiEdit2Fill } from "react-icons/ri";
+// import { FaRegTrashCan } from "react-icons/fa6";
+// import { IoEyeSharp } from "react-icons/io5";
+
+
+// const OrderList = () => {
+//   const [orders, setOrders] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+//   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+//   const [orderToDelete, setOrderToDelete] = useState(null);
+//   const [showEditPopup, setShowEditPopup] = useState(false);
+//   const [showViewPopup, setShowViewPopup] = useState(false);
+//   const [selectedOrder, setSelectedOrder] = useState(null);
+//   const [isFilterOpen, setIsFilterOpen] = useState(false); // State for controlling the visibility of the filter sidebar
+//   const [filters, setFilters] = useState({});
+//   const [filteredOrders, setFilteredOrders] = useState([]);
+//   const [isFilterApplied, setIsFilterApplied] = useState(false);
+
+//   const [currentPage, setCurrentPage] = useState(1); // Current page state
+//   const [ordersPerPage] = useState(12); // Orders per page
+
+//   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+//   useEffect(() => {
+//     const fetchOrders = async () => {
+//       try {
+//         const token = localStorage.getItem("authToken");
+//         if (!token) {
+//           setError("Token missing or invalid.");
+//           setLoading(false);
+//           return;
+//         }
+
+//         const response = await axios.get(`${API_BASE_URL}/admin/orders`, {
+//           headers: { Authorization: `Bearer ${token}` },
+//         });
+
+//         if (Array.isArray(response.data)) {
+//           setOrders(response.data);
+//         } else {
+//           console.error("Response data is not an array:", response.data);
+//           setOrders([]);
+//           setError("Invalid data format received from the API");
+//         }
+//         setLoading(false);
+//       } catch (err) {
+//         console.error("Error fetching orders:", err);
+//         setError(err.message || "Failed to fetch orders");
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchOrders();
+//   }, [API_BASE_URL]);
+
+//   useEffect(() => {
+//     applyFilters();
+//   }, [orders, filters]);
+
+//   const applyFilters = () => {
+//     let filtered = [...orders];
+//     let filterUsed = false;
+
+//     if (filters.category) {
+//       filtered = filtered.filter((order) =>
+//         order.category.toLowerCase().includes(filters.category.toLowerCase())
+//       );
+//       filterUsed = true;
+//     }
+//     if (filters.service) {
+//       filtered = filtered.filter((order) =>
+//         order.service.toLowerCase().includes(filters.service.toLowerCase())
+//       );
+//       filterUsed = true;
+//     }
+//     if (filters.status) {
+//       filtered = filtered.filter((order) => order.status === filters.status);
+//       filterUsed = true;
+//     }
+
+//     if (filters.startDate) {
+//       const startDate = moment(filters.startDate); // Use moment to parse
+//       if (startDate.isValid()) {
+//         // Validate date
+//         filtered = filtered.filter((order) => {
+//           const orderDate = moment(order.createdAt);
+//           return orderDate.isSameOrAfter(startDate, "day"); // Compare dates correctly
+//         });
+//         filterUsed = true;
+//       } else {
+//         console.warn("Invalid start date provided.");
+//       }
+//     }
+
+//     if (filters.endDate) {
+//       const endDate = moment(filters.endDate); // Use moment to parse
+//       if (endDate.isValid()) {
+//         // Validate date
+//         filtered = filtered.filter((order) => {
+//           const orderDate = moment(order.createdAt);
+//           return orderDate.isSameOrBefore(endDate, "day"); // Compare dates correctly
+//         });
+//         filterUsed = true;
+//       } else {
+//         console.warn("Invalid end date provided.");
+//       }
+//     }
+
+//     setFilteredOrders(filtered);
+//     setIsFilterApplied(filterUsed);
+//     setCurrentPage(1); // Reset to first page when filters change
+//   };
+
+//   const handleEdit = (order) => {
+//     setSelectedOrder(order);
+//     setShowEditPopup(true);
+//   };
+
+//   const handleView = (order) => {
+//     setSelectedOrder(order);
+//     setShowViewPopup(true);
+//   };
+
+//   const handleDeleteClick = (orderId) => {
+//     setOrderToDelete(orderId);
+//     setShowDeleteConfirmation(true);
+//   };
+
+//   const handleDeleteConfirm = async () => {
+//     try {
+//       const token = localStorage.getItem("authToken");
+//       if (!token) {
+//         setError("Token missing or invalid.");
+//         return;
+//       }
+
+//       await axios.delete(`${API_BASE_URL}/admin/orders/${orderToDelete}`, {
+//         headers: { Authorization: `Bearer ${token}` },
+//       });
+//       setOrders((prevOrders) =>
+//         prevOrders.filter((order) => order.orderId !== orderToDelete)
+//       );
+//     } catch (err) {
+//       console.error("Error deleting order:", err);
+//       setError(err.message || "Failed to delete order");
+//     } finally {
+//       setShowDeleteConfirmation(false);
+//       setOrderToDelete(null);
+//     }
+//   };
+
+//   const handleDeleteCancel = () => {
+//     setShowDeleteConfirmation(false);
+//     setOrderToDelete(null);
+//   };
+
+//   const truncateId = (id) => {
+//     if (!id) return "";
+
+//     const parts = id.split("-");
+//     if (parts.length > 0) {
+//       return parts.slice(0, Math.min(4, parts.length)).join("-");
+//     }
+//     return id;
+//   };
+
+//   const formatDate = (dateString) => {
+//     if (!dateString) return "";
+//     return moment(dateString).format("DD/MM/YYYY");
+//   };
+
+//   const updateOrderInState = (updatedOrder) => {
+//     setOrders((prevOrders) =>
+//       prevOrders.map((order) =>
+//         order.orderId === updatedOrder.orderId ? updatedOrder : order
+//       )
+//     );
+//   };
+
+//   const toggleFilter = () => {
+//     setIsFilterOpen(!isFilterOpen); // This function now toggles the `isFilterOpen` state
+//   };
+
+//   const handleFilter = (filterValues) => {
+//     setFilters(filterValues);
+//   };
+
+//   const handleResetFilters = () => {
+//     setFilters({});
+//     setFilteredOrders([]);
+//     setIsFilterApplied(false);
+//     setCurrentPage(1); // Reset to first page after resetting filters
+//   };
+
+//   const ordersToDisplay = filteredOrders.length > 0 ? filteredOrders : orders;
+//   const noDataFound =
+//     (isFilterApplied && filteredOrders.length === 0) ||
+//     (!isFilterApplied && orders.length === 0);
+
+//   // Get current orders
+//   const indexOfLastOrder = currentPage * ordersPerPage;
+//   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+//   const currentOrders = ordersToDisplay.slice(
+//     indexOfFirstOrder,
+//     indexOfLastOrder
+//   );
+
+//   // Change page
+//   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+//   if (loading) {
+//     return <div className="text-center py-4">Loading orders...</div>;
+//   }
+
+//   if (error) {
+//     return <div className="text-center text-red-500 py-4">Error: {error}</div>;
+//   }
+
+//   return (
+//     <div className="order-list">
+//       <div className="container mx-auto px-4 relative">
+//         <div>
+//           <div className="flex items-center justify-between mb-4">
+//             <h1 className="text-2xl font-bold">Order List (Admin)</h1>
+//             <div className="flex items-center gap-2">
+//               {isFilterApplied && (
+//                 <button
+//                   onClick={handleResetFilters}
+//                   className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+//                 >
+//                   <span>Reset</span>
+//                 </button>
+//               )}
+//               <button
+//                 className="flex items-center gap-2"
+//                 onClick={toggleFilter}
+//               >
+//                 <FcFilledFilter className="w-5 h-5" />
+//                 <p className="text-xl font-bold">Filter</p>
+//               </button>
+//             </div>
+//           </div>
+
+//           <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-md">
+//             <table className="min-w-full bg-white">
+//               <thead className="bg-gray-200">
+//                 <tr>
+//                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+//                     Order ID
+//                   </th>
+//                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+//                     User ID
+//                   </th>
+//                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+//                     Category
+//                   </th>
+//                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+//                     Service
+//                   </th>
+//                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+//                     Quantity
+//                   </th>
+//                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+//                     Status
+//                   </th>
+//                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+//                     Started Votes
+//                   </th>
+//                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+//                     Deliver Votes
+//                   </th>
+//                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+//                     Withheld Price
+//                   </th>
+//                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+//                     Order Date
+//                   </th>
+//                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+//                     Actions
+//                   </th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 {noDataFound ? (
+//                   <tr>
+//                     <td
+//                       colSpan="11"
+//                       className="px-4 py-4 text-center text-lg font-bold text-gray-500"
+//                     >
+//                       No orders found.
+//                     </td>
+//                   </tr>
+//                 ) : (
+//                   currentOrders.map((order, index) => (
+//                     <tr
+//                       key={order._id}
+//                       className={`${
+//                         index % 2 === 0 ? "bg-gray-50" : "bg-white"
+//                       }`}
+//                     >
+//                       <td className="px-4 py-2 whitespace-nowrap text-sm font-semibold text-gray-900">
+//                         {truncateId(order.orderId.substring(0, 4))}
+//                       </td>
+//                       <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+//                         {truncateId(order.userId.substring(0, 4))}
+//                       </td>
+//                       <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+//                         {order.category}
+//                       </td>
+//                       <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+//                         {order.service}
+//                       </td>
+//                       <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+//                         {order.quantity}
+//                       </td>
+//                       <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+//                         {order.status}
+//                       </td>
+//                       <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+//                         {order.started}
+//                       </td>
+//                       <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+//                         {order.completedVotes || 0}
+//                       </td>
+//                       <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+//                         ${order.calculatedPrice}
+//                       </td>
+//                       <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+//                         {formatDate(order.createdAt)}
+//                       </td>
+//                       <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+//                         <div className="flex items-center justify-center gap-1">
+//                           {/* Edit Button */}
+//                           <button
+//                             className="px-2 py-2 rounded-md bg-blue-100 text-blue-500 hover:text-white hover:bg-blue-500 transition-colors duration-200"
+//                             onClick={() => handleEdit(order)}
+//                             title="Edit Order"
+//                           >
+//                             <RiEdit2Fill  className="h-4 w-4" />
+//                           </button>
+
+//                           {/* Delete Button */}
+//                           <button
+//                             className="px-2 py-2 rounded-md bg-red-100 text-red-500 hover:text-white hover:bg-red-500 transition-colors duration-200"
+//                             onClick={() => handleDeleteClick(order.orderId)}
+//                             title="Delete Order"
+//                           >
+//                             <FaRegTrashCan className="h-4 w-4" />
+//                           </button>
+
+//                           {/* View Button */}
+//                           <button
+//                             className="px-2 py-2 rounded-md bg-gray-200 text-gray-500 hover:text-white hover:bg-gray-500 transition-colors duration-200"
+//                             onClick={() => handleView(order)}
+//                             title="View Order"
+//                           >
+//                             <IoEyeSharp className="h-4 w-4" />
+//                           </button>
+//                         </div>
+//                       </td>
+//                     </tr>
+//                   ))
+//                 )}
+//               </tbody>
+//             </table>
+//           </div>
+//           {ordersToDisplay.length > 0 && (
+//         <Pagination
+//           ordersPerPage={ordersPerPage}
+//           totalOrders={ordersToDisplay.length}
+//           paginate={paginate}
+//           currentPage={currentPage}
+//           noDataFound={noDataFound} // Pass noDataFound prop
+//         />
+//       )}
+//           {showDeleteConfirmation && (
+//             <DeleteConfirmationPopup
+//               onCancel={handleDeleteCancel}
+//               onConfirm={handleDeleteConfirm}
+//               setShowDeleteConfirmation={setShowDeleteConfirmation}
+//             />
+//           )}
+
+//           {showEditPopup && selectedOrder && (
+//             <EditOrderPopup
+//               order={selectedOrder}
+//               onClose={() => setShowEditPopup(false)}
+//               onSave={async (updatedFields) => {
+//                 try {
+//                   const token = localStorage.getItem("authToken");
+//                   if (!token) {
+//                     setError("Token missing or invalid.");
+//                     return;
+//                   }
+
+//                   const response = await axios.put(
+//                     `${API_BASE_URL}/admin/orders/${selectedOrder.orderId}`,
+//                     updatedFields,
+//                     {
+//                       headers: { Authorization: `Bearer ${token}` },
+//                     }
+//                   );
+
+//                   if (response.status === 200) {
+//                     const updatedOrder = { ...selectedOrder, ...updatedFields };
+//                     updateOrderInState(updatedOrder);
+//                   } else {
+//                     setError(
+//                       "Failed to update order. " +
+//                         (response.data?.message || "")
+//                     );
+//                   }
+//                 } catch (err) {
+//                   console.error("Error updating order:", err);
+//                   setError(err.message || "Failed to update order");
+//                 } finally {
+//                   setShowEditPopup(false);
+//                 }
+//               }}
+//             />
+//           )}
+
+//           {showViewPopup && selectedOrder && (
+//             <ViewOrderPopup
+//               order={selectedOrder}
+//               onClose={() => setShowViewPopup(false)}
+//             />
+//           )}
+
+//           {/*  Conditionally render FilterSidebar based on `isFilterOpen` */}
+//           {isFilterOpen && (
+//             <FilterSidebar
+//               isOpen={isFilterOpen}
+//               onClose={toggleFilter}
+//               onFilter={handleFilter}
+//               initialFilters={filters}
+//             />
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default OrderList;
+
+
+
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import moment from "moment";
@@ -1992,446 +2455,445 @@ import Pagination from "../components/Pagination"; // Import Pagination componen
 import { RiEdit2Fill } from "react-icons/ri";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
+import TokenService from "../../utils/TokenService"; // Import TokenService
 
 
 const OrderList = () => {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  const [orderToDelete, setOrderToDelete] = useState(null);
-  const [showEditPopup, setShowEditPopup] = useState(false);
-  const [showViewPopup, setShowViewPopup] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState(null);
-  const [isFilterOpen, setIsFilterOpen] = useState(false); // State for controlling the visibility of the filter sidebar
-  const [filters, setFilters] = useState({});
-  const [filteredOrders, setFilteredOrders] = useState([]);
-  const [isFilterApplied, setIsFilterApplied] = useState(false);
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+    const [orderToDelete, setOrderToDelete] = useState(null);
+    const [showEditPopup, setShowEditPopup] = useState(false);
+    const [showViewPopup, setShowViewPopup] = useState(false);
+    const [selectedOrder, setSelectedOrder] = useState(null);
+    const [isFilterOpen, setIsFilterOpen] = useState(false); // State for controlling the visibility of the filter sidebar
+    const [filters, setFilters] = useState({});
+    const [filteredOrders, setFilteredOrders] = useState([]);
+    const [isFilterApplied, setIsFilterApplied] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState(1); // Current page state
-  const [ordersPerPage] = useState(12); // Orders per page
+    const [currentPage, setCurrentPage] = useState(1); // Current page state
+    const [ordersPerPage] = useState(12); // Orders per page
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const token = TokenService.getToken();  // Get token from TokenService
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const token = localStorage.getItem("authToken");
-        if (!token) {
-          setError("Token missing or invalid.");
-          setLoading(false);
-          return;
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                if (!token) {
+                    setError("Token missing or invalid.");
+                    setLoading(false);
+                    return;
+                }
+
+                const response = await axios.get(`${API_BASE_URL}/admin/orders`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+
+                if (Array.isArray(response.data)) {
+                    setOrders(response.data);
+                } else {
+                    console.error("Response data is not an array:", response.data);
+                    setOrders([]);
+                    setError("Invalid data format received from the API");
+                }
+                setLoading(false);
+            } catch (err) {
+                console.error("Error fetching orders:", err);
+                setError(err.message || "Failed to fetch orders");
+                setLoading(false);
+            }
+        };
+
+        fetchOrders();
+    }, [API_BASE_URL, token]);
+
+    useEffect(() => {
+        applyFilters();
+    }, [orders, filters]);
+
+    const applyFilters = () => {
+        let filtered = [...orders];
+        let filterUsed = false;
+
+        if (filters.category) {
+            filtered = filtered.filter((order) =>
+                order.category.toLowerCase().includes(filters.category.toLowerCase())
+            );
+            filterUsed = true;
+        }
+        if (filters.service) {
+            filtered = filtered.filter((order) =>
+                order.service.toLowerCase().includes(filters.service.toLowerCase())
+            );
+            filterUsed = true;
+        }
+        if (filters.status) {
+            filtered = filtered.filter((order) => order.status === filters.status);
+            filterUsed = true;
         }
 
-        const response = await axios.get(`${API_BASE_URL}/admin/orders`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        if (Array.isArray(response.data)) {
-          setOrders(response.data);
-        } else {
-          console.error("Response data is not an array:", response.data);
-          setOrders([]);
-          setError("Invalid data format received from the API");
+        if (filters.startDate) {
+            const startDate = moment(filters.startDate); // Use moment to parse
+            if (startDate.isValid()) {
+                // Validate date
+                filtered = filtered.filter((order) => {
+                    const orderDate = moment(order.createdAt);
+                    return orderDate.isSameOrAfter(startDate, "day"); // Compare dates correctly
+                });
+                filterUsed = true;
+            } else {
+                console.warn("Invalid start date provided.");
+            }
         }
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching orders:", err);
-        setError(err.message || "Failed to fetch orders");
-        setLoading(false);
-      }
+
+        if (filters.endDate) {
+            const endDate = moment(filters.endDate); // Use moment to parse
+            if (endDate.isValid()) {
+                // Validate date
+                filtered = filtered.filter((order) => {
+                    const orderDate = moment(order.createdAt);
+                    return orderDate.isSameOrBefore(endDate, "day"); // Compare dates correctly
+                });
+                filterUsed = true;
+            } else {
+                console.warn("Invalid end date provided.");
+            }
+        }
+
+        setFilteredOrders(filtered);
+        setIsFilterApplied(filterUsed);
+        setCurrentPage(1); // Reset to first page when filters change
     };
 
-    fetchOrders();
-  }, [API_BASE_URL]);
+    const handleEdit = (order) => {
+        setSelectedOrder(order);
+        setShowEditPopup(true);
+    };
 
-  useEffect(() => {
-    applyFilters();
-  }, [orders, filters]);
+    const handleView = (order) => {
+        setSelectedOrder(order);
+        setShowViewPopup(true);
+    };
 
-  const applyFilters = () => {
-    let filtered = [...orders];
-    let filterUsed = false;
+    const handleDeleteClick = (orderId) => {
+        setOrderToDelete(orderId);
+        setShowDeleteConfirmation(true);
+    };
 
-    if (filters.category) {
-      filtered = filtered.filter((order) =>
-        order.category.toLowerCase().includes(filters.category.toLowerCase())
-      );
-      filterUsed = true;
-    }
-    if (filters.service) {
-      filtered = filtered.filter((order) =>
-        order.service.toLowerCase().includes(filters.service.toLowerCase())
-      );
-      filterUsed = true;
-    }
-    if (filters.status) {
-      filtered = filtered.filter((order) => order.status === filters.status);
-      filterUsed = true;
-    }
+    const handleDeleteConfirm = async () => {
+        try {
+            if (!token) {
+                setError("Token missing or invalid.");
+                return;
+            }
 
-    if (filters.startDate) {
-      const startDate = moment(filters.startDate); // Use moment to parse
-      if (startDate.isValid()) {
-        // Validate date
-        filtered = filtered.filter((order) => {
-          const orderDate = moment(order.createdAt);
-          return orderDate.isSameOrAfter(startDate, "day"); // Compare dates correctly
-        });
-        filterUsed = true;
-      } else {
-        console.warn("Invalid start date provided.");
-      }
-    }
+            await axios.delete(`${API_BASE_URL}/admin/orders/${orderToDelete}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            setOrders((prevOrders) =>
+                prevOrders.filter((order) => order.orderId !== orderToDelete)
+            );
+        } catch (err) {
+            console.error("Error deleting order:", err);
+            setError(err.message || "Failed to delete order");
+        } finally {
+            setShowDeleteConfirmation(false);
+            setOrderToDelete(null);
+        }
+    };
 
-    if (filters.endDate) {
-      const endDate = moment(filters.endDate); // Use moment to parse
-      if (endDate.isValid()) {
-        // Validate date
-        filtered = filtered.filter((order) => {
-          const orderDate = moment(order.createdAt);
-          return orderDate.isSameOrBefore(endDate, "day"); // Compare dates correctly
-        });
-        filterUsed = true;
-      } else {
-        console.warn("Invalid end date provided.");
-      }
-    }
+    const handleDeleteCancel = () => {
+        setShowDeleteConfirmation(false);
+        setOrderToDelete(null);
+    };
 
-    setFilteredOrders(filtered);
-    setIsFilterApplied(filterUsed);
-    setCurrentPage(1); // Reset to first page when filters change
-  };
+    const truncateId = (id) => {
+        if (!id) return "";
 
-  const handleEdit = (order) => {
-    setSelectedOrder(order);
-    setShowEditPopup(true);
-  };
+        const parts = id.split("-");
+        if (parts.length > 0) {
+            return parts.slice(0, Math.min(4, parts.length)).join("-");
+        }
+        return id;
+    };
 
-  const handleView = (order) => {
-    setSelectedOrder(order);
-    setShowViewPopup(true);
-  };
+    const formatDate = (dateString) => {
+        if (!dateString) return "";
+        return moment(dateString).format("DD/MM/YYYY");
+    };
 
-  const handleDeleteClick = (orderId) => {
-    setOrderToDelete(orderId);
-    setShowDeleteConfirmation(true);
-  };
+    const updateOrderInState = (updatedOrder) => {
+        setOrders((prevOrders) =>
+            prevOrders.map((order) =>
+                order.orderId === updatedOrder.orderId ? updatedOrder : order
+            )
+        );
+    };
 
-  const handleDeleteConfirm = async () => {
-    try {
-      const token = localStorage.getItem("authToken");
-      if (!token) {
-        setError("Token missing or invalid.");
-        return;
-      }
+    const toggleFilter = () => {
+        setIsFilterOpen(!isFilterOpen); // This function now toggles the `isFilterOpen` state
+    };
 
-      await axios.delete(`${API_BASE_URL}/admin/orders/${orderToDelete}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setOrders((prevOrders) =>
-        prevOrders.filter((order) => order.orderId !== orderToDelete)
-      );
-    } catch (err) {
-      console.error("Error deleting order:", err);
-      setError(err.message || "Failed to delete order");
-    } finally {
-      setShowDeleteConfirmation(false);
-      setOrderToDelete(null);
-    }
-  };
+    const handleFilter = (filterValues) => {
+        setFilters(filterValues);
+    };
 
-  const handleDeleteCancel = () => {
-    setShowDeleteConfirmation(false);
-    setOrderToDelete(null);
-  };
+    const handleResetFilters = () => {
+        setFilters({});
+        setFilteredOrders([]);
+        setIsFilterApplied(false);
+        setCurrentPage(1); // Reset to first page after resetting filters
+    };
 
-  const truncateId = (id) => {
-    if (!id) return "";
+    const ordersToDisplay = filteredOrders.length > 0 ? filteredOrders : orders;
+    const noDataFound =
+        (isFilterApplied && filteredOrders.length === 0) ||
+        (!isFilterApplied && orders.length === 0);
 
-    const parts = id.split("-");
-    if (parts.length > 0) {
-      return parts.slice(0, Math.min(4, parts.length)).join("-");
-    }
-    return id;
-  };
-
-  const formatDate = (dateString) => {
-    if (!dateString) return "";
-    return moment(dateString).format("DD/MM/YYYY");
-  };
-
-  const updateOrderInState = (updatedOrder) => {
-    setOrders((prevOrders) =>
-      prevOrders.map((order) =>
-        order.orderId === updatedOrder.orderId ? updatedOrder : order
-      )
+    // Get current orders
+    const indexOfLastOrder = currentPage * ordersPerPage;
+    const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+    const currentOrders = ordersToDisplay.slice(
+        indexOfFirstOrder,
+        indexOfLastOrder
     );
-  };
 
-  const toggleFilter = () => {
-    setIsFilterOpen(!isFilterOpen); // This function now toggles the `isFilterOpen` state
-  };
+    // Change page
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const handleFilter = (filterValues) => {
-    setFilters(filterValues);
-  };
+    if (loading) {
+        return <div className="text-center py-4">Loading orders...</div>;
+    }
 
-  const handleResetFilters = () => {
-    setFilters({});
-    setFilteredOrders([]);
-    setIsFilterApplied(false);
-    setCurrentPage(1); // Reset to first page after resetting filters
-  };
+    if (error) {
+        return <div className="text-center text-red-500 py-4">Error: {error}</div>;
+    }
 
-  const ordersToDisplay = filteredOrders.length > 0 ? filteredOrders : orders;
-  const noDataFound =
-    (isFilterApplied && filteredOrders.length === 0) ||
-    (!isFilterApplied && orders.length === 0);
-
-  // Get current orders
-  const indexOfLastOrder = currentPage * ordersPerPage;
-  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-  const currentOrders = ordersToDisplay.slice(
-    indexOfFirstOrder,
-    indexOfLastOrder
-  );
-
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  if (loading) {
-    return <div className="text-center py-4">Loading orders...</div>;
-  }
-
-  if (error) {
-    return <div className="text-center text-red-500 py-4">Error: {error}</div>;
-  }
-
-  return (
-    <div className="order-list">
-      <div className="container mx-auto px-4 relative">
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold">Order List (Admin)</h1>
-            <div className="flex items-center gap-2">
-              {isFilterApplied && (
-                <button
-                  onClick={handleResetFilters}
-                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
-                >
-                  <span>Reset</span>
-                </button>
-              )}
-              <button
-                className="flex items-center gap-2"
-                onClick={toggleFilter}
-              >
-                <FcFilledFilter className="w-5 h-5" />
-                <p className="text-xl font-bold">Filter</p>
-              </button>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-md">
-            <table className="min-w-full bg-white">
-              <thead className="bg-gray-200">
-                <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Order ID
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    User ID
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Category
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Service
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Quantity
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Started Votes
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Deliver Votes
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Withheld Price
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Order Date
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {noDataFound ? (
-                  <tr>
-                    <td
-                      colSpan="11"
-                      className="px-4 py-4 text-center text-lg font-bold text-gray-500"
-                    >
-                      No orders found.
-                    </td>
-                  </tr>
-                ) : (
-                  currentOrders.map((order, index) => (
-                    <tr
-                      key={order._id}
-                      className={`${
-                        index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                      }`}
-                    >
-                      <td className="px-4 py-2 whitespace-nowrap text-sm font-semibold text-gray-900">
-                        {truncateId(order.orderId.substring(0, 4))}
-                      </td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
-                        {truncateId(order.userId.substring(0, 4))}
-                      </td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
-                        {order.category}
-                      </td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
-                        {order.service}
-                      </td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
-                        {order.quantity}
-                      </td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
-                        {order.status}
-                      </td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
-                        {order.started}
-                      </td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
-                        {order.completedVotes || 0}
-                      </td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
-                        ${order.calculatedPrice}
-                      </td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
-                        {formatDate(order.createdAt)}
-                      </td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
-                        <div className="flex items-center justify-center gap-1">
-                          {/* Edit Button */}
-                          <button
-                            className="px-2 py-2 rounded-md bg-blue-100 text-blue-500 hover:text-white hover:bg-blue-500 transition-colors duration-200"
-                            onClick={() => handleEdit(order)}
-                            title="Edit Order"
-                          >
-                            <RiEdit2Fill  className="h-4 w-4" />
-                          </button>
-
-                          {/* Delete Button */}
-                          <button
-                            className="px-2 py-2 rounded-md bg-red-100 text-red-500 hover:text-white hover:bg-red-500 transition-colors duration-200"
-                            onClick={() => handleDeleteClick(order.orderId)}
-                            title="Delete Order"
-                          >
-                            <FaRegTrashCan className="h-4 w-4" />
-                          </button>
-
-                          {/* View Button */}
-                          <button
-                            className="px-2 py-2 rounded-md bg-gray-200 text-gray-500 hover:text-white hover:bg-gray-500 transition-colors duration-200"
-                            onClick={() => handleView(order)}
-                            title="View Order"
-                          >
-                            <IoEyeSharp className="h-4 w-4" />
-                          </button>
+    return (
+        <div className="order-list">
+            <div className="container mx-auto px-4 relative">
+                <div>
+                    <div className="flex items-center justify-between mb-4">
+                        <h1 className="text-2xl font-bold">Order List (Admin)</h1>
+                        <div className="flex items-center gap-2">
+                            {isFilterApplied && (
+                                <button
+                                    onClick={handleResetFilters}
+                                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+                                >
+                                    <span>Reset</span>
+                                </button>
+                            )}
+                            <button
+                                className="flex items-center gap-2"
+                                onClick={toggleFilter}
+                            >
+                                <FcFilledFilter className="w-5 h-5" />
+                                <p className="text-xl font-bold">Filter</p>
+                            </button>
                         </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-          {ordersToDisplay.length > 0 && (
-        <Pagination
-          ordersPerPage={ordersPerPage}
-          totalOrders={ordersToDisplay.length}
-          paginate={paginate}
-          currentPage={currentPage}
-          noDataFound={noDataFound} // Pass noDataFound prop
-        />
-      )}
-          {showDeleteConfirmation && (
-            <DeleteConfirmationPopup
-              onCancel={handleDeleteCancel}
-              onConfirm={handleDeleteConfirm}
-              setShowDeleteConfirmation={setShowDeleteConfirmation}
-            />
-          )}
+                    </div>
 
-          {showEditPopup && selectedOrder && (
-            <EditOrderPopup
-              order={selectedOrder}
-              onClose={() => setShowEditPopup(false)}
-              onSave={async (updatedFields) => {
-                try {
-                  const token = localStorage.getItem("authToken");
-                  if (!token) {
-                    setError("Token missing or invalid.");
-                    return;
-                  }
+                    <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-md">
+                        <table className="min-w-full bg-white">
+                            <thead className="bg-gray-200">
+                                <tr>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        Order ID
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        User ID
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        Category
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        Service
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        Quantity
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        Status
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        Started Votes
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        Deliver Votes
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        Withheld Price
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        Order Date
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {noDataFound ? (
+                                    <tr>
+                                        <td
+                                            colSpan="11"
+                                            className="px-4 py-4 text-center text-lg font-bold text-gray-500"
+                                        >
+                                            No orders found.
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    currentOrders.map((order, index) => (
+                                        <tr
+                                            key={order._id}
+                                            className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                                                }`}
+                                        >
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                                {truncateId(order.orderId.substring(0, 4))}
+                                            </td>
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+                                                {truncateId(order.userId.substring(0, 4))}
+                                            </td>
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+                                                {order.category}
+                                            </td>
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+                                                {order.service}
+                                            </td>
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+                                                {order.quantity}
+                                            </td>
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+                                                {order.status}
+                                            </td>
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+                                                {order.started}
+                                            </td>
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+                                                {order.completedVotes || 0}
+                                            </td>
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+                                                ${order.calculatedPrice}
+                                            </td>
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+                                                {formatDate(order.createdAt)}
+                                            </td>
+                                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">
+                                                <div className="flex items-center justify-center gap-1">
+                                                    {/* Edit Button */}
+                                                    <button
+                                                        className="px-2 py-2 rounded-md bg-blue-100 text-blue-500 hover:text-white hover:bg-blue-500 transition-colors duration-200"
+                                                        onClick={() => handleEdit(order)}
+                                                        title="Edit Order"
+                                                    >
+                                                        <RiEdit2Fill className="h-4 w-4" />
+                                                    </button>
 
-                  const response = await axios.put(
-                    `${API_BASE_URL}/admin/orders/${selectedOrder.orderId}`,
-                    updatedFields,
-                    {
-                      headers: { Authorization: `Bearer ${token}` },
-                    }
-                  );
+                                                    {/* Delete Button */}
+                                                    <button
+                                                        className="px-2 py-2 rounded-md bg-red-100 text-red-500 hover:text-white hover:bg-red-500 transition-colors duration-200"
+                                                        onClick={() => handleDeleteClick(order.orderId)}
+                                                        title="Delete Order"
+                                                    >
+                                                        <FaRegTrashCan className="h-4 w-4" />
+                                                    </button>
 
-                  if (response.status === 200) {
-                    const updatedOrder = { ...selectedOrder, ...updatedFields };
-                    updateOrderInState(updatedOrder);
-                  } else {
-                    setError(
-                      "Failed to update order. " +
-                        (response.data?.message || "")
-                    );
-                  }
-                } catch (err) {
-                  console.error("Error updating order:", err);
-                  setError(err.message || "Failed to update order");
-                } finally {
-                  setShowEditPopup(false);
-                }
-              }}
-            />
-          )}
+                                                    {/* View Button */}
+                                                    <button
+                                                        className="px-2 py-2 rounded-md bg-gray-200 text-gray-500 hover:text-white hover:bg-gray-500 transition-colors duration-200"
+                                                        onClick={() => handleView(order)}
+                                                        title="View Order"
+                                                    >
+                                                        <IoEyeSharp className="h-4 w-4" />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                    {ordersToDisplay.length > 0 && (
+                        <Pagination
+                            ordersPerPage={ordersPerPage}
+                            totalOrders={ordersToDisplay.length}
+                            paginate={paginate}
+                            currentPage={currentPage}
+                            noDataFound={noDataFound} // Pass noDataFound prop
+                        />
+                    )}
+                    {showDeleteConfirmation && (
+                        <DeleteConfirmationPopup
+                            onCancel={handleDeleteCancel}
+                            onConfirm={handleDeleteConfirm}
+                            setShowDeleteConfirmation={setShowDeleteConfirmation}
+                        />
+                    )}
 
-          {showViewPopup && selectedOrder && (
-            <ViewOrderPopup
-              order={selectedOrder}
-              onClose={() => setShowViewPopup(false)}
-            />
-          )}
+                    {showEditPopup && selectedOrder && (
+                        <EditOrderPopup
+                            order={selectedOrder}
+                            onClose={() => setShowEditPopup(false)}
+                            onSave={async (updatedFields) => {
+                                try {
+                                    const token = TokenService.getToken(); // Get token from TokenService
+                                    if (!token) {
+                                        setError("Token missing or invalid.");
+                                        return;
+                                    }
 
-          {/*  Conditionally render FilterSidebar based on `isFilterOpen` */}
-          {isFilterOpen && (
-            <FilterSidebar
-              isOpen={isFilterOpen}
-              onClose={toggleFilter}
-              onFilter={handleFilter}
-              initialFilters={filters}
-            />
-          )}
+                                    const response = await axios.put(
+                                        `${API_BASE_URL}/admin/orders/${selectedOrder.orderId}`,
+                                        updatedFields,
+                                        {
+                                            headers: { Authorization: `Bearer ${token}` },
+                                        }
+                                    );
+
+                                    if (response.status === 200) {
+                                        const updatedOrder = { ...selectedOrder, ...updatedFields };
+                                        updateOrderInState(updatedOrder);
+                                    } else {
+                                        setError(
+                                            "Failed to update order. " + (response.data?.message || "")
+                                        );
+                                    }
+                                } catch (err) {
+                                    console.error("Error updating order:", err);
+                                    setError(err.message || "Failed to update order");
+                                } finally {
+                                    setShowEditPopup(false);
+                                }
+                            }}
+                        />
+                    )}
+
+                    {showViewPopup && selectedOrder && (
+                        <ViewOrderPopup
+                            order={selectedOrder}
+                            onClose={() => setShowViewPopup(false)}
+                        />
+                    )}
+
+                    {/*  Conditionally render FilterSidebar based on `isFilterOpen` */}
+                    {isFilterOpen && (
+                        <FilterSidebar
+                            isOpen={isFilterOpen}
+                            onClose={toggleFilter}
+                            onFilter={handleFilter}
+                            initialFilters={filters}
+                        />
+                    )}
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default OrderList;
