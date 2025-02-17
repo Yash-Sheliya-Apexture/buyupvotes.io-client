@@ -959,7 +959,9 @@ const FilterSidebar = ({ isOpen, onClose, onFilter, initialFilters }) => {
   const [status, setStatus] = useState(initialFilters.status || "");
   const [startDate, setStartDate] = useState(initialFilters.startDate || "");
   const [endDate, setEndDate] = useState(initialFilters.endDate || "");
-  const modalRef = useRef(null);
+  const [serviceOptions, setServiceOptions] = useState([]);
+
+  const sidebarRef = useRef(null);  // Use the same ref here
 
   // Options
   const categoryOptions = ["Post", "Comment", "Upvotes"];
@@ -972,9 +974,6 @@ const FilterSidebar = ({ isOpen, onClose, onFilter, initialFilters }) => {
     "Canceled",
   ];
 
-  const [serviceOptions, setServiceOptions] = useState([]);
-
-  const sidebarRef = useRef(null);
 
   useEffect(() => {
     switch (category) {
@@ -1064,124 +1063,126 @@ const FilterSidebar = ({ isOpen, onClose, onFilter, initialFilters }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-end bg-black bg-opacity-50 backdrop-blur-sm">
-      <motion.div
-        className="bg-white rounded-lg shadow-lg w-full max-w-md text-gray-800 h-[calc(100%-1rem)] m-3"
-        variants={variants}
-        initial="closed"
-        animate="open"
-        exit="closed"
-        ref={modalRef}
-      >
-        <div className="p-5 rounded-t-lg bg-gray-200 flex justify-between items-center">
-          <h2 className="text-xl font-semibold flex items-center tracking-wider">
-            <FcFilledFilter className="mr-3" size={28} />
-            Filter Orders
-          </h2>
-          <button onClick={onClose} className="text-gray-900">
-            <IoClose size={24} />
-          </button>
-        </div>
-
-        <div className="p-6 overflow-y-auto">
-          <div className="mb-6">
-            <label
-              htmlFor="category"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Category
-            </label>
-            <Dropdown
-              options={categoryOptions}
-              selectedValue={category}
-              onSelect={(selectedCategory) => {
-                setCategory(selectedCategory);
-                setService("");
-              }}
-              placeholder="Select Category"
-            />
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="service"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Service
-            </label>
-            <Dropdown
-              options={serviceOptions}
-              selectedValue={service}
-              onSelect={(selectedService) => setService(selectedService)}
-              placeholder="Select Service"
-              disabled={serviceOptions.length === 0}
-            />
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="status"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Status
-            </label>
-            <Dropdown
-              options={statusOptions}
-              selectedValue={status}
-              onSelect={(selectedStatus) => setStatus(selectedStatus)}
-              placeholder="Select Status"
-            />
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="startDate"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Order Date From
-            </label>
-            <InputField
-              type="date"
-              name="startDate"
-              value={startDate}
-              onChange={handleStartDateChange}
-            />
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="endDate"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Order Date To
-            </label>
-            <InputField
-              type="date"
-              name="endDate"
-              value={endDate}
-              onChange={handleEndDateChange}
-            />
-          </div>
-
-          <div className="flex justify-end">
-            <button
-              type="button"
-              className="py-2 px-4 bg-gray-200 font-medium text-gray-700 rounded-lg hover:bg-gray-300 mr-3 focus:outline-none transition-colors duration-200"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              className="py-2 px-4 bg-main-color font-medium text-white rounded-lg hover:bg-orange-600 focus:outline-none transition-colors duration-200 flex items-center"
-              onClick={handleApplyFilters}
-            >
-              Apply Filters
+    isOpen && (  // Conditional rendering
+      <div className="fixed inset-0 z-50 flex items-center justify-end bg-black bg-opacity-50 backdrop-blur-sm">
+        <motion.div
+          className="bg-white rounded-lg shadow-lg w-full max-w-md text-gray-800 h-[calc(100%-1rem)] m-3"
+          variants={variants}
+          initial="closed"
+          animate="open"
+          exit="closed"
+          ref={sidebarRef}  // Assign sidebarRef to the motion.div
+        >
+          <div className="p-5 rounded-t-lg bg-gray-200 flex justify-between items-center">
+            <h2 className="text-xl font-semibold flex items-center tracking-wider">
+              <FcFilledFilter className="mr-3" size={28} />
+              Filter Orders
+            </h2>
+            <button onClick={onClose} className="text-gray-900">
+              <IoClose size={24} />
             </button>
           </div>
-        </div>
-      </motion.div>
-    </div>
+
+          <div className="p-6 overflow-y-auto">
+            <div className="mb-6">
+              <label
+                htmlFor="category"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Category
+              </label>
+              <Dropdown
+                options={categoryOptions}
+                selectedValue={category}
+                onSelect={(selectedCategory) => {
+                  setCategory(selectedCategory);
+                  setService("");
+                }}
+                placeholder="Select Category"
+              />
+            </div>
+
+            <div className="mb-6">
+              <label
+                htmlFor="service"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Service
+              </label>
+              <Dropdown
+                options={serviceOptions}
+                selectedValue={service}
+                onSelect={(selectedService) => setService(selectedService)}
+                placeholder="Select Service"
+                disabled={serviceOptions.length === 0}
+              />
+            </div>
+
+            <div className="mb-6">
+              <label
+                htmlFor="status"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Status
+              </label>
+              <Dropdown
+                options={statusOptions}
+                selectedValue={status}
+                onSelect={(selectedStatus) => setStatus(selectedStatus)}
+                placeholder="Select Status"
+              />
+            </div>
+
+            <div className="mb-6">
+              <label
+                htmlFor="startDate"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Order Date From
+              </label>
+              <InputField
+                type="date"
+                name="startDate"
+                value={startDate}
+                onChange={handleStartDateChange}
+              />
+            </div>
+
+            <div className="mb-6">
+              <label
+                htmlFor="endDate"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Order Date To
+              </label>
+              <InputField
+                type="date"
+                name="endDate"
+                value={endDate}
+                onChange={handleEndDateChange}
+              />
+            </div>
+
+            <div className="flex justify-end">
+              <button
+                type="button"
+                className="py-2 px-4 bg-gray-200 font-medium text-gray-700 rounded-lg hover:bg-gray-300 mr-3 focus:outline-none transition-colors duration-200"
+                onClick={onClose}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="py-2 px-4 bg-main-color font-medium text-white rounded-lg hover:bg-orange-600 focus:outline-none transition-colors duration-200 flex items-center"
+                onClick={handleApplyFilters}
+              >
+                Apply Filters
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    )
   );
 };
 
