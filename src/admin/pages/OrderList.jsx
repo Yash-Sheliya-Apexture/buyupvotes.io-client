@@ -1980,11 +1980,14 @@
 
 // export default OrderList;
 
+<<<<<<< HEAD
 
 
 
 
 
+=======
+>>>>>>> 61c083947f7ee85189aaf236084509b283e43461
 // import React, { useState, useEffect, useRef } from "react";
 // import axios from "axios";
 // import moment from "moment";
@@ -1998,7 +2001,10 @@
 // import { FaRegTrashCan } from "react-icons/fa6";
 // import { IoEyeSharp } from "react-icons/io5";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 61c083947f7ee85189aaf236084509b283e43461
 // const OrderList = () => {
 //   const [orders, setOrders] = useState([]);
 //   const [loading, setLoading] = useState(true);
@@ -2441,8 +2447,11 @@
 
 // export default OrderList;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 61c083947f7ee85189aaf236084509b283e43461
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import moment from "moment";
@@ -2455,7 +2464,11 @@ import Pagination from "../components/Pagination"; // Import Pagination componen
 import { RiEdit2Fill } from "react-icons/ri";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
+<<<<<<< HEAD
 import TokenService from "../../utils/TokenService"; // Import TokenService
+=======
+import Data from '../../assets/Images/nodata.svg'
+>>>>>>> 61c083947f7ee85189aaf236084509b283e43461
 
 
 const OrderList = () => {
@@ -2535,6 +2548,7 @@ const OrderList = () => {
             filterUsed = true;
         }
 
+<<<<<<< HEAD
         if (filters.startDate) {
             const startDate = moment(filters.startDate); // Use moment to parse
             if (startDate.isValid()) {
@@ -2547,6 +2561,22 @@ const OrderList = () => {
             } else {
                 console.warn("Invalid start date provided.");
             }
+=======
+        const response = await axios.get(`${API_BASE_URL}/admin/orders`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (Array.isArray(response.data)) {
+          // Sort orders by createdAt in descending order (latest first)
+          const sortedOrders = [...response.data].sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+          setOrders(sortedOrders);
+        } else {
+          console.error("Response data is not an array:", response.data);
+          setOrders([]);
+          setError("Invalid data format received from the API");
+>>>>>>> 61c083947f7ee85189aaf236084509b283e43461
         }
 
         if (filters.endDate) {
@@ -2610,8 +2640,20 @@ const OrderList = () => {
         setOrderToDelete(null);
     };
 
+<<<<<<< HEAD
     const truncateId = (id) => {
         if (!id) return "";
+=======
+    // Sort filtered orders by createdAt in descending order (latest first)
+    const sortedFiltered = filtered.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    setFilteredOrders(sortedFiltered);
+
+    setIsFilterApplied(filterUsed);
+    setCurrentPage(1); // Reset to first page when filters change
+  };
+>>>>>>> 61c083947f7ee85189aaf236084509b283e43461
 
         const parts = id.split("-");
         if (parts.length > 0) {
@@ -2672,6 +2714,7 @@ const OrderList = () => {
         return <div className="text-center text-red-500 py-4">Error: {error}</div>;
     }
 
+<<<<<<< HEAD
     return (
         <div className="order-list">
             <div className="container mx-auto px-4 relative">
@@ -2696,6 +2739,199 @@ const OrderList = () => {
                             </button>
                         </div>
                     </div>
+=======
+  const ordersToDisplay = filteredOrders.length > 0 ? filteredOrders : orders;
+  const noDataFound =
+    (isFilterApplied && filteredOrders.length === 0) ||
+    (!isFilterApplied && orders.length === 0);
+
+  // Get current orders
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = ordersToDisplay.slice(
+    indexOfFirstOrder,
+    indexOfLastOrder
+  );
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  if (loading) {
+    return <div className="text-center py-4">Loading orders...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center text-red-500 py-4">Error: {error}</div>;
+  }
+
+  return (
+    <div className="order-list px-4">
+      <div className="relative">
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h1 className="text-2xl font-bold">Order List (Admin)</h1>
+            <div className="flex items-center gap-2 mr-8">
+              {isFilterApplied && (
+                <button
+                  onClick={handleResetFilters}
+                  className="py-2.5 px-6 bg-gray-200 hover:bg-gray-300 rounded-xl text-sm font-bold text-gray-800 transition-colors duration-300"
+                >
+                  <span>Reset</span>
+                </button>
+              )}
+              <button
+                className="flex items-center gap-2"
+                onClick={toggleFilter}
+              >
+                <FcFilledFilter className="w-5 h-5" />
+                <p className="text-xl font-bold">Filter</p>
+              </button>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto rounded-2xl border border-gray-300 shadow-main">
+            <table className="min-w-full bg-white">
+              <thead className="bg-gray-light text-sub-color font-bold">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                    Order ID
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                    User ID
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                    Category
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                    Service
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                    Quantity
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                    Started Votes
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                    Deliver Votes
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                    Withheld Price
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                    Order Date
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {noDataFound ? (
+                  <tr>
+                    <td
+                      colSpan="11"
+                      className="px-4 py-4 text-center"
+                    >
+                      <div className="flex flex-col">
+                        <img src={Data} alt="No Data" className="h-40" />
+                        <p className="mt-4 text-xl font-semibold text-gray-700 capitalize">
+                          No order found
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                ) : (
+                  currentOrders.map((order, index) => (
+                    <tr
+                      key={order._id}
+                      className={`hover:bg-gray-50 transition-colors`}
+                    >
+                      <td className="px-4 py-2 whitespace-nowrap text-sm">
+                        {truncateId(order.orderId.substring(0, 4))}
+                      </td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm">
+                        {truncateId(order.userId.substring(0, 4))}
+                      </td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm">
+                        {order.category}
+                      </td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm">
+                        {order.service}
+                      </td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm">
+                        {order.quantity}
+                      </td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm">
+                        {order.status}
+                      </td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm">
+                        {order.started}
+                      </td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm">
+                        {order.completedVotes || 0}
+                      </td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm">
+                        ${order.calculatedPrice}
+                      </td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm">
+                        {formatDate(order.createdAt)}
+                      </td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm">
+                        <div className="flex items-center justify-center gap-1">
+                          {/* Edit Button */}
+                          <button
+                            className="px-2 py-2 rounded-md bg-blue-100 text-blue-500 hover:text-white hover:bg-blue-500 transition-colors duration-200"
+                            onClick={() => handleEdit(order)}
+                            title="Edit Order"
+                          >
+                            <RiEdit2Fill className="h-4 w-4" />
+                          </button>
+
+                          {/* Delete Button */}
+                          <button
+                            className="px-2 py-2 rounded-md bg-red-100 text-red-500 hover:text-white hover:bg-red-500 transition-colors duration-200"
+                            onClick={() => handleDeleteClick(order.orderId)}
+                            title="Delete Order"
+                          >
+                            <FaRegTrashCan className="h-4 w-4" />
+                          </button>
+
+                          {/* View Button */}
+                          <button
+                            className="px-2 py-2 rounded-md bg-gray-200 text-gray-500 hover:text-white hover:bg-gray-500 transition-colors duration-200"
+                            onClick={() => handleView(order)}
+                            title="View Order"
+                          >
+                            <IoEyeSharp className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+          {ordersToDisplay.length > 0 && (
+            <Pagination
+              ordersPerPage={ordersPerPage}
+              totalOrders={ordersToDisplay.length}
+              paginate={paginate}
+              currentPage={currentPage}
+              noDataFound={noDataFound} // Pass noDataFound prop
+            />
+          )}
+          {showDeleteConfirmation && (
+            <DeleteConfirmationPopup
+              onCancel={handleDeleteCancel}
+              onConfirm={handleDeleteConfirm}
+              setShowDeleteConfirmation={setShowDeleteConfirmation}
+            />
+          )}
+>>>>>>> 61c083947f7ee85189aaf236084509b283e43461
 
                     <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-md">
                         <table className="min-w-full bg-white">

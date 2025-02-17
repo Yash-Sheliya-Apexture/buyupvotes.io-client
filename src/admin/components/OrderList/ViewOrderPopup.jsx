@@ -246,6 +246,7 @@ import {
   IoTimeOutline,
 } from "react-icons/io5";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ViewOrderPopup = ({ order, onClose }) => {
   const formatDate = (dateString) => {
@@ -333,171 +334,204 @@ const ViewOrderPopup = ({ order, onClose }) => {
     onClose();
   };
 
+  const backdropVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1, transition: { duration: 0.2 } },
+    exit: { opacity: 0, transition: { duration: 0.2 } },
+  };
+
+  const popupVariants = {
+    initial: { scale: 0, opacity: 0 },
+    animate: {
+      scale: 1,
+      opacity: 1,
+      transition: { type: "spring", stiffness: 300, damping: 20 }, // Adjust stiffness and damping for the spring effect
+    },
+    exit: {
+      scale: 0.5,
+      opacity: 0,
+      transition: { duration: 0.2, ease: "easeIn" },
+    },
+  };
+
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <ClickAwayListener onClickAway={handleOutsideClick}>
-        <div className="relative rounded-3xl shadow-2xl w-full max-w-3xl overflow-hidden bg-white ">
-          <div className="py-5 px-6 bg-gray-300 ">
-            <div className="flex items-center justify-between">
-              <h2 className="text-3xl font-extrabold tracking-tight">
-                Order Details
-              </h2>
-              <div
-                className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium text-white ${tailwindClass}`}
-              >
-                <StatusIcon className="h-5 w-5 mr-2" aria-hidden="true" />
-                {order.status}
-              </div>
-            </div>
-          </div>
-          <div className="p-8">
-            <div className="grid grid-cols-3 gap-6">
-              {/* Order ID */}
-              <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold tracking-wide mb-2">
-                  Order ID
-                </label>
-                <p className="font-medium text-xs text-gray-500">
-                  {order.orderId.substring(0, 4)}
-                </p>
-              </div>
-
-              {/* User ID */}
-              <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold tracking-wide mb-2">
-                  User ID
-                </label>
-                <p className="font-medium text-xs text-gray-500">
-                  {order.userId.substring(0, 4)}
-                </p>
-              </div>
-
-              {/* Category */}
-              <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold tracking-wide mb-2">
-                  Category
-                </label>
-                <p className="font-medium text-xs text-gray-500">
-                  {order.category}
-                </p>
-              </div>
-
-              {/* Service */}
-              <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold tracking-wide mb-2">
-                  Service
-                </label>
-                <p className="font-medium text-xs text-gray-500">
-                  {order.service}
-                </p>
-              </div>
-
-              {/* Quantity */}
-              <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold tracking-wide mb-2">
-                  Quantity
-                </label>
-                <p className="font-medium text-xs text-gray-500">
-                  {order.quantity}
-                </p>
-              </div>
-
-              {/* Completed Votes */}
-              <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold tracking-wide mb-2">
-                  Completed Votes
-                </label>
-                <p className="font-medium text-xs text-gray-500">
-                  {order.completedVotes}
-                </p>
-              </div>
-
-              {/* Order Date */}
-              <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold tracking-wide mb-2">
-                  Order Date
-                </label>
-                <p className="font-medium text-xs text-gray-500">
-                  {formatDate(order.createdAt)}
-                </p>
-              </div>
-
-              {/* Started Votes */}
-              <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold tracking-wide mb-2">
-                  Started Votes
-                </label>
-                <p className="font-medium text-xs text-gray-500">
-                  {order.started}
-                </p>
-              </div>
-
-              {/* Deliver Votes */}
-              <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold tracking-wide mb-2">
-                  Deliver Votes
-                </label>
-                <p className="font-medium text-xs text-gray-500">
-                  {order.completedVotes || 0}
-                </p>
-              </div>
-
-              {/* Withheld Price */}
-              <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
-                <label className="block text-small font-bold tracking-wide mb-2">
-                  Withheld Price
-                </label>
-                <p className="font-medium text-xs text-gray-500">
-                  {order.calculatedPrice}
-                </p>
-              </div>
-
-              {/* Link */}
-              <div className="rounded-2xl p-4 border border-gray-300 shadow-main col-span-2">
-                <label className="block text-small font-bold tracking-wide mb-2">
-                  Link
-                </label>
-                <a
-                  href={order.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400 text-xs hover:underline break-all font-medium"
-                  style={linkStyle}
-                >
-                  {order.link}
-                </a>
-              </div>
-            </div>
-
-            {/* Comments */}
-            {order.comments && (
-              <div className="mt-8">
-                <label className="block text-small font-bold tracking-wide mb-2">
-                  Comments
-                </label>
+    <AnimatePresence>
+      <motion.div 
+      className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+      variants={backdropVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        <ClickAwayListener onClickAway={handleOutsideClick}>
+          <motion.div className="relative rounded-3xl shadow-2xl w-full max-w-3xl overflow-hidden bg-white"
+          variants={popupVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          >
+            <div className="py-5 px-6 bg-gray-300 ">
+              <div className="flex items-center justify-between">
+                <h2 className="text-3xl font-extrabold tracking-tight">
+                  Order Details
+                </h2>
                 <div
-                  className="rounded-2xl p-4 border border-gray-300 shadow-main whitespace-pre-line max-h-[200px] overflow-y-auto"
-                  style={noSelectStyle}
+                  className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium text-white ${tailwindClass}`}
                 >
-                  <p className="font-medium text-small text-gray-500">
-                    {formatComments(order.comments)}
-                  </p>
+                  <StatusIcon className="h-5 w-5 mr-2" aria-hidden="true" />
+                  {order.status}
                 </div>
               </div>
-            )}
-          </div>
-          <div className="px-8 py-4 flex justify-end">
-            <button
-              type="button"
-              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md transition-colors duration-200"
-              onClick={onClose}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </ClickAwayListener>
-    </div>
+            </div>
+            <div className="p-8">
+              <div className="grid grid-cols-3 gap-6">
+                {/* Order ID */}
+                <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
+                  <label className="block text-small font-bold tracking-wide mb-2">
+                    Order ID
+                  </label>
+                  <p className="font-medium text-xs text-gray-500">
+                    {order.orderId.substring(0, 4)}
+                  </p>
+                </div>
+
+                {/* User ID */}
+                <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
+                  <label className="block text-small font-bold tracking-wide mb-2">
+                    User ID
+                  </label>
+                  <p className="font-medium text-xs text-gray-500">
+                    {order.userId.substring(0, 4)}
+                  </p>
+                </div>
+
+                {/* Category */}
+                <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
+                  <label className="block text-small font-bold tracking-wide mb-2">
+                    Category
+                  </label>
+                  <p className="font-medium text-xs text-gray-500">
+                    {order.category}
+                  </p>
+                </div>
+
+                {/* Service */}
+                <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
+                  <label className="block text-small font-bold tracking-wide mb-2">
+                    Service
+                  </label>
+                  <p className="font-medium text-xs text-gray-500">
+                    {order.service}
+                  </p>
+                </div>
+
+                {/* Quantity */}
+                <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
+                  <label className="block text-small font-bold tracking-wide mb-2">
+                    Quantity
+                  </label>
+                  <p className="font-medium text-xs text-gray-500">
+                    {order.quantity}
+                  </p>
+                </div>
+
+                {/* Completed Votes */}
+                <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
+                  <label className="block text-small font-bold tracking-wide mb-2">
+                    Completed Votes
+                  </label>
+                  <p className="font-medium text-xs text-gray-500">
+                    {order.completedVotes}
+                  </p>
+                </div>
+
+                {/* Order Date */}
+                <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
+                  <label className="block text-small font-bold tracking-wide mb-2">
+                    Order Date
+                  </label>
+                  <p className="font-medium text-xs text-gray-500">
+                    {formatDate(order.createdAt)}
+                  </p>
+                </div>
+
+                {/* Started Votes */}
+                <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
+                  <label className="block text-small font-bold tracking-wide mb-2">
+                    Started Votes
+                  </label>
+                  <p className="font-medium text-xs text-gray-500">
+                    {order.started}
+                  </p>
+                </div>
+
+                {/* Deliver Votes */}
+                <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
+                  <label className="block text-small font-bold tracking-wide mb-2">
+                    Deliver Votes
+                  </label>
+                  <p className="font-medium text-xs text-gray-500">
+                    {order.completedVotes || 0}
+                  </p>
+                </div>
+
+                {/* Withheld Price */}
+                <div className="rounded-2xl p-4 border border-gray-300 shadow-main">
+                  <label className="block text-small font-bold tracking-wide mb-2">
+                    Withheld Price
+                  </label>
+                  <p className="font-medium text-xs text-gray-500">
+                    {order.calculatedPrice}
+                  </p>
+                </div>
+
+                {/* Link */}
+                <div className="rounded-2xl p-4 border border-gray-300 shadow-main col-span-2">
+                  <label className="block text-small font-bold tracking-wide mb-2">
+                    Link
+                  </label>
+                  <a
+                    href={order.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 text-xs hover:underline break-all font-medium"
+                    style={linkStyle}
+                  >
+                    {order.link}
+                  </a>
+                </div>
+              </div>
+
+              {/* Comments */}
+              {order.comments && (
+                <div className="mt-8">
+                  <label className="block text-small font-bold tracking-wide mb-2">
+                    Comments
+                  </label>
+                  <div
+                    className="rounded-2xl p-4 border border-gray-300 shadow-main whitespace-pre-line max-h-[200px] overflow-y-auto"
+                    style={noSelectStyle}
+                  >
+                    <p className="font-medium text-small text-gray-500">
+                      {formatComments(order.comments)}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="px-8 py-4 flex justify-end">
+              <button
+                type="button"
+                className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md transition-colors duration-200"
+                onClick={onClose}
+              >
+                Close
+              </button>
+            </div>
+          </motion.div>
+        </ClickAwayListener>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

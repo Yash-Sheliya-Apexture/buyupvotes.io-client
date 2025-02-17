@@ -499,11 +499,6 @@
 
 // export default UserList;
 
-
-
-
-
-
 // import React, { useState, useEffect, useRef } from "react";
 // import { useNavigate } from "react-router-dom";
 // import axios from "axios";
@@ -798,13 +793,6 @@
 
 // export default UserList;
 
-
-
-
-
-
-
-
 // import React, { useState, useEffect, useRef } from "react";
 // import { useNavigate } from "react-router-dom";
 // import axios from "axios";
@@ -864,6 +852,68 @@
 //       }
 //     };
 
+<<<<<<< HEAD
+// import React, { useState, useEffect, useRef } from "react";
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import {
+//   FiEye,
+//   FiSearch,
+//   FiFilter,
+//   FiChevronDown,
+//   FiX,
+// } from "react-icons/fi";
+
+// const UserList = () => {
+//   const [users, setUsers] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const [sortOrder, setSortOrder] = useState("");
+//   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+//   const [sortLabel, setSortLabel] = useState("Sort");
+
+//   const navigate = useNavigate();
+//   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+//   const dropdownRef = useRef(null);
+
+//   useEffect(() => {
+//     const fetchUsers = async () => {
+//       setLoading(true);
+//       setError(null);
+//       try {
+//         const token = localStorage.getItem("authToken");
+//         if (!token) {
+//           setError("Token missing or invalid.");
+//           setLoading(false);
+//           return;
+//         }
+
+//         const response = await axios.get(`${API_BASE_URL}/admin/users`, {
+//           headers: { Authorization: `Bearer ${token}` },
+//         });
+
+//         if (response.status !== 200) {
+//           throw new Error(`HTTP error! Status: ${response.status}`);
+//         }
+
+//         const data = response.data;
+//         if (Array.isArray(data)) {
+//           setUsers(data);
+//         } else {
+//           console.error("Unexpected data format:", data);
+//           setError("Unexpected data format from the server.");
+//         }
+//       } catch (err) {
+//         console.error("Error fetching users:", err);
+//         setError(err.message);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+=======
+>>>>>>> 61c083947f7ee85189aaf236084509b283e43461
 //     fetchUsers();
 //   }, [API_BASE_URL]);
 
@@ -1099,6 +1149,7 @@
 
 // export default UserList;
 
+<<<<<<< HEAD
 
 
 
@@ -1126,6 +1177,31 @@ const UserList = () => {
     const navigate = useNavigate();
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const dropdownRef = useRef(null);
+=======
+import React, { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { IoEyeSharp } from "react-icons/io5";
+import FilterAndSearch from "../components/FilterAndSearch"; // Import the reusable component
+import Data from "../../assets/Images/nodata.svg";
+
+const UserList = () => {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("");
+
+  const navigate = useNavigate();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+  const sortOptions = [
+    { value: "admin", label: "Admin" },
+    { value: "user", label: "User" },
+    { value: "AtoZ", label: "A to Z" },
+    { value: "ZtoA", label: "Z to A" },
+  ];
+>>>>>>> 61c083947f7ee85189aaf236084509b283e43461
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -1173,6 +1249,7 @@ const UserList = () => {
         setSearchTerm(event.target.value);
     };
 
+<<<<<<< HEAD
     const handleSortChange = (order, label) => {
         setSortOrder(order);
         setSortLabel(label);
@@ -1244,6 +1321,31 @@ const UserList = () => {
                 <span className="ml-2 text-gray-700">Loading users...</span>
             </div>
         );
+=======
+  const handleViewDetails = (userId) => {
+    navigate(`/admin/users/${userId}`);
+  };
+
+  const handleSearchChange = (term) => {
+    setSearchTerm(term); // Update the state
+  };
+
+  const handleSortChange = (order, label) => {
+    setSortOrder(order);
+  };
+
+  const handleResetFilters = () => {
+    setSearchTerm(""); // Clear search term
+    setSortOrder(""); // Clear sort order
+  };
+
+  const sortedUsers = useMemo(() => {
+    let sortUsers = [...users];
+    if (sortOrder === "admin") {
+      sortUsers = sortUsers.filter((user) => user.role === "admin");
+    } else if (sortOrder === "user") {
+      sortUsers = sortUsers.filter((user) => user.role === "user");
+>>>>>>> 61c083947f7ee85189aaf236084509b283e43461
     }
 
     if (error) {
@@ -1254,6 +1356,34 @@ const UserList = () => {
         );
     }
 
+<<<<<<< HEAD
+=======
+      if (sortOrder === "AtoZ") {
+        return nameA.localeCompare(nameB);
+      } else if (sortOrder === "ZtoA") {
+        return nameB.localeCompare(nameA);
+      }
+      return 0;
+    };
+
+    return sortUsers.sort(sortFn);
+  }, [users, sortOrder]);
+
+  const filteredUsers = useMemo(() => {
+    const filterFn = (user) => {
+      const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
+      return (
+        fullName.includes(searchTerm.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.role.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    };
+
+    return sortedUsers.filter(filterFn);
+  }, [sortedUsers, searchTerm]);
+
+  if (loading) {
+>>>>>>> 61c083947f7ee85189aaf236084509b283e43461
     return (
         <div className="min-h-screen bg-gray-50">
             <div className="container mx-auto px-4">
@@ -1318,6 +1448,7 @@ const UserList = () => {
                             )}
                         </div>
 
+<<<<<<< HEAD
                         {/* Search Input */}
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -1391,6 +1522,99 @@ const UserList = () => {
             </div>
         </div>
     );
+=======
+  if (error) {
+    return (
+      <div className="text-red-500 container mx-auto p-4">Error: {error}</div>
+    );
+  }
+
+  return (
+    <div className="user-list px-4">
+      <div>
+        <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+          <h1 className="text-2xl font-bold">User List</h1>
+          <FilterAndSearch
+            onSearch={handleSearchChange}
+            onSort={handleSortChange}
+            sortOptions={sortOptions}
+            defaultSortLabel="Sort"
+            onReset={handleResetFilters} // Pass the reset function
+          />
+        </div>
+
+        {/* Users Table */}
+        <div className="overflow-x-auto rounded-2xl border border-gray-300 shadow-main">
+          <table className="min-w-full bg-white">
+            <thead className="bg-gray-light text-sub-color font-bold">
+              <tr>
+                <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                  Name
+                </th>
+                <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                  Email
+                </th>
+                <th className="px-4 py-3 text-left text-xs uppercase tracking-wider">
+                  Role
+                </th>
+                <th className="px-4 py-3 text-center text-xs uppercase tracking-wider">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredUsers.length > 0 ? (
+                filteredUsers.map((user) => (
+                  <tr
+                    key={user._id}
+                    className="hover:bg-gray-50 transition-colors"
+                  >
+                    <td className="px-4 py-2 whitespace-nowrap text-sm">
+                      {user.firstName} {user.lastName}
+                    </td>
+                    <td className="px-4 py-2 whitespace-nowrap text-sm">
+                      {user.email}
+                    </td>
+                    <td className="px-4 py-2 whitespace-nowrap text-sm">
+                      <span
+                        className={`inline-flex items-center px-4 py-2 rounded-lg text-xs font-medium ${
+                          user.role === "admin"
+                            ? "bg-red-100 text-red-800"
+                            : "bg-green-100 text-green-800"
+                        }`}
+                      >
+                        {user.role}
+                      </span>
+                    </td>
+                    <td className="px-4 py-2 whitespace-nowrap text-center text-sm">
+                      <button
+                        onClick={() => handleViewDetails(user._id)}
+                        className="px-2 py-2 rounded-md bg-gray-200 text-gray-500 hover:text-white hover:bg-gray-500 transition-colors duration-200"
+                      >
+                        <IoEyeSharp className="w-5 h-5" />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="px-4 py-4 text-center">
+                    <div className="flex flex-col">
+                      <img src={Data} alt="No Data" className="h-40" />
+                      <p className="mt-4 text-xl font-semibold text-gray-700 capitalize">
+                        No users found
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+>>>>>>> 61c083947f7ee85189aaf236084509b283e43461
 };
 
 export default UserList;
