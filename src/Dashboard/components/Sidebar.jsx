@@ -519,15 +519,13 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
       )}
 
       <section
-        className={`fixed xl:relative bg-white border-r z-50 border-dashed border-border-color h-screen transition-all duration-300 ${
-          isSidebarExpanded ? "w-60" : "w-16"
-        } ${isSidebarVisible ? "left-0" : "-left-60 xl:left-0"}`}
+        className={`fixed xl:relative bg-white border-r z-50 border-dashed border-border-color h-screen transition-all duration-300 ${isSidebarExpanded ? "w-60" : "w-16"
+          } ${isSidebarVisible ? "left-0" : "-left-60 xl:left-0"}`}
       >
         <div className="relative">
           <div
-            className={`flex items-center p-3.5 ${
-              isSidebarExpanded ? "justify-between" : "justify-center"
-            } `}
+            className={`flex items-center p-3.5 ${isSidebarExpanded ? "justify-between" : "justify-center"
+              } `}
           >
             {isSidebarExpanded ? (
               <Link to="/">
@@ -549,7 +547,7 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
           </div>
 
           {/* My Account tab */}
-          <div className="my-3 px-2 relative">
+          <div className="relative px-1">
             <ClickAwayListener onClickAway={handleAccountDropdownClose}>
               <div
                 ref={accountDropdownRef}
@@ -570,19 +568,17 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
                 {isSidebarExpanded && (
                   <div className="bg-sub-color rounded-md p-1.5">
                     <BiSolidChevronDown
-                      className={`text-white transition-transform duration-200 ${
-                        isAccountDropdownOpen ? "rotate-180" : ""
-                      }`}
+                      className={`text-white transition-transform duration-200 ${isAccountDropdownOpen ? "rotate-180" : ""
+                        }`}
                     />
                   </div>
                 )}
                 <div
                   className={`absolute top-full left-0 z-50 bg-white w-full p-1 rounded-xl border border-border-color overflow-hidden transition-all duration-300 ease-in-out transform origin-top mt-2
-                  ${
-                    isAccountDropdownOpen
+                  ${isAccountDropdownOpen
                       ? "opacity-100 scale-y-100 "
                       : "opacity-0 scale-y-0"
-                  }`}
+                    }`}
                 >
                   <div className="overflow-hidden">
                     <div
@@ -591,11 +587,10 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
                       onMouseLeave={handleBalanceLeave}
                     >
                       <div
-                        className={`flex items-center justify-between w-full transition-transform duration-300 ${
-                          isBalanceHovered
+                        className={`flex items-center justify-between w-full transition-transform duration-300 ${isBalanceHovered
                             ? "-translate-y-full opacity-0"
                             : "translate-y-0 opacity-100"
-                        }`}
+                          }`}
                       >
                         <div className="flex items-center gap-4">
                           <IoWalletOutline className="w-6 h-6" />
@@ -615,11 +610,10 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
                       {isSidebarExpanded && (
                         <Link
                           to="/dashboard/pricing"
-                          className={`w-full absolute left-0 bottom-0 flex items-center justify-center py-4 rounded-lg text-sm font-medium text-white bg-main-color transition-transform duration-300 transform ${
-                            isBalanceHovered
+                          className={`w-full absolute left-0 bottom-0 flex items-center justify-center py-4 rounded-lg text-sm font-medium text-white bg-main-color transition-transform duration-300 transform ${isBalanceHovered
                               ? "translate-y-0 mb-1.5"
                               : "translate-y-full"
-                          }`}
+                            }`}
                         >
                           Add Funds
                         </Link>
@@ -650,9 +644,8 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
 
           <button
             onClick={toggleSidebar}
-            className={`absolute top-1/4 -right-3 bg-white p-1 size-6 hidden cursor-pointer border rounded-full ${
-              isSidebarExpanded ? "" : "ml-auto"
-            }  xl:block hidden`}
+            className={`absolute top-1/4 -right-3 bg-white p-1 size-6 hidden cursor-pointer border rounded-full ${isSidebarExpanded ? "" : "ml-auto"
+              }  xl:block hidden`}
           >
             {isSidebarExpanded ? (
               <FaAngleLeft className="text-gray-500" />
@@ -667,11 +660,10 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
             {menuItems.map((item) => (
               <li
                 key={item.id}
-                className={`relative group cursor-pointer font-semibold ${
-                  activeMenu === item.id
+                className={`relative group cursor-pointer font-semibold ${activeMenu === item.id
                     ? "bg-[#ff550034] text-main-color"
                     : "text-active hover:bg-[#ff550034] transition-all ease-in duration-150"
-                }`}
+                  }`}
                 onClick={() => handleMenuItemClick(item.id)}
               >
                 <Link
@@ -697,11 +689,10 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
                 )}
                 <div
                   className={`absolute left-0 top-0 h-full w-1.5
-                     ${
-                       activeMenu === item.id
-                         ? "bg-main-color scale-y-100"
-                         : "bg-transparent scale-y-0"
-                     } transition-all duration-300`}
+                     ${activeMenu === item.id
+                      ? "bg-main-color scale-y-100"
+                      : "bg-transparent scale-y-0"
+                    } transition-all duration-300`}
                 ></div>
               </li>
             ))}

@@ -9,6 +9,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-Thin.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: italic;
@@ -16,6 +17,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-ThinItalic.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: normal;
@@ -23,6 +25,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-ExtraLight.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: italic;
@@ -30,6 +33,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-ExtraLightItalic.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: normal;
@@ -37,6 +41,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-Light.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: italic;
@@ -44,6 +49,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-LightItalic.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: normal;
@@ -51,6 +57,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-Regular.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: italic;
@@ -58,6 +65,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-Italic.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: normal;
@@ -65,6 +73,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-Medium.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: italic;
@@ -72,6 +81,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-MediumItalic.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: normal;
@@ -79,6 +89,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-SemiBold.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: italic;
@@ -86,6 +97,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-SemiBoldItalic.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: normal;
@@ -93,6 +105,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-Bold.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: italic;
@@ -100,6 +113,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-BoldItalic.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: normal;
@@ -107,6 +121,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-ExtraBold.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: italic;
@@ -114,6 +129,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/InterDisplay-ExtraBoldItalic.woff2") format("woff2");
 }
+
 @font-face {
   font-family: "InterDisplay";
   font-style: normal;
@@ -129,6 +145,7 @@ font-face {
   font-display: swap;
   src: url("./assets/fonts/BasierSquareRegular.woff") format("woff");
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -139,6 +156,7 @@ font-face {
 .underline-hover {
   @apply text-[#FF5700] font-bold relative;
 }
+
 .underline-hover::after {
   content: "";
   position: absolute;
@@ -149,6 +167,7 @@ font-face {
   background-color: #ff5700;
   transition: width 0.2s ease-in-out;
 }
+
 .underline-hover:hover::after {
   width: 100%;
 }
@@ -172,18 +191,22 @@ body {
 
 /* Scrollbar thumb (the draggable part) */
 ::-webkit-scrollbar-thumb {
-  background-color: #b4b4b4; /* Color of the scrollbar thumb */
-  border-radius: 1px; /* Rounded corners for the thumb */
-  transition: all 0.3s ease-in-out; /* Animation for hover effect */
+  background-color: #b4b4b4;
+  /* Color of the scrollbar thumb */
+  border-radius: 1px;
+  /* Rounded corners for the thumb */
+  transition: all 0.3s ease-in-out;
+  /* Animation for hover effect */
 }
 
 /* Scrollbar track (the background part of the scrollbar) */
 ::-webkit-scrollbar-track {
-  background-color: #e9e9e9; /* Make track background transparent */
+  background-color: #e9e9e9;
+  /* Make track background transparent */
 }
 
 .heading {
-  @apply font-semibold  lg:text-[32px] text-medium;
+  @apply font-semibold lg:text-[32px] text-medium;
 }
 
 .para {
@@ -217,6 +240,7 @@ body {
     transform: translateX(100%);
     opacity: 0;
   }
+
   100% {
     transform: translateX(0);
     opacity: 1;
@@ -228,6 +252,7 @@ body {
     transform: translateY(100%);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
@@ -251,6 +276,7 @@ body {
     opacity: 0;
     transform: translateX(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateX(5px);
@@ -286,10 +312,12 @@ tooltip-custom .table-main thead tr th {
     transform: scale(0);
     opacity: 0;
   }
+
   50% {
     transform: scale(1.3);
     opacity: 1;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -332,6 +360,7 @@ tooltip-custom .table-main thead tr th {
   0% {
     width: 0;
   }
+
   100% {
     width: 100%;
   }
@@ -428,6 +457,7 @@ textarea:focus {
   .logo {
     display: none;
   }
+
   .slide-image {
     display: none;
   }
@@ -441,9 +471,11 @@ textarea:focus {
   0% {
     opacity: 0;
   }
+
   50% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
@@ -452,14 +484,17 @@ textarea:focus {
 /* Rocket Animation */
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(-1rem);
   }
+
   50% {
     transform: translateY(1rem);
   }
 }
+
 .animate-float {
   animation: float 4s ease-in infinite;
 }
@@ -467,14 +502,17 @@ textarea:focus {
 /* Small Rocket animation */
 
 @keyframes Rocket {
+
   0%,
   100% {
     transform: translateY(0.5px);
   }
+
   50% {
     transform: translateY(4px);
   }
 }
+
 .animate-rocket {
   animation: Rocket 2s ease-in infinite;
 }
@@ -502,9 +540,12 @@ textarea:focus {
     overflow-x: auto;
     white-space: nowrap;
     display: flex;
-    justify-content: flex-start; /* Ensure tabs start from the left */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    justify-content: flex-start;
+    /* Ensure tabs start from the left */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
   }
 
   /* Table Section - Horizontal Scrolling */
@@ -532,8 +573,8 @@ textarea:focus {
   transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.input:focus ~ .user-label,
-.input:valid ~ .user-label {
+.input:focus~.user-label,
+.input:valid~.user-label {
   transform: translateY(-50%) scale(0.8);
   background-color: #fff;
   padding: 0 0.5em;
@@ -561,35 +602,44 @@ textarea:focus {
 /* Custom scrollbar styles */
 
 .custom-scrollbar {
-  scrollbar-width: none; /* Firefox support */
+  scrollbar-width: none;
+  /* Firefox support */
   scrollbar-color: #c1c8c9;
 }
 
 /* Hide scrollbar */
 .no-scrollbar::-webkit-scrollbar {
-  display: none; /* Hide scrollbar in WebKit-based browsers */
+  display: none;
+  /* Hide scrollbar in WebKit-based browsers */
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .custom-scroll::-webkit-scrollbar {
-  width: 5px; /* Width of the scrollbar */
+  width: 5px;
+  /* Width of the scrollbar */
   height: 5px;
 }
 
 /* Scrollbar track */
 .custom-scroll::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1); /* Track background */
-  border-radius: 10px; /* Round the track */
+  background: rgba(0, 0, 0, 0.1);
+  /* Track background */
+  border-radius: 10px;
+  /* Round the track */
 }
 
 /* Scrollbar thumb */
 .custom-scroll::-webkit-scrollbar-thumb {
-  background: #c1c7c8; /* Color of the thumb */
-  border-radius: 10px; /* Round the thumb */
+  background: #c1c7c8;
+  /* Color of the thumb */
+  border-radius: 10px;
+  /* Round the thumb */
 }
 
 
@@ -598,6 +648,7 @@ textarea:focus {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -611,6 +662,7 @@ textarea:focus {
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -620,6 +672,7 @@ textarea:focus {
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(100%);
   }
@@ -647,3 +700,4 @@ textarea:focus {
   position: relative;
   border-radius: 2.25rem;
 }
+
