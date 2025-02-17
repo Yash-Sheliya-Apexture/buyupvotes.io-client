@@ -953,7 +953,6 @@ const DataSection = () => {
 
   const { currentBalance, loading: balanceLoading, error: balanceError } = useCurrentBalance(API_BASE_URL, token);
   const { mySpent, loading: spentLoading, error: spentError } = useMySpent(API_BASE_URL, token, currentBalance);
-
   useEffect(() => {
     const fetchData = async () => {
      if (!token) {
