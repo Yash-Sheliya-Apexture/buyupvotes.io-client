@@ -807,19 +807,195 @@
 // export default Sidebar;
 
 
-import React, { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { FaHome, FaUsers, FaShoppingCart, FaCreditCard, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
-const MenuItem = ({ item, isOpen, onToggle }) => {
+
+
+
+// import React, { useState } from 'react';
+// import { NavLink, useLocation } from 'react-router-dom';
+// import { FaHome, FaUsers, FaShoppingCart, FaCreditCard, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+
+// const MenuItem = ({ item, isOpen, onToggle }) => {
+//     const location = useLocation();
+//     const hasChildren = item.subItems && item.subItems.length > 0;
+//     const isActive = location.pathname === item.to;
+
+//     const handleClick = () => {
+//         if (hasChildren) {
+//             onToggle(item.id);
+//         }
+//     };
+
+//     return (
+//         <div className="space-y-2">
+//             <div className="relative">
+//                 <NavLink
+//                     to={item.to}
+//                     className={({ isActive: navLinkIsActive }) => // Remove isActive here, we'll use isMenuItemActive
+//                         `flex items-center justify-between w-full py-2 px-4 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200 ${isActive || navLinkIsActive ? 'bg-gray-700 text-white' : ''
+//                         }`
+//                     }
+//                     end // Add end to match the exact path
+//                     onClick={handleClick}
+//                 >
+//                     <div className="flex items-center space-x-2">
+//                         {item.icon && <item.icon className="h-5 w-5" />}
+//                         <span>{item.title}</span>
+//                     </div>
+//                     {hasChildren && (
+//                         <button
+//                             type="button"
+//                             onClick={(e) => {
+//                                 e.preventDefault(); // Prevent NavLink from navigating
+//                                 onToggle(item.id);
+//                             }}
+//                             className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-300 hover:text-white p-1"
+//                         >
+//                             {isOpen ? <FaChevronUp className="h-3 w-3" /> : <FaChevronDown className="h-3 w-3" />}
+//                         </button>
+//                     )}
+//                 </NavLink>
+//             </div>
+
+//             {isOpen && hasChildren && (
+//                 <div className="pl-4 space-y-2">
+//                     {item.subItems.map((subItem) => (
+//                         <MenuItem
+//                             key={subItem.id}
+//                             item={subItem}
+//                             isOpen={isOpen}
+//                             onToggle={onToggle}
+//                         />
+//                     ))}
+//                 </div>
+//             )}
+//         </div>
+//     );
+// };
+
+// const Sidebar = () => {
+//     const [openMenus, setOpenMenus] = useState({}); // Store open state by item ID
+
+//     const toggleMenu = (menuId) => {
+//         setOpenMenus(prev => ({
+//             ...prev,
+//             [menuId]: !prev[menuId]
+//         }));
+//     };
+
+//     const menuItems = [
+//         {
+//             id: 'dashboard',
+//             icon: FaHome,
+//             title: 'Dashboards',
+//             to: '/admin',
+//             subItems: [
+//                 { id: 'sales', title: 'Sales', to: '/admin/sales' },
+//                 { id: 'analytics', title: 'Analytics', to: '/admin/analytics' },
+//                 { id: 'ecommerce', title: 'Ecommerce', to: '/admin/ecommerce' }
+//             ]
+//         },
+//         {
+//             id: 'users',
+//             icon: FaUsers,
+//             title: 'Users',
+//             to: '/admin/users',
+//             subItems: [
+//                 {
+//                     id: 'add-products', title: 'Add Products', to: '/admin/add-products',
+//                     subItems: [
+//                         { id: 'add-new-product', title: 'Add New Product', to: '/admin/add-new-product' },
+//                         { id: 'import-products', title: 'Import Products', to: '/admin/import-products' }
+//                     ]
+//                 },
+//                 { id: 'cart', title: 'Cart', to: '/admin/cart' },
+//                 { id: 'checkout', title: 'Checkout', to: '/admin/checkout' }
+//             ]
+//         },
+//         {
+//             id: 'orders',
+//             icon: FaShoppingCart,
+//             title: 'Orders',
+//             to: '/admin/orders'
+//         },
+//         {
+//             id: 'payments',
+//             icon: FaCreditCard,
+//             title: 'Payments',
+//             to: '/admin/payments',
+//             subItems: [
+//                 { id: 'pending-payments', title: 'Pending Payments', to: '/admin/pending-payments' },
+//                 { id: 'processed-payments', title: 'Processed Payments', to: '/admin/processed-payments' },
+//                 { id: 'payment-reports', title: 'Payment Reports', to: '/admin/payment-reports' }
+//             ]
+//         }
+//     ];
+
+//     return (
+//         <div className="bg-gray-800 w-64 flex flex-col h-screen border-r border-gray-700">
+//             <div className="flex items-center justify-center h-16 text-base bg-gray-900 text-white font-semibold">
+//                 Admin Dashboard
+//             </div>
+
+//             <nav className="flex-1 p-4 space-y-4">
+//                 {menuItems.map(item => (
+//                     <MenuItem
+//                         key={item.id}
+//                         item={item}
+//                         isOpen={openMenus[item.id]}
+//                         onToggle={toggleMenu}
+//                     />
+//                 ))}
+//             </nav>
+//         </div>
+//     );
+// };
+
+// export default Sidebar;
+
+
+
+import React, { useState, useRef, useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import {
+    FaHome,
+    FaChartBar,
+    FaEnvelope,
+    FaListAlt,
+    FaCalendarAlt,
+    FaCheckSquare,
+    FaProjectDiagram,
+    FaShoppingCart,
+    FaLock,
+    FaWrench,
+    FaChevronDown,
+    FaChevronUp,
+    FaChartLine, // Added for Changelog
+} from 'react-icons/fa';
+
+const MenuItem = ({ item, isOpen, onToggle, animationDuration = 300 }) => {
     const location = useLocation();
     const hasChildren = item.subItems && item.subItems.length > 0;
     const isActive = location.pathname === item.to;
+    const submenuRef = useRef(null);
 
-    const handleClick = () => {
+    useEffect(() => {
+        if (submenuRef.current) {
+            submenuRef.current.style.height = isOpen ? `${submenuRef.current.scrollHeight}px` : '0px';
+        }
+    }, [isOpen]);
+
+    const handleClick = (e) => {
         if (hasChildren) {
+            e.preventDefault(); // Prevent NavLink navigation when it has subitems
             onToggle(item.id);
         }
+    };
+
+    const handleToggleClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation(); // Stop event from bubbling up to NavLink
+        onToggle(item.id);
     };
 
     return (
@@ -827,25 +1003,21 @@ const MenuItem = ({ item, isOpen, onToggle }) => {
             <div className="relative">
                 <NavLink
                     to={item.to}
-                    className={({ isActive: navLinkIsActive }) => // Remove isActive here, we'll use isMenuItemActive
-                        `flex items-center justify-between w-full py-2 px-4 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200 ${isActive || navLinkIsActive ? 'bg-gray-700 text-white' : ''
+                    className={({ isActive: navLinkIsActive }) =>
+                        `flex items-center justify-between w-full py-2 px-4 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-800 transition duration-200 ${isActive || navLinkIsActive ? 'bg-gray-100 text-gray-800 font-semibold' : ''
                         }`
                     }
-                    end // Add end to match the exact path
-                    onClick={handleClick}
+                    end={!hasChildren} // Apply 'end' only to items without submenus
+                    onClick={hasChildren ? handleClick : null}  // Call handleClick here if it has children
                 >
                     <div className="flex items-center space-x-2">
-                        {item.icon && <item.icon className="h-5 w-5" />}
+                        {item.icon && <item.icon className="h-5 w-5 text-gray-400" />}
                         <span>{item.title}</span>
                     </div>
                     {hasChildren && (
                         <button
-                            type="button"
-                            onClick={(e) => {
-                                e.preventDefault(); // Prevent NavLink from navigating
-                                onToggle(item.id);
-                            }}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-300 hover:text-white p-1"
+                            onClick={handleToggleClick}  // Use the new handler
+                            className={`absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-800 p-1 rounded bg-gray-50 ${isOpen ? 'bg-opacity-50' : 'bg-opacity-0'} transition-colors duration-200`}
                         >
                             {isOpen ? <FaChevronUp className="h-3 w-3" /> : <FaChevronDown className="h-3 w-3" />}
                         </button>
@@ -853,8 +1025,18 @@ const MenuItem = ({ item, isOpen, onToggle }) => {
                 </NavLink>
             </div>
 
-            {isOpen && hasChildren && (
-                <div className="pl-4 space-y-2">
+            {hasChildren && (
+                <div
+                    ref={submenuRef}
+                    className="pl-4 space-y-2 overflow-hidden transition-height duration-300"
+                    style={{
+                        height: '0px',
+                        transitionProperty: 'height',
+                        transitionDuration: `${animationDuration}ms`,
+                        transitionTimingFunction: 'ease',
+                    }}
+
+                >
                     {item.subItems.map((subItem) => (
                         <MenuItem
                             key={subItem.id}
@@ -870,7 +1052,7 @@ const MenuItem = ({ item, isOpen, onToggle }) => {
 };
 
 const Sidebar = () => {
-    const [openMenus, setOpenMenus] = useState({}); // Store open state by item ID
+    const [openMenus, setOpenMenus] = useState({});
 
     const toggleMenu = (menuId) => {
         setOpenMenus(prev => ({
@@ -881,67 +1063,152 @@ const Sidebar = () => {
 
     const menuItems = [
         {
+            id: 'menu_header',
+            title: 'MENU',
+            isHeader: true,
+        },
+        {
             id: 'dashboard',
             icon: FaHome,
-            title: 'Dashboards',
+            title: 'Dashboard',
             to: '/admin',
             subItems: [
-                { id: 'sales', title: 'Sales', to: '/admin/sales' },
-                { id: 'analytics', title: 'Analytics', to: '/admin/analytics' },
-                { id: 'ecommerce', title: 'Ecommerce', to: '/admin/ecommerce' }
-            ]
+                { id: 'analytics', title: 'Analytics Dashboard', to: '/admin/analytics' },
+                { id: 'ecommerce', title: 'All Orders', to: '/admin/orders' },
+                { id: 'project', title: 'All Users', to: '/admin/users' },
+                { id: 'crm', title: 'All Payments', to: '/admin/payments' },
+            ],
         },
         {
-            id: 'users',
-            icon: FaUsers,
-            title: 'Users',
-            to: '/admin/users',
-            subItems: [
-                {
-                    id: 'add-products', title: 'Add Products', to: '/admin/add-products',
-                    subItems: [
-                        { id: 'add-new-product', title: 'Add New Product', to: '/admin/add-new-product' },
-                        { id: 'import-products', title: 'Import Products', to: '/admin/import-products' }
-                    ]
-                },
-                { id: 'cart', title: 'Cart', to: '/admin/cart' },
-                { id: 'checkout', title: 'Checkout', to: '/admin/checkout' }
-            ]
+            id: 'changelog',
+            icon: FaChartLine,  // Using ChartLine for Changelog
+            title: 'Changelog',
+            to: '/admin/changelog',  // Replace with actual path
+            badge: '1.0.0',          // Add badge property
         },
         {
-            id: 'orders',
+            id: 'apps',
+            title: 'Apps',
+            isHeader: true,
+        },
+        {
+            id: 'chat',
+            icon: FaEnvelope,
+            title: 'Chat',
+            to: '/admin/chat',
+        },
+        {
+            id: 'email',
+            icon: FaEnvelope,
+            title: 'Email',
+            to: '/admin/email',
+        },
+        {
+            id: 'kanban',
+            icon: FaListAlt,
+            title: 'Kanban',
+            to: '/admin/kanban',
+        },
+        {
+            id: 'calendar',
+            icon: FaCalendarAlt,
+            title: 'Calendar',
+            to: '/admin/calendar',
+        },
+        {
+            id: 'todo',
+            icon: FaCheckSquare,
+            title: 'Todo',
+            to: '/admin/todo',
+        },
+        {
+            id: 'projects',
+            icon: FaProjectDiagram,
+            title: 'Projects',
+            to: '/admin/projects',
+        },
+        {
+            id: 'ecommerce',
             icon: FaShoppingCart,
-            title: 'Orders',
-            to: '/admin/orders'
+            title: 'Ecommerce',
+            to: '/admin/ecommerce',
         },
         {
-            id: 'payments',
-            icon: FaCreditCard,
-            title: 'Payments',
-            to: '/admin/payments',
-            subItems: [
-                { id: 'pending-payments', title: 'Pending Payments', to: '/admin/pending-payments' },
-                { id: 'processed-payments', title: 'Processed Payments', to: '/admin/processed-payments' },
-                { id: 'payment-reports', title: 'Payment Reports', to: '/admin/payment-reports' }
-            ]
-        }
+            id: 'pages',
+            title: 'Pages',
+            isHeader: true,
+        },
+        {
+            id: 'authentication',
+            icon: FaLock,
+            title: 'Authentication',
+            to: '/admin/authentication',
+        },
+        {
+            id: 'utility',
+            icon: FaWrench,
+            title: 'Utility',
+            to: '/admin/utility',
+        },
+        {
+            id: 'elements',
+            title: 'Elements',
+            isHeader: true,
+        },
     ];
 
+    const renderMenuItem = (item) => {
+        if (item.isHeader) {
+            return (
+                <div key={item.title} className="uppercase text-xs text-gray-500 font-semibold px-4 py-1">
+                    {item.title}
+                </div>
+            );
+        }
+
+        if (item.badge) {
+            return (
+                <NavLink
+                    key={item.id}
+                    to={item.to}
+                    className={({ isActive: navLinkIsActive }) =>
+                        `flex items-center justify-between w-full py-2 px-4 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-800 transition duration-200 ${navLinkIsActive ? 'bg-gray-100 text-gray-800 font-semibold' : ''}`
+                    }
+                >
+                    <div className="flex items-center space-x-2">
+                        {item.icon && <item.icon className="h-5 w-5 text-gray-400" />}
+                        <span>{item.title}</span>
+                    </div>
+                    <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded-md">{item.badge}</div>
+                </NavLink>
+            );
+        }
+
+        return (
+            <MenuItem
+                key={item.id}
+                item={item}
+                isOpen={openMenus[item.id]}
+                onToggle={toggleMenu}
+            />
+        );
+    };
+
+
     return (
-        <div className="bg-gray-800 w-64 flex flex-col h-screen border-r border-gray-700">
-            <div className="flex items-center justify-center h-16 text-base bg-gray-900 text-white font-semibold">
-                Admin Dashboard
+        <div className="bg-white w-64 flex flex-col h-screen border-r border-gray-200">
+            {/* Logo & App Name */}
+            <div className="flex items-center h-16 text-base font-semibold px-4 border-b border-gray-200">
+                <div className="h-8 w-8 mr-2 rounded-md bg-gray-800 text-white flex items-center justify-center">
+                    {/* Replace with actual logo */}
+                    DC
+                </div>
+                <span className="text-gray-800 text-lg font-bold">DashCode</span>
             </div>
 
-            <nav className="flex-1 p-4 space-y-4">
-                {menuItems.map(item => (
-                    <MenuItem
-                        key={item.id}
-                        item={item}
-                        isOpen={openMenus[item.id]}
-                        onToggle={toggleMenu}
-                    />
-                ))}
+            {/* Menu Items */}
+            <nav className="flex-1 p-4 space-y-3 overflow-y-auto">
+                {menuItems.map(renderMenuItem)}
             </nav>
         </div>
     );

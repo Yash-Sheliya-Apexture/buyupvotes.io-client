@@ -120,7 +120,7 @@
 import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import images from "../assets/websiteImages/index";
-import { useAuth } from "../auth/AuthContextWeb";
+import { useAuth } from "../auth/AuthContext";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
