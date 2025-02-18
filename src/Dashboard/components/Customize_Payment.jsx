@@ -1106,7 +1106,7 @@ const Customize_Payment = () => {
     };
 
     return (
-        <section className="Payment-Customize pb-12">
+        <section className="Payment-Customize my-10">
             <div className="container mx-auto">
                 <div className="flex items-center">
                     <form onSubmit={handleCalculate}>

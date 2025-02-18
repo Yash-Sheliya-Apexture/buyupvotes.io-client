@@ -33,7 +33,6 @@
 // };
 // export default AdminRoutes;
 
-
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { useAuth } from "../auth/AuthContextWeb";
@@ -52,24 +51,21 @@ const AdminRoutes = () => {
     }
 
     // Double check if user is logged in and is Admin.
-    if (!user) {
-        return <Navigate to="/signin" />;
+    if (!user || user.role !== 'admin') {
+        return <Navigate to={user ? "/" : "/signin"} />;
     }
 
-    if (user.role !== 'admin') {
-        return <Navigate to="/" />; // Redirect non-admin users to home page
-    }
 
     return (
-        <AdminLayout>
-            <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/users" element={<UserList />} />
-                <Route path="/users/:userId" element={<UserProfile />} />
-                <Route path="/orders" element={<OrderList />} />
-                <Route path="/payments" element={<PaymentList />} />
-            </Routes>
-        </AdminLayout>
+        <Routes>
+            <Route path="/" element={<AdminLayout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="users" element={<UserList />} />
+                <Route path="users/:userId" element={<UserProfile />} />
+                <Route path="orders" element={<OrderList />} />
+                <Route path="payments" element={<PaymentList />} />
+            </Route>
+        </Routes>
     );
 };
 export default AdminRoutes;
