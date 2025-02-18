@@ -266,7 +266,6 @@
 //     );
 //   }, [initialFilters]);
 
-
 //   const handleApplyFilters = () => {
 //     let filters = {
 //       category,
@@ -285,7 +284,6 @@
 //     onFilter(filters);
 //     onClose();
 //   };
-
 
 //   const handleStartDateChange = (e) => {
 //     setStartDate(e.target.value);
@@ -440,9 +438,6 @@
 
 // export default FilterSidebar;
 
-
-
-
 // import React, { useState, useEffect, useRef } from "react";
 // import moment from "moment";
 // import { FcFilledFilter } from "react-icons/fc";
@@ -504,7 +499,6 @@
 //     );
 //   }, [initialFilters]);
 
-
 //   const handleApplyFilters = () => {
 //     let filters = {
 //       category,
@@ -523,7 +517,6 @@
 //     onFilter(filters);
 //     onClose();
 //   };
-
 
 //   const handleStartDateChange = (e) => {
 //     setStartDate(e.target.value);
@@ -676,10 +669,7 @@
 //   );
 // };
 
-// export default FilterSidebar; 
-
-
-
+// export default FilterSidebar;
 
 // import React, { useState, useEffect, useRef } from "react";
 // import moment from "moment";
@@ -941,10 +931,6 @@
 
 // export default FilterSidebar;
 
-
-
-
-
 // import React, { useState, useEffect, useRef } from "react";
 // import moment from "moment";
 // import { FcFilledFilter } from "react-icons/fc";
@@ -973,7 +959,6 @@
 //     "Partial",
 //     "Canceled",
 //   ];
-
 
 //   useEffect(() => {
 //     switch (category) {
@@ -1188,9 +1173,6 @@
 
 // export default FilterSidebar;
 
-
-
-
 import React, { useEffect, useRef } from "react";
 import moment from "moment";
 import { FcFilledFilter } from "react-icons/fc";
@@ -1273,118 +1255,120 @@ const FilterSidebar = ({
     isOpen && (
       <div className="fixed inset-0 z-50 flex items-center justify-end bg-black bg-opacity-50 backdrop-blur-sm">
         <motion.div
-          className="bg-white rounded-lg shadow-lg w-full max-w-md text-gray-800 h-[calc(100%-1rem)] m-3"
+          className="bg-white rounded-lg shadow-lg w-full max-w-md text-gray-800 h-[calc(100%-1rem)] m-3 flex flex-col justify-between"
           variants={variants}
           initial="closed"
           animate="open"
           exit="closed"
           ref={sidebarRef}
         >
-          <div className="p-5 rounded-t-lg bg-gray-200 flex justify-between items-center">
-            <h2 className="text-xl font-semibold flex items-center tracking-wider">
-              <FcFilledFilter className="mr-3" size={28} />
-              Filter Orders
-            </h2>
-            <button onClick={onClose} className="text-gray-900">
-              <IoClose size={24} />
-            </button>
+          <div>
+            <div className="p-6 rounded-t-lg bg-gray-200 flex justify-between items-center">
+              <h2 className="text-xl font-semibold flex items-center tracking-wider">
+                <FcFilledFilter className="mr-3" size={28} />
+                Filter Orders
+              </h2>
+              <button onClick={onClose} className="text-gray-900">
+                <IoClose size={24} />
+              </button>
+            </div>
+
+            <div className="p-6 overflow-y-auto">
+              <div className="mb-6">
+                <label
+                  htmlFor="category"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                  Category
+                </label>
+                <Dropdown
+                  options={categoryOptions}
+                  selectedValue={tempCategory}
+                  onSelect={onCategoryChange}
+                  placeholder="Select Category"
+                />
+              </div>
+
+              {/* Dropdowns and InputFields - similar to before, but using temp... values and setTemp... handlers */}
+
+              <div className="mb-6">
+                <label
+                  htmlFor="service"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                  Service
+                </label>
+                <Dropdown
+                  options={serviceOptions}
+                  selectedValue={tempService}
+                  onSelect={onServiceChange}
+                  placeholder="Select Service"
+                  disabled={serviceOptions.length === 0}
+                />
+              </div>
+
+              <div className="mb-6">
+                <label
+                  htmlFor="status"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                  Status
+                </label>
+                <Dropdown
+                  options={statusOptions}
+                  selectedValue={tempStatus}
+                  onSelect={onStatusChange}
+                  placeholder="Select Status"
+                />
+              </div>
+
+              <div className="mb-6">
+                <label
+                  htmlFor="startDate"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                  Order Date From
+                </label>
+                <InputField
+                  type="date"
+                  name="startDate"
+                  value={tempStartDate}
+                  onChange={onStartDateChange}
+                />
+              </div>
+
+              <div className="mb-6">
+                <label
+                  htmlFor="endDate"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                  Order Date To
+                </label>
+                <InputField
+                  type="date"
+                  name="endDate"
+                  value={tempEndDate}
+                  onChange={onEndDateChange}
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="p-6 overflow-y-auto">
-            <div className="mb-6">
-              <label
-                htmlFor="category"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Category
-              </label>
-              <Dropdown
-                options={categoryOptions}
-                selectedValue={tempCategory}
-                onSelect={onCategoryChange}
-                placeholder="Select Category"
-              />
-            </div>
-
-            {/* Dropdowns and InputFields - similar to before, but using temp... values and setTemp... handlers */}
-
-            <div className="mb-6">
-              <label
-                htmlFor="service"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Service
-              </label>
-              <Dropdown
-                options={serviceOptions}
-                selectedValue={tempService}
-                onSelect={onServiceChange}
-                placeholder="Select Service"
-                disabled={serviceOptions.length === 0}
-              />
-            </div>
-
-            <div className="mb-6">
-              <label
-                htmlFor="status"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Status
-              </label>
-              <Dropdown
-                options={statusOptions}
-                selectedValue={tempStatus}
-                onSelect={onStatusChange}
-                placeholder="Select Status"
-              />
-            </div>
-
-            <div className="mb-6">
-              <label
-                htmlFor="startDate"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Order Date From
-              </label>
-              <InputField
-                type="date"
-                name="startDate"
-                value={tempStartDate}
-                onChange={onStartDateChange}
-              />
-            </div>
-
-            <div className="mb-6">
-              <label
-                htmlFor="endDate"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Order Date To
-              </label>
-              <InputField
-                type="date"
-                name="endDate"
-                value={tempEndDate}
-                onChange={onEndDateChange}
-              />
-            </div>
-
-            <div className="flex justify-end">
-              <button
-                type="button"
-                className="py-2 px-4 bg-gray-200 font-medium text-gray-700 rounded-lg hover:bg-gray-300 mr-3 focus:outline-none transition-colors duration-200"
-                onClick={onClose}
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                className="py-2 px-4 bg-main-color font-medium text-white rounded-lg hover:bg-orange-600 focus:outline-none transition-colors duration-200 flex items-center"
-                onClick={onApplyFilters}
-              >
-                Apply Filters
-              </button>
-            </div>
+          <div className="p-6 flex items-center gap-2">
+            <button
+              type="button"
+              className="py-2 px-4 bg-gray-200 font-medium text-gray-700 rounded-lg hover:bg-gray-300 focus:outline-none transition-colors duration-200 w-full"
+              onClick={onClose}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="py-2 px-4 bg-main-color font-medium text-white rounded-lg hover:bg-orange-600 focus:outline-none transition-colors duration-200 w-full"
+              onClick={onApplyFilters}
+            >
+              Apply Filters
+            </button>
           </div>
         </motion.div>
       </div>

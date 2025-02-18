@@ -1762,7 +1762,15 @@ const UserList = () => {
   const isFilterApplied = searchTerm || sortOrder || rowsPerPage !== 12; //determine it there is any filter is applied
 
   if (loading) {
-    return <div className="text-center py-4">Loading users...</div>;
+    return (
+      <div>
+        <div className="py-20 text-center text-gray-400">
+          <div className="flex flex-col items-center">
+            <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
