@@ -91,10 +91,7 @@
 
 // export default PaymentHistoryPopup;
 
-
 // components/PaymentHistoryPopup.js
-
-
 
 // import React from 'react';
 // import { motion } from 'framer-motion';
@@ -180,12 +177,12 @@
 
 // export default PaymentHistoryPopup;
 
+import React, { useRef, useEffect } from "react"; // Import useRef and useEffect
+import { motion } from "framer-motion";
+import moment from "moment";
+import { IoClose } from "react-icons/io5";
+import Data from "../../assets/Images/nodata.svg";
 
-
-
-import React, { useRef, useEffect } from 'react'; // Import useRef and useEffect
-import { motion } from 'framer-motion';
-import moment from 'moment';
 
 const PaymentHistoryPopup = ({ payments, onClose }) => {
   const modalRef = useRef(null);
@@ -203,7 +200,11 @@ const PaymentHistoryPopup = ({ payments, onClose }) => {
       opacity: 1,
       transition: { duration: 0.4, ease: "easeInOut" },
     },
-    exit: { x: "100%", opacity: 0, transition: { duration: 0.4, ease: "easeInOut" } },
+    exit: {
+      x: "100%",
+      opacity: 0,
+      transition: { duration: 0.4, ease: "easeInOut" },
+    },
   };
 
   const formatDate = (dateString) => {
@@ -242,11 +243,11 @@ const PaymentHistoryPopup = ({ payments, onClose }) => {
       >
         {/* Header */}
         <div className="flex items-center justify-between bg-gray-100 py-3 px-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-800">Payment History</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 focus:outline-none">
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+          <h2 className="text-lg font-semibold text-gray-800">
+            Payment History
+          </h2>
+          <button onClick={onClose} className="text-gray-900">
+            <IoClose size={24} />
           </button>
         </div>
 
@@ -255,10 +256,16 @@ const PaymentHistoryPopup = ({ payments, onClose }) => {
           {payments.length > 0 ? (
             <div className="space-y-4">
               {payments.map((payment) => (
-                <div key={payment._id} className="flex items-center justify-between hover:bg-gray-100 border border-gray-200 rounded-xl p-3">
+                <div
+                  key={payment._id}
+                  className="flex items-center justify-between hover:bg-gray-100 border border-gray-200 rounded-xl p-3"
+                >
                   {/* Left Side - Details */}
                   <div>
-                    <p className="text-sm font-semibold text-gray-700">{payment.type || 'Payment'}</p> {/* Display the type of payment */}
+                    <p className="text-sm font-semibold text-gray-700">
+                      {payment.type || "Payment"}
+                    </p>{" "}
+                    {/* Display the type of payment */}
                     <p className="text-xs text-gray-500">
                       {formatDate(payment.createdAt)}
                     </p>
@@ -266,14 +273,25 @@ const PaymentHistoryPopup = ({ payments, onClose }) => {
 
                   {/* Right Side - Amount & ID */}
                   <div className="text-right">
-                    <p className="font-medium border border-green-950 bg-green-100 inline-block px-3 py-1 rounded-full text-sm">${payment.amount}</p>
-                    <p className="text-xs text-gray-500">ID: {payment._id.substring(0, 4)}</p>
+                    <p className="font-medium border border-green-950 bg-green-100 inline-block px-3 py-1 rounded-full text-sm">
+                      ${payment.amount}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      ID: {payment._id.substring(0, 4)}
+                    </p>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-gray-500">No payment history available.</p>
+            <div className="px-4 py-4 flex justify-center items-center h-full">
+              <div className="flex flex-col items-center">
+                <img src={Data} alt="No Data" className="h-40" />
+                <p className="mt-4 text-xl font-semibold text-gray-700 capitalize">
+                  No users payment found
+                </p>
+              </div>
+            </div>
           )}
         </div>
       </motion.div>
