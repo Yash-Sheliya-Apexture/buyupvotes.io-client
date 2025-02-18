@@ -2,8 +2,9 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';  // New component for the header
+import { Outlet } from 'react-router-dom';
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = () => {
     return (
         <div className="min-h-screen">
             <div className="flex flex-row min-h-screen w-full">
@@ -11,7 +12,7 @@ const AdminLayout = ({ children }) => {
                 <div className="flex flex-col flex-1 w-full">
                     <Header />  {/* Include the header */}
                     <main className="flex-1 p-4">
-                        {children}
+                        <Outlet />
                     </main>
                 </div>
             </div>

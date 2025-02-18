@@ -1,7 +1,7 @@
 import React from "react";
 import payment_logos from "../assets/Images/allPaymentIcons.png";
 import Customize_Payment from "../Dashboard/components/Customize_Payment";
-import { useAuth } from "../auth/AuthContextWeb";
+import { useAuth } from "../auth/AuthContext";
 import { Link } from "react-router-dom";
 
 const Currency = () => {
