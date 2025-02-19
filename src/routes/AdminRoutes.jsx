@@ -90,7 +90,6 @@ import OrderList from '../admin/pages/OrderList';
 import UserProfile from '../admin/pages/UserProfile';
 import PaymentList from '../admin/pages/PaymentList';
 import AdminLayout from '../admin/layout/AdminLayout';
-import Error404 from '../Dashboard/pages/Error404';
 
 const AdminRoutes = () => {
     return (
@@ -101,9 +100,6 @@ const AdminRoutes = () => {
                 <Route path="/users/:userId" element={<UserProfile />} />
                 <Route path="/orders" element={<OrderList />} />
                 <Route path="/payments" element={<PaymentList />} />
-
-                <Route path="/*" element={<Error404 />} />
-
             </Route>
         </Routes>
     );
