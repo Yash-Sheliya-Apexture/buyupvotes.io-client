@@ -3769,7 +3769,7 @@ const UserProfile = () => {
 
   if (loading) {
     return (
-      <div>
+      <div className="flex justify-center items-center h-full">
         <div className="py-20 text-center text-gray-400">
           <div className="flex flex-col items-center">
             <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
