@@ -212,7 +212,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import TokenService from "../../../utils/TokenService"; // Import TokenService
-
+import moment from 'moment';
 
 const PaymentHistoryModal = ({ closeModal }) => {
     const [paymentHistory, setPaymentHistory] = useState([]);
@@ -269,6 +269,12 @@ const PaymentHistoryModal = ({ closeModal }) => {
         closed: { x: "100%", opacity: 0, transition: { duration: 0.3, ease: "easeInOut" } },
     };
 
+
+      const formatDate = (dateString) => {
+        if (!dateString) return "";
+        return moment(dateString).format("MMMM DD, YYYY - h:mm A"); // More readable format
+      };
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-end bg-black bg-opacity-50 backdrop-blur-sm">
             <motion.div
@@ -307,7 +313,7 @@ const PaymentHistoryModal = ({ closeModal }) => {
                         >
                             <div className="left-part space-y-3">
                                 <div className="font-medium ">{item.type}</div>
-                                <div className="text-sm text-gray-500">{item.createdAt}</div> {/* Changed item.date to item.createdAt */}
+                                <div className="text-sm text-gray-500">{formatDate(item.createdAt)}</div> {/* Changed item.date to item.createdAt */}
                             </div>
                             <div className="text-right space-y-3">
                                 <div className="font-medium border border-green-950 bg-green-100 inline-block px-3 py-1 rounded-full text-sm">{item.amount}</div>

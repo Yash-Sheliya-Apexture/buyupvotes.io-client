@@ -316,11 +316,6 @@
 
 // export default EditOrderPopup;
 
-
-
-
-
-
 // import ClickAwayListener from "@mui/material/ClickAwayListener";
 // import React, { useState, useEffect } from "react";
 // import { FaCheck, FaPencilAlt } from "react-icons/fa";
@@ -464,7 +459,6 @@
 // };
 
 // export default EditOrderPopup;
-
 
 // import React, { useRef, useEffect, useState } from "react";
 // import { motion } from "framer-motion";
@@ -634,12 +628,6 @@
 
 // export default EditOrderPopup;
 
-
-
-
-
-
-
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { RiEdit2Fill } from "react-icons/ri";
@@ -738,96 +726,98 @@ const EditOrderPopup = ({ order, onClose, onSave }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-end bg-black bg-opacity-50 backdrop-blur-sm">
       <motion.div
-        className="bg-white rounded-lg shadow-lg w-full max-w-md text-gray-800 h-[calc(100%-1rem)] m-3"
+        className="bg-white rounded-lg shadow-lg w-full max-w-md text-gray-800 h-[calc(100%-1rem)] m-3 flex flex-col justify-between"
         variants={variants}
         initial="closed"
         animate="open"
         exit="closed"
         ref={modalRef}
       >
-        <div className="p-5 rounded-t-lg bg-gray-200 flex justify-between items-center">
-          <h2 className="text-xl font-semibold flex items-center tracking-wider">
-            <RiEdit2Fill className="mr-3 text-blue-500" size={28} />
-            Edit Orders
-          </h2>
-          <button onClick={onClose} className="text-gray-900">
-            <IoClose size={24} />
-          </button>
+        <div>
+          <div className="p-6 rounded-t-lg bg-gray-200 flex justify-between items-center">
+            <h2 className="text-xl font-semibold flex items-center tracking-wider">
+              <RiEdit2Fill className="mr-3 text-blue-500" size={28} />
+              Edit Orders
+            </h2>
+            <button onClick={onClose} className="text-gray-900">
+              <IoClose size={24} />
+            </button>
+          </div>
+
+          <div className="p-6 flex flex-col justify-between">
+            <div className="space-y-6 overflow-y-auto">
+              <div>
+                <label
+                  htmlFor="status"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                  Order Status
+                </label>
+                <div className="mt-1">
+                  <Dropdown
+                    options={statusOptions}
+                    selectedValue={editedStatus}
+                    onSelect={handleStatusChange}
+                    placeholder="Select Order Status"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="startedVotes"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                  Started Votes:
+                </label>
+                <div>
+                  <InputField
+                    type="text"
+                    name="startedVotes"
+                    placeholder="Enter started votes"
+                    value={editedStarted}
+                    onChange={(e) => handleStartedChange(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="completedVotes"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                  Deliver Votes
+                </label>
+                <div>
+                  <InputField
+                    type="number"
+                    name="completedVotes"
+                    placeholder="Enter completed votes"
+                    value={editedCompletedVotes}
+                    onChange={(e) => handleCompletedVotesChange(e.target.value)}
+                    error={completedVotesError}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="p-6 flex flex-col justify-between">
-          <div className="space-y-6 overflow-y-auto">
-            <div>
-              <label
-                htmlFor="status"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Order Status
-              </label>
-              <div className="mt-1">
-                <Dropdown
-                  options={statusOptions}
-                  selectedValue={editedStatus}
-                  onSelect={handleStatusChange}
-                  placeholder="Select Order Status"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="startedVotes"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Started Votes:
-              </label>
-              <div>
-                <InputField
-                  type="text"
-                  name="startedVotes"
-                  placeholder="Enter started votes"
-                  value={editedStarted}
-                  onChange={(e) => handleStartedChange(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="completedVotes"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Deliver Votes
-              </label>
-              <div>
-                <InputField
-                  type="number"
-                  name="completedVotes"
-                  placeholder="Enter completed votes"
-                  value={editedCompletedVotes}
-                  onChange={(e) => handleCompletedVotesChange(e.target.value)}
-                  error={completedVotesError}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className=" mt-6 flex justify-end">
-            <button
-              type="button"
-              className="py-2 px-4 bg-gray-200 font-medium text-gray-700 rounded-lg hover:bg-gray-300 mr-3 focus:outline-none transition-colors duration-200"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              className="py-2 px-4 bg-main-color font-medium text-white rounded-lg hover:bg-orange-600 focus:outline-none transition-colors duration-200 flex items-center"
-              onClick={handleSave}
-            >
-              Save
-            </button>
-          </div>
+        <div className="p-6 flex items-center gap-2">
+          <button
+            type="button"
+            className="py-2 px-4 bg-gray-200 font-medium text-gray-700 rounded-lg hover:bg-gray-300 mr-3 focus:outline-none transition-colors duration-200 w-full"
+            onClick={onClose}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="py-2 px-4 bg-main-color font-medium text-white rounded-lg hover:bg-orange-600 focus:outline-none transition-colors duration-200 w-full"
+            onClick={handleSave}
+          >
+            Save
+          </button>
         </div>
       </motion.div>
     </div>

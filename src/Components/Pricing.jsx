@@ -1233,7 +1233,7 @@ const Pricing = () => {
           <GradientHeading
             tag="h3"
             beforeText="Secure "
-            gradientText="Payment Options"
+            gradientText="Payment Gateways"
             beforeSpanClassName="font-bold"
             textSize="text-basic lg:text-xlarge text-center pb-2"
           />
@@ -1242,7 +1242,7 @@ const Pricing = () => {
           We offer a variety of secure and convenient payment options to ensure a seamless checkout experience.
         </p>
 
-        <div className="flex justify-center gap-8 flex-wrap">
+        <div className="flex md:flex-row flex-col items-center justify-center gap-8">
 
 
           <motion.div
