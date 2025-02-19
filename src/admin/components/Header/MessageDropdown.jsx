@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaEnvelope } from "react-icons/fa";
+import { FiMail  } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 
 const MessageDropdown = ({ messages, isOpen, toggleDropdown, dropdownRef }) => {
@@ -30,12 +30,12 @@ const MessageDropdown = ({ messages, isOpen, toggleDropdown, dropdownRef }) => {
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        className="rounded-full h-10 w-10 bg-gray-100 flex items-center justify-center relative"
+        className="rounded-full h-8 w-8 bg-gray-100 flex items-center justify-center relative"
         onClick={toggleDropdown}
       >
-        <FaEnvelope className="text-gray-700" size={18} />
+        <FiMail  className="text-gray-700" size={14} />
         {messages.filter((message) => message.unread > 0).length > 0 && (
-          <span className="absolute -top-2 -right-2 h-5 w-5 bg-red-600 text-[12px] font-semibold flex flex-col items-center justify-center rounded-full text-white z-[99]">
+          <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-600 text-[10px] font-semibold flex flex-col items-center justify-center rounded-full text-white z-10">
             {messages.filter((message) => message.unread > 0).length}
           </span>
         )}
@@ -44,7 +44,7 @@ const MessageDropdown = ({ messages, isOpen, toggleDropdown, dropdownRef }) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="absolute top-12 right-0 mt-2 w-96 bg-white border border-gray-200 rounded-xl shadow-main z-10"
+            className="absolute top-12 right-0 mt-0.5 w-96 bg-white border border-gray-200 rounded-xl shadow-main z-10"
             variants={dropdownVariants}
             initial="initial"
             animate="animate"
