@@ -29,7 +29,7 @@ const UserDropdown = ({ isOpen, toggleDropdown, dropdownRef, userMenuItems }) =>
           alt="User Avatar"
         />
         <span className="ml-2 text-gray-700">Albert Flores</span>
-        <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+        <motion.div animate={{ rotate: isOpen ? 0 : -180 }} transition={{ duration: 0.2 }}>
           <IoIosArrowDown className="w-4 h-4" />
         </motion.div>
       </button>
@@ -37,7 +37,7 @@ const UserDropdown = ({ isOpen, toggleDropdown, dropdownRef, userMenuItems }) =>
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="absolute top-12 right-0 mt-1 w-52 bg-white border border-gray-200 rounded-xl shadow-main z-10 p-2"
+            className="absolute top-12 right-0 mt-0.5 w-52 bg-white border border-gray-200 rounded-xl shadow-main z-10 p-2"
             variants={dropdownVariants}
             initial="initial"
             animate="animate"
@@ -48,8 +48,8 @@ const UserDropdown = ({ isOpen, toggleDropdown, dropdownRef, userMenuItems }) =>
                 <Link
                   to={item.path}
                   key={item.label}
-                  className={`flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 ${
-                    item.isLogout ? "text-red-600" : ""
+                  className={`flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg ${
+                    item.isLogout ? "text-red-600 hover:bg-red-100" : ""
                   }`}
                 >
                   <span className="mr-3">{item.icon}</span>

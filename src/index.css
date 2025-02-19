@@ -706,3 +706,28 @@ textarea:focus {
   box-shadow: none !important;
   outline: none !important;
 }
+
+.animate-tada{
+  animation: tada 1.5s ease-in-out infinite;
+}
+@keyframes tada {
+  0% {
+      transform: scaleZ(1)
+  }
+
+  10%,20% {
+      transform: scaleZ(.95) rotate3d(0,0,1,-10deg)
+  }
+
+  30%,50%,70%,90% {
+      transform: scaleZ(1) rotate3d(0,0,1,10deg)
+  }
+
+  40%,60%,80% {
+      transform: rotate3d(0,0,1,-10deg)
+  }
+
+  to {
+      transform: scaleZ(1)
+  }
+}

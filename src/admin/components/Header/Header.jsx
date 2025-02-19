@@ -586,15 +586,16 @@ import MessageDropdown from "../Header/MessageDropdown";
 import NotificationDropdown from "../Header/NotificationDropdown";
 import UserDropdown from "../Header/UserDropdown";
 import {
-    FaUserAlt,
-    FaCommentDots,
-    FaEnvelopeOpen,
-    FaCheckSquare,
-    FaCog,
-    FaTags,
-    FaQuestionCircle,
-    FaSignOutAlt,
-  } from "react-icons/fa";
+  FaRegUser,
+  FaRegCommentDots,
+  FaRegEnvelope,
+  FaRegCreditCard,
+  FaRegCircleQuestion,
+} from "react-icons/fa6";
+import { FiCheckSquare } from "react-icons/fi";
+import { IoSettingsOutline } from "react-icons/io5";
+import { PiSignOutBold } from "react-icons/pi";
+import { RiPriceTag3Line } from "react-icons/ri";
 
 const Header = () => {
   const [messageDropdownOpen, setMessageDropdownOpen] = useState(false);
@@ -686,16 +687,16 @@ const Header = () => {
   ];
 
   const userMenuItems = [
-    { label: "Profile", icon: <FaUserAlt />, path: "/profile" },
-    { label: "Chat", icon: <FaCommentDots />, path: "/chat" },
-    { label: "Email", icon: <FaEnvelopeOpen />, path: "/email" },
-    { label: "Todo", icon: <FaCheckSquare />, path: "/todo" },
-    { label: "Settings", icon: <FaCog />, path: "/settings" },
-    { label: "Price", icon: <FaTags />, path: "/price" },
-    { label: "Faq", icon: <FaQuestionCircle />, path: "/faq" },
+    { label: "Profile", icon: <FaRegUser />, path: "/profile" },
+    { label: "Chat", icon: <FaRegCommentDots />, path: "/chat" },
+    { label: "Email", icon: <FaRegEnvelope />, path: "/email" },
+    { label: "Todo", icon: <FiCheckSquare />, path: "/todo" },
+    { label: "Settings", icon: <IoSettingsOutline />, path: "/settings" },
+    { label: "Price", icon: <RiPriceTag3Line />, path: "/price" },
+    { label: "Faq", icon: <FaRegCircleQuestion />, path: "/faq" },
     {
       label: "Logout",
-      icon: <FaSignOutAlt />,
+      icon: <PiSignOutBold />,
       path: "/logout",
       isLogout: true,
     },
@@ -761,7 +762,7 @@ const Header = () => {
             onSearchChange={handleSearchChange}
           />
 
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-6">
             <MessageDropdown
               messages={messages}
               isOpen={messageDropdownOpen}
