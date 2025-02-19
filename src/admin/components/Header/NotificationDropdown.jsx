@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaBell } from "react-icons/fa";
+import { FaRegBell  } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NotificationDropdown = ({
@@ -34,12 +34,12 @@ const NotificationDropdown = ({
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        className="rounded-full h-10 w-10 bg-gray-100 flex items-center justify-center"
+        className="rounded-full h-8 w-8 bg-gray-100 flex items-center justify-center"
         onClick={toggleDropdown}
       >
-        <FaBell className="text-gray-700" size={18} />
+        <FaRegBell  className="text-gray-700 animate-tada" size={14} />
         {notifications.length > 0 && (
-          <span className="absolute -top-2 -right-2 h-5 w-5 bg-red-600 text-[12px] font-semibold flex flex-col items-center justify-center rounded-full text-white z-[99]">
+          <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-600 text-[10px] font-semibold flex flex-col items-center justify-center rounded-full text-white z-10">
             {notifications.length}
           </span>
         )}
@@ -47,7 +47,7 @@ const NotificationDropdown = ({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="absolute top-12 right-0 mt-2 w-96 bg-white border border-gray-200 rounded-xl shadow-main z-10"
+            className="absolute top-12 right-0 mt-0.5 w-96 bg-white border border-gray-200 rounded-xl shadow-main z-10"
             variants={dropdownVariants}
             initial="initial"
             animate="animate"
