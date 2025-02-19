@@ -701,3 +701,8 @@ textarea:focus {
   border-radius: 2.25rem;
 }
 
+.search-input:focus { /* Or whatever class you give your input */
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
