@@ -1,9 +1,9 @@
-// // // AuthContextWeb.js
+// // // AuthContext.js
 // // import React, { createContext, useState, useEffect, useContext, useCallback, useMemo } from "react";
 // // import axios from "axios";
 // // import TokenService from "../utils/TokenService"; // Import the TokenService
 
-// // const AuthContextWeb = createContext();
+// // const AuthContext = createContext();
 
 // // const AuthProvider = ({ children }) => {
 // //     const [user, setUser] = useState(null);
@@ -75,11 +75,11 @@
 // //         logout,
 // //     }), [user, loading, error, login, logout]);
 
-// //     return <AuthContextWeb.Provider value={value}>{children}</AuthContextWeb.Provider>;
+// //     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 // // };
 
 // // const useAuth = () => {
-// //     return useContext(AuthContextWeb);
+// //     return useContext(AuthContext);
 // // };
 
 // // export { AuthProvider, useAuth };
@@ -88,7 +88,7 @@
 
 
 
-// // AuthContextWeb.js
+// // AuthContext.js
 // import React, {
 //     createContext,
 //     useState,
@@ -100,7 +100,7 @@
 //   import axios from "axios";
 //   import TokenService from "../utils/TokenService"; // Import the TokenService
   
-//   const AuthContextWeb = createContext();
+//   const AuthContext = createContext();
   
 //   const AuthProvider = ({ children }) => {
 //     const [user, setUser] = useState(() => {
@@ -185,11 +185,11 @@
 //       [user, loading, error, login, logout]
 //     );
   
-//     return <AuthContextWeb.Provider value={value}>{children}</AuthContextWeb.Provider>;
+//     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 //   };
   
 //   const useAuth = () => {
-//     return useContext(AuthContextWeb);
+//     return useContext(AuthContext);
 //   };
   
 //   export { AuthProvider, useAuth };
@@ -197,7 +197,7 @@
 
 
 
-// // AuthContextWeb.js
+// // AuthContext.js
 // import React, {
 //   createContext,
 //   useState,
@@ -209,7 +209,7 @@
 // import axios from "axios";
 // import TokenService from "../utils/TokenService"; // Import the TokenService
 
-// const AuthContextWeb = createContext();
+// const AuthContext = createContext();
 
 // const AuthProvider = ({ children }) => {
 //   const [user, setUser] = useState(() => {
@@ -294,11 +294,11 @@
 //     [user, loading, error, login, logout]
 //   );
 
-//   return <AuthContextWeb.Provider value={value}>{children}</AuthContextWeb.Provider>;
+//   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 // };
 
 // const useAuth = () => {
-//   return useContext(AuthContextWeb);
+//   return useContext(AuthContext);
 // };
 
 // export { AuthProvider, useAuth };
@@ -306,7 +306,7 @@
 
 
 
-// // AuthContextWeb.js
+// // AuthContext.js
 // import React, {
 //   createContext,
 //   useState,
@@ -319,7 +319,7 @@
 // import TokenService from "../utils/TokenService"; // Import the TokenService
 // import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-// const AuthContextWeb = createContext();
+// const AuthContext = createContext();
 
 // const AuthProvider = ({ children }) => {
 //   const [user, setUser] = useState(() => {
@@ -405,11 +405,11 @@
 //     [user, loading, error, login, logout]
 //   );
 
-//   return <AuthContextWeb.Provider value={value}>{children}</AuthContextWeb.Provider>;
+//   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 // };
 
 // const useAuth = () => {
-//   return useContext(AuthContextWeb);
+//   return useContext(AuthContext);
 // };
 
 // export { AuthProvider, useAuth };
@@ -424,14 +424,14 @@
 
 
 
-// // AuthContextWebWeb.jsx (Modified)
+// // AuthContextWeb.jsx (Modified)
 // import React, { createContext, useState, useEffect, useContext } from 'react';
 // import axios from 'axios';
 // import TokenService from '../utils/TokenService';
 // import { useNavigate } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 
-// const AuthContextWeb = createContext();
+// const AuthContext = createContext();
 
 // export const AuthProvider = ({ children }) => {
 //     const [user, setUser] = useState(null);
@@ -561,27 +561,27 @@
 //     };
 
 //     return (
-//         <AuthContextWeb.Provider value={contextValue}>
+//         <AuthContext.Provider value={contextValue}>
 //             {!loading && children}
-//         </AuthContextWeb.Provider>
+//         </AuthContext.Provider>
 //     );
 // };
 
-// export const useAuth = () => useContext(AuthContextWeb);
+// export const useAuth = () => useContext(AuthContext);
 
 
 
 
 
 
-// // AuthContextWebWeb.jsx (Modified)
+// // AuthContextWeb.jsx (Modified)
 // import React, { createContext, useState, useEffect, useContext } from 'react';
 // import axios from 'axios';
 // import TokenService from '../utils/TokenService';
 // import { useNavigate } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 
-// const AuthContextWeb = createContext();
+// const AuthContext = createContext();
 
 // export const AuthProvider = ({ children }) => {
 //   const [user, setUser] = useState(null);
@@ -730,27 +730,27 @@
 //   };
 
 //   return (
-//     <AuthContextWeb.Provider value={contextValue}>
+//     <AuthContext.Provider value={contextValue}>
 //       {children} {/*  Remove the loading check here. Let components handle loading. */}
-//     </AuthContextWeb.Provider>
+//     </AuthContext.Provider>
 //   );
 // };
 
-// export const useAuth = () => useContext(AuthContextWeb);
+// export const useAuth = () => useContext(AuthContext);
 
 
 
 
 
 
-// // AuthContextWebWeb.jsx (Modified)
+// // AuthContextWeb.jsx (Modified)
 // import React, { createContext, useState, useEffect, useContext } from 'react';
 // import axios from 'axios';
 // import TokenService from '../utils/TokenService';
 // import { useNavigate } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 
-// const AuthContextWeb = createContext();
+// const AuthContext = createContext();
 
 // export const AuthProvider = ({ children }) => {
 //   const [user, setUser] = useState(null);
@@ -903,23 +903,23 @@
 //   };
 
 //   return (
-//     <AuthContextWeb.Provider value={contextValue}>
+//     <AuthContext.Provider value={contextValue}>
 //       {children} {/*  Remove the loading check here. Let components handle loading. */}
-//     </AuthContextWeb.Provider>
+//     </AuthContext.Provider>
 //   );
 // };
 
-// export const useAuth = () => useContext(AuthContextWeb);
+// export const useAuth = () => useContext(AuthContext);
 
 
-// // AuthContextWebWeb.jsx
+// // AuthContextWeb.jsx
 // import React, { createContext, useState, useEffect, useContext } from 'react';
 // import axios from 'axios';
 // import TokenService from '../utils/TokenService';
 // import { useNavigate } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 
-// const AuthContextWeb = createContext();
+// const AuthContext = createContext();
 
 // export const AuthProvider = ({ children }) => {
 //     const [user, setUser] = useState(null);
@@ -1082,13 +1082,13 @@
 //     };
 
 //     return (
-//         <AuthContextWeb.Provider value={contextValue}>
+//         <AuthContext.Provider value={contextValue}>
 //             {children}
-//         </AuthContextWeb.Provider>
+//         </AuthContext.Provider>
 //     );
 // };
 
-// export const useAuth = () => useContext(AuthContextWeb);
+// export const useAuth = () => useContext(AuthContext);
 
 
 
@@ -1097,14 +1097,14 @@
 
 
 
-// // AuthContextWebWeb.jsx (Modified)
+// // AuthContextWeb.jsx (Modified)
 // import React, { createContext, useState, useEffect, useContext, useCallback } from 'react';
 // import axios from 'axios';
 // import TokenService from '../utils/TokenService';
 // import { useNavigate } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 
-// const AuthContextWeb = createContext();
+// const AuthContext = createContext();
 
 // export const AuthProvider = ({ children }) => {
 //     const [user, setUser] = useState(null);
@@ -1285,24 +1285,24 @@
 //     };
 
 //     return (
-//         <AuthContextWeb.Provider value={contextValue}>
+//         <AuthContext.Provider value={contextValue}>
 //             {children}
-//         </AuthContextWeb.Provider>
+//         </AuthContext.Provider>
 //     );
 // };
 
-// export const useAuth = () => useContext(AuthContextWeb);
+// export const useAuth = () => useContext(AuthContext);
 
 
 
-// AuthContextWebWeb.jsx
+// AuthContextWeb.jsx
 import React, { createContext, useState, useEffect, useContext, useCallback } from 'react';
 import axios from 'axios';
 import TokenService from '../utils/TokenService';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const AuthContextWeb = createContext();
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -1484,10 +1484,10 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContextWeb.Provider value={contextValue}>
+        <AuthContext.Provider value={contextValue}>
             {!loading && children}
-        </AuthContextWeb.Provider>
+        </AuthContext.Provider>
     );
 };
 
-export const useAuth = () => useContext(AuthContextWeb);
+export const useAuth = () => useContext(AuthContext);
