@@ -1077,7 +1077,7 @@ const DashboardHeader = ({ toggleSidebarVisibility }) => {
   };
 
   return (
-    <header className="sticky top-0 z-10 w-full backdrop-blur-[6px] bg-white/50">
+    <header className="sticky top-0 z-10 w-full bg-white border-b drop-shadow-md">
       <div className="flex items-center justify-between p-3 xl:justify-end gap-4">
         <div className="block xl:hidden">
           <div className="flex items-center gap-4">

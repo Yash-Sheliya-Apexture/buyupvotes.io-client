@@ -572,7 +572,9 @@
 import React, { useState } from 'react';
 import { IoClose } from "react-icons/io5";
 import { RiShieldCheckLine } from "react-icons/ri";
+import { RiCloseCircleLine } from "react-icons/ri";
 import { FaCheck } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const Compare = () => {
 
@@ -591,9 +593,9 @@ const Compare = () => {
     const smmflareFeatures = [
         "First deposit bonuses when you take advantage of our services",
         "Services updated on a daily basis for your convenience",
-        "Round the clock customer service for the fastest troubleshooting",
+        "Round the clock customer service for the fastest",
         "Ability to cancel stuck orders after 3 days",
-        "Payment refunds available to you any time there is a balance on your account",
+        "Payment refunds available to you any time there is a balance",
         "Most Affordable SMM Panel on the web",
         "Fully integrated API for ease of use and adaptability"
     ];
@@ -610,48 +612,74 @@ const Compare = () => {
 
     const [selectedTab, setSelectedTab] = useState('smmflare');
 
-    const handleTabChange = (tab) => {
-        setSelectedTab(tab);
-    };
-
     return (
-        <section className='Compare-panal py-10'>
+        <section className='Compare-panal py-5'>
             <div className='container mx-auto'>
-                <div className='text-center'>
-                    <h1 className='text-para-color font-medium text-medium'>What makes us different?</h1>
-                    <div className='flex justify-center lg:mt-4 mt-2'>
-                        <p className='text-para-color font-medium lg:text-xlarge md:text-large text-base max-w-5xl lg:leading-10'>SMMFlare gives you the best <span className='pe-3 text-transparent bg-clip-text bg-gradient-to-r from-[#ffb087] via-[#ff6518] to-main-color'>SMM Panel</span>so you can topple the Competition </p>
+                <div className='md:text-center text-left space-y-4'>
+                    <h1 className='text-primary font-medium text-medium'>What makes us different?</h1>
+                    <div className='flex justify-center'>
+                        <p className='text-black font-medium lg:text-xlarge md:text-large text-2xl max-w-5xl lg:leading-[50px]'>SMMFlare gives you the best <span className='pe-3 text-transparent bg-clip-text bg-gradient-to-r from-[#ffb087] via-[#ff6518] to-main-color'>SMM Panel</span>so you can topple the Competition </p>
                     </div>
-                    <p className='text-para-color font-medium text-small mt-4'>A comparative list of what SMMFlare offers vs Competition </p>
+                    <p className='text-primary font-medium text-medium'>A comparative list of what SMMFlare offers vs Competition </p>
                 </div>
 
                 {/* Tab Switcher */}
-                <div className="relative justify-center bg-gray-100 rounded-lg w-fit mx-auto p-[10px] mt-6 md:hidden block">
+                {/* <div className="relative justify-center bg-gray-100 rounded-lg w-fit mx-auto p-[10px] mt-6 md:hidden block">
                     <div className="relative flex justify-center items-center overflow-hidden rounded-lg">
                         <div
                             className={`absolute left-0 top-0 h-full transition-all duration-300 bg-main-color rounded-lg`}
                             style={{
                                 width: "50%",
-                                transform: selectedTab === "competitor" ? "translateX(0%)" : "translateX(100%)",
+                                transform: selectedTab === "smmflare" ? "translateX(0%)" : "translateX(100%)",
                             }}
                         ></div>
 
-                        {/* Competitor Tab */}
                         <button
-                            className={`relative flex items-center justify-center flex-col md:flex-row font-medium tracking-wide px-6 py-2 focus:outline-none transition-colors duration-300 w-1/2 z-10 ${selectedTab === "competitor" ? "text-white" : "text-sub-color"
+                            className={`relative flex items-center justify-center flex-col md:flex-row font-medium tracking-wide px-6 py-2 focus:outline-none transition-colors duration-300 w-1/2 z-10 ${selectedTab === "competitor" ? "text-primary" : ""
+                                }`}
+                            onClick={() => setSelectedTab("smmflare")}
+                        >
+                            <span>Byupvotes</span>
+                        </button>
+
+                        <button
+                            className={`relative flex items-center justify-center flex-col md:flex-row font-medium tracking-wide px-6 py-2 focus:outline-none transition-colors duration-300 w-1/2 z-10 ${selectedTab === "smmflare" ? "text-primary" : ""
                                 }`}
                             onClick={() => setSelectedTab("competitor")}
                         >
                             <span>Competitor</span>
                         </button>
+                    </div>
+                </div> */}
 
-                        {/* smmflare Tab */}
+                <div className="relative w-fit mx-auto mt-6 md:hidden block bg-gray-50 border border-gray-300/50 rounded-full p-1.5 shadow-lg">
+                    <div className="relative flex justify-between items-center overflow-hidden rounded-full bg-gray-100">
+                        {/* Animated Sliding Indicator */}
+                        <motion.div
+                            className="absolute top-0 left-0 h-full w-1/2 bg-main-color rounded-full"
+                            initial={false}
+                            animate={{
+                                x: selectedTab === "smmflare" ? "0%" : "100%",
+                            }}
+                            transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                        ></motion.div>
+
+                        {/* Smmflare Tab */}
                         <button
-                            className={`relative flex items-center justify-center flex-col md:flex-row font-medium tracking-wide px-6 py-2 focus:outline-none transition-colors duration-300 w-1/2 z-10 ${selectedTab === "smmflare" ? "text-white" : "text-sub-color"
+                            className={`relative flex px-6 py-3 text-center font-semibold tracking-wide transition-colors duration-300 z-10 ${selectedTab === "smmflare" ? "text-white" : "text-primary"
                                 }`}
                             onClick={() => setSelectedTab("smmflare")}
                         >
-                            <span>Smmflare</span>
+                            Byupvotes
+                        </button>
+
+                        {/* Competitor Tab */}
+                        <button
+                            className={`relative flex px-6 py-3 text-center font-semibold tracking-wide transition-colors duration-300 z-10 ${selectedTab === "competitor" ? "text-white" : "text-primary"
+                                }`}
+                            onClick={() => setSelectedTab("competitor")}
+                        >
+                            Competitor
                         </button>
                     </div>
                 </div>
@@ -661,13 +689,9 @@ const Compare = () => {
                     {/* <!-- Competitor Section --> */}
                     <div className={`w-full lg:w-1/2 rounded-lg lg:p-6 p-4 ${selectedTab === 'smmflare' ? 'hidden sm:block' : ''}`}>
                         {/* Header */}
-                        <h2 className="text-xl font-semibold text-black flex items-center mb-4">
-                            <div className='flex items-center gap-5 capitalize'>
-                                <span className="size-6 flex items-center justify-center rounded-full" style={{ backgroundColor: '#D84040', borderColor: '#D84040', borderWidth: '1px', borderStyle: 'solid' }}>
-                                    <IoClose className='text-white p-0.5' />
-                                </span>
-                                Competitor
-                            </div>
+                        <h2 className="text-xl font-semibold text-black flex items-center mb-4 gap-5 capitalize">
+                            <RiCloseCircleLine className='text-red-500 size-7' />
+                            Competitor
                         </h2>
 
                         {/* body */}
@@ -698,7 +722,7 @@ const Compare = () => {
                         {/* Header */}
                         <h2 className="text-xl font-semibold text-black flex items-center mb-4 gap-5 capitalize">
                             <RiShieldCheckLine className='text-green-500 size-7' />
-                            smmflare.com
+                            Byupvotes
                         </h2>
 
                         {/* body */}
