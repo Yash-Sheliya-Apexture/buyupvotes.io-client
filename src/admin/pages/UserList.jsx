@@ -1609,6 +1609,302 @@
 
 // export default UserList;
 
+// import React, { useState, useEffect, useMemo, useRef } from "react";
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import { IoEyeSharp } from "react-icons/io5";
+// import FilterAndSearch from "../components/FilterAndSearch"; // Import the reusable component
+// import Data from "../../assets/Images/nodata.svg";
+// import TokenService from "../../utils/TokenService"; // Import TokenService
+// import { FaUserShield, FaUser } from "react-icons/fa"; // Import icons for roles
+// import Pagination from "../components/Pagination"; // Import the Pagination component
+
+// const UserList = () => {
+//   const [users, setUsers] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const [sortOrder, setSortOrder] = useState("");
+//   const [sortLabel, setSortLabel] = useState("Sort");
+//   const [rowsPerPage, setRowsPerPage] = useState(12); // Start as 12
+//   const [currentPage, setCurrentPage] = useState(1); // Current page number
+
+//   const navigate = useNavigate();
+//   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+//   const token = TokenService.getToken(); // Get token from TokenService
+
+//   const sortOptions = [
+//     { value: "admin", label: "Admin" },
+//     { value: "user", label: "User" },
+//     { value: "AtoZ", label: "A to Z" },
+//     { value: "ZtoA", label: "Z to A" },
+//   ];
+
+//   useEffect(() => {
+//     const fetchUsers = async () => {
+//       setLoading(true);
+//       setError(null);
+//       try {
+//         if (!token) {
+//           setError("Token missing or invalid.");
+//           setLoading(false);
+//           return;
+//         }
+
+//         const response = await axios.get(`${API_BASE_URL}/admin/users`, {
+//           headers: { Authorization: `Bearer ${token}` },
+//         });
+
+//         if (response.status !== 200) {
+//           throw new Error(`HTTP error! Status: ${response.status}`);
+//         }
+
+//         const data = response.data;
+//         if (Array.isArray(data)) {
+//           setUsers(data);
+//         } else {
+//           console.error("Unexpected data format:", data);
+//           setError("Unexpected data format from the server.");
+//         }
+//       } catch (err) {
+//         console.error("Error fetching users:", err);
+//         setError(err.message);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchUsers();
+//   }, [API_BASE_URL, token]);
+
+//   const handleViewDetails = (userId) => {
+//     navigate(`/admin/users/${userId}`);
+//   };
+
+//   const handleSearchChange = (term) => {
+//     setSearchTerm(term);
+//     setCurrentPage(1); //reset current page after search
+//   };
+
+//   const handleSortChange = (order, label) => {
+//     setSortOrder(order);
+//     setSortLabel(label);
+//     setCurrentPage(1); //reset current page after sort
+//   };
+
+//   const handleResetFilters = () => {
+//     setSearchTerm("");
+//     setSortOrder("");
+//     setSortLabel("Sort");
+//     setRowsPerPage(12); //reset row per page
+//     setCurrentPage(1); // Reset current page after reset
+//   };
+
+//   const handleRowsPerPageChange = (newRowsPerPage) => {
+//     setRowsPerPage(newRowsPerPage);
+//     setCurrentPage(1); // Reset to first page when rows per page changes
+//   };
+
+//   const sortedUsers = useMemo(() => {
+//     //Apply sort to users array
+//     let sortUsers = [...users];
+//     if (sortOrder === "admin") {
+//       sortUsers = sortUsers.filter((user) => user.role === "admin");
+//     } else if (sortOrder === "user") {
+//       sortUsers = sortUsers.filter((user) => user.role === "user");
+//     }
+
+//     const sortFn = (a, b) => {
+//       const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
+//       const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
+
+//       if (sortOrder === "AtoZ") {
+//         return nameA.localeCompare(nameB);
+//       } else if (sortOrder === "ZtoA") {
+//         return nameB.localeCompare(nameA);
+//       }
+//       return 0; // No sorting if no sortOrder is selected
+//     };
+
+//     return sortUsers.sort(sortFn);
+//   }, [users, sortOrder]);
+
+//   const filteredUsers = useMemo(() => {
+//     const filterFn = (user) => {
+//       const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
+//       return (
+//         fullName.includes(searchTerm.toLowerCase()) ||
+//         user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+//         user.role.toLowerCase().includes(searchTerm.toLowerCase())
+//       );
+//     };
+
+//     return sortedUsers.filter(filterFn);
+//   }, [sortedUsers, searchTerm]);
+
+//   const paginate = (pageNumber) => {
+//     setCurrentPage(pageNumber);
+//   };
+
+//   const paginatedUsers = useMemo(() => {
+//     const itemsPerPage = rowsPerPage || 12; // Local Variable For readability
+//     const startIndex = (currentPage - 1) * itemsPerPage;
+//     const endIndex = startIndex + itemsPerPage;
+
+//     return filteredUsers.length === 0
+//       ? []
+//       : filteredUsers.slice(startIndex, endIndex); // return empty [] in case it is empty
+//   }, [filteredUsers, rowsPerPage, currentPage]);
+
+//   const totalOrders = filteredUsers.length; // For pagination
+//   const noDataFound = filteredUsers.length === 0;
+
+//   const isFilterApplied = searchTerm || sortOrder || rowsPerPage !== 12; //determine it there is any filter is applied
+
+//   if (loading) {
+//     return (
+//       <div className="flex justify-center items-center h-full">
+//         <div className="py-20 text-center text-gray-400">
+//           <div className="flex flex-col items-center">
+//             <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   }
+
+//   if (error) {
+//     return <div className="text-red-500">Error: {error}</div>;
+//   }
+
+//   return (
+//     <div className="user-list px-4">
+//       {/* Improved Header Section */}
+//       <div className="mb-4">
+//         <h1 className="text-3xl font-bold mb-2">Users List</h1>
+//       </div>
+
+//       <div className="flex items-center justify-between gap-4 mb-4">
+//         <FilterAndSearch
+//           searchTerm={searchTerm}
+//           sortOrder={sortOrder}
+//           sortLabel={sortLabel}
+//           rowsPerPage={rowsPerPage}
+//           onSearch={handleSearchChange}
+//           onSort={handleSortChange}
+//           sortOptions={sortOptions}
+//           onRowsPerPageChange={handleRowsPerPageChange}
+//           showSearch={true} // Show the search input
+//           showSort={true} // Show the sorting dropdown
+//           showRowsPerPage={true} // Show the rows per page dropdown
+//         />
+
+//         {isFilterApplied && (
+//           <button
+//             onClick={handleResetFilters}
+//             className="py-4 px-6 bg-gray-200 hover:bg-gray-300 rounded-xl text-sm font-bold text-gray-800 border transition-colors duration-300"
+//           >
+//             Reset
+//           </button>
+//         )}
+//       </div>
+
+//       {/* Users Table */}
+//       <div className="overflow-x-auto rounded-2xl border border-gray-300 shadow-main">
+//         <table className="min-w-full bg-white">
+//           <thead className="bg-gray-100">
+//             <tr>
+//               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 uppercase tracking-wider">
+//                 Name
+//               </th>
+//               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 uppercase tracking-wider">
+//                 Email
+//               </th>
+//               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 uppercase tracking-wider">
+//                 Role
+//               </th>
+//               <th className="px-6 py-3 text-center text-sm font-semibold text-gray-900 uppercase tracking-wider">
+//                 Actions
+//               </th>
+//             </tr>
+//           </thead>
+//           <tbody className="divide-y divide-gray-200">
+//             {paginatedUsers.length > 0 ? (
+//               paginatedUsers.map((user) => (
+//                 <tr
+//                   key={user._id}
+//                   className="hover:bg-gray-50 transition-colors"
+//                 >
+//                   <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+//                     {user.firstName} {user.lastName}
+//                   </td>
+//                   <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+//                     {user.email}
+//                   </td>
+//                   <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-700">
+//                     <div className="flex items-center">
+//                       {user.role === "admin" ? (
+//                         <>
+//                           <FaUserShield
+//                             size={20}
+//                             className="text-red-500 mr-2"
+//                           />
+//                           <span className="font-semibold text-red-600">
+//                             Admin
+//                           </span>
+//                         </>
+//                       ) : (
+//                         <>
+//                           <FaUser size={16} className="text-green-500 mr-2" />
+//                           <span className="font-semibold text-green-600">
+//                             User
+//                           </span>
+//                         </>
+//                       )}
+//                     </div>
+//                   </td>
+//                   <td className="px-6 py-2 whitespace-nowrap text-center text-sm">
+//                     <button
+//                       onClick={() => handleViewDetails(user._id)}
+//                       className="px-2 py-2 rounded-md bg-gray-200 text-gray-500 hover:text-white hover:bg-gray-500 transition-colors duration-200"
+//                     >
+//                       <IoEyeSharp className="w-5 h-5" />
+//                     </button>
+//                   </td>
+//                 </tr>
+//               ))
+//             ) : (
+//               <tr>
+//                 <td colSpan="4" className="px-4 py-4 text-center">
+//                   <div className="flex flex-col items-center justify-center">
+//                     <img src={Data} alt="No Data" className="h-40 opacity-70" />
+//                     <p className="mt-4 text-xl font-semibold text-gray-700 capitalize">
+//                       No users found
+//                     </p>
+//                   </div>
+//                 </td>
+//               </tr>
+//             )}
+//           </tbody>
+//         </table>
+//       </div>
+//       {/* Pagination component */}
+//       <Pagination
+//         ordersPerPage={rowsPerPage || 12} // Use total count when rowsPerPage is null
+//         totalOrders={filteredUsers.length} // Pass total number of filtered orders
+//         paginate={paginate} // Pass the pagination function
+//         currentPage={currentPage} // Pass the current page
+//         noDataFound={noDataFound}
+//       />
+//     </div>
+//   );
+// };
+
+// export default UserList;
+
+
+
+
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -1810,83 +2106,89 @@ const UserList = () => {
       </div>
 
       {/* Users Table */}
-      <div className="overflow-x-auto rounded-2xl border border-gray-300 shadow-main">
-        <table className="min-w-full bg-white">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 uppercase tracking-wider">
-                Name
-              </th>
-              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 uppercase tracking-wider">
-                Email
-              </th>
-              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 uppercase tracking-wider">
-                Role
-              </th>
-              <th className="px-6 py-3 text-center text-sm font-semibold text-gray-900 uppercase tracking-wider">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200">
-            {paginatedUsers.length > 0 ? (
-              paginatedUsers.map((user) => (
-                <tr
-                  key={user._id}
-                  className="hover:bg-gray-50 transition-colors"
-                >
-                  <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {user.firstName} {user.lastName}
-                  </td>
-                  <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                    {user.email}
-                  </td>
-                  <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-700">
-                    <div className="flex items-center">
-                      {user.role === "admin" ? (
-                        <>
-                          <FaUserShield
-                            size={20}
-                            className="text-red-500 mr-2"
-                          />
-                          <span className="font-semibold text-red-600">
-                            Admin
-                          </span>
-                        </>
-                      ) : (
-                        <>
-                          <FaUser size={16} className="text-green-500 mr-2" />
-                          <span className="font-semibold text-green-600">
-                            User
-                          </span>
-                        </>
-                      )}
+      <div className="overflow-hidden  rounded-2xl border border-gray-300 shadow-main">
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white">
+            <thead className="bg-gray-100 text-nowrap">
+              <tr>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 uppercase tracking-wider">
+                  Name
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 uppercase tracking-wider">
+                  Email
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 uppercase tracking-wider">
+                  Role
+                </th>
+                <th className="px-6 py-3 text-center text-sm font-semibold text-gray-900 uppercase tracking-wider">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {paginatedUsers.length > 0 ? (
+                paginatedUsers.map((user) => (
+                  <tr
+                    key={user._id}
+                    className="hover:bg-gray-50 transition-colors"
+                  >
+                    <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                      {user.firstName} {user.lastName}
+                    </td>
+                    <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                      {user.email}
+                    </td>
+                    <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-700">
+                      <div className="flex items-center">
+                        {user.role === "admin" ? (
+                          <>
+                            <FaUserShield
+                              size={20}
+                              className="text-red-500 mr-2"
+                            />
+                            <span className="font-semibold text-red-600">
+                              Admin
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            <FaUser size={16} className="text-green-500 mr-2" />
+                            <span className="font-semibold text-green-600">
+                              User
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-6 py-2 whitespace-nowrap text-center text-sm">
+                      <button
+                        onClick={() => handleViewDetails(user._id)}
+                        className="px-2 py-2 rounded-md bg-gray-200 text-gray-500 hover:text-white hover:bg-gray-500 transition-colors duration-200"
+                      >
+                        <IoEyeSharp className="w-5 h-5" />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="px-4 py-4 text-center">
+                    <div className="flex flex-col items-center justify-center">
+                      <img
+                        src={Data}
+                        alt="No Data"
+                        className="h-40 opacity-70"
+                      />
+                      <p className="mt-4 text-xl font-semibold text-gray-700 capitalize">
+                        No users found
+                      </p>
                     </div>
                   </td>
-                  <td className="px-6 py-2 whitespace-nowrap text-center text-sm">
-                    <button
-                      onClick={() => handleViewDetails(user._id)}
-                      className="px-2 py-2 rounded-md bg-gray-200 text-gray-500 hover:text-white hover:bg-gray-500 transition-colors duration-200"
-                    >
-                      <IoEyeSharp className="w-5 h-5" />
-                    </button>
-                  </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4" className="px-4 py-4 text-center">
-                  <div className="flex flex-col items-center justify-center">
-                    <img src={Data} alt="No Data" className="h-40 opacity-70" />
-                    <p className="mt-4 text-xl font-semibold text-gray-700 capitalize">
-                      No users found
-                    </p>
-                  </div>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
       {/* Pagination component */}
       <Pagination

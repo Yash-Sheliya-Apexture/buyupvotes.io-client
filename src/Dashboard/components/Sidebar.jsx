@@ -1039,35 +1039,254 @@
 
 // export default SideBar;
 
+// import React, { useState, useEffect } from "react";
+// import logo from "../../assets/Images/Logo.png";
+// import { Link, useLocation } from "react-router-dom";
+// import { BsBarChartFill } from "react-icons/bs";
+// import { PiSpeedometerFill } from "react-icons/pi";
+// import { HiCurrencyEuro } from "react-icons/hi";
+// import { MdContactPage } from "react-icons/md";
+// import { GoFileDirectoryFill } from "react-icons/go";
+// import { MdContacts } from "react-icons/md";
+// import { RiAccountBoxFill } from "react-icons/ri";
+// import { BiSolidCommentDetail } from "react-icons/bi";
+// import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+// import logo1 from "../../assets/Images/logo-mini.png";
+// import { Tooltip } from "react-tooltip";
+// import "react-tooltip/dist/react-tooltip.css";
+
+// const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
+//   const [activeMenu, setActiveMenu] = useState("Dashboard");
+//   const [isSidebarExpanded, setSidebarExpanded] = useState(true);
+
+//   const location = useLocation();
+
+//   useEffect(() => {
+//     const currentMenu = menuItems.find(
+//       (item) => item.link === location.pathname
+//     );
+//     if (currentMenu) {
+//       setActiveMenu(currentMenu.id);
+//     }
+//   }, [location.pathname]);
+
+//   const toggleSidebar = () => {
+//     setSidebarExpanded(!isSidebarExpanded);
+//   };
+
+//   const handleMenuItemClick = (menuId) => {
+//     setActiveMenu(menuId);
+//     if (window.innerWidth < 992) {
+//       toggleSidebarVisibility(false);
+//     }
+//   };
+
+//   const menuItems = [
+//     {
+//       id: "Dashboard",
+//       icon: <PiSpeedometerFill />,
+//       label: "Dashboard",
+//       link: "/dashboard",
+//     },
+//     {
+//       id: "Order Upvotes",
+//       icon: <BsBarChartFill />,
+//       label: "New Order",
+//       link: "/dashboard/upvoteorder",
+//     },
+//     {
+//       id: "Order Comment",
+//       icon: <BiSolidCommentDetail />,
+//       label: "Order Comment",
+//       link: "/dashboard/ordercomment",
+//     },
+//     {
+//       id: "Add Funds",
+//       icon: <HiCurrencyEuro />,
+//       label: "Add Funds-Princing",
+//       link: "/dashboard/pricing",
+//     },
+//     {
+//       id: "FAQs",
+//       icon: <MdContactPage />,
+//       label: "FAQ'S",
+//       link: "/dashboard/faqs",
+//     },
+//     {
+//       id: "Blogs Data",
+//       icon: <GoFileDirectoryFill />,
+//       label: "Blogs",
+//       link: "/dashboard/post",
+//     },
+//     {
+//       id: "Contact",
+//       icon: <MdContacts />,
+//       label: "Contact Us",
+//       link: "/dashboard/contactus",
+//     },
+//     {
+//       id: "Account",
+//       icon: <RiAccountBoxFill />,
+//       label: "Account",
+//       link: "/dashboard/account/",
+//     },
+//   ];
+
+//   return (
+//     <>
+//       {isSidebarVisible && (
+//         <div
+//           className="fixed inset-0 z-40 bg-black bg-opacity-45 backdrop-blur-sm xl:hidden"
+//           onClick={toggleSidebarVisibility}
+//         ></div>
+//       )}
+
+//       <section
+//         className={`fixed xl:relative bg-white border-r z-50 border-dashed border-border-color h-screen transition-all duration-300 ${
+//           isSidebarExpanded ? "w-60" : "w-16"
+//         } ${isSidebarVisible ? "left-0" : "-left-60 xl:left-0"}`}
+//       >
+//         <div className="relative">
+//           <div
+//             className={`flex items-center p-3.5 ${
+//               isSidebarExpanded ? "justify-between" : "justify-center"
+//             } `}
+//           >
+//             {isSidebarExpanded ? (
+//               <Link to="/">
+//                 <img
+//                   src={logo}
+//                   alt="Expanded Logo"
+//                   className="h-8 transition-all duration-300 ease-in-out"
+//                 />
+//               </Link>
+//             ) : (
+//               <Link to="/">
+//                 <img
+//                   src={logo1}
+//                   alt="Collapsed Logo"
+//                   className="h-8 transition-all duration-300 ease-in-out"
+//                 />
+//               </Link>
+//             )}
+//           </div>
+//           <button
+//             onClick={toggleSidebar}
+//             className={`absolute top-2/4 -right-3 bg-white p-1 size-6 hidden cursor-pointer border rounded-full ${
+//               isSidebarExpanded ? "" : "ml-auto"
+//             }  xl:block hidden`}
+//           >
+//             {isSidebarExpanded ? (
+//               <FaAngleLeft className="text-gray-500" />
+//             ) : (
+//               <FaAngleRight className="text-gray-500" />
+//             )}
+//           </button>
+//         </div>
+
+//         <div className="h-[calc(100%-4rem)] overflow-y-auto custom-scroll relative">
+//           <ul className="space-y-2.5 mt-2.5">
+//             {menuItems.map((item) => (
+//               <li
+//                 key={item.id}
+//                 className={`relative group cursor-pointer font-semibold ${
+//                   activeMenu === item.id
+//                     ? "bg-[#ff550034] text-main-color"
+//                     : "text-active hover:bg-[#ff550034] transition-all ease-in duration-150"
+//                 }`}
+//                 onClick={() => handleMenuItemClick(item.id)}
+//               >
+//                 <Link
+//                   to={item.link}
+//                   className="w-full px-2.5 py-2.5 flex items-center transition-all duration-200"
+//                   data-tooltip-id={!isSidebarExpanded ? item.id : undefined}
+//                   data-tooltip-content={item.label}
+//                 >
+//                   <span className="ml-[6px] me-2 text-large">{item.icon}</span>
+//                   {isSidebarExpanded && (
+//                     <span className="text-small text-nowrap">{item.label}</span>
+//                   )}
+//                 </Link>
+//                 {!isSidebarExpanded && (
+//                   <Tooltip
+//                     id={item.id}
+//                     className="tooltip-custom"
+//                     style={{
+//                       position: "fixed",
+//                       zIndex: 10,
+//                     }}
+//                   />
+//                 )}
+//                 <div
+//                   className={`absolute left-0 top-0 h-full w-1.5
+//                      ${
+//                        activeMenu === item.id
+//                          ? "bg-main-color scale-y-100"
+//                          : "bg-transparent scale-y-0"
+//                      } transition-all duration-300`}
+//                 ></div>
+//               </li>
+//             ))}
+//           </ul>
+//           {isSidebarExpanded && (
+//             <div className="p-2 mt-4">
+//               <Link
+//                 to="/dashboard/pricing"
+//                 className="flex items-center justify-center gap-2 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border-2 rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600"
+//               >
+//                 Add Funds
+//               </Link>
+//             </div>
+//           )}
+//         </div>
+//       </section>
+//     </>
+//   );
+// };
+
+// export default SideBar;
+
+
+
+
+
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/Images/Logo.png";
 import { Link, useLocation } from "react-router-dom";
-import { BsBarChartFill } from "react-icons/bs";
-import { PiSpeedometerFill } from "react-icons/pi";
-import { HiCurrencyEuro } from "react-icons/hi";
-import { MdContactPage } from "react-icons/md";
-import { GoFileDirectoryFill } from "react-icons/go";
-import { MdContacts } from "react-icons/md";
-import { RiAccountBoxFill } from "react-icons/ri";
-import { BiSolidCommentDetail } from "react-icons/bi";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { FaListCheck } from "react-icons/fa6";
+import { IoIosChatboxes } from "react-icons/io";
+import { IoWalletOutline } from "react-icons/io5";
+import { IoDocumentTextOutline } from "react-icons/io5";
+import { IoCallOutline } from "react-icons/io5";
+import { IoSettingsOutline } from "react-icons/io5";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import logo1 from "../../assets/Images/logo-mini.png";
-import { Tooltip } from "react-tooltip";
-import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
 const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
-  const [activeMenu, setActiveMenu] = useState("Dashboard");
+  const [activeMenu, setActiveMenu] = useState(null);
   const [isSidebarExpanded, setSidebarExpanded] = useState(true);
-
   const location = useLocation();
 
   useEffect(() => {
-    const currentMenu = menuItems.find(
-      (item) => item.link === location.pathname
-    );
-    if (currentMenu) {
-      setActiveMenu(currentMenu.id);
-    }
+    const checkActiveMenu = () => {
+      const currentMenu = menuItems.find(item => {
+        const trimmedLink = item.link.replace(/\/+$/, '');
+        const trimmedPathname = location.pathname.replace(/\/+$/, '');
+
+        return trimmedPathname === trimmedLink;
+      });
+
+      if (currentMenu) {
+        setActiveMenu(currentMenu.id);
+      } else {
+        setActiveMenu(null);
+      }
+    };
+
+    checkActiveMenu();
   }, [location.pathname]);
 
   const toggleSidebar = () => {
@@ -1084,97 +1303,79 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
   const menuItems = [
     {
       id: "Dashboard",
-      icon: <PiSpeedometerFill />,
+      icon: <LuLayoutDashboard />,
       label: "Dashboard",
       link: "/dashboard",
     },
     {
       id: "Order Upvotes",
-      icon: <BsBarChartFill />,
+      icon: <FaListCheck />,
       label: "New Order",
       link: "/dashboard/upvoteorder",
     },
     {
       id: "Order Comment",
-      icon: <BiSolidCommentDetail />,
+      icon: <IoIosChatboxes />,
       label: "Order Comment",
       link: "/dashboard/ordercomment",
     },
     {
       id: "Add Funds",
-      icon: <HiCurrencyEuro />,
-      label: "Add Funds-Princing",
+      icon: <IoWalletOutline />,
+      label: "Add Funds",
       link: "/dashboard/pricing",
     },
     {
       id: "FAQs",
-      icon: <MdContactPage />,
-      label: "FAQ'S",
+      icon: <IoDocumentTextOutline />,
+      label: "FAQs",
       link: "/dashboard/faqs",
     },
     {
       id: "Blogs Data",
-      icon: <GoFileDirectoryFill />,
+      icon: <IoDocumentTextOutline />,
       label: "Blogs",
       link: "/dashboard/post",
     },
     {
       id: "Contact",
-      icon: <MdContacts />,
+      icon: <IoCallOutline />,
       label: "Contact Us",
       link: "/dashboard/contactus",
     },
     {
       id: "Account",
-      icon: <RiAccountBoxFill />,
-      label: "Account",
-      link: "/dashboard/account/",
+      icon: <IoSettingsOutline />,
+      label: "Account Settings",
+      link: "/dashboard/account",
     },
   ];
+
+  const sidebarClasses = `fixed xl:relative z-50 h-screen transition-all duration-300 bg-white border-r border-gray-100
+                           ${isSidebarExpanded ? 'w-72' : 'w-20'}
+                           ${isSidebarVisible ? 'left-0' : '-left-72 xl:left-0'}`;
 
   return (
     <>
       {isSidebarVisible && (
-        <div
-          className="fixed inset-0 z-40 bg-black bg-opacity-45 backdrop-blur-sm xl:hidden"
-          onClick={toggleSidebarVisibility}
-        ></div>
+        <div className="fixed inset-0 z-40 bg-black bg-opacity-45 backdrop-blur-sm xl:hidden" onClick={toggleSidebarVisibility}></div>
       )}
 
-      <section
-        className={`fixed xl:relative bg-white border-r z-50 border-dashed border-border-color h-screen transition-all duration-300 ${
-          isSidebarExpanded ? "w-60" : "w-16"
-        } ${isSidebarVisible ? "left-0" : "-left-60 xl:left-0"}`}
-      >
+      <section className={sidebarClasses}>
         <div className="relative">
-          <div
-            className={`flex items-center p-3.5 ${
-              isSidebarExpanded ? "justify-between" : "justify-center"
-            } `}
-          >
-            {isSidebarExpanded ? (
-              <Link to="/">
-                <img
-                  src={logo}
-                  alt="Expanded Logo"
-                  className="h-8 transition-all duration-300 ease-in-out"
-                />
-              </Link>
-            ) : (
-              <Link to="/">
-                <img
-                  src={logo1}
-                  alt="Collapsed Logo"
-                  className="h-8 transition-all duration-300 ease-in-out"
-                />
-              </Link>
-            )}
+          <div className={`flex items-center h-[82.6px] border-b p-4  ${isSidebarExpanded ? 'justify-between' : 'justify-center'}`}>
+            <Link to="/" className="flex items-center">
+              {isSidebarExpanded ? (
+                <img src={logo} alt="Expanded Logo" className="h-10 transition-all duration-300" />
+              ) : (
+                <img src={logo1} alt="Collapsed Logo" className="h-10 transition-all duration-300" />
+              )}
+
+            </Link>
           </div>
           <button
             onClick={toggleSidebar}
-            className={`absolute top-2/4 -right-3 bg-white p-1 size-6 hidden cursor-pointer border rounded-full ${
-              isSidebarExpanded ? "" : "ml-auto"
-            }  xl:block hidden`}
+            className="absolute top-1/2 -right-3 bg-white p-1 -translate-y-1/2 size-7 hidden cursor-pointer border rounded-full shadow-md xl:block"
           >
             {isSidebarExpanded ? (
               <FaAngleLeft className="text-gray-500" />
@@ -1184,55 +1385,37 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
           </button>
         </div>
 
-        <div className="h-[calc(100%-4rem)] overflow-y-auto custom-scroll relative">
-          <ul className="space-y-2.5 mt-2.5">
-            {menuItems.map((item) => (
+        <div className="h-[calc(100%-5rem)] overflow-y-auto custom-scroll flex flex-col justify-between">
+          <ul className="space-y-3 p-4 ">
+            {menuItems.map(item => (
               <li
                 key={item.id}
-                className={`relative group cursor-pointer font-semibold ${
-                  activeMenu === item.id
-                    ? "bg-[#ff550034] text-main-color"
-                    : "text-active hover:bg-[#ff550034] transition-all ease-in duration-150"
-                }`}
-                onClick={() => handleMenuItemClick(item.id)}
+                className={`group cursor-pointer rounded-xl py-3 h-12 px-4 flex items-center ${activeMenu === item.id ? 'bg-main-color text-white' : 'text-gray-700 hover:bg-main-color/15 hover:text-main-color'} transition-colors duration-200`} onClick={() => handleMenuItemClick(item.id)}
               >
-                <Link
-                  to={item.link}
-                  className="w-full px-2.5 py-2.5 flex items-center transition-all duration-200"
-                  data-tooltip-id={!isSidebarExpanded ? item.id : undefined}
-                  data-tooltip-content={item.label}
-                >
-                  <span className="ml-[6px] me-2 text-large">{item.icon}</span>
-                  {isSidebarExpanded && (
-                    <span className="text-small text-nowrap">{item.label}</span>
-                  )}
+                <Link to={item.link} className={`w-full flex items-center gap-4 ${isSidebarExpanded ? "" : "justify-center"}`} data-tooltip-id={`${item.id}-tooltip`} data-tooltip-content={item.label}>
+                  <span className="text-2xl">{item.icon}</span>
+                  {isSidebarExpanded && <span className="text-lg font-medium text-nowrap">{item.label}</span>}
                 </Link>
-                {!isSidebarExpanded && (
-                  <Tooltip
-                    id={item.id}
-                    className="tooltip-custom"
-                    style={{
-                      position: "fixed",
-                      zIndex: 10,
-                    }}
-                  />
-                )}
-                <div
-                  className={`absolute left-0 top-0 h-full w-1.5
-                     ${
-                       activeMenu === item.id
-                         ? "bg-main-color scale-y-100"
-                         : "bg-transparent scale-y-0"
-                     } transition-all duration-300`}
-                ></div>
+                {
+                  !isSidebarExpanded && (
+                    <Tooltip
+                        id={`${item.id}-tooltip`}
+                        place="right"
+                        effect="solid"
+                        className="tooltip-slide-in custom-tooltip"
+                    />
+                  )
+                }
+
               </li>
             ))}
           </ul>
+
           {isSidebarExpanded && (
-            <div className="p-2 mt-4">
+            <div className="p-5 mt-4 border-t">
               <Link
                 to="/dashboard/pricing"
-                className="flex items-center justify-center gap-2 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border-2 rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600"
+                className="block px-5 py-3 bg-[#FF5500] text-white rounded-xl font-medium text-center hover:bg-[#D64100] transition-colors duration-200"
               >
                 Add Funds
               </Link>
@@ -1240,6 +1423,18 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
           )}
         </div>
       </section>
+       <style>
+        {`
+          .custom-tooltip {
+            border-radius: 0.5rem; /* Example rounded corners */
+            font-size: 12px; /* Example text size - 14px */
+            padding: 0.5rem 0.75rem; /* Example padding - 8px top/bottom, 12px left/right */
+            background-color: #333; /* Example background color */
+            color: #fff; /* Example text color */
+            font-weight: bold;
+          }
+        `}
+      </style>
     </>
   );
 };

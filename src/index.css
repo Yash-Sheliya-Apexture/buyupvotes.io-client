@@ -731,3 +731,24 @@ textarea:focus {
       transform: scaleZ(1)
   }
 }
+
+
+.tooltip-slide-in {
+  animation: slideIn 0.3s ease-out forwards; 
+  transform-origin: left center; 
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-10px); 
+    opacity: 0;
+  }
+  to {
+    transform: translateX(30px); 
+    opacity: 1;
+  }
+}
+
+
+
+
