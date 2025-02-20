@@ -38,7 +38,7 @@ const OurBenefits = () => {
       <div className="container mx-auto">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 mb-14">
           <div className="lg:max-w-md">
-            <h3 className="font-semibold font-BasierSquare md:text-large text-basic lg:text-[40px] lg:leading-[45px] text-center md:text-left tracking-normal">
+            <h3 className="font-semibold font-BasierSquare md:text-large text-basic lg:text-[40px] lg:leading-[45px] tracking-normal">
               <span className="font-bold">Boost your online presence </span>
               <span className="pe-3 text-transparent bg-clip-text bg-gradient-to-r from-[#ffb087] via-[#ff6518] to-main-color">
                 with to ease!
@@ -46,7 +46,7 @@ const OurBenefits = () => {
             </h3>
           </div>
           <div className="content-wrap">
-            <p className="mb-6 text-xl font-medium text-gray-700">
+            <p className="mb-6 lg:text-xl text-medium font-medium text-primary">
               Whether you're looking to rank higher on Reddit, Quora, YouTube,
               or other platforms, our upvote services are here to help you
               shine. With real engagement from verified users, we ensure your
@@ -62,7 +62,7 @@ const OurBenefits = () => {
         </div>
       </div>
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 md:gap-4 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {icons.map((icon) => (
             <div
               key={icon.id}

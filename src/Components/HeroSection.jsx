@@ -284,7 +284,7 @@ const HeroSection = () => {
 
   return (
     <section className="hero-section relative -mt-24 overflow-hidden">
-      <div className="pt-20 pb-14">
+      <div className="pt-20 md:pb-14 pb-0">
         <div className="absolute inset-0">
           <img
             src={images.overlay_1}

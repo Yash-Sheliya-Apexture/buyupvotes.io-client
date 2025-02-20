@@ -110,13 +110,17 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import HeroSection from "../Components/HeroSection";
+import Post from "./Post";
+import Upvotes from "./Upvotes";
 import Pricing from "../Components/Pricing";
-import Currency from "../Components/Currency";
+// import Currency from "../Components/Currency";
 import { FaArrowUp } from "react-icons/fa6";
 import Contact from "../Components/homeSection/Contact";
 import Blogs from "../Components/homeSection/Blogs";
 import OurBenefits from "../Components/homeSection/OurBenefits";
 import Compare from "./Compare";
+import Trusted from "./Trusted";
+import Service from "./Service";
 
 const HomePage = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -137,11 +141,15 @@ const HomePage = () => {
   return (
     <main className="scroll-smooth">
       <HeroSection />
-      <Pricing />
-      <Currency />
+      {/* <Currency /> */}
+      <Post />
+      <Upvotes />
       <OurBenefits />
+      <Trusted />
       <Compare />
+      {/* <Service /> */}
       <Blogs />
+      {/* <Pricing /> */}
       <Contact />
 
       {showScrollTop && (

@@ -1180,109 +1180,6 @@
 
 // export default Pricing;
 
-import React from 'react';
-import GradientHeading from './GradientHeading';
-import Bitcoin from "../assets/Images/Bitcoin.png";
-import MasterCard from "../assets/Images/MasterCard.png";
-import { MdOutlineSecurity } from "react-icons/md";
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-
-const Pricing = () => {
-
-
-  const cardVariants = {
-    hidden: {
-      opacity: 0,
-      y: 50,       // Start below
-      rotate: 2,    // Slightly rotated
-      scale: 0.9     // Slightly smaller
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      rotate: 0,    // Rotate back to normal
-      scale: 1,
-      transition: {
-        type: "spring", // Spring physics for a more natural feel
-        stiffness: 200,   // Controls bounciness (higher = less bouncy)
-        damping: 10,    // Controls oscillation (lower = more oscillation)
-        duration: 0.5,   // Total animation time
-        delay: 0.2     // Introduce a slight delay to make it more appealing. Removed stagger effect cause main tag component can manage this
-      },
-    },
-  };
-
-
-  // Use Intersection Observer
-  const { ref, inView } = useInView({
-    threshold: 0.5,
-    triggerOnce: true,
-  });
-
-
-
-  return (
-    <div className='container mx-auto py-16'>
-      <div
-        id="payment-gateways"
-        className="bg-gray-50 py-10 text-center"
-        ref={ref}
-      >
-        <div>
-          <GradientHeading
-            tag="h3"
-            beforeText="Secure "
-            gradientText="Payment Gateways"
-            beforeSpanClassName="font-bold"
-            textSize="text-basic lg:text-xlarge text-center pb-2"
-          />
-        </div>
-        <p className="text-gray-600 text-medium lg:text-base mb-10">
-          We offer a variety of secure and convenient payment options to ensure a seamless checkout experience.
-        </p>
-
-        <div className="flex md:flex-row flex-col items-center justify-center gap-8">
-
-
-          <motion.div
-            className="p-6 w-full max-w-sm border border-gray-200 rounded-xl bg-white shadow-md"
-            variants={cardVariants}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-          >
-            <img src={Bitcoin} alt="Bitcoin" className="lg:h-20 h-14 mx-auto mb-4" />
-            <h3 className="text-2xl font-semibold text-gray-800 mb-3">Bitcoin</h3>
-            <p className="text-gray-700 text-small lg:text-medium">Use Bitcoin for secure and anonymous payments.</p>
-          </motion.div>
-
-
-          <motion.div
-            className="p-6 w-full max-w-sm border border-gray-200 rounded-xl bg-white shadow-md"
-            variants={cardVariants}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-          >
-            <img src={MasterCard} alt="Mastercard" className="lg:h-20 h-14 mx-auto mb-4" />
-            <h3 className="text-2xl font-semibold text-gray-800 mb-3">Mastercard</h3>
-            <p className="text-gray-700 text-small lg:text-medium">Pay securely with your Mastercard credit or debit card.</p>
-          </motion.div>
-        </div>
-
-        <div className="lg:mt-12 mt-5 flex items-center justify-center gap-0">
-          <MdOutlineSecurity className='text-green-500 inline-block size-8' />
-          <p className="text-gray-700 text-small lg:text-medium font-medium">
-            Your payment information is protected with SSL encryption. We do not store your credit card details.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Pricing;
-
-
 // import React from 'react';
 // import GradientHeading from './GradientHeading';
 // import Bitcoin from "../assets/Images/Bitcoin.png";
@@ -1293,123 +1190,304 @@ export default Pricing;
 
 // const Pricing = () => {
 
-//   // Heading Animation
-//   const headingVariants = {
-//     hidden: { opacity: 0, y: -30 },
-//     visible: {
-//       opacity: 1,
-//       y: 0,
-//       transition: {
-//         duration: 0.8,
-//         delay: 0.2,
-//         ease: "easeOut",
-//       },
-//     },
-//   };
-
-//   // Card Animation with slight stagger effect
 //   const cardVariants = {
-//     hidden: { opacity: 0, scale: 0.9, y: 20 },
-//     visible: (index) => ({
-//       opacity: 1,
-//       scale: 1,
-//       y: 0,
-//       transition: {
-//         duration: 0.6,
-//         ease: "easeInOut",
-//         delay: index * 0.2, // Stagger animation for cards
-//       },
-//     }),
-//   };
-
-//   // Security Section Animation
-//   const securityVariants = {
-//     hidden: { opacity: 0, scale: 0.8 },
+//     hidden: {
+//       opacity: 0,
+//       y: 50,       // Start below
+//       rotate: 2,    // Slightly rotated
+//       scale: 0.9     // Slightly smaller
+//     },
 //     visible: {
 //       opacity: 1,
+//       y: 0,
+//       rotate: 0,    // Rotate back to normal
 //       scale: 1,
 //       transition: {
-//         duration: 0.6,
-//         ease: "easeOut",
-//         delay: 0.4,
+//         type: "spring", // Spring physics for a more natural feel
+//         stiffness: 200,   // Controls bounciness (higher = less bouncy)
+//         damping: 10,    // Controls oscillation (lower = more oscillation)
+//         duration: 0.5,   // Total animation time
+//         delay: 0.2     // Introduce a slight delay to make it more appealing. Removed stagger effect cause main tag component can manage this
 //       },
 //     },
 //   };
 
-//   // Intersection Observer
+
+//   // Use Intersection Observer
 //   const { ref, inView } = useInView({
-//     threshold: 0.3,
+//     threshold: 0.5,
 //     triggerOnce: true,
 //   });
 
+
+
 //   return (
 //     <div className='container mx-auto py-16'>
-//       <motion.section
+//       <div
 //         id="payment-gateways"
 //         className="bg-gray-50 py-10 text-center"
-//         variants={headingVariants}
-//         initial="hidden"
-//         animate={inView ? "visible" : "hidden"}
 //         ref={ref}
 //       >
-//         <div className="container mx-auto px-4">
-//           <div>
-//             <GradientHeading
-//               tag="h3"
-//               beforeText="Secure "
-//               gradientText="Payment Options"
-//               beforeSpanClassName="font-bold"
-//               textSize="text-basic lg:text-xlarge text-center"
-//             />
-//           </div>
-//           <p className="text-gray-600 text-base mb-10">
-//             We offer a variety of secure and convenient payment options to ensure a seamless checkout experience.
-//           </p>
+//         <div>
+//           <GradientHeading
+//             tag="h3"
+//             beforeText="Secure "
+//             gradientText="Payment Gateways"
+//             beforeSpanClassName="font-bold"
+//             textSize="text-basic lg:text-xlarge text-center pb-2"
+//           />
+//         </div>
+//         <p className="text-gray-600 text-medium lg:text-base mb-10">
+//           We offer a variety of secure and convenient payment options to ensure a seamless checkout experience.
+//         </p>
 
-//           <div className="flex justify-center gap-8 flex-wrap">
-//             {/* Bitcoin Card */}
-//             <motion.div
-//               className="p-6 w-full max-w-sm border border-gray-200 rounded-xl bg-white shadow-md"
-//               variants={cardVariants}
-//               initial="hidden"
-//               animate={inView ? "visible" : "hidden"}
-//               custom={0} // Pass custom index for stagger effect
-//             >
-//               <img src={Bitcoin} alt="Bitcoin" className="h-20 mx-auto mb-4" />
-//               <h3 className="text-2xl font-semibold text-gray-800 mb-3">Bitcoin</h3>
-//               <p className="text-gray-700 text-medium">Use Bitcoin for secure and anonymous payments.</p>
-//             </motion.div>
+//         <div className="flex md:flex-row flex-col items-center justify-center gap-8">
 
-//             {/* Mastercard Card */}
-//             <motion.div
-//               className="p-6 w-full max-w-sm border border-gray-200 rounded-xl bg-white shadow-md"
-//               variants={cardVariants}
-//               initial="hidden"
-//               animate={inView ? "visible" : "hidden"}
-//               custom={1} // Stagger effect for second card
-//             >
-//               <img src={MasterCard} alt="Mastercard" className="h-20 mx-auto mb-4" />
-//               <h3 className="text-2xl font-semibold text-gray-800 mb-3">Mastercard</h3>
-//               <p className="text-gray-700 text-medium">Pay securely with your Mastercard credit or debit card.</p>
-//             </motion.div>
-//           </div>
 
-//           {/* Security Section */}
 //           <motion.div
-//             className="mt-12 flex items-center justify-center gap-2"
-//             variants={securityVariants}
+//             className="p-6 w-full max-w-sm border border-gray-200 rounded-xl bg-white shadow-md"
+//             variants={cardVariants}
 //             initial="hidden"
 //             animate={inView ? "visible" : "hidden"}
 //           >
-//             <MdOutlineSecurity className='text-green-500 size-8' />
-//             <p className="text-gray-700 text-medium font-medium">
-//               Your payment information is protected with SSL encryption. We do not store your credit card details.
-//             </p>
+//             <img src={Bitcoin} alt="Bitcoin" className="lg:h-20 h-14 mx-auto mb-4" />
+//             <h3 className="text-2xl font-semibold text-gray-800 mb-3">Bitcoin</h3>
+//             <p className="text-gray-700 text-small lg:text-medium">Use Bitcoin for secure and anonymous payments.</p>
+//           </motion.div>
+
+
+//           <motion.div
+//             className="p-6 w-full max-w-sm border border-gray-200 rounded-xl bg-white shadow-md"
+//             variants={cardVariants}
+//             initial="hidden"
+//             animate={inView ? "visible" : "hidden"}
+//           >
+//             <img src={MasterCard} alt="Mastercard" className="lg:h-20 h-14 mx-auto mb-4" />
+//             <h3 className="text-2xl font-semibold text-gray-800 mb-3">Mastercard</h3>
+//             <p className="text-gray-700 text-small lg:text-medium">Pay securely with your Mastercard credit or debit card.</p>
 //           </motion.div>
 //         </div>
-//       </motion.section>
+
+//         <div className="lg:mt-12 mt-5 flex items-center justify-center gap-0">
+//           <MdOutlineSecurity className='text-green-500 inline-block size-8' />
+//           <p className="text-gray-700 text-small lg:text-medium font-medium">
+//             Your payment information is protected with SSL encryption. We do not store your credit card details.
+//           </p>
+//         </div>
+//       </div>
 //     </div>
 //   );
 // };
 
 // export default Pricing;
+
+// import React, { useEffect, useState } from "react";
+// import Rocket from "../assets/Images/rocket.webp";
+// import { FaUpRightFromSquare } from "react-icons/fa6";
+// import { Link } from "react-router-dom";
+
+// const Pricing = () => {
+
+//   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
+
+//   useEffect(() => {
+//     // Check if there's a token or user info in localStorage to determine login status
+//     const authToken = localStorage.getItem("authToken"); // or localStorage.getItem("user");
+//     if (authToken) {
+//       setIsLoggedIn(true); // If token exists, user is logged in
+//     } else {
+//       setIsLoggedIn(false); // If no token, user is not logged in
+//     }
+//   }, []);
+
+
+//   return (
+//     <>
+//       {/* Contact Form */}
+//       <section className="mx-auto container" id="FaQ">
+//         <div className="bg-main-color my-10 rounded-[30px] pb-6">
+//           <div className="flex flex-wrap items-center lg:flex-nowrap">
+//             {/* Left Side: Image */}
+//             <div className="w-full lg:w-[40%] flex justify-center lg:justify-start">
+//               <img
+//                 src={Rocket}
+//                 alt="Rocket"
+//                 className="max-w-[350px] md:max-w-[400px] animate-float"
+//               />
+//             </div>
+
+//             {/* Right Side: Content */}
+//             <div className="w-full lg:w-[60%] text-center lg:text-left mt-10 lg:mt-0">
+//               <h1 className="text-white text-[24px] md:text-[32px] lg:text-[50px] font-black leading-tight">
+//                 Buy upvotes today & <br /> get instant delivery!
+//               </h1>
+//               {!isLoggedIn ? (
+//                 <div className="flex mt-8">
+//                   <Link
+//                     to="/dashboard"
+//                     className="bg-white text-[#FF5700] inline-block px-10 py-2.5 font-bold rounded-full transition-all hover:bg-[#454F5B] hover:text-white"
+//                   >
+//                     Dashboard
+//                   </Link>
+//                 </div>
+//               ) : (
+//                 <div className="flex flex-col items-center mt-8 space-y-4 lg:flex-row lg:items-start md:space-y-0 md:space-x-4">
+//                   {/* Sign In Button */}
+//                   <Link
+//                     to="/signin"
+//                     className="bg-white text-[#FF5700] font-bold px-20 py-1.5 rounded-full transition-all hover:bg-[#454F5B] hover:text-white"
+//                   >
+//                     Sign in
+//                   </Link>
+
+//                   {/* Sign Up Button */}
+//                   <Link to="/signup" className="text-white font-bold lg:px-20 px-16 py-1.5 rounded-full border-2 border-transparent flex items-center transition-all hover:border-white">
+//                     Sign up
+//                     <FaUpRightFromSquare className="ml-1" />
+//                   </Link>
+//                 </div>
+//               )
+//               }
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+//     </>
+//   );
+// };
+
+// export default Pricing;
+
+
+// import React, { useEffect, useState } from "react";
+// import Rocket from "../assets/Images/rocket.webp";
+// import { FaUpRightFromSquare } from "react-icons/fa6";
+// import { Link } from "react-router-dom";
+
+// const Pricing = () => {
+
+//   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
+
+//   useEffect(() => {
+//     // Check if there's a token or user info in localStorage to determine login status
+//     const authToken = localStorage.getItem("authToken"); // or localStorage.getItem("user");
+//     if (authToken) {
+//       setIsLoggedIn(true); // If token exists, user is logged in
+//     } else {
+//       setIsLoggedIn(false); // If no token, user is not logged in
+//     }
+//   }, []);
+
+
+//   return (
+//     <>
+//       {/* Contact Form */}
+//       <section className="mx-auto container" id="FaQ">
+//         <div className="bg-[#FF5700] my-10 rounded-[30px] pb-6 shadow-lg overflow-hidden">
+//           <div className="flex flex-wrap items-center lg:flex-nowrap">
+//             {/* Left Side: Image */}
+//             <div className="w-full lg:w-[40%] flex justify-center lg:justify-start">
+//               <img
+//                 src={Rocket}
+//                 alt="Rocket"
+//                 className="max-w-[350px] md:max-w-[400px] animate-float p-4" // Add padding to image
+//               />
+//             </div>
+
+//             {/* Right Side: Content */}
+//             <div className="w-full lg:w-[60%] text-center lg:text-left mt-10 lg:mt-0 px-4 md:px-8">
+//               <h1 className="text-white text-[28px] md:text-[36px] lg:text-[48px] font-extrabold leading-tight mb-4">
+//                 Boost Your Reach: Get Upvotes Instantly!
+//               </h1>
+//               <p className="text-white text-lg mb-6 opacity-80">
+//                 Skyrocket your content visibility with our upvote service.  Fast delivery, real results.
+//               </p>
+//               {!isLoggedIn ? (
+//                 <div className="flex justify-center lg:justify-start">
+//                   <Link
+//                     to="/dashboard"
+//                     className="bg-white text-[#FF5700] inline-block px-8 py-3 font-semibold rounded-full transition-all hover:bg-[#f0f0f0] shadow-md"
+//                   >
+//                     Dashboard
+//                   </Link>
+//                 </div>
+//               ) : (
+//                 <div className="flex flex-col items-center mt-8 space-y-4 lg:flex-row lg:items-center lg:justify-start md:space-y-0 md:space-x-4">
+//                   {/* Sign In Button */}
+//                   <Link
+//                     to="/signin"
+//                     className="bg-white text-[#FF5700] font-semibold px-6 py-3 rounded-full transition-all hover:bg-[#f0f0f0] shadow-md"
+//                   >
+//                     Sign in
+//                   </Link>
+
+//                   {/* Sign Up Button */}
+//                   <Link to="/signup" className="text-white font-semibold px-6 py-3 rounded-full border-2 border-white flex items-center transition-all hover:bg-[#FF5700]/80 hover:border-transparent shadow-md">
+//                     Sign up
+//                     <FaUpRightFromSquare className="ml-2" />
+//                   </Link>
+//                 </div>
+//               )
+//               }
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+//     </>
+//   );
+// };
+
+// export default Pricing;
+
+import React, { useEffect, useState } from "react";
+import Rocket from "../assets/Images/rocket.webp";
+import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
+const Pricing = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    setIsLoggedIn(!!authToken);
+  }, []);
+
+  return (
+    <section className="container mx-auto px-6 py-12">
+      <div className="relative bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl shadow-xl overflow-hidden text-white p-10 flex flex-col md:flex-row items-center md:items-start">
+        {/* Left Side - Image */}
+        <div className="w-full md:w-1/2 flex justify-center">
+          <img src={Rocket} alt="Rocket" className="max-w-[320px] animate-bounce-slow" />
+        </div>
+
+        {/* Right Side - Content */}
+        <div className="w-full md:w-1/2 text-center md:text-left mt-8 md:mt-0 space-y-6">
+          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
+            Boost Your Reach <span className="text-white">Instantly!</span>
+          </h1>
+          <p className="text-lg opacity-90">
+            Increase visibility and engagement with real upvotes. Fast delivery, real results.
+          </p>
+          <div className="mt-6 flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-4">
+            {!isLoggedIn ? (
+              <Link to="/dashboard" className="bg-yellow-300 text-orange-700 font-bold px-8 py-3 rounded-full shadow-lg transition-all hover:bg-yellow-400 hover:shadow-xl flex items-center">
+                Go to Dashboard <FaArrowRight className="ml-2" />
+              </Link>
+            ) : (
+              <>
+                <Link to="/signin" className="bg-white text-orange-600 font-bold px-6 py-3 rounded-full shadow-lg transition-all hover:bg-gray-100">
+                  Sign In
+                </Link>
+                <Link to="/signup" className="border-2 border-white px-6 py-3 rounded-full flex items-center transition-all hover:bg-orange-600 hover:border-transparent">
+                  Sign Up <FaArrowRight className="ml-2" />
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Pricing;
