@@ -14,14 +14,14 @@ const FundPricingTopbar = () => {
 
     return (
         <>
-            <div className="container mx-auto py-4">
-                <div className="my-4 inline-block">
-                    <div className="flex justify-start gap-4 border border-gray-300 p-3 rounded-full">
-                        <div className="bg-main-color text-white py-3 px-8 border border-main-color rounded-full cursor-pointer">
+            <div className="container mx-auto">
+                <div className="my-4 w-full lg:w-1/3 md:w-1/2">
+                    <div className="flex md:justify-start justify-center gap-2 border border-gray-300 p-1.5 rounded-full">
+                        <div className="bg-main-color text-white py-3 md:px-8 px-6 w-full border text-nowrap border-main-color rounded-full cursor-pointer">
                             Add Funds
                         </div>
                         <div
-                            className="bg-white text-gray-900 py-3 px-8 border border-gray-300 rounded-full cursor-pointer"
+                            className="bg-white text-gray-900 py-3 md:px-8 px-6 w-full border text-nowrap border-gray-300 rounded-full cursor-pointer"
                             onClick={openModal}
                         >
                             Payment History
