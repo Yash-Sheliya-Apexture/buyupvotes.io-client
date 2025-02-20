@@ -122,7 +122,7 @@ const Footer = () => {
           <div className="flex items-center justify-between py-4 mt-4 border-t border-white">
             <div className="text-white">
               <p
-                className={`${textColorClass}  lg:text-medium text-small font-medium`}
+                className={`${textColorClass} text-small font-medium`}
               >
                 © 2024 All rights reserved
               </p>

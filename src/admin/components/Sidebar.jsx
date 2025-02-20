@@ -955,6 +955,17 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState, useRef, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
@@ -1038,12 +1049,15 @@ const MenuItem = ({ item, isOpen, onToggle, animationDuration = 300 }) => {
 
                 >
                     {item.subItems.map((subItem) => (
-                        <MenuItem
+                        <NavLink
+                            to={subItem.to}
                             key={subItem.id}
-                            item={subItem}
-                            isOpen={isOpen}
-                            onToggle={onToggle}
-                        />
+                            className={({ isActive: navLinkIsActive }) =>
+                                `block py-2 px-4 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-800 transition duration-200 ${navLinkIsActive ? 'bg-gray-100 text-gray-800 font-semibold' : ''}`
+                            }
+                        >
+                            {subItem.title}
+                        </NavLink>
                     ))}
                 </div>
             )}
@@ -1053,6 +1067,17 @@ const MenuItem = ({ item, isOpen, onToggle, animationDuration = 300 }) => {
 
 const Sidebar = () => {
     const [openMenus, setOpenMenus] = useState({});
+    const location = useLocation();
+
+    // Determine if the "dashboard" submenu should be open based on the current path
+    useEffect(() => {
+        const isDashboardRoute = location.pathname.startsWith('/admin'); // Adjust if your dashboard routes are different
+        if (isDashboardRoute && !openMenus['dashboard']) {
+            setOpenMenus(prev => ({ ...prev, 'dashboard': true }));
+        } else if (!isDashboardRoute && openMenus['dashboard']) {
+            setOpenMenus(prev => ({ ...prev, 'dashboard': false }));
+        }
+    }, [location.pathname]);
 
     const toggleMenu = (menuId) => {
         setOpenMenus(prev => ({
@@ -1073,7 +1098,7 @@ const Sidebar = () => {
             title: 'Dashboard',
             to: '/admin',
             subItems: [
-                { id: 'analytics', title: 'Analytics Dashboard', to: '/admin/analytics' },
+                // { id: 'analytics', title: 'Analytics Dashboard', to: '/admin/analytics' },
                 { id: 'ecommerce', title: 'All Orders', to: '/admin/orders' },
                 { id: 'project', title: 'All Users', to: '/admin/users' },
                 { id: 'crm', title: 'All Payments', to: '/admin/payments' },
@@ -1198,7 +1223,7 @@ const Sidebar = () => {
     return (
         <div className="bg-white w-64 flex flex-col h-screen border-r border-gray-200">
             {/* Logo & App Name */}
-            <div className="flex items-center h-16 text-base font-semibold px-4 border-b border-gray-200">
+            <div className="flex items-center h-[68px] text-base font-semibold p-4 border-b border-gray-200">
                 <div className="h-8 w-8 mr-2 rounded-md bg-gray-800 text-white flex items-center justify-center">
                     {/* Replace with actual logo */}
                     DC

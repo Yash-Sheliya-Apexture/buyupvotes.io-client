@@ -477,7 +477,389 @@
 // export const useAuth = () => useContext(AuthContext);
 
 
-import React, { createContext, useState, useEffect, useContext } from 'react';
+
+
+// import React, { createContext, useState, useEffect, useContext } from 'react';
+// import axios from 'axios';
+// import TokenService from '../utils/TokenService';
+// import { useNavigate } from 'react-router-dom';
+// import { toast } from 'react-toastify';
+
+// const AuthContext = createContext();
+
+// export const AuthProvider = ({ children }) => {
+//   const [user, setUser] = useState(null);
+//   const [loading, setLoading] = useState(true);
+//   const navigate = useNavigate();
+
+//   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+//   useEffect(() => {
+//     const checkAuthStatus = async () => {
+//       setLoading(true);  // Start loading when checking auth status
+//       try {
+//         const accessToken = TokenService.getToken();
+//         const refreshToken = TokenService.getRefreshToken();
+
+//         if (!accessToken && !refreshToken) {
+//           return; // Exit early if no tokens
+//         }
+
+//         if (accessToken) {
+//           try {
+//             const headers = { Authorization: `Bearer ${accessToken}` };
+//             const response = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
+
+//             if (response.status === 200) {
+//               setUser(response.data);
+//               return; // Exit after successful fetch
+//             }
+//           } catch (error) {
+//             console.error("Error fetching user data:", error);
+//             // Consider token invalidation here if needed
+//           }
+//         }
+
+//         if (refreshToken) {
+//           try {
+//             const refreshResponse = await axios.post(`${API_BASE_URL}/auth/refresh-token`, {}, {
+//               withCredentials: true
+//             });
+
+//             if (refreshResponse.status === 200) {
+//               TokenService.setToken(refreshResponse.data.accessToken);
+//               const headers = { Authorization: `Bearer ${refreshResponse.data.accessToken}` };
+//               const userResponse = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
+
+//               if (userResponse.status === 200) {
+//                 setUser(userResponse.data);
+//               } else {
+//                 // Invalidate tokens if user fetch fails after refresh
+//                 TokenService.removeToken();
+//                 TokenService.removeRefreshToken();
+//                 setUser(null);
+//               }
+//             } else {
+//               // Invalidate tokens if refresh fails
+//               TokenService.removeToken();
+//               TokenService.removeRefreshToken();
+//               setUser(null);
+//             }
+//           } catch (refreshError) {
+//             console.error("Token refresh error:", refreshError);
+//             TokenService.removeToken();
+//             TokenService.removeRefreshToken();
+//             setUser(null);
+//           }
+//         }
+//       } finally {
+//         setLoading(false); // Ensure loading is always set to false
+//       }
+//     };
+
+//     checkAuthStatus();
+//   }, [API_BASE_URL, navigate]);
+
+
+//   const login = async (email, password) => {
+//     setLoading(true); // Start loading during login
+//     try {
+//       const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password }, { withCredentials: true });
+//       if (response.status === 200) {
+//         TokenService.setToken(response.data.tokens.accessToken);
+//         TokenService.setRefreshToken(response.data.refreshToken);
+
+//         // Fetch user data after login to determine the role
+//         const headers = { Authorization: `Bearer ${response.data.tokens.accessToken}` };
+//         const userResponse = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
+
+//         if (userResponse.status === 200) {
+//           setUser(userResponse.data);
+
+//           // Redirect based on role
+//           if (userResponse.data.role === 'admin') {
+//             navigate('/admin');  // Redirect to admin panel
+//           } else {
+//             navigate('/dashboard');  // Redirect to user dashboard
+//           }
+//           toast.success("Login successful!");
+//         } else {
+//           TokenService.removeToken();
+//           TokenService.removeRefreshToken();
+//           setUser(null);
+//           toast.error("Failed to fetch user details.");
+//         }
+//       } else {
+//         toast.error("Login failed.");
+//       }
+//     } catch (error) {
+//       console.error("Login error:", error);
+//       TokenService.removeToken();
+//       TokenService.removeRefreshToken();
+//       setUser(null);
+//       toast.error(error.response?.data?.message || "Login failed.");
+//     } finally {
+//       setLoading(false); // Ensure loading is always set to false
+//     }
+//   };
+
+//   const logout = () => {
+//     TokenService.removeToken();
+//     TokenService.removeRefreshToken();
+//     setUser(null);
+//     navigate('/');
+//   };
+
+//   const contextValue = {
+//     user,
+//     setUser,
+//     login,
+//     logout,
+//     loading
+//   };
+
+//   return (
+//     <AuthContext.Provider value={contextValue}>
+//       {!loading && children}
+//     </AuthContext.Provider>
+//   );
+// };
+
+// export const useAuth = () => useContext(AuthContext);
+
+
+// import React, {
+//   createContext,
+//   useState,
+//   useEffect,
+//   useContext,
+//   useCallback,
+// } from 'react';
+// import axios from 'axios';
+// import TokenService from '../utils/TokenService';
+// import { useNavigate } from 'react-router-dom';
+// import { toast } from 'react-toastify';
+
+// const AuthContext = createContext();
+
+// export const AuthProvider = ({ children }) => {
+//   const [user, setUser] = useState(null);
+//   const [loading, setLoading] = useState(true);
+//   const [accessToken, setAccessToken] = useState(null); // Store access token
+//   const navigate = useNavigate();
+
+//   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+//   // Memoized fetchUserData function
+//   const fetchUserData = useCallback(
+//     async (token) => {
+//       if (!token) {
+//         console.warn("fetchUserData: No token provided."); // Log this
+//         return false;
+//       }
+
+//       try {
+//         const headers = { Authorization: `Bearer ${token}` };
+//         const response = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
+
+//         if (response.status === 200) {
+//           setUser(response.data);
+//           return true;
+//         } else {
+//           console.error("fetchUserData: Error fetching user data. Status:", response.status);
+//           setUser(null);
+//           return false;
+//         }
+//       } catch (error) {
+//         console.error("fetchUserData: Error fetching user data:", error);
+//         setUser(null);
+//         return false;
+//       }
+//     },
+//     [API_BASE_URL]
+//   );
+
+//   // Memoized refreshAccessToken function
+//   const refreshAccessToken = useCallback(async () => {
+//     const refreshToken = TokenService.getRefreshToken();
+
+//     if (!refreshToken) {
+//       console.warn("refreshAccessToken: No refresh token found.");
+//       setAccessToken(null);
+//       setUser(null);
+//       return null; // Return null instead of false, more idiomatic for tokens
+//     }
+
+//     try {
+//       const refreshResponse = await axios.post(
+//         `${API_BASE_URL}/auth/refresh-token`,
+//         {},
+//         { withCredentials: true }
+//       );
+
+//       if (refreshResponse.status === 200) {
+//         const newAccessToken = refreshResponse.data.accessToken;
+//         TokenService.setRefreshToken(refreshResponse.data.refreshToken);  //Update refresh Token as well
+//         setAccessToken(newAccessToken);
+//         return newAccessToken;
+//       } else {
+//         console.error("refreshAccessToken: Token refresh failed. Status:", refreshResponse.status);
+//         TokenService.removeRefreshToken();
+//         TokenService.removeToken();
+//         setAccessToken(null);
+//         setUser(null);
+//         return null;
+//       }
+//     } catch (refreshError) {
+//       console.error("refreshAccessToken: Token refresh error:", refreshError);
+//       TokenService.removeRefreshToken();
+//       TokenService.removeToken();
+//       setAccessToken(null);
+//       setUser(null);
+//       return null;
+//     }
+//   }, [API_BASE_URL]);
+
+//   useEffect(() => {
+//     const checkAuthStatus = async () => {
+//       setLoading(true);
+//       try {
+//         let initialAccessToken = TokenService.getToken();
+//         const initialRefreshToken = TokenService.getRefreshToken();
+
+//         if (!initialAccessToken && !initialRefreshToken) {
+//           console.log("checkAuthStatus: No initial tokens found.");
+//           setUser(null);
+//           setAccessToken(null);
+//           return;
+//         }
+
+//         if (!initialAccessToken && initialRefreshToken) {
+//           initialAccessToken = await refreshAccessToken();
+//           if (!initialAccessToken) {
+//             console.log("checkAuthStatus: Could not refresh Access Token");
+//             TokenService.removeRefreshToken();
+//             TokenService.removeToken();
+//             setUser(null);
+//             setAccessToken(null);
+//             return;
+//           }
+//         }
+
+//         if (initialAccessToken) {
+//           const userDataFetched = await fetchUserData(initialAccessToken);
+//           if (!userDataFetched) {
+//             console.log("checkAuthStatus: Could not fetch user data with Access Token");
+//             TokenService.removeRefreshToken();
+//             TokenService.removeToken();
+//             setUser(null);
+//             setAccessToken(null);
+//           }
+//         }
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     checkAuthStatus();
+
+//     // Refresh token periodically (e.g., every hour)
+//     const intervalId = setInterval(async () => {
+//       if (TokenService.getRefreshToken()) {
+//         const newAccessToken = await refreshAccessToken();
+//         if (newAccessToken) {
+//           await fetchUserData(newAccessToken);
+//         } else {
+//           console.warn("Periodic refresh failed. User might need to re-authenticate.");
+//         }
+//       }
+//     }, 3600000); // 1 hour
+
+//     return () => {
+//       clearInterval(intervalId);
+//     };
+//   }, [fetchUserData, refreshAccessToken]);
+
+//   const login = async (email, password) => {
+//     setLoading(true);
+//     try {
+//       const response = await axios.post(
+//         `${API_BASE_URL}/auth/login`,
+//         { email, password },
+//         { withCredentials: true }
+//       );
+
+//       if (response.status === 200) {
+//         const { accessToken: newAccessToken, refreshToken } = response.data.tokens;
+//         TokenService.setToken(newAccessToken);
+//         TokenService.setRefreshToken(refreshToken);
+//         setAccessToken(newAccessToken);
+
+//         const userDataFetched = await fetchUserData(newAccessToken);
+
+//         if (userDataFetched) {
+//           toast.success("Login successful!");
+//           if (user?.role === 'admin') {
+//             navigate('/admin');
+//           } else {
+//             navigate('/dashboard');
+//           }
+//         } else {
+//           TokenService.removeRefreshToken();
+//           TokenService.removeToken();
+//           setAccessToken(null);
+//           setUser(null);
+//           toast.error("Failed to fetch user details.");
+//         }
+//       } else {
+//         toast.error("Login failed.");
+//       }
+//     } catch (error) {
+//       console.error("Login error:", error);
+//       TokenService.removeRefreshToken();
+//       TokenService.removeToken();
+//       setAccessToken(null);
+//       setUser(null);
+//       toast.error(error.response?.data?.message || "Login failed.");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const logout = () => {
+//     TokenService.removeRefreshToken();
+//     TokenService.removeToken();
+//     setAccessToken(null);
+//     setUser(null);
+//     navigate('/');
+//   };
+
+//   const contextValue = {
+//     user,
+//     setUser,
+//     accessToken, // Provide the access token
+//     login,
+//     logout,
+//     loading,
+//   };
+
+//   return (
+//     <AuthContext.Provider value={contextValue}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// };
+
+// export const useAuth = () => useContext(AuthContext);
+
+
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+} from 'react';
 import axios from 'axios';
 import TokenService from '../utils/TokenService';
 import { useNavigate } from 'react-router-dom';
@@ -488,102 +870,169 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [accessToken, setAccessToken] = useState(null); // Store access token
   const navigate = useNavigate();
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+  // Memoized fetchUserData function
+  const fetchUserData = useCallback(
+    async (token) => {
+      if (!token) {
+        console.warn("fetchUserData: No token provided."); // Log this
+        return false;
+      }
+
+      try {
+        const headers = { Authorization: `Bearer ${token}` };
+        const response = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
+
+        if (response.status === 200) {
+          setUser(response.data);
+          return true;
+        } else {
+          console.error("fetchUserData: Error fetching user data. Status:", response.status);
+          setUser(null);
+          return false;
+        }
+      } catch (error) {
+        console.error("fetchUserData: Error fetching user data:", error);
+        setUser(null);
+        return false;
+      }
+    },
+    [API_BASE_URL]
+  );
+
+  // Memoized refreshAccessToken function
+  const refreshAccessToken = useCallback(async () => {
+    const refreshToken = TokenService.getRefreshToken();
+
+    if (!refreshToken) {
+      console.warn("refreshAccessToken: No refresh token found.");
+      setAccessToken(null);
+      setUser(null);
+      return null; // Return null instead of false, more idiomatic for tokens
+    }
+
+    try {
+      const refreshResponse = await axios.post(
+        `${API_BASE_URL}/auth/refresh-token`,
+        {},
+        { withCredentials: true }
+      );
+
+      if (refreshResponse.status === 200) {
+        const newAccessToken = refreshResponse.data.accessToken;
+        TokenService.setRefreshToken(refreshResponse.data.refreshToken);  //Update refresh Token as well
+        setAccessToken(newAccessToken);
+        return newAccessToken;
+      } else {
+        console.error("refreshAccessToken: Token refresh failed. Status:", refreshResponse.status);
+        TokenService.removeRefreshToken();
+        TokenService.removeToken();
+        setAccessToken(null);
+        setUser(null);
+        return null;
+      }
+    } catch (refreshError) {
+      console.error("refreshAccessToken: Token refresh error:", refreshError);
+      TokenService.removeRefreshToken();
+      TokenService.removeToken();
+      setAccessToken(null);
+      setUser(null);
+      return null;
+    }
+  }, [API_BASE_URL]);
+
   useEffect(() => {
     const checkAuthStatus = async () => {
-      setLoading(true);  // Start loading when checking auth status
+      setLoading(true);
       try {
-        const accessToken = TokenService.getToken();
-        const refreshToken = TokenService.getRefreshToken();
+        let initialAccessToken = TokenService.getToken();
+        const initialRefreshToken = TokenService.getRefreshToken();
 
-        if (!accessToken && !refreshToken) {
-          return; // Exit early if no tokens
+        if (!initialAccessToken && !initialRefreshToken) {
+          console.log("checkAuthStatus: No initial tokens found.");
+          setUser(null);
+          setAccessToken(null);
+          return;
         }
 
-        if (accessToken) {
-          try {
-            const headers = { Authorization: `Bearer ${accessToken}` };
-            const response = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
-
-            if (response.status === 200) {
-              setUser(response.data);
-              return; // Exit after successful fetch
-            }
-          } catch (error) {
-            console.error("Error fetching user data:", error);
-            // Consider token invalidation here if needed
+        if (!initialAccessToken && initialRefreshToken) {
+          initialAccessToken = await refreshAccessToken();
+          if (!initialAccessToken) {
+            console.log("checkAuthStatus: Could not refresh Access Token");
+            TokenService.removeRefreshToken();
+            TokenService.removeToken();
+            setUser(null);
+            setAccessToken(null);
+            return;
           }
         }
 
-        if (refreshToken) {
-          try {
-            const refreshResponse = await axios.post(`${API_BASE_URL}/auth/refresh-token`, {}, {
-              withCredentials: true
-            });
-
-            if (refreshResponse.status === 200) {
-              TokenService.setToken(refreshResponse.data.accessToken);
-              const headers = { Authorization: `Bearer ${refreshResponse.data.accessToken}` };
-              const userResponse = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
-
-              if (userResponse.status === 200) {
-                setUser(userResponse.data);
-              } else {
-                // Invalidate tokens if user fetch fails after refresh
-                TokenService.removeToken();
-                TokenService.removeRefreshToken();
-                setUser(null);
-              }
-            } else {
-              // Invalidate tokens if refresh fails
-              TokenService.removeToken();
-              TokenService.removeRefreshToken();
-              setUser(null);
-            }
-          } catch (refreshError) {
-            console.error("Token refresh error:", refreshError);
-            TokenService.removeToken();
+        if (initialAccessToken) {
+          const userDataFetched = await fetchUserData(initialAccessToken);
+          if (!userDataFetched) {
+            console.log("checkAuthStatus: Could not fetch user data with Access Token");
             TokenService.removeRefreshToken();
+            TokenService.removeToken();
             setUser(null);
+            setAccessToken(null);
           }
         }
       } finally {
-        setLoading(false); // Ensure loading is always set to false
+        setLoading(false);
       }
     };
 
     checkAuthStatus();
-  }, [API_BASE_URL, navigate]);
 
+    // Refresh token periodically (e.g., every hour)
+    const intervalId = setInterval(async () => {
+      if (TokenService.getRefreshToken()) {
+        const newAccessToken = await refreshAccessToken();
+        if (newAccessToken) {
+          await fetchUserData(newAccessToken);
+        } else {
+          console.warn("Periodic refresh failed. User might need to re-authenticate.");
+        }
+      }
+    }, 3600000); // 1 hour
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [fetchUserData, refreshAccessToken]);
 
   const login = async (email, password) => {
-    setLoading(true); // Start loading during login
+    setLoading(true);
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password }, { withCredentials: true });
+      const response = await axios.post(
+        `${API_BASE_URL}/auth/login`,
+        { email, password },
+        { withCredentials: true }
+      );
+
       if (response.status === 200) {
-        TokenService.setToken(response.data.tokens.accessToken);
-        TokenService.setRefreshToken(response.data.refreshToken);
+        const { accessToken: newAccessToken, refreshToken } = response.data.tokens;
+        TokenService.setToken(newAccessToken);
+        TokenService.setRefreshToken(refreshToken);
+        setAccessToken(newAccessToken);
 
-        // Fetch user data after login to determine the role
-        const headers = { Authorization: `Bearer ${response.data.tokens.accessToken}` };
-        const userResponse = await axios.get(`${API_BASE_URL}/auth/user`, { headers });
+        const userDataFetched = await fetchUserData(newAccessToken);
 
-        if (userResponse.status === 200) {
-          setUser(userResponse.data);
-
-          // Redirect based on role
-          if (userResponse.data.role === 'admin') {
-            navigate('/admin');  // Redirect to admin panel
-          } else {
-            navigate('/dashboard');  // Redirect to user dashboard
-          }
+        if (userDataFetched) {
           toast.success("Login successful!");
+          if (user?.role === 'admin') {
+            navigate('/admin');
+          } else {
+            navigate('/dashboard');
+          }
         } else {
-          TokenService.removeToken();
           TokenService.removeRefreshToken();
+          TokenService.removeToken();
+          setAccessToken(null);
           setUser(null);
           toast.error("Failed to fetch user details.");
         }
@@ -592,18 +1041,20 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Login error:", error);
-      TokenService.removeToken();
       TokenService.removeRefreshToken();
+      TokenService.removeToken();
+      setAccessToken(null);
       setUser(null);
       toast.error(error.response?.data?.message || "Login failed.");
     } finally {
-      setLoading(false); // Ensure loading is always set to false
+      setLoading(false);
     }
   };
 
   const logout = () => {
-    TokenService.removeToken();
     TokenService.removeRefreshToken();
+    TokenService.removeToken();
+    setAccessToken(null);
     setUser(null);
     navigate('/');
   };
@@ -611,14 +1062,15 @@ export const AuthProvider = ({ children }) => {
   const contextValue = {
     user,
     setUser,
+    accessToken, // Provide the access token
     login,
     logout,
-    loading
+    loading,
   };
 
   return (
     <AuthContext.Provider value={contextValue}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };

@@ -2,10 +2,6 @@ import React from "react";
 import metting from "../../assets/Images/metting.webp";
 import GradientHeading from "../GradientHeading";
 import { Link } from "react-router-dom";
-import { FaQuoteLeft } from "react-icons/fa";
-import { FaQuoteRight } from "react-icons/fa";
-
-
 
 const Contact = () => {
   return (
@@ -14,7 +10,7 @@ const Contact = () => {
         <div className="w-full mx-auto container">
           <div className="sub-content grid md:grid-cols-2">
             <div className="left w-full p-4 lg:px-10 bg-white border border-gray-300 lg:rounded-large round lg:-mr-10 flex items-center z-10">
-              <div className="space-y-5 relative">
+              <div className="space-y-5">
                 {/* Leftside */}
                 <GradientHeading
                   tag="h3"
@@ -24,14 +20,12 @@ const Contact = () => {
                   textSize="text-basic lg:text-xlarge"
                 />
 
-                <FaQuoteLeft className="absolute size-3 top-8 md:block hidden text-main-color"/>
                 <div className="text-para-color font-medium text-small lg:text-medium leading-7 max-w-md">
                   "Have questions, feedback, or need assistance? We’re here to
                   help! Reach out to us through the form below, send us an
                   email, or give us a call. Our team is ready to assist you and
-                  ensure you get the answers or support you need.
+                  ensure you get the answers or support you need."
                 </div>
-                <FaQuoteRight className="absolute size-3 bottom-14 lg:block hidden left-24 text-main-color"/>
 
                 <Link
                   to="/contact-us"
