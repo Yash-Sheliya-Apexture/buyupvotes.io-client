@@ -126,16 +126,6 @@
 
 // export default MyAccountTab;
 
-
-
-
-
-
-
-
-
-
-
 // import React, { useState, useRef } from "react";
 // import { Link } from "react-router-dom";
 // import { BiSolidChevronDown } from "react-icons/bi";
@@ -166,7 +156,6 @@
 //   const handleBalanceLeave = () => {
 //     setIsBalanceHovered(false);
 //   };
-
 
 //   return (
 //     <div className="relative w-1/6">
@@ -269,57 +258,281 @@
 
 
 
+// import React, { useState, useRef, useEffect } from "react";
+// import { FaRegUser, FaRegCreditCard } from "react-icons/fa6";
+// import { PiSignOutBold } from "react-icons/pi";
+// import { BiSolidChevronDown } from "react-icons/bi";
+// import { Link } from "react-router-dom";
+// import { motion, AnimatePresence } from "framer-motion";
+// import { FiPlus } from "react-icons/fi";
 
+// const MyAccountTab = () => {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const dropdownRef = useRef(null);
+
+//   const toggleDropdown = () => {
+//     setIsOpen(!isOpen);
+//   };
+
+//   // Close dropdown on outside click
+//   useEffect(() => {
+//     const handleClickOutside = (event) => {
+//       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+//         setIsOpen(false);
+//       }
+//     };
+
+//     document.addEventListener("mousedown", handleClickOutside);
+
+//     return () => {
+//       document.removeEventListener("mousedown", handleClickOutside);
+//     };
+//   }, [dropdownRef]);
+
+//   const dropdownVariants = {
+//     initial: { opacity: 0, y: -10, scale: 0.95 },
+//     animate: {
+//       opacity: 1,
+//       y: 0,
+//       scale: 1,
+//       transition: { duration: 0.2, ease: "easeInOut" },
+//     },
+//     exit: {
+//       opacity: 0,
+//       y: -10,
+//       scale: 0.95,
+//       transition: { duration: 0.15, ease: "easeInOut" },
+//     },
+//   };
+
+//   const userMenuItems = [
+//     { label: "Profile", path: "/dashboard/account", icon: <FaRegUser /> },
+//     {
+//       label: "Add Fund",
+//       path: "/dashboard/pricing",
+//       icon: <FaRegCreditCard />,
+//     },
+//     {
+//       label: "Log Out",
+//       path: "/logout",
+//       icon: <PiSignOutBold />,
+//       isLogout: true,
+//     },
+//   ];
+
+//   return (
+//     <div className="relative bg-white" ref={dropdownRef}>
+//       <div
+//         className="rounded-xl flex items-center justify-between gap-8 px-3 py-2 border border-border-color cursor-pointer relative"
+//         onClick={toggleDropdown}
+//       >
+//         <div className="flex items-center gap-3">
+//           <div className="bg-main-color rounded-md flex items-center justify-center w-9 h-9 text-white text-xl font-bold">
+//             <span>K</span>
+//           </div>
+//           <div className="flex flex-col">
+//             <span className="text-sm font-medium">My Account</span>
+//             {/* First Name */}
+//             <span className="text-xs font-normal">kartavya</span>
+//           </div>
+//         </div>
+//         <div className="bg-sub-color rounded-md p-1.5">
+//           <BiSolidChevronDown
+//             className={`text-white ${
+//               isOpen ? "-rotate-180" : ""
+//             } transition-transform duration-200`}
+//           />
+//         </div>
+//       </div>
+
+//       <AnimatePresence>
+//         {isOpen && (
+//           <motion.div
+//             className="absolute top-14 mt-0.5 right-0 w-52 bg-white border border-gray-200 rounded-xl shadow-main z-10 p-2 "
+//             variants={dropdownVariants}
+//             initial="initial"
+//             animate="animate"
+//             exit="exit"
+//           >
+//             <div className="border-b pb-2 ">
+
+//             <div className="relative group overflow-hidden">
+//               <div className="flex items-center flex-col gap-1 px-4 py-2">
+//                 {/* current Balance */}
+//                 <span className="text-main-color font-bold">$0</span>
+//                 <span className="text-sm font-medium">Available Balance</span>
+//               </div>
+//               <motion.div
+//                 className="absolute w-full h-full bottom-[-100%] left-0 right-0 flex justify-center gap-2 items-center bg-slate-200 rounded-xl transition ease-linear duration-300 group-hover:bottom-0"
+//                 style={{transition: "bottom 0.3s ease-in-out"}}
+//               >
+//                 <FiPlus />
+//                 Add Funds
+//               </motion.div>
+//             </div>
+//             </div>
+//             <nav className="mt-3">
+//               {userMenuItems.map((item) => (
+//                 <Link
+//                   to={item.path}
+//                   key={item.label}
+//                   className={`flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg ${
+//                     item.isLogout ? "text-red-600 hover:bg-red-100" : ""
+//                   }`}
+//                   onClick={() => setIsOpen(false)} // Close dropdown on item click
+//                 >
+//                   <span className="mr-3">{item.icon}</span>
+//                   {item.label}
+//                 </Link>
+//               ))}
+//             </nav>
+//           </motion.div>
+//         )}
+//       </AnimatePresence>
+//     </div>
+//   );
+// };
+
+// export default MyAccountTab;
+
+
+
+
+
+// MyAccountTab.js (UI Component)
 import React from "react";
-import { Link } from "react-router-dom";
-import { IoWalletOutline } from "react-icons/io5";
-import { CgProfile } from "react-icons/cg";
-import { TbLogout } from "react-icons/tb";
+import { FaRegUser, FaRegCreditCard } from "react-icons/fa6";
+import { PiSignOutBold } from "react-icons/pi";
+import { BiSolidChevronDown } from "react-icons/bi";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiPlus } from "react-icons/fi";
+import { Link } from 'react-router-dom';
 
-const MyAccountTab = () => {
+const MyAccountTab = ({
+  isOpen,
+  toggleDropdown,
+  dropdownRef,
+  dropdownVariants,
+  user,
+  currentBalance,
+  loading,
+  handleSignOut,
+  handleAddFundsClick,
+  onMenuItemClick // NEW PROP: Function to handle menu item clicks
+}) => {
+
+  const userMenuItems = [
+    { label: "Profile", path: "/dashboard/account", icon: <FaRegUser /> },
+    {
+      label: "Add Fund",
+      path: "/dashboard/pricing",
+      icon: <FaRegCreditCard />,
+    },
+    {
+      label: "Log Out",
+      path: null, // Remove the path as we are handling navigation with onClick
+      icon: <PiSignOutBold />,
+      isLogout: true,
+      onClick: handleSignOut,
+    },
+  ];
 
   return (
-    <div className="relative w-1/6">
-      <div className="rounded-xl flex items-center justify-between px-3 py-2 border border-border-color cursor-pointer relative">
-        <div className="flex items-center">
+    <div className="relative bg-white" ref={dropdownRef}>
+      <div
+        className="rounded-xl flex items-center justify-between gap-8 px-3 py-2 border border-border-color cursor-pointer relative"
+        onClick={toggleDropdown}
+      >
+        <div className="flex items-center gap-3">
           <div className="bg-main-color rounded-md flex items-center justify-center w-9 h-9 text-white text-xl font-bold">
-            <span>K</span>
+            <span>
+              {user?.firstName ? user.firstName.charAt(0).toUpperCase() : "G"}
+            </span>
           </div>
-          <div className="ml-3 flex flex-col">
+          <div className="flex flex-col">
             <span className="text-sm font-medium">My Account</span>
-            <span className="text-xs font-normal">kartavya</span>
+            <span className="text-xs font-normal">
+              {user?.firstName || "Guest"}
+            </span>
           </div>
+        </div>
+        <div className="bg-sub-color rounded-md p-1.5">
+          <BiSolidChevronDown
+            className={`text-white ${
+              isOpen ? "-rotate-180" : ""
+            } transition-transform duration-200`}
+          />
         </div>
       </div>
 
-      <div className="absolute top-14 left-0 z-50 bg-white w-full rounded-xl border border-border-color overflow-hidden mt-0.5">
-        <div className="overflow-hidden">
-          <div className=" p-3 flex items-center gap-4 text-sub-color border-b relative overflow-hidden flex-col">
-            <div className="flex items-center justify-between w-full">
-              <div className="flex items-center gap-4">
-                <IoWalletOutline className="w-6 h-6" />
-                <div className="text-small flex flex-col">
-                  <span className="text-main-color font-bold">$0</span>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="absolute top-14 mt-0.5 right-0 w-52 bg-white border border-gray-200 rounded-xl shadow-main z-10 p-2 "
+            variants={dropdownVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            <div className="border-b pb-2 ">
+              <div className="relative group overflow-hidden cursor-pointer" onClick={handleAddFundsClick}>
+                <div className="flex items-center flex-col gap-1 px-4 py-2">
+                  <span className="text-main-color font-bold">
+                    {loading ? "Loading..." : `${currentBalance || 0} $`}
+                  </span>
                   <span className="text-sm font-medium">
                     Available Balance
                   </span>
                 </div>
+                <motion.div
+                  className="absolute w-full h-full bottom-[-100%] left-0 right-0 flex justify-center gap-2 items-center bg-main-color text-white rounded-xl transition ease-linear duration-300 group-hover:bottom-0"
+                  style={{ transition: "bottom 0.3s ease-in-out" }}
+                >
+                  <FiPlus />
+                  Add Funds
+                </motion.div>
               </div>
             </div>
-          </div>
+            <nav className="mt-3">
+              {userMenuItems.map((item) => {
+                if (item.path === null) {
+                  return (
+                    <div // Use a div instead of Link
+                      key={item.label}
+                      className={`flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg ${
+                        item.isLogout ? "text-red-600 hover:bg-red-100 cursor-pointer" : ""
+                      }`}
+                      onClick={() => {
+                        onMenuItemClick(); // Call the function to close the menu
+                        if (item.onClick) {
+                          item.onClick();
+                        }
+                      }}
+                    >
+                      <span className="mr-3">{item.icon}</span>
+                      {item.label}
+                    </div>
+                  );
+                }
 
-          <div className="p-3 flex items-center gap-4 border-b">
-            <CgProfile className="w-6 h-6 text-sub-color" />
-            <span className="text-small font-medium text-sub-color">
-              Profile Settings
-            </span>
-          </div>
-          <div className="p-3 flex items-center gap-4 text-red-500">
-            <TbLogout className="w-6 h-6" />
-            <span className="text-small font-semibold">Log out</span>
-          </div>
-        </div>
-      </div>
+                return (
+                  <Link
+                    to={item.path}
+                    key={item.label}
+                    className={`flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg ${
+                      item.isLogout ? "text-red-600 hover:bg-red-100" : ""
+                    }`}
+                    onClick={onMenuItemClick} //Call the function to close the menu
+                  >
+                    <span className="mr-3">{item.icon}</span>
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
