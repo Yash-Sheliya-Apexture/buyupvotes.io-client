@@ -316,14 +316,13 @@ import AdminRoutes from "./routes/AdminRoutes";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Scroll_To_Top from "./Components/Scroll_To_Top"; // Import the component
+import Scroll_To_Top from "./Components/Scroll_To_Top";
 import "react-loading-skeleton/dist/skeleton.css";
-import { AuthProvider, useAuth } from "./auth/AuthContext"; //  Import AuthContext and useAuth
+import { AuthProvider } from "./auth/AuthContext";
 
 const App = () => {
     return (
         <Router>
-            {/* ToastContainer added globally */}
             <ToastContainer
                 autoClose={3000}
                 hideProgressBar={false}
@@ -335,10 +334,8 @@ const App = () => {
             />
             <Scroll_To_Top>
                 <AuthProvider>
-                    {/* Wrap the Routes with AuthProvider */}
                     <Routes>
-                        <Route path="/*" element={<WebsiteRoutes />} />
-                        {/* Protected Dashboard Routes */}
+                         {/* Protected Dashboard Routes */}
                         <Route
                             path="/dashboard/*"
                             element={<ProtectedRoute element={<DashboardRoutes />} />}
@@ -349,10 +346,11 @@ const App = () => {
                             element={
                                 <ProtectedRoute
                                     element={<AdminRoutes />}
-                                    requiredRole="admin" //  Pass required role
+                                    requiredRole="admin"
                                 />
                             }
                         />
+                        <Route path="/*" element={<WebsiteRoutes />} />
                     </Routes>
                 </AuthProvider>
             </Scroll_To_Top>
