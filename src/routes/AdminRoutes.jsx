@@ -74,8 +74,9 @@
 // export default AdminRoutes;
 
 // AdminRoutes.jsx
+
 import React from "react";
-import { Route, Routes } from "react-router-dom"; // Removed Navigate import
+import { Route, Routes } from "react-router-dom";
 import Dashboard from "../admin/pages/Dashboard";
 import UserList from "../admin/pages/UserList";
 import OrderList from "../admin/pages/OrderList";

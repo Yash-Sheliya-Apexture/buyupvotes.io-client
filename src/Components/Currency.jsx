@@ -56,10 +56,7 @@ const Currency = () => {
   return (
     <section className="Currency-Exchange bg-white pb-10">
       <div className="container mx-auto space-y-5">
-        <div className="flex items-center justify-center">
-          <img src={payment_logos} alt="" className="rounded-lg lg:max-w-3xl" />
-        </div>
-        {loading ? null : !auth?.user ? (  // Check if auth is defined and then user
+        {!user ? (
           <div className="Currency-main">
             <div className="relative flex items-center justify-center space-x-4">
               <Link

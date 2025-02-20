@@ -24,8 +24,9 @@ const Contact = () => {
                   "Have questions, feedback, or need assistance? We’re here to
                   help! Reach out to us through the form below, send us an
                   email, or give us a call. Our team is ready to assist you and
-                  ensure you get the answers or support you need.
+                  ensure you get the answers or support you need."
                 </div>
+
                 <Link
                   to="/contact-us"
                   className="inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600"
