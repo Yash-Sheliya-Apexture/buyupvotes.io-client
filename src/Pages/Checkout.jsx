@@ -673,7 +673,7 @@ const Checkout = () => {
                         <div className="mb-4">
                             <label
                                 htmlFor="email"
-                                className="block text-sm font-medium text-gray-700 flex items-center"
+                                className="text-sm font-medium text-gray-700 flex items-center"
                             >
                                 <FaEnvelope className="mr-2" />
                                 Email
