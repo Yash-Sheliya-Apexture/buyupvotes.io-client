@@ -1320,22 +1320,20 @@ const Header = () => {
         <Link
           key={index}
           to={item.path}
-          className={`relative font-BasierSquare px-4 py-5 text-lg font-medium transition-all duration-500 ease-in-out group ${
-            isActive
-              ? "text-main-color"
-              : "text-sub-color hover:text-main-color"
-          }`}
+          className={`relative font-BasierSquare px-4 py-4 text-lg font-medium transition-all duration-500 ease-in-out group ${isActive
+            ? "text-main-color"
+            : "text-sub-color hover:text-main-color"
+            }`}
         >
           {isActive && (
             <GoDotFill className="inline-block mr-2 text-main-color animate-pop" />
           )}
           {item.name || item.label}
           <span
-            className={`absolute bottom-0 left-0 transition-all duration-500 ease-in-out ${
-              isActive
-                ? ""
-                : "w-0 bg-transparent h-[2px] group-hover:w-full group-hover:bg-main-color"
-            }`}
+            className={`absolute bottom-0 left-0 transition-all duration-500 ease-in-out ${isActive
+              ? ""
+              : "w-0 bg-transparent h-[2px] group-hover:w-full group-hover:bg-main-color"
+              }`}
           ></span>
         </Link>
       );
@@ -1465,15 +1463,13 @@ const Header = () => {
   return (
     <>
       <header
-        className={`top-0 z-30 relative transition-shadow duration-300 ${
-          isHomePage
-            ? `${
-                isSticky
-                  ? "bg-white/60 shadow-header backdrop-blur-[4px] sticky"
-                  : ""
-              }`
-            : "bg-white/60 shadow-header backdrop-blur-[2px] "
-        }  ${isSticky ? `sticky` : ""}`}
+        className={`top-0 z-30 relative transition-shadow duration-300 ${isHomePage
+          ? `${isSticky
+            ? "bg-white/60 shadow-header backdrop-blur-[4px] sticky"
+            : ""
+          }`
+          : "bg-white/60 shadow-header backdrop-blur-[2px] "
+          }  ${isSticky ? `sticky` : ""}`}
       >
         <div className="container mx-auto">
           <section className="flex items-center justify-between">
@@ -1540,9 +1536,8 @@ const Header = () => {
       </header>
 
       <div
-        className={`fixed top-0 left-0 w-64 bg-white  h-full border-r border-gray-300/50 shadow-main transition-transform duration-300 ease-in-out z-40 ${
-          showMenu ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed top-0 left-0 w-64 bg-white  h-full border-r border-gray-300/50 shadow-main transition-transform duration-300 ease-in-out z-40 ${showMenu ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="relative flex justify-end p-4">
           <button onClick={toggleMenu}>

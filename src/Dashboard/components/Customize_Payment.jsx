@@ -997,14 +997,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdError } from "react-icons/md";
 import { LuWallet } from "react-icons/lu";
 import { PiQuestionBold } from "react-icons/pi";
-
 import cryptomus from "../../assets/Images/cryptomus.png";
 import stripe from "../../assets/Images/stripe.png"; // Ensure stripe image is imported
-import coinbase from "../../assets/Images/coinbase.png";
-import coinpayments from "../../assets/Images/coinpayments.png";
-import payeer from "../../assets/Images/payeer.png";
-import wise from "../../assets/Images/wise.png";
-import revolut from "../../assets/Images/revolut.png";
 
 const Customize_Payment = () => {
     const [selectedAmount, setSelectedAmount] = useState("");
@@ -1106,118 +1100,148 @@ const Customize_Payment = () => {
     };
 
     return (
-        <section className="Payment-Customize pb-12">
-            <div className="container mx-auto">
-                <div className="flex items-center">
-                    <form onSubmit={handleCalculate}>
-                        {/* Payment Method Selection */}
-                        <div className="mb-8">
-                            <h6 className="font-semibold mb-1 text-gray-700">
-                                Select Payment Method
-                            </h6>
-                            <div className="flex flex-col gap-4">
-                                {paymentMethods.map((method) => (
-                                    <div
-                                        key={method.id}
-                                        onClick={() => handlePaymentMethodSelect(method)}
-                                        className={`relative flex items-center p-4 rounded-lg border transition-colors duration-200 cursor-pointer 
+        <section className="Payment-Customize my-10">
+            <div className="lg:flex lg:items-center">
+                <form onSubmit={handleCalculate}>
+                    {/* Payment Method Selection */}
+                    <div className="mb-8">
+                        <h6 className="font-semibold mb-1 text-gray-700">
+                            Select Payment Method
+                        </h6>
+                        <div className="flex flex-col gap-4">
+                            {paymentMethods.map((method) => (
+                                <div
+                                    key={method.id}
+                                    onClick={() => handlePaymentMethodSelect(method)}
+                                    className={`relative flex items-center w-full lg:p-4 p-2 rounded-lg border transition-colors duration-200 cursor-pointer 
                     ${selectedPaymentMethod?.id === method.id
-                                                ? "border-main-color shadow-md"
-                                                : "border-gray-300 hover:border-gray-500"
-                                            }
+                                            ? "border-main-color shadow-md"
+                                            : "border-gray-300 hover:border-gray-500"
+                                        }
                     ${method.disabled ? "opacity-50 cursor-not-allowed" : ""}`}
-                                    >
-                                        <img
-                                            src={method.image}
-                                            alt={method.name}
-                                            className="w-12 h-12 mr-4 object-contain"
-                                        />
-                                        <div>
-                                            <h5 className="font-semibold">{method.name}</h5>
-                                            <p className="text-sm text-gray-500">{method.description}</p>
-                                        </div>
-                                        {method.disabled && (
-                                            <div className="absolute top-0 left-0 w-full h-full bg-white/70 rounded-lg pointer-events-none">
-                                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-900 font-semibold">
-                                                    Coming Soon
-                                                </div>
-                                            </div>
-                                        )}
+                                >
+                                    <img
+                                        src={method.image}
+                                        alt={method.name}
+                                        className="lg:size-10 size-6 mr-4 object-contain"
+                                    />
+                                    <div>
+                                        <h5 className="font-semibold">{method.name}</h5>
+                                        <p className="text-sm text-gray-500">{method.description}</p>
                                     </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Quick Amount Selector */}
-                        <div className="mb-5">
-                            <h6 className="font-semibold mb-1 text-gray-700">
-                                Quick Amount Selector
-                            </h6>
-                            <div className="flex items-center justify-between border border-gray-300 rounded-xl overflow-hidden">
-                                {predefinedAmounts.map((amount) => (
-                                    <label
-                                        key={amount}
-                                        className={`flex items-center px-12 py-4 cursor-pointer gap-2 select-none ${selectedAmount === amount
-                                            ? "text-gray-900 hover:bg-main-color/10"
-                                            : "bg-white text-gray-700 hover:bg-main-color/10"
-                                            } transition-colors duration-200`}
-                                    >
-                                        <div className={`w-4 h-4 rounded-full border-2 relative before:absolute before:content[""]  ${selectedAmount === amount
-                                            ? "border-main-color before:w-2 before:h-2 before:bg-main-color before:rounded-full before:top-2/4 before:left-2/4 before:-translate-x-2/4 before:-translate-y-2/4"
-                                            : "border-gray-300"
-                                            }`}></div>
-                                        <input
-                                            type="radio"
-                                            name="amount"
-                                            value={amount}
-                                            checked={selectedAmount === amount}
-                                            onChange={() => handleAmountSelect(amount)}
-                                            className="hidden" // Hide the default radio button
-                                        />
-                                        ${amount}.00
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Amount Input */}
-                        <div className="mb-8">
-                            <h6 className="font-semibold mb-1 text-gray-700">Amount</h6>
-                            <input
-                                type="number"
-                                value={customAmount}
-                                onChange={handleCustomAmountChange}
-                                placeholder="Enter amount"
-                                className="w-full py-4 px-3 rounded-xl bg-white text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                            />
-                            {/* Error Message */}
-                            {error && (
-                                <div className="text-[#FF0000] flex items-center gap-1 mt-1">
-                                    <MdError className="w-5 h-5" />
-                                    <p className="text-small font-medium">{error}</p>
+                                    {method.disabled && (
+                                        <div className="absolute top-0 left-0 w-full h-full text-nowrap bg-white/70 rounded-lg pointer-events-none">
+                                            <div className="absolute md:top-1/2 top-10 left-60 md:left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-900 font-semibold">
+                                                Coming Soon
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
-                            )}
+                            ))}
                         </div>
+                    </div>
 
-                        {/* Pay Button */}
-                        <div className="flex gap-3">
-                            <button
-                                type="submit"
-                                className="w-2/4 bg-main-color hover:bg-orange-600 text-white py-4 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center gap-3 border border-main-color"
-                            >
-                                <LuWallet size="22" />
-                                Pay
-                            </button>
-                            <Link
-                                to="/dashboard/contactus"
-                                className="w-2/4 bg-transparent hover:bg-main-color/10 text-gray-900 py-4 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center gap-3 border border-gray-300"
-                            >
-                                <PiQuestionBold size="22" />
-                                Request New Payment Method
-                            </Link>
+                    {/* Quick Amount Selector */}
+                    {/* <div className="mb-5">
+                        <h6 className="font-semibold mb-1 text-gray-700">
+                            Quick Amount Selector
+                        </h6>
+                        <div className="flex flex-col md:flex-row items-center justify-between border border-gray-300 rounded-xl overflow-hidden">
+                            {predefinedAmounts.map((amount) => (
+                                <label
+                                    key={amount}
+                                    className={`flex items-center lg:justify-start justify-center w-full lg:px-12 py-4 cursor-pointer gap-2 select-none ${selectedAmount === amount
+                                        ? "text-gray-900 hover:bg-main-color/10"
+                                        : "bg-white text-gray-700 hover:bg-main-color/10"
+                                        } transition-colors duration-200`}
+                                >
+                                    <div className={`w-4 h-4 rounded-full border-2 relative before:absolute before:content[""]  ${selectedAmount === amount
+                                        ? "border-main-color before:w-2 before:h-2 before:bg-main-color before:rounded-full before:top-2/4 before:left-2/4 before:-translate-x-2/4 before:-translate-y-2/4"
+                                        : "border-gray-300"
+                                        }`}></div>
+                                    <input
+                                        type="radio"
+                                        name="amount"
+                                        value={amount}
+                                        checked={selectedAmount === amount}
+                                        onChange={() => handleAmountSelect(amount)}
+                                        className="hidden" // Hide the default radio button
+                                    />
+                                    ${amount}.00
+                                </label>
+                            ))}
                         </div>
-                    </form>
-                </div>
+                    </div> */}
+
+                    <div className="mb-5">
+                        <h6 className="font-semibold mb-1 text-gray-700">
+                            Quick Amount Selector
+                        </h6>
+                        <div className="sm:flex flex-row items-center justify-between border border-gray-300 rounded-xl overflow-hidden grid grid-cols-2 gap-1">
+                            {predefinedAmounts.map((amount) => (
+                                <label
+                                    key={amount}
+                                    className={`flex items-center justify-center w-full px-10 py-3 cursor-pointer gap-2 select-none ${selectedAmount === amount
+                                        ? "text-gray-900 hover:bg-main-color/10 bg-main-color/5"
+                                        : "bg-white text-gray-700 hover:bg-main-color/10"
+                                        } transition-colors duration-200`}
+                                >
+                                    <div className={`w-4 h-4 rounded-full border-2 relative before:absolute before:content[""]  ${selectedAmount === amount
+                                        ? "border-main-color before:w-2 before:h-2 before:bg-main-color before:rounded-full before:top-2/4 before:left-2/4 before:-translate-x-2/4 before:-translate-y-2/4"
+                                        : "border-gray-300"
+                                        }`}></div>
+                                    <input
+                                        type="radio"
+                                        name="amount"
+                                        value={amount}
+                                        checked={selectedAmount === amount}
+                                        onChange={() => handleAmountSelect(amount)}
+                                        className="hidden" // Hide the default radio button
+                                    />
+                                    ${amount}.00
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+
+
+                    {/* Amount Input */}
+                    <div className="mb-8">
+                        <h6 className="font-semibold mb-1 text-gray-700">Amount</h6>
+                        <input
+                            type="number"
+                            value={customAmount}
+                            onChange={handleCustomAmountChange}
+                            placeholder="Enter amount"
+                            className="w-full py-4 px-3 rounded-xl bg-white text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                        />
+                        {/* Error Message */}
+                        {error && (
+                            <div className="text-[#FF0000] flex items-center gap-1 mt-1">
+                                <MdError className="w-5 h-5" />
+                                <p className="text-small font-medium">{error}</p>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Pay Button */}
+                    <div className="flex md:flex-row flex-col gap-3">
+                        <button
+                            type="submit"
+                            className="md:w-2/4 bg-main-color hover:bg-orange-600 text-white py-4 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center gap-3 border border-main-color"
+                        >
+                            <LuWallet size="22" />
+                            Pay
+                        </button>
+                        <Link
+                            to="/dashboard/contactus"
+                            className="md:w-2/4 bg-transparent hover:bg-main-color/10 text-gray-900 py-4 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center gap-3 border border-gray-300"
+                        >
+                            <PiQuestionBold size="22" />
+                            Request New Payment Method
+                        </Link>
+                    </div>
+                </form>
             </div>
         </section>
     );
