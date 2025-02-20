@@ -1271,23 +1271,13 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
   const location = useLocation();
 
   useEffect(() => {
-    const checkActiveMenu = () => {
-      const currentMenu = menuItems.find(item => {
-        const trimmedLink = item.link.replace(/\/+$/, '');
-        const trimmedPathname = location.pathname.replace(/\/+$/, '');
-
-        return trimmedPathname === trimmedLink;
-      });
-
-      if (currentMenu) {
+    const currentMenu = menuItems.find(
+        (item) => item.link === location.pathname
+    );
+    if (currentMenu) {
         setActiveMenu(currentMenu.id);
-      } else {
-        setActiveMenu(null);
-      }
-    };
-
-    checkActiveMenu();
-  }, [location.pathname]);
+    }
+}, [location.pathname]);
 
   const toggleSidebar = () => {
     setSidebarExpanded(!isSidebarExpanded);
@@ -1311,13 +1301,13 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
       id: "Order Upvotes",
       icon: <FaListCheck />,
       label: "New Order",
-      link: "/dashboard/upvoteorder",
+      link: "/dashboard/UpvoteOrder",
     },
     {
       id: "Order Comment",
       icon: <IoIosChatboxes />,
       label: "Order Comment",
-      link: "/dashboard/ordercomment",
+      link: "/dashboard/OrderComment",
     },
     {
       id: "Add Funds",
@@ -1341,13 +1331,13 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
       id: "Contact",
       icon: <IoCallOutline />,
       label: "Contact Us",
-      link: "/dashboard/contactus",
+      link: "/dashboard/ContactUs",
     },
     {
       id: "Account",
       icon: <IoSettingsOutline />,
       label: "Account Settings",
-      link: "/dashboard/account",
+      link: "/dashboard/Account",
     },
   ];
 
@@ -1375,7 +1365,7 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
           </div>
           <button
             onClick={toggleSidebar}
-            className="absolute top-1/2 -right-3 bg-white p-1 -translate-y-1/2 size-7 hidden cursor-pointer border rounded-full shadow-md xl:block"
+            className="absolute top-1/2 -right-3 bg-white p-1 -translate-y-1/2 size-7 hidden cursor-pointer border rounded-full xl:block"
           >
             {isSidebarExpanded ? (
               <FaAngleLeft className="text-gray-500" />
@@ -1390,9 +1380,9 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
             {menuItems.map(item => (
               <li
                 key={item.id}
-                className={`group cursor-pointer rounded-xl py-3 h-12 px-4 flex items-center ${activeMenu === item.id ? 'bg-main-color text-white' : 'text-gray-700 hover:bg-main-color/15 hover:text-main-color'} transition-colors duration-200`} onClick={() => handleMenuItemClick(item.id)}
+                className={`group cursor-pointer rounded-xl  flex items-center ${activeMenu === item.id ? 'bg-main-color text-white' : 'text-gray-700 hover:bg-main-color/15 hover:text-main-color'} transition-colors duration-200`} onClick={() => handleMenuItemClick(item.id)}
               >
-                <Link to={item.link} className={`w-full flex items-center gap-4 ${isSidebarExpanded ? "" : "justify-center"}`} data-tooltip-id={`${item.id}-tooltip`} data-tooltip-content={item.label}>
+                <Link to={item.link} className={`w-full flex items-center gap-4 py-3 h-12 px-4 ${isSidebarExpanded ? "" : "justify-center"}`} data-tooltip-id={`${item.id}-tooltip`} data-tooltip-content={item.label}>
                   <span className="text-2xl">{item.icon}</span>
                   {isSidebarExpanded && <span className="text-lg font-medium text-nowrap">{item.label}</span>}
                 </Link>
@@ -1402,7 +1392,7 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
                         id={`${item.id}-tooltip`}
                         place="right"
                         effect="solid"
-                        className="tooltip-slide-in custom-tooltip"
+                        className="custom-tooltip"
                     />
                   )
                 }
