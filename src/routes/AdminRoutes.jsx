@@ -81,6 +81,7 @@ import UserList from "../admin/pages/UserList";
 import OrderList from "../admin/pages/OrderList";
 import UserProfile from "../admin/pages/UserProfile";
 import PaymentList from "../admin/pages/PaymentList";
+import OrderSinglePage from "../admin/pages/OrderSinglePage";
 import AdminLayout from "../admin/layout/AdminLayout";
 import Error404 from "../admin/pages/Error404";
 
@@ -92,8 +93,8 @@ const AdminRoutes = () => {
         <Route path="/users" element={<UserList />} />
         <Route path="/users/:userId" element={<UserProfile />} />
         <Route path="/orders" element={<OrderList />} />
+        <Route path="/orders/:orderId" element={<OrderSinglePage />} />
         <Route path="/payments" element={<PaymentList />} />
-
         <Route path="/*" element={<Error404 />} />
       </Route>
     </Routes>
