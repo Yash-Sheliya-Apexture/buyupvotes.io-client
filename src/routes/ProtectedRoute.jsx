@@ -16,17 +16,41 @@
 
 
 
+// import React from "react";
+// import { Navigate } from "react-router-dom";
+// import TokenService from "../utils/TokenService"; // Import the TokenService
+
+// const ProtectedRoute = ({ element }) => {
+//     const isAuthenticated = () => {
+//         // Use TokenService to check for a valid token
+//         return TokenService.getToken() !== null;
+//     };
+
+//     return isAuthenticated() ? element : <Navigate to="/signin" />;
+// };
+
+// export default ProtectedRoute;
+
+
 import React from "react";
 import { Navigate } from "react-router-dom";
-import TokenService from "../utils/TokenService"; // Import the TokenService
+import { useAuth } from "../auth/AuthContext";
 
-const ProtectedRoute = ({ element }) => {
+const ProtectedRoute = ({ element, requiredRole }) => {
+    const { user } = useAuth();
     const isAuthenticated = () => {
-        // Use TokenService to check for a valid token
-        return TokenService.getToken() !== null;
+        return localStorage.getItem('authToken') !== null;
     };
 
-    return isAuthenticated() ? element : <Navigate to="/signin" />;
+    if (!isAuthenticated()) {
+        return <Navigate to="/signin" />;
+    }
+
+    if (requiredRole && (!user || user.role !== requiredRole)) {
+        return <Navigate to="/" />;
+    }
+
+    return element;
 };
 
 export default ProtectedRoute;
