@@ -1453,34 +1453,47 @@ const Pricing = () => {
   }, []);
 
   return (
-    <section className="container mx-auto px-6 py-12">
-      <div className="relative bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl shadow-xl overflow-hidden text-white p-10 flex flex-col md:flex-row items-center md:items-start">
+    <section className="container mx-auto">
+      <div className="relative bg-gradient-to-r mt-10 from-main-color to-[#FE674F] rounded-2xl overflow-hidden text-white flex flex-col md:flex-row items-center">
         {/* Left Side - Image */}
-        <div className="w-full md:w-1/2 flex justify-center">
-          <img src={Rocket} alt="Rocket" className="max-w-[320px] animate-bounce-slow" />
+        <div className="flex justify-center">
+          <img src={Rocket} alt="Rocket" className="animate-float w-5/6" />
         </div>
 
         {/* Right Side - Content */}
         <div className="w-full md:w-1/2 text-center md:text-left mt-8 md:mt-0 space-y-6">
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
-            Boost Your Reach <span className="text-white">Instantly!</span>
+          <h1 className="sm:text-4xl text-large lg:text-5xl font-extrabold leading-tight">
+            Boost Your Reach Post <span className="text-white">Instantly!</span>
           </h1>
-          <p className="text-lg opacity-90">
+          <p className="md:text-lg text-small text-white font-medium">
             Increase visibility and engagement with real upvotes. Fast delivery, real results.
           </p>
           <div className="mt-6 flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-4">
-            {!isLoggedIn ? (
-              <Link to="/dashboard" className="bg-yellow-300 text-orange-700 font-bold px-8 py-3 rounded-full shadow-lg transition-all hover:bg-yellow-400 hover:shadow-xl flex items-center">
+            {isLoggedIn ? (
+              <Link to="/dashboard" className="bg-white text-orange-500 font-bold px-10 py-3 rounded-full transition-all flex items-center">
                 Go to Dashboard <FaArrowRight className="ml-2" />
               </Link>
             ) : (
               <>
-                <Link to="/signin" className="bg-white text-orange-600 font-bold px-6 py-3 rounded-full shadow-lg transition-all hover:bg-gray-100">
-                  Sign In
-                </Link>
-                <Link to="/signup" className="border-2 border-white px-6 py-3 rounded-full flex items-center transition-all hover:bg-orange-600 hover:border-transparent">
-                  Sign Up <FaArrowRight className="ml-2" />
-                </Link>
+                <div className="flex space-x-4">
+                  {/* Sign In Button */}
+                  <Link
+                    to="/signin"
+                    className="bg-white text-orange-600 font-semibold px-10 py-2 rounded-full transition-all duration-300 transform hover:bg-orange-100 hover:scale-105"
+                  >
+                    Sign In
+                  </Link>
+
+                  {/* Sign Up Button */}
+                  <Link
+                    to="/signup"
+                    className="flex items-center px-10 py-2 rounded-full border-2 border-white text-white font-semibold transition-all duration-300 transform hover:scale-105"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+
+
               </>
             )}
           </div>

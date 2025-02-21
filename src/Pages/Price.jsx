@@ -15,7 +15,7 @@ const Price = () => {
       <BreadcrumbHeader title="Pricing" breadcrumbs={breadcrumbs} />
       <PriceList
         heading="Fit Your Needs"
-        description=" Choose the plan that’s right for you! Our flexible pricing options
+        description="Choose the plan that’s right for you! Our flexible pricing options
               are designed to meet the needs of individuals, startups, and
               growing businesses.Upgrade anytime as your needs grow—no hassle,
               no hidden costs. Start your journey today with confidence and

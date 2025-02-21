@@ -11,6 +11,7 @@ const Footer = () => {
   const isHomePage = location.pathname === "/";
 
   const textColorClass = isHomePage ? "text-white" : "text-sub-color";
+  const borderColor = isHomePage ? "border-white" : "border-black";
   return (
     <footer
       className={
@@ -23,11 +24,11 @@ const Footer = () => {
         <div className="py-5">
           <div className="flex flex-col items-center justify-between lg:flex-row lg:items-start lg:space-y-0">
             {/* Left Section - Logo and Socials */}
-            <div className="flex flex-col items-center space-y-5 lg:items-start">
+            <div className="flex flex-col items-center space-y-4 lg:items-start">
               <Link to="/">
                 <img src={logo} alt="logo" className="h-10" />
               </Link>
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-4 pt-2">
                 <p className={`${textColorClass} text-small`}>Chat with us: </p>
                 <div className="flex space-x-2">
                   <div className="size-8 bg-blue-500 rounded-md flex items-center justify-center">
@@ -53,7 +54,7 @@ const Footer = () => {
                 >
                   BuyUpvotes
                 </h3>
-                <ul className="mt-2 space-y-2 lg:text-medium xs:text-small">
+                <ul className="mt-4 space-y-2.5 lg:text-medium xs:text-small">
                   <li>
                     <Link
                       to="/faqs"
@@ -79,7 +80,7 @@ const Footer = () => {
                 >
                   Contact
                 </h3>
-                <ul className="mt-2 space-y-2 lg:text-medium xs:text-small">
+                <ul className="mt-4 space-y-2 lg:text-medium xs:text-small">
                   <li>
                     <Link
                       to="/contact-us"
@@ -97,7 +98,7 @@ const Footer = () => {
                 >
                   Legal
                 </h3>
-                <ul className="mt-2 space-y-2 lg:text-medium xs:text-small">
+                <ul className="mt-4 space-y-2 lg:text-medium xs:text-small">
                   <li>
                     <Link
                       to="/terms-and-conditions"
@@ -119,7 +120,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between py-4 mt-4 border-t border-white">
+          <div className={`flex items-center justify-between py-4 mt-4 border-t ${borderColor}`} >
             <div className="text-white">
               <p
                 className={`${textColorClass} text-small font-medium`}

@@ -1705,7 +1705,7 @@ const Customize_Payment = () => {
                     </form>
                 </div>
                 {/* Description on the right */}
-                <div className="lg:w-1/2 p-8 bg-white space-y-2 border border-gray-300 rounded-small shadow-main">
+                <div className="lg:w-1/2 p-4 bg-white space-y-2 border border-gray-300 rounded-small shadow-main">
                     <h2 className="text-xl font-medium text-primary">Payment Information</h2>
                     <p className="text-para-color font-medium">
                         This page allows you to customize your payment amount and select your preferred payment method.  Currently, Crypto via Cryptomus is the only available payment option. Credit/Debit Card payments are coming soon! We are actively working on adding more payment methods to provide you with a wider range of choices.
