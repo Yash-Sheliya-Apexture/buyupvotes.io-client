@@ -546,7 +546,133 @@
 
 
 // MyAccountTab.js (UI Component)
-import React from "react";
+// import React from "react";
+// import { FaRegUser, FaRegCreditCard } from "react-icons/fa6";
+// import { PiSignOutBold } from "react-icons/pi";
+// import { BiSolidChevronDown } from "react-icons/bi";
+// import { motion, AnimatePresence } from "framer-motion";
+// import { FiPlus } from "react-icons/fi";
+// import { Link } from 'react-router-dom';
+
+// const MyAccountTab = ({
+//   isOpen,
+//   toggleDropdown,
+//   dropdownRef,
+//   dropdownVariants,
+//   user,
+//   currentBalance,
+//   loading,
+//   handleSignOut,
+//   handleAddFundsClick,
+//   onMenuItemClick
+// }) => {
+
+//   const userMenuItems = [
+//     { label: "Profile", path: "/dashboard/account", icon: <FaRegUser /> },
+//     {
+//       label: "Add Fund",
+//       path: "/dashboard/pricing",
+//       icon: <FaRegCreditCard />,
+//     },
+
+//   ];
+
+//   return (
+//     <div className="relative bg-white" ref={dropdownRef}>
+//       <div
+//         className="rounded-xl flex items-center justify-between gap-8 px-3 py-2 border border-border-color cursor-pointer relative"
+//         onClick={toggleDropdown}
+//       >
+//         <div className="flex items-center gap-3">
+//           <div className="bg-main-color rounded-md flex items-center justify-center w-9 h-9 text-white text-xl font-bold">
+//             <span>
+//               {user?.firstName ? user.firstName.charAt(0).toUpperCase() : "G"}
+//             </span>
+//           </div>
+//           <div className="flex flex-col">
+//             <span className="text-sm font-medium">My Account</span>
+//             <span className="text-xs font-normal">
+//               {user?.firstName || "Guest"}
+//             </span>
+//           </div>
+//         </div>
+//         <div className="bg-sub-color rounded-md p-1.5">
+//           <BiSolidChevronDown
+//             className={`text-white ${
+//               isOpen ? "-rotate-180" : ""
+//             } transition-transform duration-200`}
+//           />
+//         </div>
+//       </div>
+
+//       <AnimatePresence>
+//         {isOpen && (
+//           <motion.div
+//             className="absolute  top-16 mt-2 right-0 w-52 bg-white border border-gray-200 rounded-xl shadow-main z-10 p-3 "
+//             variants={dropdownVariants}
+//             initial="initial"
+//             animate="animate"
+//             exit="exit"
+//           >
+//             <div className="border-b pb-2 ">
+//               <div className="relative group rounded-xl overflow-hidden cursor-pointer" onClick={handleAddFundsClick}>
+//                 <div className="flex items-center flex-col gap-1 px-4 py-2">
+//                   <span className="text-main-color font-bold">
+//                     {loading ? "Loading..." : `${currentBalance || 0} $`}
+//                   </span>
+//                   <span className="text-sm font-medium">
+//                     Available Balance
+//                   </span>
+//                 </div>
+//                 <motion.div
+//                   className="absolute w-full h-full bottom-[-100%] left-0 right-0 flex justify-center gap-2 items-center bg-main-color text-white rounded-xl transition ease-linear duration-300 group-hover:bottom-0"
+//                   style={{ transition: "bottom 0.3s ease-in-out" }}
+//                 >
+//                   <FiPlus />
+//                   Add Funds
+//                 </motion.div>
+//               </div>
+//             </div>
+//             <nav className="my-3 space-y-2">
+//               {userMenuItems.map((item) => (
+//                 <Link
+//                   to={item.path}
+//                   key={item.label}
+//                   className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg"
+//                   onClick={onMenuItemClick}
+//                 >
+//                   <span className="mr-3">{item.icon}</span>
+//                   {item.label}
+//                 </Link>
+//               ))}
+//                 </nav>
+//              <div className="border-t">
+//              <button
+//                 className="mt-3 flex items-center px-4 py-2 text-red-600 hover:bg-red-100 rounded-lg w-full text-left"
+//                 onClick={() => {
+//                   onMenuItemClick(); // Close the menu
+//                   handleSignOut();       // Perform the sign-out action
+//                 }}
+//               >
+//                 <span className="mr-3"><PiSignOutBold /></span>
+//                 Log Out
+//               </button>
+//              </div>
+          
+//           </motion.div>
+//         )}
+//       </AnimatePresence>
+//     </div>
+//   );
+// };
+
+// export default MyAccountTab;
+
+
+
+
+// MyAccountTab.js (UI Component)
+import React, { useState, useEffect } from "react"; // Import useState and useEffect
 import { FaRegUser, FaRegCreditCard } from "react-icons/fa6";
 import { PiSignOutBold } from "react-icons/pi";
 import { BiSolidChevronDown } from "react-icons/bi";
@@ -555,115 +681,126 @@ import { FiPlus } from "react-icons/fi";
 import { Link } from 'react-router-dom';
 
 const MyAccountTab = ({
-  isOpen,
-  toggleDropdown,
-  dropdownRef,
-  dropdownVariants,
-  user,
-  currentBalance,
-  loading,
-  handleSignOut,
-  handleAddFundsClick,
-  onMenuItemClick
+    isOpen,
+    toggleDropdown,
+    dropdownRef,
+    dropdownVariants,
+    user,
+    currentBalance,
+    loading,
+    handleSignOut,
+    handleAddFundsClick,
+    onMenuItemClick
 }) => {
 
-  const userMenuItems = [
-    { label: "Profile", path: "/dashboard/account", icon: <FaRegUser /> },
-    {
-      label: "Add Fund",
-      path: "/dashboard/pricing",
-      icon: <FaRegCreditCard />,
-    },
+    const [localLoading, setLocalLoading] = useState(true);  // Local loading state
 
-  ];
+    useEffect(() => {
+        // Simulate loading by checking if user data is available
+        if (user?.firstName) {
+            setLocalLoading(false); // User data is available, stop local loading
+        } else {
+            //Keep loading till the user data is available
+            setLocalLoading(true);
+        }
 
-  return (
-    <div className="relative bg-white" ref={dropdownRef}>
-      <div
-        className="rounded-xl flex items-center justify-between gap-8 px-3 py-2 border border-border-color cursor-pointer relative"
-        onClick={toggleDropdown}
-      >
-        <div className="flex items-center gap-3">
-          <div className="bg-main-color rounded-md flex items-center justify-center w-9 h-9 text-white text-xl font-bold">
-            <span>
-              {user?.firstName ? user.firstName.charAt(0).toUpperCase() : "G"}
-            </span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">My Account</span>
-            <span className="text-xs font-normal">
-              {user?.firstName || "Guest"}
-            </span>
-          </div>
-        </div>
-        <div className="bg-sub-color rounded-md p-1.5">
-          <BiSolidChevronDown
-            className={`text-white ${
-              isOpen ? "-rotate-180" : ""
-            } transition-transform duration-200`}
-          />
-        </div>
-      </div>
+    }, [user]); // Run this effect whenever the 'user' prop changes
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="absolute  top-16 mt-2 right-0 w-52 bg-white border border-gray-200 rounded-xl shadow-main z-10 p-3 "
-            variants={dropdownVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-          >
-            <div className="border-b pb-2 ">
-              <div className="relative group rounded-xl overflow-hidden cursor-pointer" onClick={handleAddFundsClick}>
-                <div className="flex items-center flex-col gap-1 px-4 py-2">
-                  <span className="text-main-color font-bold">
-                    {loading ? "Loading..." : `${currentBalance || 0} $`}
-                  </span>
-                  <span className="text-sm font-medium">
-                    Available Balance
-                  </span>
+    const userMenuItems = [
+        { label: "Profile", path: "/dashboard/account", icon: <FaRegUser /> },
+        {
+            label: "Add Fund",
+            path: "/dashboard/pricing",
+            icon: <FaRegCreditCard />,
+        },
+
+    ];
+
+    return (
+        <div className="relative bg-white" ref={dropdownRef}>
+            <div
+                className="rounded-xl flex items-center justify-between gap-8 px-3 py-2 border border-border-color cursor-pointer relative"
+                onClick={toggleDropdown}
+            >
+                <div className="flex items-center gap-3">
+                    <div className="bg-main-color rounded-md flex items-center justify-center w-9 h-9 text-white text-xl font-bold">
+                        <span>
+                            {localLoading ? 'L' : user?.firstName ? user.firstName.charAt(0).toUpperCase() : "G"}
+                        </span>
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-sm font-medium">My Account</span>
+                        <span className="text-xs font-normal">
+                            {localLoading ? "Loading..." : (user?.firstName || "Guest")}
+                        </span>
+                    </div>
                 </div>
-                <motion.div
-                  className="absolute w-full h-full bottom-[-100%] left-0 right-0 flex justify-center gap-2 items-center bg-main-color text-white rounded-xl transition ease-linear duration-300 group-hover:bottom-0"
-                  style={{ transition: "bottom 0.3s ease-in-out" }}
-                >
-                  <FiPlus />
-                  Add Funds
-                </motion.div>
-              </div>
+                <div className="bg-sub-color rounded-md p-1.5">
+                    <BiSolidChevronDown
+                        className={`text-white ${isOpen ? "-rotate-180" : ""} transition-transform duration-200`}
+                    />
+                </div>
             </div>
-            <nav className="my-3 space-y-2">
-              {userMenuItems.map((item) => (
-                <Link
-                  to={item.path}
-                  key={item.label}
-                  className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg"
-                  onClick={onMenuItemClick}
-                >
-                  <span className="mr-3">{item.icon}</span>
-                  {item.label}
-                </Link>
-              ))}
-                </nav>
-             <div className="border-t">
-             <button
-                className="mt-3 flex items-center px-4 py-2 text-red-600 hover:bg-red-100 rounded-lg w-full text-left"
-                onClick={() => {
-                  onMenuItemClick(); // Close the menu
-                  handleSignOut();       // Perform the sign-out action
-                }}
-              >
-                <span className="mr-3"><PiSignOutBold /></span>
-                Log Out
-              </button>
-             </div>
-          
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
+
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        className="absolute  top-16 mt-2 right-0 w-52 bg-white border border-gray-200 rounded-xl shadow-main z-50 p-3 "
+                        variants={dropdownVariants}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                    >
+                        <div className="border-b pb-2 ">
+                            <div className="relative group rounded-xl overflow-hidden cursor-pointer" onClick={handleAddFundsClick}>
+                                <div className="flex items-center flex-col gap-1 px-4 py-2">
+                                    <span className="text-main-color font-bold">
+                                        {loading ? "Loading..." : `${currentBalance || 0} $`}
+                                    </span>
+                                    <span className="text-sm font-medium">
+                                        Available Balance
+                                    </span>
+                                </div>
+                                <motion.div
+                                    className="absolute w-full h-full bottom-[-100%] left-0 right-0 flex justify-center gap-2 items-center bg-main-color text-white rounded-xl transition ease-linear duration-300 group-hover:bottom-0"
+                                    style={{ transition: "bottom 0.3s ease-in-out" }}
+                                >
+                                    <FiPlus />
+                                    Add Funds
+                                </motion.div>
+                            </div>
+                        </div>
+                        <nav className="my-3 space-y-2">
+                            {userMenuItems.map((item) => (
+                                <Link
+                                    to={item.path}
+                                    key={item.label}
+                                    className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg"
+                                    onClick={onMenuItemClick}
+                                >
+                                    <span className="mr-3">{item.icon}</span>
+                                    {item.label}
+                                </Link>
+                            ))}
+                        </nav>
+                        <div className="border-t">
+                            <button
+                                className="mt-3 flex items-center px-4 py-2 text-red-600 hover:bg-red-100 rounded-lg w-full text-left"
+                                onClick={() => {
+                                    onMenuItemClick(); // Close the menu
+                                    handleSignOut();       // Perform the sign-out action
+                                }}
+                            >
+                                <span className="mr-3"><PiSignOutBold /></span>
+                                Log Out
+                            </button>
+                        </div>
+
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
 };
 
 export default MyAccountTab;
