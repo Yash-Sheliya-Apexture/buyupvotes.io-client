@@ -20,10 +20,10 @@ const DashboardRoutes = () => {
         {/* Wrap all dashboard routes inside DashboardLayout */}
         <Route path="/" element={<DashboardLayout />}>
           <Route index element={<DashboardHome />} />
-          <Route path="UpvoteOrder" element={<UpvoteOrder />} />
-          <Route path="OrderComment" element={<OrderComment />}/>
+          <Route path="upvoteorder" element={<UpvoteOrder />} />
+          <Route path="ordercomment" element={<OrderComment />}/>
           <Route path="pricing" element={<FundPricing />} />
-          <Route path="ContactUs" element={<ContactUs />} />
+          <Route path="contactus" element={<ContactUs />} />
           <Route path="faqs" element={<FAQ />} />
 
           {/* Nested Routes for Blog */}
@@ -32,7 +32,7 @@ const DashboardRoutes = () => {
             <Route path=":title" element={<BlogDetails />} />
           </Route>
 
-          <Route path="Account" element={<Account />} />
+          <Route path="account" element={<Account />} />
 
           {/* Catch-all route for unmatched paths */}
           {/* <Route path="*" element={<Error404 />} /> */}

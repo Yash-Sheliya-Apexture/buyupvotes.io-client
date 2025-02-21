@@ -1301,13 +1301,13 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
       id: "Order Upvotes",
       icon: <FaListCheck />,
       label: "New Order",
-      link: "/dashboard/UpvoteOrder",
+      link: "/dashboard/upvoteorder",
     },
     {
       id: "Order Comment",
       icon: <IoIosChatboxes />,
       label: "Order Comment",
-      link: "/dashboard/OrderComment",
+      link: "/dashboard/ordercomment",
     },
     {
       id: "Add Funds",
@@ -1331,13 +1331,13 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
       id: "Contact",
       icon: <IoCallOutline />,
       label: "Contact Us",
-      link: "/dashboard/ContactUs",
+      link: "/dashboard/contactus",
     },
     {
       id: "Account",
       icon: <IoSettingsOutline />,
       label: "Account Settings",
-      link: "/dashboard/Account",
+      link: "/dashboard/account",
     },
   ];
 
