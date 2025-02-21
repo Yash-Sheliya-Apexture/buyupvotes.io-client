@@ -1624,7 +1624,7 @@ const Customize_Payment = () => {
                                         </div>
                                         {method.disabled && (
                                             <div className="absolute top-0 left-0 w-full h-full text-nowrap bg-white/70 rounded-lg pointer-events-none">
-                                                <div className="absolute md:top-1/2 top-10 left-60 md:left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-900 font-semibold">
+                                                <div className="absolute md:top-1/2 top-1/2 left-1/2 md:left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-900 font-semibold">
                                                     Coming Soon
                                                 </div>
                                             </div>
@@ -1638,7 +1638,7 @@ const Customize_Payment = () => {
                             <h6 className="font-semibold mb-2 text-gray-700">
                                 Quick Amount Selector
                             </h6>
-                            <div className="sm:flex flex-row items-center justify-between border border-gray-300 rounded-xl overflow-hidden grid grid-cols-2 gap-1">
+                            <div className="sm:flex flex-row items-center justify-between border border-gray-300 rounded-xl overflow-hidden grid grid-cols-2">
                                 {predefinedAmounts.map((amount) => (
                                     <label
                                         key={amount}
@@ -1705,7 +1705,7 @@ const Customize_Payment = () => {
                     </form>
                 </div>
                 {/* Description on the right */}
-                <div className="lg:w-1/2 p-4 bg-gray-50 space-y-2 border border-slate-300/50 rounded-2xl shadow-md">
+                <div className="lg:w-1/2 p-8 bg-white space-y-2 border border-gray-300 rounded-small shadow-main">
                     <h2 className="text-xl font-medium text-primary">Payment Information</h2>
                     <p className="text-para-color font-medium">
                         This page allows you to customize your payment amount and select your preferred payment method.  Currently, Crypto via Cryptomus is the only available payment option. Credit/Debit Card payments are coming soon! We are actively working on adding more payment methods to provide you with a wider range of choices.
