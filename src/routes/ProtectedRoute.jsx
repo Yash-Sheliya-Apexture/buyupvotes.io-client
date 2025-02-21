@@ -88,6 +88,37 @@
 // export default ProtectedRoute;
 
 
+// import React from "react";
+// import { Navigate } from "react-router-dom";
+// import { useAuth } from "../auth/AuthContext";
+
+// const ProtectedRoute = ({ element, requiredRole }) => {
+//     const { user, loading } = useAuth();
+
+//     if (!loading) {
+//         return
+//         <>
+//             <div className="flex flex-col items-center">
+//                 <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
+//             </div>
+//         </> 
+//     }
+
+//     if (!user) { // Check for user instead of isAuthenticated()
+//         return <Navigate to="/signin" />;
+//     }
+
+//     if (requiredRole && user.role !== requiredRole) {
+//         // User is authenticated, but doesn't have the required role
+//         return <Navigate to="/" />; // Or an "Unauthorized" page
+//     }
+
+//     return element; // User is authenticated and has the required role, render the element
+// };
+
+// export default ProtectedRoute;
+
+
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
@@ -96,7 +127,11 @@ const ProtectedRoute = ({ element, requiredRole }) => {
     const { user, loading } = useAuth();
 
     if (loading) {
-        return <div>Loading...</div>; // Or a spinner, etc.
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
+            </div>
+        );
     }
 
     if (!user) { // Check for user instead of isAuthenticated()
