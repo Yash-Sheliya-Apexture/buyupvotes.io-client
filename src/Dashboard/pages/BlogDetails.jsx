@@ -435,7 +435,7 @@ const BlogDetails = () => {
               style={{
                 flexDirection: window.innerWidth <= 768 ? "column" : "row",
                 bottom: window.innerWidth <= 768 ? "auto" : "4px",
-                top: window.innerWidth <= 768 ? "-160px" : "auto",
+                top: window.innerWidth <= 768 ? "-205px" : "auto",
               }}
             >
               {/* Twitter */}
