@@ -747,7 +747,7 @@ const Compare = () => {
                         </div>
 
                         {/* gardient-add */}
-                        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#5CB338] opacity-40 to-transparent"></div>
+                        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#5CB338] opacity-45 to-transparent"></div>
                         {/* <div className='home-item'>
                         </div> */}
                     </div>

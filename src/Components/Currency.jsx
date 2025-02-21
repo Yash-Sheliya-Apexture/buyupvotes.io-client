@@ -41,10 +41,7 @@
 // export default Currency;
 
 
-
-
 import React from "react";
-import payment_logos from "../assets/Images/allPaymentIcons.png";
 import Customize_Payment from "../Dashboard/components/Customize_Payment";
 import { useAuth } from "../auth/AuthContext";
 import { Link } from "react-router-dom";
@@ -54,7 +51,7 @@ const Currency = () => {
   const { user, loading } = auth || {}; //Destructure user, loading from context
 
   return (
-    <section className="Currency-Exchange bg-white pb-10">
+    <section className="Currency-Exchange bg-white py-10">
       <div className="container mx-auto space-y-5">
         {!user ? (
           <div className="Currency-main">

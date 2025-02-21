@@ -112,7 +112,6 @@ import { motion } from "framer-motion";
 import HeroSection from "../Components/HeroSection";
 import Post from "./Post";
 import Upvotes from "./Upvotes";
-import Pricing from "../Components/Pricing";
 // import Currency from "../Components/Currency";
 import { FaArrowUp } from "react-icons/fa6";
 import Contact from "../Components/homeSection/Contact";
@@ -120,14 +119,15 @@ import Blogs from "../Components/homeSection/Blogs";
 import OurBenefits from "../Components/homeSection/OurBenefits";
 import Compare from "./Compare";
 import Trusted from "./Trusted";
-import Service from "./Service";
+// import Service from "./Service";
 
 const HomePage = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
+
     const handleScroll = () => {
-      setShowScrollTop(window.scrollY > window.innerHeight / 2);
+      setShowScrollTop(window.scrollY > window.innerHeight / 8 );
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -141,7 +141,6 @@ const HomePage = () => {
   return (
     <main className="scroll-smooth">
       <HeroSection />
-      {/* <Currency /> */}
       <Post />
       <Upvotes />
       <OurBenefits />
@@ -159,7 +158,7 @@ const HomePage = () => {
           animate={{ opacity: 1, scale: 1.1 }}
           exit={{ opacity: 0, scale: 0.5 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="fixed flex items-center justify-center size-8 bottom-10 right-4 rounded-lg backdrop-blur-md bg-black"
+          className="fixed flex items-center justify-center size-8 bottom-10 right-4 rounded-lg backdrop-blur-md bg-black z-20"
         >
           <FaArrowUp className="text-white" />
         </motion.button>
