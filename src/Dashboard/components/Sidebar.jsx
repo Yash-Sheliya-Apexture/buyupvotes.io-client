@@ -1375,7 +1375,7 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
           </button>
         </div>
 
-        <div className="h-[calc(100%-5rem)] overflow-y-auto custom-scroll flex flex-col justify-between">
+        <div className="h-[calc(100%-82.59px)] overflow-y-auto custom-scroll flex flex-col justify-between">
           <ul className="space-y-3 p-4 ">
             {menuItems.map(item => (
               <li
