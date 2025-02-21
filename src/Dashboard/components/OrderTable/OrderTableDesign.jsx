@@ -497,7 +497,7 @@ const OrderTableDesign = ({ loading, tableData, formattedDate, paginatedData, ac
                     <div className="min-w-[1000px]">
                         <table className="w-full border-collapse table-auto table-main">
                             <thead className="capitalize text-small bg-gray-light text-sub-color">
-                                <tr>
+                                <tr className="text-nowrap">
                                     <th className="px-6 py-3">Order #</th>
                                     <th className="px-6 py-3">Details</th>
                                     <th className="px-6 py-3">Started</th>
@@ -510,7 +510,7 @@ const OrderTableDesign = ({ loading, tableData, formattedDate, paginatedData, ac
                                 </tr>
                             </thead>
 
-                            <tbody>
+                            <tbody className="text-nowrap">
                                 {loading ? (
                                     <tr>
                                         <td colSpan="7" className="py-20 text-center text-gray-400">

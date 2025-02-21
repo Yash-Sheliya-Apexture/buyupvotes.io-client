@@ -16,7 +16,7 @@ function ContactUs() {
       <BreadcrumbHeader title="Contact-Us" breadcrumbs={breadcrumbs} />
       <section className="Contact-Dashboard">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 ">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 ">
             {/* Contact Information */}
             <div className="w-full">
               <div className="lg:max-w-md lg:mt-10 mt-5">
