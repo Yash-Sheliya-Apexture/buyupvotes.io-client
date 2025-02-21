@@ -58,34 +58,38 @@
 // export default ProtectedRoute;
 
 
-// import React from "react";
-// import { Navigate } from "react-router-dom";
-// import { useAuth } from "../auth/AuthContext";
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
 
-// const ProtectedRoute = ({ element, requiredRole }) => {
-//     const { user, loading } = useAuth(); // Get user and loading state
-//     const isAuthenticated = () => {
-//         return localStorage.getItem('authToken') !== null;
-//     };
+const ProtectedRoute = ({ element, requiredRole }) => {
+    const { user, loading } = useAuth(); // Get user and loading state
+    const isAuthenticated = () => {
+        return localStorage.getItem('authToken') !== null;
+    };
 
 
-//     if (loading) {
-//         return <div>Loading...</div>; // Or a spinner, etc.  Prevent rendering before user is loaded.
-//     }
+    if (loading) {
+        return <>
+            <div className="flex justify-center items-center h-screen">
+                <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
+            </div>
+        </>; // Or a spinner, etc.  Prevent rendering before user is loaded.
+    }
 
-//     if (!isAuthenticated()) {
-//         return <Navigate to="/signin" />;
-//     }
+    if (!isAuthenticated()) {
+        return <Navigate to="/signin" />;
+    }
 
-//     if (requiredRole && (!user || user.role !== requiredRole)) {
-//         // User is authenticated, but doesn't have the required role
-//         return <Navigate to="/" />; // Or a "Unauthorized" page
-//     }
+    if (requiredRole && (!user || user.role !== requiredRole)) {
+        // User is authenticated, but doesn't have the required role
+        return <Navigate to="/" />; // Or a "Unauthorized" page
+    }
 
-//     return element; // User is authenticated and has the required role, render the element
-// };
+    return element; // User is authenticated and has the required role, render the element
+};
 
-// export default ProtectedRoute;
+export default ProtectedRoute;
 
 
 // import React from "react";
@@ -119,31 +123,66 @@
 // export default ProtectedRoute;
 
 
-import React from "react";
-import { Navigate } from "react-router-dom";
-import { useAuth } from "../auth/AuthContext";
+// import React from "react";
+// import { Navigate } from "react-router-dom";
+// import { useAuth } from "../auth/AuthContext";
 
-const ProtectedRoute = ({ element, requiredRole }) => {
-    const { user, loading } = useAuth();
+// const ProtectedRoute = ({ element, requiredRole }) => {
+//     const { user, loading } = useAuth();
 
-    if (loading) {
-        return (
-            <div className="flex justify-center items-center h-screen">
-                <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
-            </div>
-        );
-    }
+//     if (loading) {
+//         return (
+//             <div className="flex justify-center items-center h-screen">
+//                 <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
+//             </div>
+//         );
+//     }
 
-    if (!user) { // Check for user instead of isAuthenticated()
-        return <Navigate to="/signin" />;
-    }
+//     if (!user) { // Check for user instead of isAuthenticated()
+//         return <Navigate to="/signin" />;
+//     }
 
-    if (requiredRole && user.role !== requiredRole) {
-        // User is authenticated, but doesn't have the required role
-        return <Navigate to="/" />; // Or an "Unauthorized" page
-    }
+//     if (requiredRole && user.role !== requiredRole) {
+//         // User is authenticated, but doesn't have the required role
+//         return <Navigate to="/" />; // Or an "Unauthorized" page
+//     }
 
-    return element; // User is authenticated and has the required role, render the element
-};
+//     return element; // User is authenticated and has the required role, render the element
+// };
 
-export default ProtectedRoute;
+// export default ProtectedRoute;
+
+
+
+
+
+// import React from "react";
+// import { Navigate } from "react-router-dom";
+// import { useAuth } from "../auth/AuthContext";
+
+// const ProtectedRoute = ({ element, requiredRole }) => {
+//     const { user, loading } = useAuth();
+
+//     if (loading) {
+//         // Wait for the AuthContext to finish loading
+//         return (
+//             <div className="flex justify-center items-center h-screen">
+//                 <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
+//             </div>
+//         );
+//     }
+
+//     if (!user) {
+//         // User is not authenticated
+//         return <Navigate to="/signin" replace />;
+//     }
+
+//     if (requiredRole && user.role !== requiredRole) {
+//         // User is authenticated, but doesn't have the required role
+//         return <Navigate to="/" replace />; // Or an "Unauthorized" page
+//     }
+
+//     return element; // User is authenticated and has the required role, render the element
+// };
+
+// export default ProtectedRoute;
