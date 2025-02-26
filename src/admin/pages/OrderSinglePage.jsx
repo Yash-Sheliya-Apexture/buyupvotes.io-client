@@ -1213,6 +1213,8 @@
 
 // export default OrderSinglePage;
 
+
+
 // OrderSinglePage.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom"; // Import useNavigate
@@ -1537,29 +1539,22 @@ const OrderSinglePage = () => {
                 </h2>
                 <p className="text-gray-800">{order.started}</p>
               </div>
-
-              {/* Completed Votes Section */}
-              <div className="py-4 w-1/2 flex items-center gap-6">
-                <h2 className="text-xl font-semibold text-gray-700">
-                  Completed Votes:
-                </h2>
-                <p className="text-gray-800">{order.completedVotes}</p>
-              </div>
-            </div>
-
-            <div className="flex justify-between">
-              
-              {/* Order Date Section */}
               <div className="py-4 w-1/2 flex items-center gap-6">
                 <h2 className="text-xl font-semibold text-gray-700">
                   Order Date:
                 </h2>
                 <p className="text-gray-800">{formatDate(order.createdAt)}</p>
               </div>
+            </div>
+
+            <div className="flex justify-between">
+
+              {/* Order Date Section */}
+
 
 
               {/* Link Section */}
-              <div className="py-4 w-1/2 flex items-center gap-6">
+              <div className="py-4 w-full flex items-center gap-6">
                 <h2 className="text-xl font-semibold text-gray-700">Link:</h2>
                 <a
                   href={order.link}

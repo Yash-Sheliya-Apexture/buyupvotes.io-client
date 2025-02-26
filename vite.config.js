@@ -4,6 +4,9 @@ import react from '@vitejs/plugin-react';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  define: {
+    'process.env': process.env,
+  },
   base: '/', // Ensure this is set correctly for your deployment
   server: {
     historyApiFallback: true, 
