@@ -923,6 +923,7 @@ const Account = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
+                console.log("/auth/user 4")
                 setOriginalUserData(response.data);
                 setUserData(response.data);
             } catch (error) {
@@ -1030,52 +1031,53 @@ const Account = () => {
     // };
     // In Account.jsx (handleSaveChanges function)
 
-// In Account.jsx (handleSaveChanges function)
+    // In Account.jsx (handleSaveChanges function)
 
-const handleSaveChanges = async () => {
-    setIsSaving(true);
-  
-    if (userData.firstName.trim() === userData.lastName.trim()) {
-      setUserData((prevData) => ({
-        ...prevData,
-        lastName: "",
-      }));
-    }
-  
-    try {
-      if (!token) {
-        toast.error("Authorization token is missing. Please log in again.");
-        setIsSaving(false);
-        return;
-      }
-  
-      await axios.put(
-        `${API_BASE_URL}/auth/user`,
-        {
-          email: userData.email,
-          firstName: userData.firstName,
-          lastName: userData.lastName,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+    const handleSaveChanges = async () => {
+        setIsSaving(true);
+
+        if (userData.firstName.trim() === userData.lastName.trim()) {
+            setUserData((prevData) => ({
+                ...prevData,
+                lastName: "",
+            }));
         }
-      );
-  
-      toast.success("Changes saved successfully!");
-  
-      // Update both userData and originalUserData state:
-      setOriginalUserData(userData);  // Update originalUserData
-  
-    } catch (error) {
-      console.error("Error saving changes:", error);
-      toast.error("Failed to save changes.");
-    } finally {
-      setIsSaving(false);
-      setIsEditing(false);
-    }
-  };
+
+        try {
+            if (!token) {
+                toast.error("Authorization token is missing. Please log in again.");
+                setIsSaving(false);
+                return;
+            }
+
+            await axios.put(
+                `${API_BASE_URL}/auth/user`,
+                {
+                    email: userData.email,
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+
+            );
+            console.log("/auth/user 5")
+            toast.success("Changes saved successfully!");
+
+            // Update both userData and originalUserData state:
+            setOriginalUserData(userData);  // Update originalUserData
+
+        } catch (error) {
+            console.error("Error saving changes:", error);
+            toast.error("Failed to save changes.");
+        } finally {
+            setIsSaving(false);
+            setIsEditing(false);
+        }
+    };
     const tabs = [
         {
             id: "general",

@@ -32,12 +32,12 @@ const Footer = () => {
                 <p className={`${textColorClass} text-small`}>Chat with us: </p>
                 <div className="flex space-x-2">
                   <div className="size-8 bg-blue-500 rounded-md flex items-center justify-center">
-                    <a href="https://t.me/buyupvotessupport" target="_blank">
+                    <a  target="_blank">
                       <FaTelegram className="text-white size-4" />
                     </a>
                   </div>
                   <div className="size-8 bg-green-500 rounded-md flex items-center justify-center">
-                    <a href="https://web.whatsapp.com/" target="_blank">
+                    <a  target="_blank">
                       <FaWhatsapp className="text-white size-4" />
                     </a>
                   </div>
@@ -52,7 +52,7 @@ const Footer = () => {
                 <h3
                   className={`hidden font-bold underline ${textColorClass} text-small lg:block`}
                 >
-                  BuyUpvotes
+                  Reddit Marketing
                 </h3>
                 <ul className="mt-4 space-y-2.5 lg:text-medium xs:text-small">
                   <li>

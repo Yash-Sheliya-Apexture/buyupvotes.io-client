@@ -39,7 +39,7 @@ export const DataProvider = ({ children }) => {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setUserData(userResponse.data);
-
+                console.log("/auth/user 4")
             } catch (error) {
                 setError(error.message || "Error fetching user data");
             } finally {

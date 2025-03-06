@@ -227,7 +227,70 @@
 
 
 
-// Dashboard/hooks/useCurrentBalance.js
+// // Dashboard/hooks/useCurrentBalance.js
+// import { useState, useEffect } from 'react';
+// import axios from 'axios';
+
+// const useCurrentBalance = (API_BASE_URL, token) => {
+//     const [currentBalance, setCurrentBalance] = useState(0);
+//     const [loading, setLoading] = useState(true);
+//     const [error, setError] = useState(null);
+
+//     useEffect(() => {
+//         const fetchBalance = async () => {
+//             if (!token) {
+//                 setLoading(false);
+//                 return;
+//             }
+
+//             try {
+//                 setLoading(true);
+//                 setError(null);
+
+//                 const headers = { Authorization: `Bearer ${token}` };
+
+//                 // Fetch Payments
+//                 const paymentsResponse = await axios.get(`${API_BASE_URL}/payment`, { headers });
+//                 let amountTotal = 0;
+//                 if (paymentsResponse.status === 200 && paymentsResponse.data && paymentsResponse.data.payments) {
+//                     amountTotal = paymentsResponse.data.payments.reduce((total, payment) => {
+//                         return total + parseFloat(payment.amount || 0);
+//                     }, 0);
+//                 }
+
+//                 // Fetch Orders and calculate total spent
+//                 const ordersResponse = await axios.get(`${API_BASE_URL}/auth/orders`, { headers });
+//                 let totalSpent = 0;
+//                 if (ordersResponse.status === 200 && Array.isArray(ordersResponse.data)) {
+//                     ordersResponse.data.forEach(order => {
+//                         const calculatedPrice = parseFloat(order.calculatedPrice || 0);
+//                        if (order.status === "Pending" || order.status === "In Progress" || order.status === "Partial" || order.status === "Completed") {
+//                               totalSpent += calculatedPrice;
+//                         } else if (order.status === "Canceled") {
+                              
+//                         }
+//                     });
+//                 }
+
+//                 const calculatedBalance = amountTotal - totalSpent;
+//                 setCurrentBalance(calculatedBalance >= 0 ? calculatedBalance : 0);
+//             } catch (apiError) {
+//                 console.error("Error fetching data:", apiError);
+//                 setError(apiError.message || "Error fetching current balance");
+//                 setCurrentBalance(0);
+//             } finally {
+//                 setLoading(false);
+//             }
+//         };
+
+//         fetchBalance();
+//     }, [API_BASE_URL, token]);
+
+//     return { currentBalance, loading, error };
+// };
+// export default useCurrentBalance;
+
+
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -275,7 +338,7 @@ const useCurrentBalance = (API_BASE_URL, token) => {
                 const calculatedBalance = amountTotal - totalSpent;
                 setCurrentBalance(calculatedBalance >= 0 ? calculatedBalance : 0);
             } catch (apiError) {
-                console.error("Error fetching data:", apiError);
+                console.error("Error fetching data:", apiError); // Log the full error for debugging
                 setError(apiError.message || "Error fetching current balance");
                 setCurrentBalance(0);
             } finally {

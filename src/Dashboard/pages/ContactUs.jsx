@@ -67,10 +67,10 @@ function ContactUs() {
                     Email
                   </h3>
                   <a
-                    href="mailto:kartavyapatel027@gmail.com"
+                    href="mailto:info@redditmarketing.company"
                     className="text-gray-700 underline"
                   >
-                    kartavyapatel027@gmail.com
+                    info@redditmarketing.company
                   </a>
                 </div>
 

@@ -1,6 +1,5 @@
 import React from "react";
 import Pricing from "../Components/Pricing";
-import Currency from "../Components/Currency";
 import BreadcrumbHeader from "../Components/BreadcrumbHeader";
 import PriceList from "../Components/PriceSection/PriceList";
 const Price = () => {
@@ -11,7 +10,6 @@ const Price = () => {
 
   return (
     <main className="py-10" id="Pricing">
-      {/* Pricing-Page */}
       <BreadcrumbHeader title="Pricing" breadcrumbs={breadcrumbs} />
       <PriceList
         heading="Fit Your Needs"
@@ -22,7 +20,6 @@ const Price = () => {
               transparency!"
       />
       <Pricing />
-      <Currency />
     </main>
   );
 };
