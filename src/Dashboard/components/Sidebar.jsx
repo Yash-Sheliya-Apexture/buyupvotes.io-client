@@ -1356,7 +1356,7 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
           <div className={`flex items-center h-[82.6px] border-b p-4  ${isSidebarExpanded ? 'justify-between' : 'justify-center'}`}>
             <Link to="/" className="flex items-center">
               {isSidebarExpanded ? (
-                <img src={logo} alt="Expanded Logo" className="h-10 transition-all duration-300" />
+                <img src={logo} alt="Expanded Logo" className="h-8 transition-all duration-300" />
               ) : (
                 <img src={logo1} alt="Collapsed Logo" className="h-10 transition-all duration-300" />
               )}

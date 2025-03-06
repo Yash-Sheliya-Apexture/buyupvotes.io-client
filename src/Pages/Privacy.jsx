@@ -17,7 +17,7 @@ const Privacy = () => {
               <h1 className="heading">Introduction</h1>
               <br />
               <p className="para">
-                Welcome to Buy Upvotes, doing business as https://buyupvotes.io/
+                Welcome to Buy Upvotes, doing business as https://redditmarketing.company
                 (“BUYUPVOTE,” “we,” or “us”). This Privacy Policy outlines how
                 we collect, use, disclose, and protect your information when you
                 interact with our website (the “Site”) or use our services (the
@@ -138,7 +138,7 @@ const Privacy = () => {
               <p className="para">
                 We may send you emails related to your account or our services.
                 You may opt out of marketing emails by contacting us at
-                info@buyupvotes.io. Please note that opting out does not affect
+                info@redditmarketing.company. Please note that opting out does not affect
                 service-related emails.
               </p>
               <br />
@@ -157,7 +157,7 @@ const Privacy = () => {
                 information. You can deactivate your BUYUPVOTE account through
                 the Site, but some information may remain in our records as
                 required by law or for legitimate business purposes. Contact us
-                at info@buyupvotes.io for further assistance.
+                at info@redditmarketing.company for further assistance.
               </p>
               <br />
               <h1 className="heading">International Users</h1>
@@ -184,7 +184,7 @@ const Privacy = () => {
                 California residents have the right to request details about how
                 we share their personal information with third parties for
                 marketing purposes. To make a request, contact us at
-                info@buyupvotes.io.
+                info@redditmarketing.company.
               </p>
               <br />
               <h1 className="heading">Business Transfers</h1>
@@ -208,7 +208,7 @@ const Privacy = () => {
               <br />
               <p className="para">
                 If you have any questions or concerns about this Privacy Policy,
-                please reach out to us at info@buyupvotes.io.
+                please reach out to us at info@redditmarketing.company.
               </p>
             </div>
           </div>

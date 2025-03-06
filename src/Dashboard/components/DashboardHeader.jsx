@@ -1012,6 +1012,7 @@ const DashboardHeader = ({ toggleSidebarVisibility }) => {
         const userResponse = await axios.get(`${API_BASE_URL}/auth/user`, {
           headers,
         });
+        console.log("/auth/user 3")
         if (userResponse.status !== 200) {
           console.error("Failed to fetch user data");
           return;

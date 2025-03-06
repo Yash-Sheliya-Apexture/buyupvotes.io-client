@@ -17,7 +17,7 @@ const TermAndConditions = () => {
               <br />
               <p className="para">
                 These Terms and Conditions (“Terms”) govern your access to and
-                use of the Buy Upvotes website, located at https://buyupvotes.io
+                use of the Buy Upvotes website, located at https://redditmarketing.company
                 (the “Service”), along with the Privacy Policy, Acceptable Use
                 Policy, and Anti-Spam Policy. By using our Service, you agree to
                 be bound by these Terms. If you do not agree with any part of
@@ -149,7 +149,7 @@ const TermAndConditions = () => {
               <br />
               <p className="para">
                 For any questions or concerns regarding these Terms, please
-                contact us at info@buyupvotes.io.
+                contact us at info@redditmarketing.company.
               </p>
             </div>
           </div>
