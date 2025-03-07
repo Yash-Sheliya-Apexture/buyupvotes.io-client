@@ -1,297 +1,74 @@
-// // Dashboard/components/hooks/useCurrentBalance.js
-
-// import { useState, useEffect } from 'react';
+// import { useState, useEffect, useCallback } from 'react';
 // import axios from 'axios';
 
 // const useCurrentBalance = (API_BASE_URL, token) => {
-//     const [currentBalance, setCurrentBalance] = useState(0);
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState(null); // Add error state
+//   const [currentBalance, setCurrentBalance] = useState(0);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
 
-//     useEffect(() => {
-//         const fetchBalance = async () => {
-//             if (!token) {
-//                 setLoading(false);
-//                 return;
-//             }
+//   const fetchBalance = useCallback(async () => {
+//     if (!token) {
+//       setLoading(false);
+//       return;
+//     }
 
-//             try {
-//                 setLoading(true);
-//                 setError(null); // Clear any previous errors
+//     try {
+//       setLoading(true);
+//       setError(null);
 
-//                 const headers = { Authorization: `Bearer ${token}` };
+//       const headers = { Authorization: `Bearer ${token}` };
 
-//                 // Fetch Orders
-//                 const ordersResponse = await axios.get(`${API_BASE_URL}/auth/orders`, { headers });
-//                 console.log("Orders Response:", ordersResponse);
+//       // Concurrent requests for Payments and Orders
+//       const [paymentsResponse, ordersResponse] = await Promise.all([
+//         axios.get(`${API_BASE_URL}/payment`, { headers }),
+//         axios.get(`${API_BASE_URL}/auth/orders`, { headers }),
+//       ]);
 
-//                 let completedAmount = 0;
+//       // Calculate amountTotal from Payments
+//       let amountTotal = 0;
+//       if (
+//         paymentsResponse.status === 200 &&
+//         paymentsResponse.data &&
+//         paymentsResponse.data.payments
+//       ) {
+//         amountTotal = paymentsResponse.data.payments.reduce(
+//           (total, payment) => total + parseFloat(payment.amount || 0),
+//           0
+//         );
+//       }
 
-//                 if (ordersResponse.status === 200 && Array.isArray(ordersResponse.data)) {
-//                     const ordersData = ordersResponse.data;
+//       // Calculate totalSpent from Orders
+//       let totalSpent = 0;
+//       if (ordersResponse.status === 200 && Array.isArray(ordersResponse.data)) {
+//         totalSpent = ordersResponse.data.reduce((total, order) => {
+//           const calculatedPrice = parseFloat(order.calculatedPrice || 0);
+//           return total + (["Pending", "In Progress", "Partial", "Completed"].includes(order.status) ? calculatedPrice : 0);
+//         }, 0);
+//       }
 
-//                     completedAmount = ordersData.reduce((total, order) => {
-//                         const calculatedPrice = parseFloat(order.calculatedPrice || 0);
+//       const calculatedBalance = amountTotal - totalSpent;
+//       setCurrentBalance(calculatedBalance >= 0 ? calculatedBalance : 0);
+//     } catch (apiError) {
+//       console.error('Error fetching data:', apiError);
+//       setError(apiError.message || 'Error fetching current balance');
+//       setCurrentBalance(0);
+//     } finally {
+//       setLoading(false);
+//     }
+//   }, [API_BASE_URL, token]);
 
-//                         if (order.status === "Pending"  || order.status === "In Progress" || order.status === "Completed" || order.status === "Partial") {
-//                             return total + calculatedPrice;  // Completed and In-progress are subtractions.
-//                         } else if (order.status === "Canceled") {
-//                             return total - calculatedPrice; // Canceled means return fund back
-//                         } else {
-//                             return total;
-//                         }
-//                     }, 0);
-//                 }
+//   useEffect(() => {
+//     fetchBalance();
+//   }, [fetchBalance]);
 
-//                 // Fetch Payments
-//                 const paymentsResponse = await axios.get(`${API_BASE_URL}/payment`, { headers });
-//                 console.log("Payments Response:", paymentsResponse);
-
-//                 let amountTotal = 0;
-//                 if (paymentsResponse.status === 200 && paymentsResponse.data && paymentsResponse.data.payments) {
-//                     // Sum all payment amounts
-//                     amountTotal = paymentsResponse.data.payments.reduce((total, payment) => {
-//                         return total + parseFloat(payment.amount || 0); // Ensure 'amount' is a number
-//                     }, 0);
-//                 }
-
-//                 const calculatedBalance = amountTotal - completedAmount;
-
-//                 setCurrentBalance(calculatedBalance >= 0 ? calculatedBalance : 0);
-
-//             } catch (apiError) {
-//                 console.error("Error fetching data:", apiError);
-//                 setError(apiError.message || "Error fetching current balance"); // Set error message
-
-//                 setCurrentBalance(0); // Reset to 0 if there's an error
-//             } finally {
-//                 setLoading(false);
-//             }
-//         };
-
-//         fetchBalance();
-//     }, [API_BASE_URL, token]);
-
-//     return { currentBalance, loading, error };
+//   return { currentBalance, loading, error };
 // };
 
 // export default useCurrentBalance;
 
 
-// Dashboard/components/hooks/useCurrentBalance.js
-
-
-
-
-// import { useState, useEffect } from 'react';
-// import axios from 'axios';
-
-// const useCurrentBalance = (API_BASE_URL, token) => {
-//     const [currentBalance, setCurrentBalance] = useState(0);
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState(null); // Add error state
-
-//     useEffect(() => {
-//         const fetchBalance = async () => {
-//             if (!token) {
-//                 setLoading(false);
-//                 return;
-//             }
-
-//             try {
-//                 setLoading(true);
-//                 setError(null); // Clear any previous errors
-
-//                 const headers = { Authorization: `Bearer ${token}` };
-
-//                 // Fetch Orders
-//                 const ordersResponse = await axios.get(`${API_BASE_URL}/auth/orders`, { headers });
-
-//                 let completedAmount = 0;
-
-//                 if (ordersResponse.status === 200 && Array.isArray(ordersResponse.data)) {
-//                     const ordersData = ordersResponse.data;
-
-//                     completedAmount = ordersData.reduce((total, order) => {
-//                         const calculatedPrice = parseFloat(order.calculatedPrice || 0);
-//                         console.log(calculatedPrice)
-
-//                         if (order.status === "Pending"  || order.status === "In Progress" || order.status === "Completed" || order.status === "Partial") {
-//                             return total + calculatedPrice;  // Completed and In-progress are subtractions.
-//                         } else if (order.status === "Canceled") {
-//                             return total - calculatedPrice; // Canceled means return fund back
-//                         } else {
-//                             return total;
-//                         }
-//                     }, 0);
-//                 }
-
-//                 // Fetch Payments
-//                 const paymentsResponse = await axios.get(`${API_BASE_URL}/payment`, { headers });
-
-//                 let amountTotal = 0;
-//                 if (paymentsResponse.status === 200 && paymentsResponse.data && paymentsResponse.data.payments) {
-//                     // Sum all payment amounts
-//                     amountTotal = paymentsResponse.data.payments.reduce((total, payment) => {
-//                         return total + parseFloat(payment.amount || 0); // Ensure 'amount' is a number
-//                     }, 0);
-//                 }
-
-//                 const calculatedBalance = amountTotal - completedAmount;
-
-//                 setCurrentBalance(calculatedBalance >= 0 ? calculatedBalance : 0);
-
-//             } catch (apiError) {
-//                 console.error("Error fetching data:", apiError);
-//                 setError(apiError.message || "Error fetching current balance"); // Set error message
-
-//                 setCurrentBalance(0); // Reset to 0 if there's an error
-//             } finally {
-//                 setLoading(false);
-//             }
-//         };
-//         fetchBalance();
-//     }, [API_BASE_URL, token]);
-
-//     return { currentBalance, loading, error };
-// };
-
-// export default useCurrentBalance;
-
-
-// import { useState, useEffect } from 'react';
-// import axios from 'axios';
-
-// const useCurrentBalance = (API_BASE_URL, token) => {
-//     const [currentBalance, setCurrentBalance] = useState(0);
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState(null);
-
-//     useEffect(() => {
-//         const fetchBalance = async () => {
-//             if (!token) {
-//                 setLoading(false);
-//                 return;
-//             }
-
-//             try {
-//                 setLoading(true);
-//                 setError(null);
-
-//                 const headers = { Authorization: `Bearer ${token}` };
-
-//                 // Fetch Payments
-//                 const paymentsResponse = await axios.get(`${API_BASE_URL}/payment`, { headers });
-//                 let amountTotal = 0;
-//                 if (paymentsResponse.status === 200 && paymentsResponse.data && paymentsResponse.data.payments) {
-//                     amountTotal = paymentsResponse.data.payments.reduce((total, payment) => {
-//                         return total + parseFloat(payment.amount || 0);
-//                     }, 0);
-//                 }
-
-//                 // Fetch Orders and calculate total spent
-//                 const ordersResponse = await axios.get(`${API_BASE_URL}/auth/orders`, { headers });
-//                 let totalSpent = 0;
-//                 if (ordersResponse.status === 200 && Array.isArray(ordersResponse.data)) {
-//                     ordersResponse.data.forEach(order => {
-//                         const calculatedPrice = parseFloat(order.calculatedPrice || 0);
-//                         console.log(calculatedPrice)
-//                          if (order.status === "Pending" || order.status === "In Progress" || order.status === "Partial" || order.status === "Completed") {
-//                               totalSpent += calculatedPrice;
-//                         } else if (order.status === "Canceled") {
-//                               totalSpent -= calculatedPrice;
-//                         }
-//                     });
-//                 }
-
-//                 const calculatedBalance = amountTotal - totalSpent;
-//                 setCurrentBalance(calculatedBalance >= 0 ? calculatedBalance : 0);
-//             } catch (apiError) {
-//                 console.error("Error fetching data:", apiError);
-//                 setError(apiError.message || "Error fetching current balance");
-//                 setCurrentBalance(0);
-//             } finally {
-//                 setLoading(false);
-//             }
-//         };
-
-//         fetchBalance();
-//     }, [API_BASE_URL, token]);
-
-//     return { currentBalance, loading, error };
-// };
-// export default useCurrentBalance;
-
-
-
-
-
-
-// // Dashboard/hooks/useCurrentBalance.js
-// import { useState, useEffect } from 'react';
-// import axios from 'axios';
-
-// const useCurrentBalance = (API_BASE_URL, token) => {
-//     const [currentBalance, setCurrentBalance] = useState(0);
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState(null);
-
-//     useEffect(() => {
-//         const fetchBalance = async () => {
-//             if (!token) {
-//                 setLoading(false);
-//                 return;
-//             }
-
-//             try {
-//                 setLoading(true);
-//                 setError(null);
-
-//                 const headers = { Authorization: `Bearer ${token}` };
-
-//                 // Fetch Payments
-//                 const paymentsResponse = await axios.get(`${API_BASE_URL}/payment`, { headers });
-//                 let amountTotal = 0;
-//                 if (paymentsResponse.status === 200 && paymentsResponse.data && paymentsResponse.data.payments) {
-//                     amountTotal = paymentsResponse.data.payments.reduce((total, payment) => {
-//                         return total + parseFloat(payment.amount || 0);
-//                     }, 0);
-//                 }
-
-//                 // Fetch Orders and calculate total spent
-//                 const ordersResponse = await axios.get(`${API_BASE_URL}/auth/orders`, { headers });
-//                 let totalSpent = 0;
-//                 if (ordersResponse.status === 200 && Array.isArray(ordersResponse.data)) {
-//                     ordersResponse.data.forEach(order => {
-//                         const calculatedPrice = parseFloat(order.calculatedPrice || 0);
-//                        if (order.status === "Pending" || order.status === "In Progress" || order.status === "Partial" || order.status === "Completed") {
-//                               totalSpent += calculatedPrice;
-//                         } else if (order.status === "Canceled") {
-                              
-//                         }
-//                     });
-//                 }
-
-//                 const calculatedBalance = amountTotal - totalSpent;
-//                 setCurrentBalance(calculatedBalance >= 0 ? calculatedBalance : 0);
-//             } catch (apiError) {
-//                 console.error("Error fetching data:", apiError);
-//                 setError(apiError.message || "Error fetching current balance");
-//                 setCurrentBalance(0);
-//             } finally {
-//                 setLoading(false);
-//             }
-//         };
-
-//         fetchBalance();
-//     }, [API_BASE_URL, token]);
-
-//     return { currentBalance, loading, error };
-// };
-// export default useCurrentBalance;
-
-
-import { useState, useEffect } from 'react';
+// Dashboard/hooks/useCurrentBalance.js
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 const useCurrentBalance = (API_BASE_URL, token) => {
@@ -299,56 +76,50 @@ const useCurrentBalance = (API_BASE_URL, token) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchBalance = async () => {
-            if (!token) {
-                setLoading(false);
-                return;
-            }
+    const fetchBalance = useCallback(async () => {
+        if (!token) {
+            setLoading(false);
+            return;
+        }
 
-            try {
-                setLoading(true);
-                setError(null);
+        try {
+            setLoading(true);
+            setError(null);
 
-                const headers = { Authorization: `Bearer ${token}` };
+            const headers = { Authorization: `Bearer ${token}` };
 
-                // Fetch Payments
-                const paymentsResponse = await axios.get(`${API_BASE_URL}/payment`, { headers });
-                let amountTotal = 0;
-                if (paymentsResponse.status === 200 && paymentsResponse.data && paymentsResponse.data.payments) {
-                    amountTotal = paymentsResponse.data.payments.reduce((total, payment) => {
-                        return total + parseFloat(payment.amount || 0);
-                    }, 0);
+            // Fetch Payments (only necessary data)
+            const paymentsResponse = await axios.get(`${API_BASE_URL}/payment`, { headers });
+            const payments = paymentsResponse.data?.payments || [];
+            const amountTotal = payments.reduce((total, payment) => total + parseFloat(payment.amount || 0), 0);
+
+            // Fetch Orders (only necessary data)
+            const ordersResponse = await axios.get(`${API_BASE_URL}/auth/orders`, { headers });
+            const orders = ordersResponse.data || [];
+            const totalSpent = orders.reduce((total, order) => {
+                if (["Pending", "In Progress", "Partial", "Completed"].includes(order.status)) {
+                    return total + parseFloat(order.calculatedPrice || 0);
                 }
+                return total;
+            }, 0);
 
-                // Fetch Orders and calculate total spent
-                const ordersResponse = await axios.get(`${API_BASE_URL}/auth/orders`, { headers });
-                let totalSpent = 0;
-                if (ordersResponse.status === 200 && Array.isArray(ordersResponse.data)) {
-                    ordersResponse.data.forEach(order => {
-                        const calculatedPrice = parseFloat(order.calculatedPrice || 0);
-                       if (order.status === "Pending" || order.status === "In Progress" || order.status === "Partial" || order.status === "Completed") {
-                              totalSpent += calculatedPrice;
-                        } else if (order.status === "Canceled") {
-                              
-                        }
-                    });
-                }
+            const calculatedBalance = amountTotal - totalSpent;
+            setCurrentBalance(calculatedBalance >= 0 ? calculatedBalance : 0);
 
-                const calculatedBalance = amountTotal - totalSpent;
-                setCurrentBalance(calculatedBalance >= 0 ? calculatedBalance : 0);
-            } catch (apiError) {
-                console.error("Error fetching data:", apiError); // Log the full error for debugging
-                setError(apiError.message || "Error fetching current balance");
-                setCurrentBalance(0);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchBalance();
+        } catch (apiError) {
+            console.error('Error fetching data:', apiError);
+            setError(apiError.message || 'Error fetching current balance');
+            setCurrentBalance(0);
+        } finally {
+            setLoading(false);
+        }
     }, [API_BASE_URL, token]);
+
+    useEffect(() => {
+        fetchBalance();
+    }, [fetchBalance]);
 
     return { currentBalance, loading, error };
 };
+
 export default useCurrentBalance;

@@ -46,6 +46,53 @@
 
 
 
+// import React from "react";
+// import { Route, Routes } from "react-router-dom";
+// import LoginHeader from "../Pages/LoginHeader";
+// const Sign_In = React.lazy(() => import("../Pages/Sign_In"));
+// const Sign_Up = React.lazy(() => import("../Pages/Sign_Up"));
+// import RedirectIfLoggedIn from "./RedirectIfLoggedIn";
+// import ForgotPassword from "../Pages/ForgotPassword";
+// import Newpassword from "../Pages/Newpassword";
+// import Error404 from "../Dashboard/pages/Error404"; // Import the Error404 component
+
+// const LogRoute = () => {
+//   return (
+//     <>
+//       <main className="min-h-screen bg-center bg-cover background-image">
+//         {/* Shared Header */}
+//         <LoginHeader />
+//         {/* Page Routes */}
+//         <Routes>
+//           <Route
+//             path="signin"
+//             element={
+//               <RedirectIfLoggedIn>
+//                 <React.Suspense fallback={<div>Loading...</div>}><Sign_In /></React.Suspense>
+//               </RedirectIfLoggedIn>
+//             }
+//           />
+//           <Route
+//             path="signup"
+//             element={
+//               <RedirectIfLoggedIn>
+//                 <React.Suspense fallback={<div>Loading...</div>}><Sign_Up /></React.Suspense>
+//               </RedirectIfLoggedIn>
+//             }
+//           />
+//           <Route path="forgot-password" element={<ForgotPassword />} />
+//           <Route path="newpassword" element={<Newpassword />} />
+//           {/* Catch-all route for unmatched paths */}
+//           <Route path="*" element={<Error404 />} />
+//         </Routes>
+//       </main>
+//     </>
+//   );
+// };
+
+// export default LogRoute;
+
+
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import LoginHeader from "../Pages/LoginHeader";
@@ -55,6 +102,7 @@ import RedirectIfLoggedIn from "./RedirectIfLoggedIn";
 import ForgotPassword from "../Pages/ForgotPassword";
 import Newpassword from "../Pages/Newpassword";
 import Error404 from "../Dashboard/pages/Error404"; // Import the Error404 component
+import { FaSpinner } from "react-icons/fa"; // Import spinner
 
 const LogRoute = () => {
   return (
@@ -68,7 +116,9 @@ const LogRoute = () => {
             path="signin"
             element={
               <RedirectIfLoggedIn>
-                <React.Suspense fallback={<div>Loading...</div>}><Sign_In /></React.Suspense>
+                <React.Suspense fallback={<div className="flex items-center justify-center h-full"><FaSpinner className="text-2xl animate-spin text-gray-500" /></div>}>
+                  <Sign_In />
+                </React.Suspense>
               </RedirectIfLoggedIn>
             }
           />
@@ -76,7 +126,9 @@ const LogRoute = () => {
             path="signup"
             element={
               <RedirectIfLoggedIn>
-                <React.Suspense fallback={<div>Loading...</div>}><Sign_Up /></React.Suspense>
+                <React.Suspense fallback={<div className="flex items-center justify-center h-full"><FaSpinner className="text-2xl animate-spin text-gray-500" /></div>}>
+                  <Sign_Up />
+                </React.Suspense>
               </RedirectIfLoggedIn>
             }
           />
