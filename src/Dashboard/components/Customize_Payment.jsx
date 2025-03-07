@@ -1481,6 +1481,11 @@
 
 // export default Customize_Payment;
 
+
+
+
+
+
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -1489,8 +1494,6 @@ import { LuWallet } from "react-icons/lu";
 import { PiQuestionBold } from "react-icons/pi";
 import cryptomus from "../../assets/Images/cryptomus.png";
 import stripe from "../../assets/Images/stripe.png"; // Ensure stripe image is imported
-import { FaLock } from "react-icons/fa"; // Import lock icon for security notice
-import { FaShieldAlt } from "react-icons/fa"; // Import shield icon for security notice
 
 const Customize_Payment = () => {
     const [selectedAmount, setSelectedAmount] = useState("");

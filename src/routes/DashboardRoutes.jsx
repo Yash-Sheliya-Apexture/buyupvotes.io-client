@@ -21,7 +21,6 @@ const DashboardRoutes = () => {
         <Route path="/" element={<DashboardLayout />}>
           <Route index element={<DashboardHome />} />
           <Route path="upvoteorder" element={<UpvoteOrder />} />
-          <Route path="ordercomment" element={<OrderComment />}/>
           <Route path="pricing" element={<FundPricing />} />
           <Route path="contactus" element={<ContactUs />} />
           <Route path="faqs" element={<FAQ />} />
