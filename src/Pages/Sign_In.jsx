@@ -1037,8 +1037,6 @@ const Sign_In = () => {
     const { login } = useAuth(); // Use the login function from AuthContext
 
 
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
     const validateField = useCallback((name, value) => {
         switch (name) {
             case "email":

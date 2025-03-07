@@ -1304,12 +1304,6 @@ const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
       link: "/dashboard/upvoteorder",
     },
     {
-      id: "Order Comment",
-      icon: <IoIosChatboxes />,
-      label: "Order Comment",
-      link: "/dashboard/ordercomment",
-    },
-    {
       id: "Add Funds",
       icon: <IoWalletOutline />,
       label: "Add Funds",
