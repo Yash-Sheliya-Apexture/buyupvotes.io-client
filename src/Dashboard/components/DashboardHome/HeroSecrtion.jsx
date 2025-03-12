@@ -204,7 +204,7 @@ import Slider from "../../pages/Slider";
 import { Link } from "react-router-dom";
 import heroimage from "../../../assets/Images/Hero.svg";
 import { useAuth } from "../../../auth/AuthContext";
-import { useBalance } from "../../../context/BalanceContext"; // Import useBalance
+import { useBalance } from "../../context/BalanceContext"; // Import useBalance
 import TokenService from "../../../utils/TokenService";
 
 const HeroSection = () => {

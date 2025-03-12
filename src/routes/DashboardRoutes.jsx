@@ -11,11 +11,12 @@ import BlogDetails from "../Dashboard/pages/BlogDetails";
 import Account from "../Dashboard/pages/Account";
 import DashboardLayout from "../Dashboard/layout/DashboardLayout"; // Import DashboardLayout
 import Error404 from "../Dashboard/pages/Error404"; // Import Error404 page
-import Blog from "../Dashboard/pages/Blog"; 
-import OrderComment from "../Dashboard/pages/OrderComment";
+import Blog from "../Dashboard/pages/Blog";
+import { BalanceProvider } from "../Dashboard/context/BalanceContext"; // Import BalanceProvider
 
 const DashboardRoutes = () => {
   return (
+    <BalanceProvider>
       <Routes>
         {/* Wrap all dashboard routes inside DashboardLayout */}
         <Route path="/" element={<DashboardLayout />}>
@@ -38,6 +39,7 @@ const DashboardRoutes = () => {
           <Route path="/*" element={<Error404 />} />
         </Route>
       </Routes>
+    </BalanceProvider>
   );
 };
 

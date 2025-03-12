@@ -513,7 +513,7 @@ const OrderTableDesign = ({ loading, tableData, formattedDate, paginatedData, ac
                             <tbody className="text-nowrap">
                                 {loading ? (
                                     <tr>
-                                        <td colSpan="7" className="py-20 text-center text-gray-400">
+                                        <td colSpan="8" className="py-20 text-center text-gray-400">
                                             <div className="flex flex-col items-center">
                                                 <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
                                             </div>
@@ -521,7 +521,7 @@ const OrderTableDesign = ({ loading, tableData, formattedDate, paginatedData, ac
                                     </tr>
                                 ) : tableData.length === 0 ? (
                                     <tr>
-                                        <td colSpan="7" className="py-20 text-center text-gray-400">
+                                        <td colSpan="8" className="py-20 text-center text-gray-400">
                                             <div className="flex flex-col">
                                                 <img src={Data} alt="No Data" className="h-40" />
                                                 <p className="mt-4 text-lg font-medium">No Data Available</p>

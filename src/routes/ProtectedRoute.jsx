@@ -49,9 +49,9 @@ const ProtectedRoute = ({ element, requiredRole }) => {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-screen">
-                <FaSpinner className="text-4xl animate-spin text-main-color" />
+                    <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
             </div>
-        ); // Or a spinner, etc.  Prevent rendering before user is loaded.
+        );
     }
 
     if (!isAuthenticated()) {

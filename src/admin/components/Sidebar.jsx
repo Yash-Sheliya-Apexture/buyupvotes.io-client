@@ -1104,82 +1104,82 @@ const Sidebar = () => {
                 { id: 'crm', title: 'All Payments', to: '/admin/payments' },
             ],
         },
-        {
-            id: 'changelog',
-            icon: FaChartLine,  // Using ChartLine for Changelog
-            title: 'Changelog',
-            to: '/admin/changelog',  // Replace with actual path
-            badge: '1.0.0',          // Add badge property
-        },
-        {
-            id: 'apps',
-            title: 'Apps',
-            isHeader: true,
-        },
-        {
-            id: 'chat',
-            icon: FaEnvelope,
-            title: 'Chat',
-            to: '/admin/chat',
-        },
-        {
-            id: 'email',
-            icon: FaEnvelope,
-            title: 'Email',
-            to: '/admin/email',
-        },
-        {
-            id: 'kanban',
-            icon: FaListAlt,
-            title: 'Kanban',
-            to: '/admin/kanban',
-        },
-        {
-            id: 'calendar',
-            icon: FaCalendarAlt,
-            title: 'Calendar',
-            to: '/admin/calendar',
-        },
-        {
-            id: 'todo',
-            icon: FaCheckSquare,
-            title: 'Todo',
-            to: '/admin/todo',
-        },
-        {
-            id: 'projects',
-            icon: FaProjectDiagram,
-            title: 'Projects',
-            to: '/admin/projects',
-        },
-        {
-            id: 'ecommerce',
-            icon: FaShoppingCart,
-            title: 'Ecommerce',
-            to: '/admin/ecommerce',
-        },
-        {
-            id: 'pages',
-            title: 'Pages',
-            isHeader: true,
-        },
-        {
-            id: 'authentication',
-            icon: FaLock,
-            title: 'Authentication',
-            to: '/admin/authentication',
-        },
-        {
-            id: 'utility',
-            icon: FaWrench,
-            title: 'Utility',
-            to: '/admin/utility',
-        },
-        {
-            id: 'elements',
-            title: 'Elements',
-            isHeader: true,
-        },
+        // {
+        //     id: 'changelog',
+        //     icon: FaChartLine,  // Using ChartLine for Changelog
+        //     title: 'Changelog',
+        //     to: '/admin/changelog',  // Replace with actual path
+        //     badge: '1.0.0',          // Add badge property
+        // },
+        // {
+        //     id: 'apps',
+        //     title: 'Apps',
+        //     isHeader: true,
+        // },
+        // {
+        //     id: 'chat',
+        //     icon: FaEnvelope,
+        //     title: 'Chat',
+        //     to: '/admin/chat',
+        // },
+        // {
+        //     id: 'email',
+        //     icon: FaEnvelope,
+        //     title: 'Email',
+        //     to: '/admin/email',
+        // },
+        // {
+        //     id: 'kanban',
+        //     icon: FaListAlt,
+        //     title: 'Kanban',
+        //     to: '/admin/kanban',
+        // },
+        // {
+        //     id: 'calendar',
+        //     icon: FaCalendarAlt,
+        //     title: 'Calendar',
+        //     to: '/admin/calendar',
+        // },
+        // {
+        //     id: 'todo',
+        //     icon: FaCheckSquare,
+        //     title: 'Todo',
+        //     to: '/admin/todo',
+        // },
+        // {
+        //     id: 'projects',
+        //     icon: FaProjectDiagram,
+        //     title: 'Projects',
+        //     to: '/admin/projects',
+        // },
+        // {
+        //     id: 'ecommerce',
+        //     icon: FaShoppingCart,
+        //     title: 'Ecommerce',
+        //     to: '/admin/ecommerce',
+        // },
+        // {
+        //     id: 'pages',
+        //     title: 'Pages',
+        //     isHeader: true,
+        // },
+        // {
+        //     id: 'authentication',
+        //     icon: FaLock,
+        //     title: 'Authentication',
+        //     to: '/admin/authentication',
+        // },
+        // {
+        //     id: 'utility',
+        //     icon: FaWrench,
+        //     title: 'Utility',
+        //     to: '/admin/utility',
+        // },
+        // {
+        //     id: 'elements',
+        //     title: 'Elements',
+        //     isHeader: true,
+        // },
     ];
 
     const renderMenuItem = (item) => {
@@ -1226,9 +1226,9 @@ const Sidebar = () => {
             <div className="flex items-center h-[68px] text-base font-semibold p-4 border-b border-gray-200">
                 <div className="h-8 w-8 mr-2 rounded-md bg-gray-800 text-white flex items-center justify-center">
                     {/* Replace with actual logo */}
-                    DC
+                    RM
                 </div>
-                <span className="text-gray-800 text-lg font-bold">DashCode</span>
+                <span className="text-gray-800 text-lg font-bold">RedditMarketing</span>
             </div>
 
             {/* Menu Items */}

@@ -260,7 +260,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { CgMenuLeftAlt } from "react-icons/cg";
 import logo1 from "../../assets/Images/logo-mini.png";
 import MyAccountTab from "../components/MyAccountTab";
-import { useBalance } from "../../context/BalanceContext"; // Import useBalance
+import { useBalance } from "../context/BalanceContext"; // Import useBalance
 import TokenService from "../../utils/TokenService";
 import { useAuth } from "../../auth/AuthContext"; // Import AuthContext
 

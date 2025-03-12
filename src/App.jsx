@@ -125,7 +125,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { AuthProvider } from "./auth/AuthContext";
 import { Suspense } from "react"; // Import Suspense
 import { FaSpinner } from 'react-icons/fa'; // Import spinner
-import { BalanceProvider } from "./context/BalanceContext"; // Import BalanceProvider
+import { BalanceProvider } from "./Dashboard/context/BalanceContext"; // Import BalanceProvider
 
 const App = () => {
     return (
@@ -141,7 +141,7 @@ const App = () => {
             />
             <Scroll_To_Top>
                 <AuthProvider>
-                    <BalanceProvider>  {/* Wrap with BalanceProvider */}
+                    {/* <BalanceProvider>  Wrap with BalanceProvider */}
                         <Suspense fallback={<div className="flex justify-center items-center h-screen"><FaSpinner className="text-2xl animate-spin text-gray-500" /></div>}> {/* Wrap Routes with Suspense */}
                             <Routes>
                                 {/* Protected Dashboard Routes */}
@@ -162,7 +162,7 @@ const App = () => {
                                 <Route path="/*" element={<WebsiteRoutes />} />
                             </Routes>
                         </Suspense>
-                    </BalanceProvider>
+                    {/* </BalanceProvider> */}
                 </AuthProvider>
             </Scroll_To_Top>
         </Router>

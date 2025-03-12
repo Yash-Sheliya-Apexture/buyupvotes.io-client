@@ -715,17 +715,17 @@ const Sign_Up = () => {
 
     const handleChange = useCallback((e) => {
         const { name, value } = e.target;
-        setEmail(name === "email" ? value : email);
-        setPassword(name === "password" ? value : password);
-        setConfirmPassword(name === "confirmPassword" ? value : confirmPassword);
-        setFirstName(name === "firstName" ? value : firstName);
-        setLastName(name === "lastName" ? value : lastName);
+        if (name === "email") setEmail(value);
+        if (name === "password") setPassword(value);
+        if (name === "confirmPassword") setConfirmPassword(value);
+        if (name === "firstName") setFirstName(value);
+        if (name === "lastName") setLastName(value);
 
         if (touched[name]) {
             const error = validateField(name, value);
             setErrors((prev) => ({ ...prev, [name]: error }));
         }
-    }, [setEmail, setPassword, setConfirmPassword, setFirstName, setLastName, touched, validateField, setErrors]);
+    }, [setErrors, validateField, touched]);
 
     const validateForm = useCallback(() => {
         const validationErrors = {};
@@ -747,7 +747,7 @@ const Sign_Up = () => {
         return Object.keys(validationErrors).length === 0;
     }, [email, password, confirmPassword, firstName, lastName, validateField, setErrors]);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
 
         if (!validateForm()) {
@@ -797,7 +797,7 @@ const Sign_Up = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [email, password, confirmPassword, firstName, lastName, validateForm, navigate, API_BASE_URL, setErrors]);
 
     const togglePasswordVisibility = useCallback(() => {
         setPasswordVisible(prev => !prev);

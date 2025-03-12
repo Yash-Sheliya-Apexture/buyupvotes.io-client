@@ -776,7 +776,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import TokenService from "../utils/TokenService";
 import { FaCreditCard, FaLock, FaEnvelope, FaUser } from "react-icons/fa"; // Solid Icons
-import { useBalance } from "../context/BalanceContext";  // Import useBalance
+import { useBalance } from "../Dashboard/context/BalanceContext";  // Import useBalance
 
 
 const Checkout = () => {

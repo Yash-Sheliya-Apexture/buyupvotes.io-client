@@ -1018,11 +1018,9 @@
 
 
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import google from "../assets/Images/google_logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import TokenService from "../utils/TokenService";
 import { FaSpinner } from "react-icons/fa";
 import InputField from "../Dashboard/components/InputField";
 import { useAuth } from "../auth/AuthContext";
@@ -1035,7 +1033,6 @@ const Sign_In = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { login } = useAuth(); // Use the login function from AuthContext
-
 
     const validateField = useCallback((name, value) => {
         switch (name) {
@@ -1053,23 +1050,23 @@ const Sign_In = () => {
         return null;
     }, []);
 
-    const handleBlur = (e) => {
+    const handleBlur = useCallback((e) => {
         const { name, value } = e.target;
         setTouched((prev) => ({ ...prev, [name]: true }));
         const error = validateField(name, value);
         setErrors((prev) => ({ ...prev, [name]: error }));
-    };
+    }, [validateField]);
 
-    const handleChange = (e) => {
+    const handleChange = useCallback((e) => {
         const { name, value } = e.target;
-        setEmail(name === "email" ? value : email);
-        setPassword(name === "password" ? value : password);
+        if (name === "email") setEmail(value);
+        if (name === "password") setPassword(value);
 
         if (touched[name]) {
             const error = validateField(name, value);
             setErrors((prev) => ({ ...prev, [name]: error }));
         }
-    };
+    }, [touched, validateField]);
 
     const validateForm = useCallback(() => {
         const validationErrors = {};
@@ -1083,15 +1080,20 @@ const Sign_In = () => {
         return Object.keys(validationErrors).length === 0;
     }, [email, password, validateField]);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
 
         if (!validateForm()) {
             setTouched({ email: true, password: true });
             return;
         }
-        await login(email, password)
-    };
+        setLoading(true);
+        try {
+            await login(email, password);
+        } finally {
+            setLoading(false);
+        }
+    }, [email, password, validateForm, login]);
 
     return (
         <>
