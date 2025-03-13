@@ -22,9 +22,9 @@ export default defineConfig({
   // Proxy configuration
   proxy: {
     '/api': {
-      target: process.env.NODE_ENV === 'production' 
-        ? 'https://api.redditmarketing.company'  // Production backend URL
-        : 'http://localhost:5000', // Local development backend URL
+      target: process.env.NODE_ENV === 'development' 
+        ? 'http://localhost:5000'  // Production backend URL
+        : 'https://api.redditmarketing.company', // Local development backend URL
       changeOrigin: true,
       rewrite: (path) => path.replace(/^\/api/, ''), // Rewrite path to remove '/api'
     },

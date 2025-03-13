@@ -4143,10 +4143,640 @@
 
 
 
-// UpvoteOrder.jsx
+// // UpvoteOrder.jsx
+// import React, { useState, useEffect, useCallback, useMemo } from "react";
+// import axios from "axios";
+// import { useBalance } from '../../context/BalanceContext';
+// import TokenService from "../../utils/TokenService";
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import { FaSpinner } from "react-icons/fa";
+// import { TbMessageFilled } from "react-icons/tb";
+// import Ordertable from "../components/OrderTable/OrderTable";
+// import Breadcrumb from "../components/Breadcrumb";
+// import Dropdown from "../components/Dropdown";
+// import InputField from "../components/InputField";
+// import DropdownWithPrices from "../components/DropdownWithPrices";
+// import { debounce } from 'lodash'; // Import debounce from lodash
+
+// const UpvoteOrder = () => {
+//     const [formData, setFormData] = useState({
+//         category: "Post",
+//         service: "",
+//         link: "",
+//         quantity: "",
+//         comments: "",
+//         calculatedPrice: 0,
+//     });
+
+//     const [touched, setTouched] = useState({
+//         category: false,
+//         service: false,
+//         link: false,
+//         quantity: false,
+//         comments: false,
+//     });
+
+//     const [errors, setErrors] = useState({
+//         quantity: '',
+//         comments: "",
+//         general: "",
+//     });
+
+//     const [isSubmitting, setIsSubmitting] = useState(false);
+
+//     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+//     const token = TokenService.getToken();
+//     const { currentBalance: calculatedBalance, loading: balanceLoading, error: balanceErrorHook, refreshBalance } = useBalance();
+
+//     useEffect(() => {
+//         if (balanceErrorHook) {
+//             setErrors(prev => ({ ...prev, general: balanceErrorHook }));
+//         }
+//     }, [balanceErrorHook]);
+
+//     // Service Options and Prices
+//     const serviceOptions = useMemo(() => {
+//         switch (formData.category) {
+//             case "Post": return ["Random Post", "Custom Post"];
+//             case "Comment": return ["Random Comments", "Custom Comments"];
+//             case "Upvotes": return ["Post Upvotes", "Comments Upvotes"];
+//             default: return [];
+//         }
+//     }, [formData.category]);
+
+//     const servicePrices = useMemo(() => {
+//         switch (formData.category) {
+//             case "Post": return { "Random Post": 3, "Custom Post": 5 };
+//             case "Comment": return { "Random Comments": 1, "Custom Comments": 2 };
+//             case "Upvotes": return { "Post Upvotes": 0.05, "Comments Upvotes": 0.05 };
+//             default: return {};
+//         }
+//     }, [formData.category]);
+
+//     const serviceDescriptions = useMemo(() => ({
+//         "Random Post": { description: "<b>Quality:</b> Very HQ<br>Details:<br>🚀 Exclusive server, fastest on the market!<br>⚠ Only Subreddit posts are accepted<br>✅ Daily database refresh!<br>✅ Real Accounts<br>✅ Old accounts with high karma will upvote!<br>✏ Example link: https://www.reddit.com/r/FREE/comments/14e21zd/free_20_giftcard/<br>🔊 Notice link contains comments and 1 post id 14e21zd<br>✅ Upvotes sent manually from aged Accounts with High Karma." },
+//         "Custom Post": { description: "Quality: Very HQ<br><br>Details:<br>🚀 Exclusive server, fastest on the market!<br><br>⚠ Only Subreddit posts are accepted<br><br>✅ Daily database refresh!<br><br>✅ Real Accounts<br><br>✅ Old accounts with high karma will upvote!<br><br>-Example link: https://www.reddit.com/r/FREE/comments/14e21zd/free_20_giftcard/<br><br>🔊 Notice link contains comments and 1 post id 14e21zd<br><br>✅ Upvotes sent manually from aged Accounts with High Karma." },
+//         "Random Comments": { description: "Details for Random Comments service..." },
+//         "Custom Comments": { description: "Details for Custom Comments service..." },
+//         "Post Upvotes": { description: "Details for Post Upvotes service..." },
+//         "Comments Upvotes": { description: "Details for Comments Upvotes service..." },
+//     }), []);
+
+//     // Validation Functions
+//     const validateRedditLink = (link) => /^https:\/\/(www\.)?reddit\.com\/[a-zA-Z0-9_]/.test(link);
+
+//     const validateQuantity = (value) => {
+//         if (!value) return "Quantity is required.";
+
+//         const numericValue = parseInt(value.trim(), 10);
+//         if (!/^\d+$/.test(value)) return "Quantity must be a valid number";
+//         if (numericValue < 5) return "Minimum quantity for posts is 5";
+//         if (numericValue > 1000) return "Maximum quantity for posts is 1000";
+//         return "";
+//     };
+
+//     const validateField = useCallback((name, value) => {
+//         switch (name) {
+//             case "category": return !value ? "Category is required." : "";
+//             case "service": return !value ? "Service is required." : "";
+//             case "link": return !value ? "Reddit link is required." : (!validateRedditLink(value) ? "Please enter a valid Reddit link (e.g., https://www.reddit.com/r/subreddit/)" : "");
+//             case "quantity": return validateQuantity(value);
+//             case "comments": return (formData.category === "Comment" && !value) ? "Comments are required for the Comment category." : "";
+//             default: return "";
+//         }
+//     }, [formData.category]);
+
+//     const calculatePrice = useCallback(() => {
+//         const quantity = parseInt(formData.quantity || 0, 10);
+//         if (isNaN(quantity) || quantity <= 0) {
+//             setFormData(prev => ({ ...prev, calculatedPrice: 0 }));
+//             return;
+//         }
+
+//         let price = 0;
+//         if (formData.category === "Post") {
+//             if (formData.service === "Random Post") price = servicePrices["Random Post"] * quantity;
+//             else if (formData.service === "Custom Post") price = servicePrices["Custom Post"] * quantity;
+//         } else if (formData.category === "Comment") {
+//             if (formData.service === "Random Comments") price = servicePrices["Random Comments"] * quantity;
+//             else if (formData.service === "Custom Comments") price = servicePrices["Custom Comments"] * quantity;
+//         } else if (formData.category === "Upvotes") {
+//             if (formData.service === "Post Upvotes") price = servicePrices["Post Upvotes"] * quantity;
+//             else if (formData.service === "Comments Upvotes") price = servicePrices["Comments Upvotes"] * quantity;
+//         }
+
+//         setFormData(prev => ({ ...prev, calculatedPrice: price }));
+//     }, [formData.category, formData.service, formData.quantity, servicePrices]);
+
+//     // Debounce the calculatePrice function
+//     const debouncedCalculatePrice = useCallback(debounce(calculatePrice, 300), [calculatePrice]);
+
+//     useEffect(() => {
+//         debouncedCalculatePrice();
+//     }, [debouncedCalculatePrice]);
+
+//     // Event Handlers
+//     const handleBlur = (e) => {
+//         const { name, value } = e.target;
+//         setTouched(prev => ({ ...prev, [name]: true }));
+//         setErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+//     };
+
+//     const handleDropdownBlur = (name, value) => {
+//         setTouched(prev => ({ ...prev, [name]: true }));
+//         setErrors(prev => ({ ...prev, [name]: value ? validateField(name, value) : { ...errors, [name]: '' } }));
+//     };
+
+//     const handleInputChange = (e) => {
+//         const { name, value } = e.target;
+//         setFormData(prev => ({ ...prev, [name]: value }));
+
+//         if (touched[name]) {
+//             setErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+//         }
+//     };
+
+//     const validateForm = useCallback(() => {
+//         const validationErrors = {};
+//         for (const key in formData) {
+//             const error = validateField(key, formData[key]);
+//             if (error) validationErrors[key] = error;
+//         }
+//         setErrors(validationErrors);
+//         return Object.keys(validationErrors).length === 0;
+//     }, [formData, validateField]);
+
+//     const handleSubmit = async (e) => {
+//         e.preventDefault();
+//         if (isSubmitting) return;
+
+//         setIsSubmitting(true);
+//         setErrors(prev => ({ ...prev, general: '' }));
+
+//         const formIsValid = validateForm();
+//         setTouched({ category: true, service: true, link: true, quantity: true, comments: true });
+
+//         if (!formIsValid) {
+//             setIsSubmitting(false);
+//             return;
+//         }
+
+//         if (formData.calculatedPrice > calculatedBalance) {
+//             setErrors(prev => ({ ...prev, general: "Insufficient balance. Please increase your balance or reduce the quantity." }));
+//             setIsSubmitting(false);
+//             return;
+//         }
+
+//         try {
+//             const response = await axios.post(
+//                 `${API_BASE_URL}/auth/submit-order`,
+//                 { ...formData, calculatedPrice: formData.calculatedPrice },
+//                 { headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` } }
+//             );
+
+//             if (response.status === 200) {
+//                 toast.success(response.data.message || "Order submitted successfully!");
+//                 refreshBalance();
+//                 setFormData({ category: "Post", service: "", link: "", quantity: "", comments: "", calculatedPrice: 0 });
+//                 setTouched({ category: false, service: false, link: false, quantity: false, comments: false });
+//                 setErrors({});
+//             } else {
+//                 setErrors(prev => ({ ...prev, general: response.data.message || "There was an error submitting the order." }));
+//             }
+//         } catch (error) {
+//             console.error("Error during Place Order:", error);
+//             setErrors(prev => ({ ...prev, general: error.response?.data.message || "Place Order failed. Please try again." }));
+//         } finally {
+//             setIsSubmitting(false);
+//         }
+//     };
+
+//     const onCategorySelect = useCallback((value) => {
+//         let defaultService = "";
+//         switch (value) {
+//             case "Post": defaultService = "Random Post"; break;
+//             case "Comment": defaultService = "Random Comments"; break;
+//             case "Upvotes": defaultService = "Post Upvotes"; break;
+//             default: defaultService = "";
+//         }
+
+//         setFormData(prev => ({ ...prev, category: value, service: defaultService, comments: "" }));
+//         if (touched.category) handleDropdownBlur("category", value);
+//     }, [handleDropdownBlur, touched.category]);
+
+//     useEffect(() => {
+//         if (formData.category === "Post" && !formData.service) {
+//             onCategorySelect("Post");
+//         }
+//     }, [formData.category, formData.service, onCategorySelect]);
+
+//     const selectedServiceDescription = serviceDescriptions[formData.service] || {};
+//     const categories = ["Post", "Comment", "Upvotes"];
+//     const breadcrumbs = [{ label: "Dashboard", link: "/dashboard" }, { label: "Order Upvotes" }];
+
+//     return (
+//         <>
+//             <section className="Upvotes-service">
+//                 <div className="container mx-auto">
+//                     <div>
+//                         <h1 className="mb-2 font-semibold text-sub-color text-small lg:text-basic">Order Upvotes</h1>
+//                         <div className="flex items-center"><Breadcrumb items={breadcrumbs} /></div>
+//                     </div>
+
+//                     <div className="flex flex-col w-full gap-6 mt-6 lg:flex-row lg:gap-y-6">
+//                         <div className="w-full p-4 border border-gray-300 lg:w-1/2 rounded-small lg:p-6 shadow-main">
+//                             <form onSubmit={handleSubmit} className="space-y-4">
+//                                 {errors.general && (
+//                                     <div className="flex items-center min-h-12 gap-3 px-4 py-2 bg-[#ffe9d5] rounded-xl shadow-box mb-4">
+//                                         <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" className="text-xl text-light-orange" width="1em" height="1em" viewBox="0 0 24 24">
+//                                             <path fill="currentColor" fillRule="evenodd" d="M7.843 3.802C9.872 2.601 10.886 2 12 2s2.128.6 4.157 1.802l.686.406c2.029 1.202 3.043 1.803 3.6 2.792c.557.99.557 2.19.557 4.594v.812c0 2.403 0 3.605-.557 4.594s-1.571 1.59-3.6 2.791l-.686.407C14.128 21.399 13.114 22 12 22s-2.128-.6-4.157-1.802l-.686-.407c-2.029-1.2-3.043-1.802-3.6-2.791C3 16.01 3 14.81 3 12.406v-.812C3 9.19 3 7.989 3.557 7s1.571-1.59 3.6-2.792zM13 16a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-1-9.75a.75.75 0 0 1 .75.75v6a.75.75 0 0 1-1.5 0V7a.75.75 0 0 1 .75-.75" clipRule="evenodd"></path>
+//                                         </svg>
+//                                         <p className="text-xs text-[#7a0916]">{errors.general}</p>
+//                                     </div>
+//                                 )}
+
+//                                 <Dropdown type="text" options={categories} selectedValue={formData.category} onSelect={onCategorySelect} placeholder="Category" error={touched.category && errors.category} onBlur={() => handleDropdownBlur("category", formData.category)} />
+//                                 <DropdownWithPrices options={serviceOptions} selectedValue={formData.service} onSelect={(value) => { setFormData(prev => ({ ...prev, service: value })); if (touched.service) handleDropdownBlur("service", value); }} placeholder="Service" error={touched.service && errors.service} onBlur={() => handleDropdownBlur("service", formData.service)} disabled={!formData.category} prices={servicePrices} setError={setErrors} />
+
+//                                 <div className="Input-link">
+//                                     <InputField name="link" placeholder="Link" value={formData.link} onChange={handleInputChange} onBlur={handleBlur} error={touched.link && errors.link} />
+//                                 </div>
+
+//                                 <div className="Input-quantity">
+//                                     <InputField type="text" name="quantity" placeholder="Quantity" value={formData.quantity} onChange={handleInputChange} onBlur={handleBlur} error={errors.quantity} />
+//                                 </div>
+
+//                                 {formData.category === "Comment" && (
+//                                     <div className="Comments-section">
+//                                         <InputField as="textarea" name="comments" placeholder="Comments (1 per line)" value={formData.comments} onChange={handleInputChange} onBlur={handleBlur} error={errors.comments} rows={4} inputPadding="p-2.5" labelPosition="top-2.5" />
+//                                     </div>
+//                                 )}
+
+//                                 <div className="calculated-price"><p>Calculated Price: ${formData.calculatedPrice.toFixed(2)}</p></div>
+
+//                                 <div className="flex justify-center pt-5 space-x-4">
+//                                     {(balanceLoading || isSubmitting) ? (
+//                                         <div><FaSpinner className="text-lg animate-spin" /></div>
+//                                     ) : (
+//                                         <button type="submit" disabled={formData.calculatedPrice > calculatedBalance || balanceLoading} className="inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600">Place Order</button>
+//                                     )}
+//                                 </div>
+//                             </form>
+//                         </div>
+
+//                         <div className="w-full border border-gray-300 lg:w-1/2 shadow-main rounded-small">
+//                             <div className="p-3 border-b border-gray-300 flex items-center gap-3 mb-2">
+//                                 <div className="bg-gray-100 w-10 h-10 flex justify-center items-center rounded-full border border-gray-300">
+//                                     <TbMessageFilled className="text-main-color text-lg" />
+//                                 </div>
+//                                 <span className="text-xl font-semibold">Service Description</span>
+//                             </div>
+//                             <div className="p-3">
+//                                 <div className="border border-gray-300 rounded-xl flex justify-between p-3 mb-3">
+//                                     <span>{formData.service}</span>
+//                                     <span>${servicePrices[formData.service] || 0}</span>
+//                                 </div>
+//                                 <div className="Service-details leading-7" dangerouslySetInnerHTML={{ __html: selectedServiceDescription.description || "" }}></div>
+//                             </div>
+//                         </div>
+//                     </div>
+
+//                     <div className="my-4"><p className="text-center underline text-light-red underline-offset-1 lg:text-medium text-small">Due to Reddit's updated security measures, upvotes on certain subreddits are temporarily unavailable. If affected, the order will be canceled and refunded.</p></div>
+//                 </div>
+//             </section>
+
+//             <section className="Upvotes-table">
+//                 <div className="container mx-auto">
+//                     <Ordertable />
+//                 </div>
+//             </section>
+//         </>
+//     );
+// };
+
+// export default UpvoteOrder;
+
+
+
+// // UpvoteOrder.jsx
+// import React, { useState, useEffect, useCallback, useMemo } from "react";
+// import axios from "axios";
+// import { useBalance } from '../../context/BalanceContext';
+// import TokenService from "../../utils/TokenService";
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import { FaSpinner } from "react-icons/fa";
+// import { TbMessageFilled } from "react-icons/tb";
+// import Ordertable from "../components/OrderTable/OrderTable";
+// import Breadcrumb from "../components/Breadcrumb";
+// import Dropdown from "../components/Dropdown";
+// import InputField from "../components/InputField";
+// import DropdownWithPrices from "../components/DropdownWithPrices";
+// import { debounce } from 'lodash'; // Import debounce from lodash
+
+// const UpvoteOrder = () => {
+//     const [formData, setFormData] = useState({
+//         category: "Post",
+//         service: "",
+//         link: "",
+//         quantity: "",
+//         comments: "",
+//         calculatedPrice: 0,
+//     });
+
+//     const [touched, setTouched] = useState({
+//         category: false,
+//         service: false,
+//         link: false,
+//         quantity: false,
+//         comments: false,
+//     });
+
+//     const [errors, setErrors] = useState({
+//         quantity: '',
+//         comments: "",
+//         general: "",
+//     });
+
+//     const [isSubmitting, setIsSubmitting] = useState(false);
+
+//     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+//     const token = TokenService.getToken();
+//     const { currentBalance: calculatedBalance, loading: balanceLoading, error: balanceErrorHook, refreshBalance } = useBalance();
+
+//     useEffect(() => {
+//         if (balanceErrorHook) {
+//             setErrors(prev => ({ ...prev, general: balanceErrorHook }));
+//         }
+//     }, [balanceErrorHook]);
+
+//     // Service Options and Prices
+//     const serviceOptions = useMemo(() => {
+//         switch (formData.category) {
+//             case "Post": return ["Random Post", "Custom Post"];
+//             case "Comment": return ["Random Comments", "Custom Comments"];
+//             case "Upvotes": return ["Post Upvotes", "Comments Upvotes"];
+//             default: return [];
+//         }
+//     }, [formData.category]);
+
+//     const servicePrices = useMemo(() => {
+//         switch (formData.category) {
+//             case "Post": return { "Random Post": 3, "Custom Post": 5 };
+//             case "Comment": return { "Random Comments": 1, "Custom Comments": 2 };
+//             case "Upvotes": return { "Post Upvotes": 0.05, "Comments Upvotes": 0.05 };
+//             default: return {};
+//         }
+//     }, [formData.category]);
+
+//     const serviceDescriptions = useMemo(() => ({
+//         "Random Post": { description: "<b>Quality:</b> Very HQ<br>Details:<br>🚀 Exclusive server, fastest on the market!<br>⚠ Only Subreddit posts are accepted<br>✅ Daily database refresh!<br>✅ Real Accounts<br>✅ Old accounts with high karma will upvote!<br>✏ Example link: https://www.reddit.com/r/FREE/comments/14e21zd/free_20_giftcard/<br>🔊 Notice link contains comments and 1 post id 14e21zd<br>✅ Upvotes sent manually from aged Accounts with High Karma." },
+//         "Custom Post": { description: "Quality: Very HQ<br><br>Details:<br>🚀 Exclusive server, fastest on the market!<br><br>⚠ Only Subreddit posts are accepted<br><br>✅ Daily database refresh!<br><br>✅ Real Accounts<br><br>✅ Old accounts with high karma will upvote!<br><br>-Example link: https://www.reddit.com/r/FREE/comments/14e21zd/free_20_giftcard/<br><br>🔊 Notice link contains comments and 1 post id 14e21zd<br><br>✅ Upvotes sent manually from aged Accounts with High Karma." },
+//         "Random Comments": { description: "Details for Random Comments service..." },
+//         "Custom Comments": { description: "Details for Custom Comments service..." },
+//         "Post Upvotes": { description: "Details for Post Upvotes service..." },
+//         "Comments Upvotes": { description: "Details for Comments Upvotes service..." },
+//     }), []);
+
+//     // Validation Functions
+//     const validateRedditLink = (link) => /^https:\/\/(www\.)?reddit\.com\/[a-zA-Z0-9_]/.test(link);
+
+//     const validateQuantity = (value) => {
+//         if (!value) return "Quantity is required.";
+
+//         const numericValue = parseInt(value.trim(), 10);
+//         if (!/^\d+$/.test(value)) return "Quantity must be a valid number";
+//         if (numericValue < 5) return "Minimum quantity for posts is 5";
+//         if (numericValue > 1000) return "Maximum quantity for posts is 1000";
+//         return "";
+//     };
+
+//     const validateField = useCallback((name, value) => {
+//         switch (name) {
+//             case "category": return !value ? "Category is required." : "";
+//             case "service": return !value ? "Service is required." : "";
+//             case "link": return !value ? "Reddit link is required." : (!validateRedditLink(value) ? "Please enter a valid Reddit link (e.g., https://www.reddit.com/r/subreddit/)" : "");
+//             case "quantity": return validateQuantity(value);
+//             case "comments": return (formData.category === "Comment" && !value) ? "Comments are required for the Comment category." : "";
+//             default: return "";
+//         }
+//     }, [formData.category]);
+
+//     const calculatePrice = useCallback(() => {
+//         const quantity = parseInt(formData.quantity || 0, 10);
+//         if (isNaN(quantity) || quantity <= 0) {
+//             setFormData(prev => ({ ...prev, calculatedPrice: 0 }));
+//             return;
+//         }
+
+//         let price = 0;
+//         if (formData.category === "Post") {
+//             if (formData.service === "Random Post") price = servicePrices["Random Post"] * quantity;
+//             else if (formData.service === "Custom Post") price = servicePrices["Custom Post"] * quantity;
+//         } else if (formData.category === "Comment") {
+//             if (formData.service === "Random Comments") price = servicePrices["Random Comments"] * quantity;
+//             else if (formData.service === "Custom Comments") price = servicePrices["Custom Comments"] * quantity;
+//         } else if (formData.category === "Upvotes") {
+//             if (formData.service === "Post Upvotes") price = servicePrices["Post Upvotes"] * quantity;
+//             else if (formData.service === "Comments Upvotes") price = servicePrices["Comments Upvotes"] * quantity;
+//         }
+
+//         setFormData(prev => ({ ...prev, calculatedPrice: price }));
+//     }, [formData.category, formData.service, formData.quantity, servicePrices]);
+
+//     // Debounce the calculatePrice function
+//     const debouncedCalculatePrice = useCallback(debounce(calculatePrice, 300), [calculatePrice]);
+
+//     useEffect(() => {
+//         debouncedCalculatePrice();
+//     }, [debouncedCalculatePrice]);
+
+//     // Event Handlers
+//     const handleBlur = (e) => {
+//         const { name, value } = e.target;
+//         setTouched(prev => ({ ...prev, [name]: true }));
+//         setErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+//     };
+
+//     const handleDropdownBlur = (name, value) => {
+//         setTouched(prev => ({ ...prev, [name]: true }));
+//         setErrors(prev => ({ ...prev, [name]: value ? validateField(name, value) : { ...errors, [name]: '' } }));
+//     };
+
+//     const handleInputChange = (e) => {
+//         const { name, value } = e.target;
+//         setFormData(prev => ({ ...prev, [name]: value }));
+
+//         if (touched[name]) {
+//             setErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+//         }
+//     };
+
+//     const validateForm = useCallback(() => {
+//         const validationErrors = {};
+//         for (const key in formData) {
+//             const error = validateField(key, formData[key]);
+//             if (error) validationErrors[key] = error;
+//         }
+//         setErrors(validationErrors);
+//         return Object.keys(validationErrors).length === 0;
+//     }, [formData, validateField]);
+
+//     const handleSubmit = async (e) => {
+//         e.preventDefault();
+//         if (isSubmitting) return;
+
+//         setIsSubmitting(true);
+//         setErrors(prev => ({ ...prev, general: '' }));
+
+//         const formIsValid = validateForm();
+//         setTouched({ category: true, service: true, link: true, quantity: true, comments: true });
+
+//         if (!formIsValid) {
+//             setIsSubmitting(false);
+//             return;
+//         }
+
+//         if (formData.calculatedPrice > calculatedBalance) {
+//             setErrors(prev => ({ ...prev, general: "Insufficient balance. Please increase your balance or reduce the quantity." }));
+//             setIsSubmitting(false);
+//             return;
+//         }
+
+//         try {
+//             const response = await axios.post(
+//                 `${API_BASE_URL}/auth/submit-order`,
+//                 { ...formData, calculatedPrice: formData.calculatedPrice },
+//                 { headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` } }
+//             );
+
+//             if (response.status === 200) {
+//                 toast.success(response.data.message || "Order submitted successfully!");
+//                 refreshBalance();
+//                 setFormData({ category: "Post", service: "", link: "", quantity: "", comments: "", calculatedPrice: 0 });
+//                 setTouched({ category: false, service: false, link: false, quantity: false, comments: false });
+//                 setErrors({});
+//             } else {
+//                 setErrors(prev => ({ ...prev, general: response.data.message || "There was an error submitting the order." }));
+//             }
+//         } catch (error) {
+//             console.error("Error during Place Order:", error);
+//             setErrors(prev => ({ ...prev, general: error.response?.data.message || "Place Order failed. Please try again." }));
+//         } finally {
+//             setIsSubmitting(false);
+//         }
+//     };
+
+//     const onCategorySelect = useCallback((value) => {
+//         let defaultService = "";
+//         switch (value) {
+//             case "Post": defaultService = "Random Post"; break;
+//             case "Comment": defaultService = "Random Comments"; break;
+//             case "Upvotes": defaultService = "Post Upvotes"; break;
+//             default: defaultService = "";
+//         }
+
+//         setFormData(prev => ({ ...prev, category: value, service: defaultService, comments: "" }));
+//         if (touched.category) handleDropdownBlur("category", value);
+//     }, [handleDropdownBlur, touched.category]);
+
+//     useEffect(() => {
+//         if (formData.category === "Post" && !formData.service) {
+//             onCategorySelect("Post");
+//         }
+//     }, [formData.category, formData.service, onCategorySelect]);
+
+//     const selectedServiceDescription = serviceDescriptions[formData.service] || {};
+//     const categories = ["Post", "Comment", "Upvotes"];
+//     const breadcrumbs = [{ label: "Dashboard", link: "/dashboard" }, { label: "Order Upvotes" }];
+
+//     return (
+//         <>
+//             <section className="Upvotes-service">
+//                 <div className="container mx-auto">
+//                     <div>
+//                         <h1 className="mb-2 font-semibold text-sub-color text-small lg:text-basic">Order Upvotes</h1>
+//                         <div className="flex items-center"><Breadcrumb items={breadcrumbs} /></div>
+//                     </div>
+
+//                     <div className="flex flex-col w-full gap-6 mt-6 lg:flex-row lg:gap-y-6">
+//                         <div className="w-full p-4 border border-gray-300 lg:w-1/2 rounded-small lg:p-6 shadow-main">
+//                             <form onSubmit={handleSubmit} className="space-y-4">
+//                                 {errors.general && (
+//                                     <div className="flex items-center min-h-12 gap-3 px-4 py-2 bg-[#ffe9d5] rounded-xl shadow-box mb-4">
+//                                         <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" className="text-xl text-light-orange" width="1em" height="1em" viewBox="0 0 24 24">
+//                                             <path fill="currentColor" fillRule="evenodd" d="M7.843 3.802C9.872 2.601 10.886 2 12 2s2.128.6 4.157 1.802l.686.406c2.029 1.202 3.043 1.803 3.6 2.792c.557.99.557 2.19.557 4.594v.812c0 2.403 0 3.605-.557 4.594s-1.571 1.59-3.6 2.791l-.686.407C14.128 21.399 13.114 22 12 22s-2.128-.6-4.157-1.802l-.686-.407c-2.029-1.2-3.043-1.802-3.6-2.791C3 16.01 3 14.81 3 12.406v-.812C3 9.19 3 7.989 3.557 7s1.571-1.59 3.6-2.792zM13 16a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-1-9.75a.75.75 0 0 1 .75.75v6a.75.75 0 0 1-1.5 0V7a.75.75 0 0 1 .75-.75" clipRule="evenodd"></path>
+//                                         </svg>
+//                                         <p className="text-xs text-[#7a0916]">{errors.general}</p>
+//                                     </div>
+//                                 )}
+
+//                                 <Dropdown type="text" options={categories} selectedValue={formData.category} onSelect={onCategorySelect} placeholder="Category" error={touched.category && errors.category} onBlur={() => handleDropdownBlur("category", formData.category)} />
+//                                 <DropdownWithPrices options={serviceOptions} selectedValue={formData.service} onSelect={(value) => { setFormData(prev => ({ ...prev, service: value })); if (touched.service) handleDropdownBlur("service", value); }} placeholder="Service" error={touched.service && errors.service} onBlur={() => handleDropdownBlur("service", formData.service)} disabled={!formData.category} prices={servicePrices} setError={setErrors} />
+
+//                                 <div className="Input-link">
+//                                     <InputField name="link" placeholder="Link" value={formData.link} onChange={handleInputChange} onBlur={handleBlur} error={touched.link && errors.link} />
+//                                 </div>
+
+//                                 <div className="Input-quantity">
+//                                     <InputField type="text" name="quantity" placeholder="Quantity" value={formData.quantity} onChange={handleInputChange} onBlur={handleBlur} error={errors.quantity} />
+//                                 </div>
+
+//                                 {formData.category === "Comment" && (
+//                                     <div className="Comments-section">
+//                                         <InputField as="textarea" name="comments" placeholder="Comments (1 per line)" value={formData.comments} onChange={handleInputChange} onBlur={handleBlur} error={errors.comments} rows={4} inputPadding="p-2.5" labelPosition="top-2.5" />
+//                                     </div>
+//                                 )}
+
+//                                 <div className="calculated-price"><p>Calculated Price: ${formData.calculatedPrice.toFixed(2)}</p></div>
+
+//                                 <div className="flex justify-center pt-5 space-x-4">
+//                                     {(balanceLoading || isSubmitting) ? (
+//                                         <div><FaSpinner className="text-lg animate-spin" /></div>
+//                                     ) : (
+//                                         <button type="submit" disabled={formData.calculatedPrice > calculatedBalance || balanceLoading} className="inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600">Place Order</button>
+//                                     )}
+//                                 </div>
+//                             </form>
+//                         </div>
+
+//                         <div className="w-full border border-gray-300 lg:w-1/2 shadow-main rounded-small">
+//                             <div className="p-3 border-b border-gray-300 flex items-center gap-3 mb-2">
+//                                 <div className="bg-gray-100 w-10 h-10 flex justify-center items-center rounded-full border border-gray-300">
+//                                     <TbMessageFilled className="text-main-color text-lg" />
+//                                 </div>
+//                                 <span className="text-xl font-semibold">Service Description</span>
+//                             </div>
+//                             <div className="p-3">
+//                                 <div className="border border-gray-300 rounded-xl flex justify-between p-3 mb-3">
+//                                     <span>{formData.service}</span>
+//                                     <span>${servicePrices[formData.service] || 0}</span>
+//                                 </div>
+//                                 <div className="Service-details leading-7" dangerouslySetInnerHTML={{ __html: selectedServiceDescription.description || "" }}></div>
+//                             </div>
+//                         </div>
+//                     </div>
+
+//                     <div className="my-4"><p className="text-center underline text-light-red underline-offset-1 lg:text-medium text-small">Due to Reddit's updated security measures, upvotes on certain subreddits are temporarily unavailable. If affected, the order will be canceled and refunded.</p></div>
+//                 </div>
+//             </section>
+
+//             <section className="Upvotes-table">
+//                 <div className="container mx-auto">
+//                     <Ordertable />
+//                 </div>
+//             </section>
+//         </>
+//     );
+// };
+
+// export default UpvoteOrder;
+
+
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import axios from "axios";
-import { useBalance } from '../../context/BalanceContext';
+import { useBalance } from '../context/BalanceContext';
 import TokenService from "../../utils/TokenService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -4158,6 +4788,7 @@ import Dropdown from "../components/Dropdown";
 import InputField from "../components/InputField";
 import DropdownWithPrices from "../components/DropdownWithPrices";
 import { debounce } from 'lodash'; // Import debounce from lodash
+import useMySpent from "../context/useMySpent";
 
 const UpvoteOrder = () => {
     const [formData, setFormData] = useState({
@@ -4184,10 +4815,13 @@ const UpvoteOrder = () => {
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isLoading, setIsLoading] = useState(false); // Added loading state
+
 
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const token = TokenService.getToken();
-    const { currentBalance: calculatedBalance, loading: balanceLoading, error: balanceErrorHook, refreshBalance } = useBalance();
+    const { currentBalance, loading: balanceLoading, error: balanceErrorHook, refreshBalance, setCurrentBalance } = useBalance();
+      const { mySpent, refreshSpent } = useMySpent(API_BASE_URL, token); //use refreshSpent
 
     useEffect(() => {
         if (balanceErrorHook) {
@@ -4311,6 +4945,7 @@ const UpvoteOrder = () => {
         e.preventDefault();
         if (isSubmitting) return;
 
+        setIsLoading(true); // Set loading to true initially
         setIsSubmitting(true);
         setErrors(prev => ({ ...prev, general: '' }));
 
@@ -4319,12 +4954,14 @@ const UpvoteOrder = () => {
 
         if (!formIsValid) {
             setIsSubmitting(false);
+            setIsLoading(false); // Set loading to false if form is invalid
             return;
         }
 
-        if (formData.calculatedPrice > calculatedBalance) {
+        if (formData.calculatedPrice > currentBalance) {
             setErrors(prev => ({ ...prev, general: "Insufficient balance. Please increase your balance or reduce the quantity." }));
             setIsSubmitting(false);
+            setIsLoading(false); // Set loading to false if balance is insufficient
             return;
         }
 
@@ -4337,10 +4974,16 @@ const UpvoteOrder = () => {
 
             if (response.status === 200) {
                 toast.success(response.data.message || "Order submitted successfully!");
+
+                // Refresh both balance and spent
                 refreshBalance();
+                refreshSpent();
+
+                // Reset form
                 setFormData({ category: "Post", service: "", link: "", quantity: "", comments: "", calculatedPrice: 0 });
                 setTouched({ category: false, service: false, link: false, quantity: false, comments: false });
                 setErrors({});
+
             } else {
                 setErrors(prev => ({ ...prev, general: response.data.message || "There was an error submitting the order." }));
             }
@@ -4349,6 +4992,7 @@ const UpvoteOrder = () => {
             setErrors(prev => ({ ...prev, general: error.response?.data.message || "Place Order failed. Please try again." }));
         } finally {
             setIsSubmitting(false);
+            setIsLoading(false); // Set loading to false after submission
         }
     };
 
@@ -4416,11 +5060,17 @@ const UpvoteOrder = () => {
                                 <div className="calculated-price"><p>Calculated Price: ${formData.calculatedPrice.toFixed(2)}</p></div>
 
                                 <div className="flex justify-center pt-5 space-x-4">
-                                    {(balanceLoading || isSubmitting) ? (
-                                        <div><FaSpinner className="text-lg animate-spin" /></div>
-                                    ) : (
-                                        <button type="submit" disabled={formData.calculatedPrice > calculatedBalance || balanceLoading} className="inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600">Place Order</button>
-                                    )}
+                                    {isLoading ? ( // Show spinner if loading
+                                      <div><FaSpinner className="text-lg animate-spin" /></div>
+                                    ) : (  // Show button when not loading
+                                    <button
+                                      type="submit"
+                                      disabled={formData.calculatedPrice > currentBalance || balanceLoading || isSubmitting} // Keep isSubmitting check here
+                                      className="inline-flex items-center gap-3 px-8 py-2 text-lg font-medium text-white transition-colors duration-300 border rounded-lg bg-main-color hover:bg-orange-600 border-main-color hover:border-orange-600"
+                                    >
+                                      Place Order
+                                    </button>
+                                     )}
                                 </div>
                             </form>
                         </div>

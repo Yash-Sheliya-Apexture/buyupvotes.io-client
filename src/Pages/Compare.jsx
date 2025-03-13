@@ -722,7 +722,7 @@ const Compare = () => {
                         {/* Header */}
                         <h2 className="text-xl font-semibold text-black flex items-center mb-4 gap-5 capitalize">
                             <RiShieldCheckLine className='text-green-500 size-7' />
-                            Byupvotes
+                            Reddit Marketing Company
                         </h2>
 
                         {/* body */}

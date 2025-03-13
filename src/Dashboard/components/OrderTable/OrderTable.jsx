@@ -348,6 +348,8 @@ import OrderTableFilters from "./OrderTableFilters";
 import OrderTablePagination from "./OrderTablePagination";
 import moment from 'moment'; // Import moment.js
 import TokenService from "../../../utils/TokenService"; // Import TokenService
+import { useBalance } from '../../context/BalanceContext';
+
 
 const OrderTable = () => {
     const [activeTab, setActiveTab] = useState("All");
@@ -371,7 +373,7 @@ const OrderTable = () => {
     const tabRefs = useRef([]);
 
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
+    const { refreshBalance } = useBalance();
     const totalPages = Math.ceil(tableData.length / rowsPerPage);
     const paginatedData = tableData.slice(
         (currentPage - 1) * rowsPerPage,
@@ -488,6 +490,7 @@ const OrderTable = () => {
             });
             // After deleting, refresh the table data
             fetchData();
+            refreshBalance(); // Refresh the balance
         } catch (err) {
             console.error("Error cancelling order:", err);
             setError("Failed to cancel order.");

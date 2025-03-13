@@ -468,16 +468,493 @@
 
 
 
-import React, { useState, useEffect, useCallback } from "react";
+// import React, { useState, useEffect, useCallback } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { FaWallet, FaMoneyBillWave } from "react-icons/fa";
+// import axios from "axios";
+// import Skeleton from "react-loading-skeleton";
+// import { FaClock } from "react-icons/fa6";
+// import { BsCartCheckFill } from "react-icons/bs";
+// import { useBalance } from '../../context/BalanceContext'; // Import useBalance
+// import useMySpent from '../../context/useMySpent';
+// import TokenService from "../../../utils/TokenService";
+// import { useParams } from "react-router-dom";
+
+// const data = [
+//     {
+//         id: 1,
+//         label: "Total Orders",
+//         icon: <BsCartCheckFill />,
+//         dataKey: "totalOrders", // Key for data from API (orders)
+//     },
+//     {
+//         id: 2,
+//         label: "Current Balance",
+//         icon: <FaWallet />,
+//         hookKey: "currentBalance", // Key for hook data
+//     },
+//     {
+//         id: 3,
+//         label: "My Spent",
+//         icon: <FaMoneyBillWave />,
+//         hookKey: "mySpent", // Key for hook data
+//     },
+//     {
+//         id: 4,
+//         label: "Order in Progress",
+//         icon: <FaClock />,
+//         dataKey: "ordersInProgress", // Key for data from API (orders)
+//     },
+// ];
+
+// const DataSection = () => {
+//     const [apiData, setApiData] = useState({}); // Stores API data (totalOrders, ordersInProgress)
+//     const [loadingApi, setLoadingApi] = useState(true); // Loading state for API
+//     const navigate = useNavigate();
+//     const token = TokenService.getToken();
+//     const { userId } = useParams();
+//     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+//     const { currentBalance, loading: balanceLoading, error: balanceError , refreshBalance} = useBalance(); // Use useBalance
+//     const { mySpent, loading: spentLoading, error: spentError } = useMySpent(API_BASE_URL, token);
+
+//     //UseEffect to fetch Total Orders, Orders In Progress on reload
+//     useEffect(() => {
+//         const fetchData = async () => {
+//             if (!token) {
+//                 setLoadingApi(false); // Only API related loading
+//                 return;
+//             }
+
+//             try {
+//                 setLoadingApi(true);
+//                 const headers = { Authorization: `Bearer ${token}` };
+//                 const ordersResponse = await axios.get(`${API_BASE_URL}/auth/orders`, { headers });
+
+//                 if (ordersResponse.status === 200 && Array.isArray(ordersResponse.data)) {
+//                     const ordersData = ordersResponse.data;
+//                     const totalOrders = ordersData.length;
+//                     const ordersInProgress = ordersData.filter(order => order.status === "In Progress").length;
+
+//                     // Store results in the state
+//                     setApiData({
+//                         totalOrders,
+//                         ordersInProgress,
+//                     });
+//                 } else {
+//                     console.warn("Unexpected orders API response:", ordersResponse);
+//                 }
+//             } catch (apiError) {
+//                 console.error("Error fetching orders data:", apiError);
+//             } finally {
+//                 setLoadingApi(false);
+//             }
+//         };
+
+//         fetchData();
+//     }, [API_BASE_URL, token]);
+
+
+//     const isLoadingValues = balanceLoading || spentLoading;
+//     const hasErrorValues = balanceError || spentError;
+
+//     //Hook data
+//     const hookData = {
+//         currentBalance,
+//         mySpent
+//     };
+
+//     return (
+//         <section className="w-full my-5 Data-Section">
+//             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+//                 {data.map((item) => (
+//                     <div
+//                         key={item.id}
+//                         className="w-full h-full"
+
+//                     >
+//                         <div
+//                             className="flex items-center justify-between w-full h-full p-4 bg-white border border-gray-300 shadow-main rounded-small"
+//                             style={{ minHeight: "100px" }}
+//                         >
+//                             {/* Left Section */}
+//                             <div className="">
+//                                 {item.hookKey ? ( // check if data from hooks
+//                                     isLoadingValues ? (
+//                                         <Skeleton height={25} width={70} />
+//                                     ) : hasErrorValues ? (
+//                                         <p className="text-red-500">Error: {balanceError || spentError}</p>
+//                                     ) : (
+//                                         <p className="mb-1 font-bold lg:text-large text-sub-color">
+//                                             ${hookData[item.hookKey] ? hookData[item.hookKey] : '0'}
+//                                         </p>
+//                                     )
+//                                 ) : ( // data from API
+//                                     loadingApi ? (
+//                                         <Skeleton height={25} width={70} />
+//                                     ) : (
+//                                         <p className="mb-1 font-bold lg:text-large text-sub-color">
+//                                             {apiData[item.dataKey] !== undefined ? apiData[item.dataKey] : '0'}
+//                                         </p>
+//                                     )
+//                                 )}
+
+
+//                                 <p className="text-gray-900">
+//                                     {item.label}
+//                                 </p>
+//                             </div>
+
+//                             {/* Icon Section */}
+//                             <div className="bg-gray-100 w-12 h-12 flex justify-center items-center rounded-full border border-gray-300 text-xl text-main-color">
+//                                 {item.icon}
+//                             </div>
+//                         </div>
+//                     </div>
+//                 ))}
+//             </div>
+//         </section>
+//     );
+// };
+
+// export default DataSection;
+
+
+
+
+
+
+// // Dashboard/DataSection.jsx
+// import React, { useState, useEffect, useCallback } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { FaWallet, FaMoneyBillWave } from "react-icons/fa";
+// import axios from "axios";
+// import Skeleton from "react-loading-skeleton";
+// import { FaClock } from "react-icons/fa6";
+// import { BsCartCheckFill } from "react-icons/bs";
+// import { useBalance } from '../../context/BalanceContext'; // Import useBalance
+// import useMySpent from '../../context/useMySpent';
+// import TokenService from "../../../utils/TokenService";
+// import { useParams } from "react-router-dom";
+
+// const data = [
+//     {
+//         id: 1,
+//         label: "Total Orders",
+//         icon: <BsCartCheckFill />,
+//         dataKey: "totalOrders", // Key for data from API (orders)
+//     },
+//     {
+//         id: 2,
+//         label: "Current Balance",
+//         icon: <FaWallet />,
+//         hookKey: "currentBalance", // Key for hook data
+//     },
+//     {
+//         id: 3,
+//         label: "My Spent",
+//         icon: <FaMoneyBillWave />,
+//         hookKey: "mySpent", // Key for hook data
+//     },
+//     {
+//         id: 4,
+//         label: "Order in Progress",
+//         icon: <FaClock />,
+//         dataKey: "ordersInProgress", // Key for data from API (orders)
+//     },
+// ];
+
+// const DataSection = () => {
+//     const [apiData, setApiData] = useState({}); // Stores API data (totalOrders, ordersInProgress)
+//     const [loadingApi, setLoadingApi] = useState(true); // Loading state for API
+//     const navigate = useNavigate();
+//     const token = TokenService.getToken();
+//     const { userId } = useParams();
+//     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+//     const { currentBalance, loading: balanceLoading, error: balanceError } = useBalance(); // Use useBalance
+//     const { mySpent, loading: spentLoading, error: spentError, refreshSpent } = useMySpent(API_BASE_URL, token); // Destructure refreshSpent
+
+//     //UseEffect to fetch Total Orders, Orders In Progress on reload
+//     useEffect(() => {
+//         const fetchData = async () => {
+//             if (!token) {
+//                 setLoadingApi(false); // Only API related loading
+//                 return;
+//             }
+
+//             try {
+//                 setLoadingApi(true);
+//                 const headers = { Authorization: `Bearer ${token}` };
+//                 const ordersResponse = await axios.get(`${API_BASE_URL}/auth/orders`, { headers });
+
+//                 // Check if the response is an array before processing
+//                 if (ordersResponse.status === 200 && Array.isArray(ordersResponse.data)) {
+//                     const ordersData = ordersResponse.data;
+//                     const totalOrders = ordersData.length;
+//                     const ordersInProgress = ordersData.filter(order => order.status === "In Progress").length;
+
+//                     // Store results in the state
+//                     setApiData({
+//                         totalOrders,
+//                         ordersInProgress,
+//                     });
+//                 } else {
+//                     // Handle the case where it's not an array (e.g., no orders)
+//                     setApiData({
+//                         totalOrders: 0,
+//                         ordersInProgress: 0,
+//                     });
+//                     console.warn("Unexpected orders API response:", ordersResponse);
+//                 }
+//             } catch (apiError) {
+//                 console.error("Error fetching orders data:", apiError);
+//             } finally {
+//                 setLoadingApi(false);
+//             }
+//         };
+
+//         fetchData();
+//     }, [API_BASE_URL, token]);
+
+
+//     const isLoadingValues = balanceLoading || spentLoading;
+//     const hasErrorValues = balanceError || spentError;
+
+//     //Hook data
+//     const hookData = {
+//         currentBalance,
+//         mySpent
+//     };
+
+//     return (
+//         <section className="w-full my-5 Data-Section">
+//             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+//                 {data.map((item) => (
+//                     <div
+//                         key={item.id}
+//                         className="w-full h-full"
+
+//                     >
+//                         <div
+//                             className="flex items-center justify-between w-full h-full p-4 bg-white border border-gray-300 shadow-main rounded-small"
+//                             style={{ minHeight: "100px" }}
+//                         >
+//                             {/* Left Section */}
+//                             <div className="">
+//                                 {item.hookKey ? ( // check if data from hooks
+//                                     isLoadingValues ? (
+//                                         <Skeleton height={25} width={70} />
+//                                     ) : hasErrorValues ? (
+//                                         <p className="text-red-500">Error: {balanceError || spentError}</p>
+//                                     ) : (
+//                                         <p className="mb-1 font-bold lg:text-large text-sub-color">
+//                                             ${hookData[item.hookKey] ? hookData[item.hookKey] : '0'}
+//                                         </p>
+//                                     )
+//                                 ) : ( // data from API
+//                                     loadingApi ? (
+//                                         <Skeleton height={25} width={70} />
+//                                     ) : (
+//                                         <p className="mb-1 font-bold lg:text-large text-sub-color">
+//                                             {apiData[item.dataKey] !== undefined ? apiData[item.dataKey] : '0'}
+//                                         </p>
+//                                     )
+//                                 )}
+
+
+//                                 <p className="text-gray-900">
+//                                     {item.label}
+//                                 </p>
+//                             </div>
+
+//                             {/* Icon Section */}
+//                             <div className="bg-gray-100 w-12 h-12 flex justify-center items-center rounded-full border border-gray-300 text-xl text-main-color">
+//                                 {item.icon}
+//                             </div>
+//                         </div>
+//                     </div>
+//                 ))}
+//             </div>
+//         </section>
+//     );
+// };
+
+// export default DataSection;
+
+
+// // Dashboard/DataSection.jsx
+// import React, { useState, useEffect, useCallback } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { FaWallet, FaMoneyBillWave } from "react-icons/fa";
+// import axios from "axios";
+// import Skeleton from "react-loading-skeleton";
+// import { FaClock } from "react-icons/fa6";
+// import { BsCartCheckFill } from "react-icons/bs";
+// import { useBalance } from '../../context/BalanceContext'; // Import useBalance
+// import useMySpent from '../../context/useMySpent';
+// import TokenService from "../../../utils/TokenService";
+// import { useParams } from "react-router-dom";
+
+// const data = [
+//     {
+//         id: 1,
+//         label: "Total Orders",
+//         icon: <BsCartCheckFill />,
+//         dataKey: "totalOrders", // Key for data from API (orders)
+//     },
+//     {
+//         id: 2,
+//         label: "Current Balance",
+//         icon: <FaWallet />,
+//         hookKey: "currentBalance", // Key for hook data
+//     },
+//     {
+//         id: 3,
+//         label: "My Spent",
+//         icon: <FaMoneyBillWave />,
+//         hookKey: "mySpent", // Key for hook data
+//     },
+//     {
+//         id: 4,
+//         label: "Order in Progress",
+//         icon: <FaClock />,
+//         dataKey: "ordersInProgress", // Key for data from API (orders)
+//     },
+// ];
+
+// const DataSection = () => {
+//     const [apiData, setApiData] = useState({});
+//     const [isLoading, setIsLoading] = useState(true); // Consolidated loading state
+//     const [apiError, setApiError] = useState(null); // Separate error for API data if needed
+//     const navigate = useNavigate();
+//     const token = TokenService.getToken();
+//     const { userId } = useParams();
+//     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+//     const { currentBalance, loading: balanceLoading, error: balanceError } = useBalance();
+//     const { mySpent, loading: spentLoading, error: spentError, refreshSpent } = useMySpent(API_BASE_URL, token);
+
+//     useEffect(() => {
+//         const fetchData = async () => {
+//             if (!token) {
+//                 setIsLoading(false); // Still set loading to false even without token
+//                 return;
+//             }
+
+//             setIsLoading(true); // Start loading
+//             setApiError(null); // Clear previous API error
+
+//             try {
+//                 const headers = { Authorization: `Bearer ${token}` };
+
+//                 const ordersPromise = axios.get(`${API_BASE_URL}/auth/orders`, { headers });
+
+//                 const [ordersResponse] = await Promise.all([ordersPromise]); // Fetch orders data concurrently
+
+//                 if (ordersResponse.status === 200 && Array.isArray(ordersResponse.data)) {
+//                     const ordersData = ordersResponse.data;
+//                     const totalOrders = ordersData.length;
+//                     const ordersInProgress = ordersData.filter(order => order.status === "In Progress").length;
+
+//                     setApiData({
+//                         totalOrders,
+//                         ordersInProgress,
+//                     });
+//                 } else {
+//                     setApiData({
+//                         totalOrders: 0,
+//                         ordersInProgress: 0,
+//                     });
+//                     console.warn("Unexpected orders API response:", ordersResponse);
+//                 }
+
+//             } catch (error) {
+//                 console.error("Error fetching data:", error);
+//                 setApiError(error.message || "Failed to fetch data.");
+//             } finally {
+//                 setIsLoading(false); // End loading after all fetches are complete (or error)
+//             }
+//         };
+
+//         fetchData();
+//     }, [API_BASE_URL, token]);
+
+
+//     const hookData = {
+//         currentBalance,
+//         mySpent
+//     };
+
+//     const isHookLoading = balanceLoading || spentLoading;
+//     const hasHookError = balanceError || spentError;
+
+//     const overallLoading = isLoading || isHookLoading; // Overall loading state
+
+//     return (
+//         <section className="w-full my-5 Data-Section">
+//             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+//                 {data.map((item) => (
+//                     <div
+//                         key={item.id}
+//                         className="w-full h-full"
+//                     >
+//                         <div
+//                             className="flex items-center justify-between w-full h-full p-4 bg-white border border-gray-300 shadow-main rounded-small"
+//                             style={{ minHeight: "100px" }}
+//                         >
+//                             {/* Left Section */}
+//                             <div className="">
+//                                 {item.hookKey ? ( // check if data from hooks
+//                                     isHookLoading ? ( // Use isHookLoading
+//                                         <Skeleton height={25} width={70} />
+//                                     ) : hasHookError ? ( // Use hasHookError
+//                                         <p className="text-red-500">Error: {balanceError || spentError}</p>
+//                                     ) : (
+//                                         <p className="mb-1 font-bold lg:text-large text-sub-color">
+//                                             ${hookData[item.hookKey] ? hookData[item.hookKey] : '0'}
+//                                         </p>
+//                                     )
+//                                 ) : ( // data from API
+//                                     isLoading ? ( // Use isLoading
+//                                         <Skeleton height={25} width={70} />
+//                                     ) : apiError ? ( // Check for apiError
+//                                         <p className="text-red-500">Error: {apiError}</p>
+//                                     ) : (
+//                                         <p className="mb-1 font-bold lg:text-large text-sub-color">
+//                                             {apiData[item.dataKey] !== undefined ? apiData[item.dataKey] : '0'}
+//                                         </p>
+//                                     )
+//                                 )}
+//                                 <p className="text-gray-900">
+//                                     {item.label}
+//                                 </p>
+//                             </div>
+
+//                             {/* Icon Section */}
+//                             <div className="bg-gray-100 w-12 h-12 flex justify-center items-center rounded-full border border-gray-300 text-xl text-main-color">
+//                                 {item.icon}
+//                             </div>
+//                         </div>
+//                     </div>
+//                 ))}
+//             </div>
+//         </section>
+//     );
+// };
+
+// export default DataSection;
+
+
+
+// Dashboard/DataSection.jsx
+import React, { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaWallet, FaMoneyBillWave } from "react-icons/fa";
-import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import { FaClock } from "react-icons/fa6";
 import { BsCartCheckFill } from "react-icons/bs";
-import { useBalance } from '../../../context/BalanceContext'; // Import useBalance
-import useMySpent from '../hooks/useMySpent';
-import TokenService from "../../../utils/TokenService";
+import { useBalance } from '../../context/BalanceContext'; // Import useBalance
 import { useParams } from "react-router-dom";
 
 const data = [
@@ -485,84 +962,40 @@ const data = [
         id: 1,
         label: "Total Orders",
         icon: <BsCartCheckFill />,
-        dataKey: "totalOrders", // Key for data from API (orders)
+        dataKey: "totalOrders",
     },
     {
         id: 2,
         label: "Current Balance",
         icon: <FaWallet />,
-        hookKey: "currentBalance", // Key for hook data
+        dataKey: "currentBalance",
     },
     {
         id: 3,
         label: "My Spent",
         icon: <FaMoneyBillWave />,
-        hookKey: "mySpent", // Key for hook data
+        dataKey: "totalSpent",
     },
     {
         id: 4,
         label: "Order in Progress",
         icon: <FaClock />,
-        dataKey: "ordersInProgress", // Key for data from API (orders)
+        dataKey: "ordersInProgress",
     },
 ];
 
-const DataSection = () => {
-    const [apiData, setApiData] = useState({}); // Stores API data (totalOrders, ordersInProgress)
-    const [loadingApi, setLoadingApi] = useState(true); // Loading state for API
+const DataSection = memo(() => {
     const navigate = useNavigate();
-    const token = TokenService.getToken();
-    const { userId } = useParams();
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const { orders, currentBalance, totalSpent, loading, error } = useBalance(); // Get data from context
+    const { userId } = useParams(); // still might be used elsewhere, keeping it for now.
 
-    const { currentBalance, loading: balanceLoading, error: balanceError , refreshBalance} = useBalance(); // Use useBalance
-    const { mySpent, loading: spentLoading, error: spentError } = useMySpent(API_BASE_URL, token);
-
-    //UseEffect to fetch Total Orders, Orders In Progress on reload
-    useEffect(() => {
-        const fetchData = async () => {
-            if (!token) {
-                setLoadingApi(false); // Only API related loading
-                return;
-            }
-
-            try {
-                setLoadingApi(true);
-                const headers = { Authorization: `Bearer ${token}` };
-                const ordersResponse = await axios.get(`${API_BASE_URL}/auth/orders`, { headers });
-
-                if (ordersResponse.status === 200 && Array.isArray(ordersResponse.data)) {
-                    const ordersData = ordersResponse.data;
-                    const totalOrders = ordersData.length;
-                    const ordersInProgress = ordersData.filter(order => order.status === "In Progress").length;
-
-                    // Store results in the state
-                    setApiData({
-                        totalOrders,
-                        ordersInProgress,
-                    });
-                } else {
-                    console.warn("Unexpected orders API response:", ordersResponse);
-                }
-            } catch (apiError) {
-                console.error("Error fetching orders data:", apiError);
-            } finally {
-                setLoadingApi(false);
-            }
-        };
-
-        fetchData();
-    }, [API_BASE_URL, token]);
-
-
-    const isLoadingValues = balanceLoading || spentLoading;
-    const hasErrorValues = balanceError || spentError;
-
-    //Hook data
-    const hookData = {
-        currentBalance,
-        mySpent
-    };
+    // Derive data from context values (moved calculation outside JSX for clarity)
+    const derivedData = React.useMemo(() => ({
+        totalOrders: orders ? orders.length : 0,
+        currentBalance: currentBalance,
+        totalSpent: totalSpent,
+        ordersInProgress: orders ? orders.filter(order => order.status === "In Progress").length : 0,
+    }), [orders, currentBalance, totalSpent]); // Recalculate only when dependencies change
 
     return (
         <section className="w-full my-5 Data-Section">
@@ -571,7 +1004,6 @@ const DataSection = () => {
                     <div
                         key={item.id}
                         className="w-full h-full"
-
                     >
                         <div
                             className="flex items-center justify-between w-full h-full p-4 bg-white border border-gray-300 shadow-main rounded-small"
@@ -579,27 +1011,15 @@ const DataSection = () => {
                         >
                             {/* Left Section */}
                             <div className="">
-                                {item.hookKey ? ( // check if data from hooks
-                                    isLoadingValues ? (
-                                        <Skeleton height={25} width={70} />
-                                    ) : hasErrorValues ? (
-                                        <p className="text-red-500">Error: {balanceError || spentError}</p>
-                                    ) : (
-                                        <p className="mb-1 font-bold lg:text-large text-sub-color">
-                                            ${hookData[item.hookKey] ? hookData[item.hookKey] : '0'}
-                                        </p>
-                                    )
-                                ) : ( // data from API
-                                    loadingApi ? (
-                                        <Skeleton height={25} width={70} />
-                                    ) : (
-                                        <p className="mb-1 font-bold lg:text-large text-sub-color">
-                                            {apiData[item.dataKey] !== undefined ? apiData[item.dataKey] : '0'}
-                                        </p>
-                                    )
+                                {loading ? (
+                                    <Skeleton height={25} width={70} />
+                                ) : error ? (
+                                    <p className="text-red-500">Error: {error}</p>
+                                ) : (
+                                    <p className="mb-1 font-bold lg:text-large text-sub-color">
+                                        ${derivedData[item.dataKey] !== undefined ? derivedData[item.dataKey] : '0'}
+                                    </p>
                                 )}
-
-
                                 <p className="text-gray-900">
                                     {item.label}
                                 </p>
@@ -615,6 +1035,8 @@ const DataSection = () => {
             </div>
         </section>
     );
-};
+});
+
+DataSection.displayName = 'DataSection'; // Optional: helps with debugging in React DevTools
 
 export default DataSection;

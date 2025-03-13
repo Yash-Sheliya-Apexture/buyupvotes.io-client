@@ -273,11 +273,19 @@ const HeroSection = () => {
       <span key="redditIcon1" className="text-gray-600">
         <FaReddit className="mx-3 lg:size-12 size-8 text-main-color" />
       </span>,
-      "Get trending by sending instant upvotes to any post or comment",
+      "Go viral now; send instant upvotes to your posts.",
       <span key="redditIcon2" className="text-gray-600">
         <FaReddit className="mx-3 lg:size-12 size-8 text-main-color" />
       </span>,
-      "Take control of comments on your posts by sending upvotes and downvotes",
+      "Make your comments popular with instant upvotes.",
+      <span key="redditIcon2" className="text-gray-600">
+        <FaReddit className="mx-3 lg:size-12 size-8 text-main-color" />
+      </span>,
+      "Control post comments using upvotes for visibility.",
+      <span key="redditIcon2" className="text-gray-600">
+        <FaReddit className="mx-3 lg:size-12 size-8 text-main-color" />
+      </span>,
+      "Get your posts trending and seen by more people.",
     ],
     []
   );

@@ -1247,7 +1247,6 @@ const Account = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log("/auth/user 4")
             setOriginalUserData(response.data);
             setUserData(response.data);
         } catch (error) {

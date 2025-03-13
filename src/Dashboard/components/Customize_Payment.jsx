@@ -1481,11 +1481,7 @@
 
 // export default Customize_Payment;
 
-
-
-
-
-
+// // Customize_Payment.jsx
 // import React, { useEffect } from "react";
 // import { useState } from "react";
 // import { Link, useNavigate } from "react-router-dom";
@@ -1494,6 +1490,8 @@
 // import { PiQuestionBold } from "react-icons/pi";
 // import cryptomus from "../../assets/Images/cryptomus.png";
 // import stripe from "../../assets/Images/stripe.png"; // Ensure stripe image is imported
+// import axios from "axios"; // Import axios
+// import TokenService from "../../utils/TokenService"; // Import TokenService
 
 // const Customize_Payment = () => {
 //     const [selectedAmount, setSelectedAmount] = useState("");
@@ -1520,6 +1518,9 @@
 //             disabled: true,
 //         }, // Indicate Stripe is coming soon
 //     ];
+
+//     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;  // Retrieve API base URL
+//     const token = TokenService.getToken(); // Get the token from TokenService
 
 //     // Use useEffect to set the default payment method after component mounts
 //     useEffect(() => {
@@ -1584,24 +1585,45 @@
 
 //         setError("");
 
-//         // Build the payment data object
-//         const paymentData = {
-//             amount: amountToUse,
-//             type: selectedPaymentMethod.id, // Store payment method ID as 'type'
-//         };
+//         // Check if the selected payment method is Cryptomus
+//         if (selectedPaymentMethod.id === "cryptomus") {
+//             // Make API request to your backend to create Cryptomus payment and get redirect URL
+//             try {
+//                 const config = {
+//                     headers: {
+//                         "Content-Type": "application/json",
+//                         Authorization: `Bearer ${token}`, // Add Authorization header
+//                     },
+//                 };
+//                 const response = await axios.post(
+//                     `${API_BASE_URL}/payment/cryptomus`, // Updated API endpoint
+//                     { amount: amountToUse }, // Send only the amount
+//                     config, // Pass the config object with the token
+//                 );
 
-//         // Navigate to the checkout page and pass the payment data
-//         navigate("/checkout", { state: { paymentData } });
+//                 if (response.data && response.data.url) {
+//                     // Redirect the user to the Cryptomus payment URL
+//                     window.location.href = response.data.url;
+//                 } else {
+//                     setError("Failed to initiate Cryptomus payment.");
+//                 }
+//             } catch (error) {
+//                 console.error("Error initiating Cryptomus payment:", error);
+//                 setError("Failed to initiate Cryptomus payment.");
+//             }
+//         } else {
+//             setError("Payment type not supported.");
+//         }
 //     };
 
 //     return (
-//         <section className="Payment-Customize pb-10">
-//             <div className="flex lg:flex-row flex-col gap-6 container mx-auto">
+//         <section className="Payment-Customize my-10">
+//             <div className="flex gap-4 container mx-auto">
 //                 {/* Payment Method Selection */}
-//                 <div className="lg:w-1/2 w-full">
+//                 <div className="lg:w-1/2">
 //                     <form onSubmit={handleCalculate}>
 //                         <div className="mb-8">
-//                             <h6 className="font-semibold mb-2 text-gray-700">
+//                             <h6 className="font-semibold mb-1 text-gray-700">
 //                                 Select Payment Method
 //                             </h6>
 //                             <div className="flex flex-col w-full gap-4">
@@ -1627,7 +1649,7 @@
 //                                         </div>
 //                                         {method.disabled && (
 //                                             <div className="absolute top-0 left-0 w-full h-full text-nowrap bg-white/70 rounded-lg pointer-events-none">
-//                                                 <div className="absolute md:top-1/2 top-1/2 left-1/2 md:left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-900 font-semibold">
+//                                                 <div className="absolute md:top-1/2 top-10 left-60 md:left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-900 font-semibold">
 //                                                     Coming Soon
 //                                                 </div>
 //                                             </div>
@@ -1638,10 +1660,10 @@
 //                         </div>
 
 //                         <div className="mb-5 w-full">
-//                             <h6 className="font-semibold mb-2 text-gray-700">
+//                             <h6 className="font-semibold mb-1 text-gray-700">
 //                                 Quick Amount Selector
 //                             </h6>
-//                             <div className="sm:flex flex-row items-center justify-between border border-gray-300 rounded-xl overflow-hidden grid grid-cols-2">
+//                             <div className="sm:flex flex-row items-center justify-between border border-gray-300 rounded-xl overflow-hidden grid grid-cols-2 gap-1">
 //                                 {predefinedAmounts.map((amount) => (
 //                                     <label
 //                                         key={amount}
@@ -1671,7 +1693,7 @@
 
 //                         {/* Amount Input */}
 //                         <div className="mb-8 w-full">
-//                             <h6 className="font-semibold mb-2 text-gray-700">Amount</h6>
+//                             <h6 className="font-semibold mb-1 text-gray-700">Amount</h6>
 //                             <input
 //                                 type="number"
 //                                 value={customAmount}
@@ -1689,17 +1711,17 @@
 //                         </div>
 
 //                         {/* Pay Button */}
-//                         <div className="flex md:flex-row flex-col gap-2 w-full">
+//                         <div className="flex md:flex-row flex-col gap-3 w-full">
 //                             <button
 //                                 type="submit"
-//                                 className="w-full bg-main-color text-nowrap hover:bg-orange-600 text-white py-4 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center gap-3 border border-main-color"
+//                                 className="md:w-2/4 bg-main-color text-nowrap hover:bg-orange-600 text-white py-4 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center gap-3 border border-main-color"
 //                             >
 //                                 <LuWallet size="22" />
 //                                 Pay
 //                             </button>
 //                             <Link
 //                                 to="/dashboard/contactus"
-//                                 className="w-full bg-transparent text-nowrap hover:bg-main-color/10 text-gray-900 py-4 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center gap-3 border border-gray-300"
+//                                 className="md:w-2/4 bg-transparent text-nowrap hover:bg-main-color/10 text-gray-900 py-4 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center gap-3 border border-gray-300"
 //                             >
 //                                 <PiQuestionBold size="22" />
 //                                 Request New Payment Method
@@ -1707,29 +1729,33 @@
 //                         </div>
 //                     </form>
 //                 </div>
+
 //                 {/* Description on the right */}
-//                 <div className="lg:w-1/2 p-4 bg-white space-y-2 border border-gray-300 rounded-small shadow-main">
-//                     <h2 className="text-xl font-medium text-primary">Payment Information</h2>
-//                     <p className="text-para-color font-medium">
-//                         This page allows you to customize your payment amount and select your preferred payment method.  Currently, Crypto via Cryptomus is the only available payment option. Credit/Debit Card payments are coming soon! We are actively working on adding more payment methods to provide you with a wider range of choices.
+//                 <div className="w-1/2 p-4 bg-gray-50 rounded-lg shadow-md">
+//                     <h2 className="text-xl font-semibold mb-4 text-gray-800">Payment Information</h2>
+
+//                     <p className="text-gray-700 mb-3">
+//                         This page allows you to customize your payment amount and select your preferred payment method.  Currently, Crypto via Cryptomus is the only available payment option. Credit/Debit Card payments are coming soon!
 //                     </p>
-//                     <h3 className="text-xl font-medium text-primary">Payment Methods:</h3>
+
+//                     <h3 className="text-lg font-semibold mb-2 text-gray-800">Payment Methods:</h3>
 //                     <ul>
 //                         {paymentMethods.map((method) => (
-//                             <li key={method.id} className="text-para-color font-medium pb-1">
+//                             <li key={method.id} className="text-gray-700 mb-1">
 //                                 {method.name} - {method.description}
-//                                 {method.disabled && <span className="text-small text-red-500"> (Coming Soon)</span>}
+//                                 {method.disabled && <span className="text-sm text-red-500"> (Coming Soon)</span>}
 //                             </li>
 //                         ))}
 //                     </ul>
 
-//                     <p className="text-para-color font-medium">
-//                         When paying with Crypto via Cryptomus, the transaction will be processed instantly upon confirmation on the blockchain.  Remember to double-check the recipient address to avoid potential issues.
+//                     <p className="text-gray-700 mb-3">
+//                         For a faster checkout, use the Quick Amount Selector or enter a custom amount.
+//                         The minimum payment amount is $10, and the maximum is $10,000.
 //                     </p>
 
-//                     <p className="text-para-color font-medium">
+//                     <p className="text-gray-700 mb-3">
 //                         If you have questions or need assistance with a different payment method,
-//                         please <Link to="/dashboard/contactus" className="text-main-color capitalize hover:underline">request a new payment method</Link>.  Our support team is available 24/7 to assist you with any issues or inquiries regarding payments.
+//                         please <Link to="/dashboard/contactus" className="text-blue-600 hover:underline">request a new payment method</Link>.
 //                     </p>
 //                 </div>
 //             </div>
@@ -1737,59 +1763,73 @@
 //     );
 // };
 
+// export default Customize_Payment;
 
 
 
 
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { MdError } from "react-icons/md";
 import { LuWallet } from "react-icons/lu";
 import { PiQuestionBold } from "react-icons/pi";
 import cryptomus from "../../assets/Images/cryptomus.png";
-import axios from 'axios';
-import TokenService from '../../utils/TokenService';
+import stripe from "../../assets/Images/stripe.png"; // Ensure stripe image is imported
+import axios from "axios"; // Import axios
+import TokenService from "../../utils/TokenService"; // Import TokenService
 
 const Customize_Payment = () => {
     const [selectedAmount, setSelectedAmount] = useState("");
     const [customAmount, setCustomAmount] = useState("");
     const [error, setError] = useState("");
-    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
-    const [currency, setCurrency] = useState("USD");
-    const [isLoading, setIsLoading] = useState(false); // Loading state
+    const navigate = useNavigate();
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null); // Initialize as null
 
-    const predefinedAmounts = [50, 100, 150, 200];
+    const predefinedAmounts = [50, 100, 150, 200]; // Quick amounts
 
+    // Simulated list of payment methods
     const paymentMethods = [
         {
             id: "cryptomus",
             name: "Crypto via Cryptomus",
             description: "Instant",
             image: cryptomus,
-        }
+        }, // Replace with actual image URLs
+        {
+            id: "stripe",
+            name: "Credit/Debit Card",
+            description: "Secure and convenient",
+            image: stripe,
+            disabled: true,
+        }, // Indicate Stripe is coming soon
     ];
 
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-    const token = TokenService.getToken();
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;  // Retrieve API base URL
+    const token = TokenService.getToken(); // Get the token from TokenService
 
+    // Use useEffect to set the default payment method after component mounts
     useEffect(() => {
-        // Set the default payment method on component mount
-        if (!selectedPaymentMethod && paymentMethods.length > 0) {
-            setSelectedPaymentMethod(paymentMethods[0]);
+        // Set the default payment method only if it's not already set
+        if (!selectedPaymentMethod) {
+            setSelectedPaymentMethod(paymentMethods[0]); // Set the first payment method as default
         }
-    }, [paymentMethods, selectedPaymentMethod]);
+    }, [paymentMethods, selectedPaymentMethod]); // Dependency array: rerun if paymentMethods changes
 
+    // Handle Amount Selection (Quick Selector)
     const handleAmountSelect = (amount) => {
         setSelectedAmount(amount);
-        setCustomAmount(String(amount)); // Ensure customAmount is a string
-        setError("");
+        setCustomAmount(amount); // Synchronize with the input
+        setError(""); // Clear any previous errors
     };
 
+    // Handle Custom Amount Input Change
     const handleCustomAmountChange = (e) => {
         const value = e.target.value;
-        setSelectedAmount("");
+        setSelectedAmount(""); // Clear selection when typing
         setCustomAmount(value);
-        setError("");
+        setError(""); // Clear any previous errors
     };
 
     const handlePaymentMethodSelect = (paymentMethod) => {
@@ -1798,27 +1838,23 @@ const Customize_Payment = () => {
         }
     };
 
+    // Handle Form Submission
     const handleCalculate = async (e) => {
         e.preventDefault();
 
-        let amountToUse;
-        try {
-            amountToUse = parseFloat(customAmount); // Parse to float earlier
-            if (isNaN(amountToUse)) {
-                throw new Error("Invalid amount. Please enter a number.");
-            }
-        } catch (err) {
-            setError("Invalid amount. Please enter a number.");
-            return;
-        }
+        const amountToUse = parseFloat(customAmount);
 
         if (!amountToUse) {
             setError("Amount is required.");
             return;
         }
 
+        if (isNaN(amountToUse)) {
+            setError("Invalid amount. Please enter a number.");
+            return;
+        }
 
-        if (amountToUse < 10) {
+        if (amountToUse < 1) {
             setError("Minimum amount is $10.");
             return;
         }
@@ -1828,58 +1864,57 @@ const Customize_Payment = () => {
             return;
         }
 
+        // Payment method validation
         if (!selectedPaymentMethod) {
             setError("Please select a payment method.");
             return;
         }
 
         setError("");
-        setIsLoading(true); // Start loading
 
-        const paymentData = {
-            amount: String(amountToUse), // Send amount as string to backend
-            type: selectedPaymentMethod.id,
-            currency: currency,
-            url_return: `${window.location.origin}/payment/success`,
-            url_callback: `${API_BASE_URL}/api/payment/cryptomus-callback`
-        };
+        // Check if the selected payment method is Cryptomus
+        if (selectedPaymentMethod.id === "cryptomus") {
+            // Define return and success URLs
+            const returnUrl = `${window.location.origin}/dashboard/pricing`; // Example
+            const successUrl = `${window.location.origin}/dashboard`; // Example
 
-        try {
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-            };
+            // Make API request to your backend to create Cryptomus payment and get redirect URL
+            try {
+                const config = {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`, // Add Authorization header
+                    },
+                };
+                const response = await axios.post(
+                    `${API_BASE_URL}/payment/cryptomus`, // Updated API endpoint
+                    { amount: amountToUse, returnUrl: returnUrl, successUrl: successUrl }, // Send amount, returnUrl, and successUrl
+                    config, // Pass the config object with the token
+                );
 
-            const response = await axios.post(`${API_BASE_URL}/payment`, paymentData, config);
-
-            if (response.data && response.data.payment_url) {
-                window.location.href = response.data.payment_url;
-            } else {
-                setError("Failed to initiate Cryptomus payment. Please try again.");
+                if (response.data && response.data.url) {
+                    // Redirect the user to the Cryptomus payment URL
+                    window.location.href = response.data.url;
+                } else {
+                    setError("Failed to initiate Cryptomus payment.");
+                }
+            } catch (error) {
+                console.error("Error initiating Cryptomus payment:", error);
+                setError("Failed to initiate Cryptomus payment.");
             }
-        } catch (error) {
-            console.error("Error creating Cryptomus payment:", error);
-
-            if (axios.isAxiosError(error) && error.response) {
-                setError(error.response.data.message || "Failed to initiate Cryptomus payment. Please try again."); // Use backend message
-            } else {
-                setError("Failed to initiate Cryptomus payment. Please try again.");
-            }
-        } finally {
-            setIsLoading(false); // End loading
+        } else {
+            setError("Payment type not supported.");
         }
     };
 
     return (
-        <section className="Payment-Customize pb-10">
-            <div className="flex lg:flex-row flex-col gap-6 container mx-auto">
+        <section className="Payment-Customize my-10">
+            <div className="flex gap-4 container mx-auto">
                 {/* Payment Method Selection */}
-                <div className="lg:w-1/2 w-full">
+                <div className="lg:w-1/2">
                     <form onSubmit={handleCalculate}>
                         <div className="mb-8">
-                            <h6 className="font-semibold mb-2 text-gray-700">
+                            <h6 className="font-semibold mb-1 text-gray-700">
                                 Select Payment Method
                             </h6>
                             <div className="flex flex-col w-full gap-4">
@@ -1903,16 +1938,23 @@ const Customize_Payment = () => {
                                             <h5 className="font-semibold">{method.name}</h5>
                                             <p className="text-sm text-gray-500">{method.description}</p>
                                         </div>
+                                        {method.disabled && (
+                                            <div className="absolute top-0 left-0 w-full h-full text-nowrap bg-white/70 rounded-lg pointer-events-none">
+                                                <div className="absolute md:top-1/2 top-10 left-60 md:left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-900 font-semibold">
+                                                    Coming Soon
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
                             </div>
                         </div>
 
                         <div className="mb-5 w-full">
-                            <h6 className="font-semibold mb-2 text-gray-700">
+                            <h6 className="font-semibold mb-1 text-gray-700">
                                 Quick Amount Selector
                             </h6>
-                            <div className="sm:flex flex-row items-center justify-between border border-gray-300 rounded-xl overflow-hidden grid grid-cols-2">
+                            <div className="sm:flex flex-row items-center justify-between border border-gray-300 rounded-xl overflow-hidden grid grid-cols-2 gap-1">
                                 {predefinedAmounts.map((amount) => (
                                     <label
                                         key={amount}
@@ -1939,9 +1981,10 @@ const Customize_Payment = () => {
                             </div>
                         </div>
 
+
                         {/* Amount Input */}
                         <div className="mb-8 w-full">
-                            <h6 className="font-semibold mb-2 text-gray-700">Amount</h6>
+                            <h6 className="font-semibold mb-1 text-gray-700">Amount</h6>
                             <input
                                 type="number"
                                 value={customAmount}
@@ -1959,19 +2002,17 @@ const Customize_Payment = () => {
                         </div>
 
                         {/* Pay Button */}
-                        <div className="flex md:flex-row flex-col gap-2 w-full">
+                        <div className="flex md:flex-row flex-col gap-3 w-full">
                             <button
                                 type="submit"
-                                disabled={isLoading} // Disable button while loading
-                                className={`w-full bg-main-color text-nowrap hover:bg-orange-600 text-white py-4 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center gap-3 border border-main-color
-                    ${isLoading ? 'opacity-50 cursor-wait' : ''}`} // Style for loading state
+                                className="md:w-2/4 bg-main-color text-nowrap hover:bg-orange-600 text-white py-4 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center gap-3 border border-main-color"
                             >
                                 <LuWallet size="22" />
-                                {isLoading ? 'Processing...' : 'Pay'}
+                                Pay
                             </button>
                             <Link
                                 to="/dashboard/contactus"
-                                className="w-full bg-transparent text-nowrap hover:bg-main-color/10 text-gray-900 py-4 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center gap-3 border border-gray-300"
+                                className="md:w-2/4 bg-transparent text-nowrap hover:bg-main-color/10 text-gray-900 py-4 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center gap-3 border border-gray-300"
                             >
                                 <PiQuestionBold size="22" />
                                 Request New Payment Method
@@ -1979,28 +2020,33 @@ const Customize_Payment = () => {
                         </div>
                     </form>
                 </div>
+
                 {/* Description on the right */}
-                <div className="lg:w-1/2 p-4 bg-white space-y-2 border border-gray-300 rounded-small shadow-main">
-                    <h2 className="text-xl font-medium text-primary">Payment Information</h2>
-                    <p className="text-para-color font-medium">
-                        This page allows you to customize your payment amount and select your preferred payment method. Currently, Crypto via Cryptomus is the only available payment option. We are actively working on adding more payment methods to provide you with a wider range of choices.
+                <div className="w-1/2 p-4 bg-gray-50 rounded-lg shadow-md">
+                    <h2 className="text-xl font-semibold mb-4 text-gray-800">Payment Information</h2>
+
+                    <p className="text-gray-700 mb-3">
+                        This page allows you to customize your payment amount and select your preferred payment method.  Currently, Crypto via Cryptomus is the only available payment option. Credit/Debit Card payments are coming soon!
                     </p>
-                    <h3 className="text-xl font-medium text-primary">Payment Methods:</h3>
+
+                    <h3 className="text-lg font-semibold mb-2 text-gray-800">Payment Methods:</h3>
                     <ul>
                         {paymentMethods.map((method) => (
-                            <li key={method.id} className="text-para-color font-medium pb-1">
+                            <li key={method.id} className="text-gray-700 mb-1">
                                 {method.name} - {method.description}
+                                {method.disabled && <span className="text-sm text-red-500"> (Coming Soon)</span>}
                             </li>
                         ))}
                     </ul>
 
-                    <p className="text-para-color font-medium">
-                        When paying with Crypto via Cryptomus, the transaction will be processed instantly upon confirmation on the blockchain. Remember to double-check the recipient address to avoid potential issues.
+                    <p className="text-gray-700 mb-3">
+                        For a faster checkout, use the Quick Amount Selector or enter a custom amount.
+                        The minimum payment amount is $10, and the maximum is $10,000.
                     </p>
 
-                    <p className="text-para-color font-medium">
+                    <p className="text-gray-700 mb-3">
                         If you have questions or need assistance with a different payment method,
-                        please <Link to="/dashboard/contactus" className="text-main-color capitalize hover:underline">request a new payment method</Link>. Our support team is available 24/7 to assist you with any issues or inquiries regarding payments.
+                        please <Link to="/dashboard/contactus" className="text-blue-600 hover:underline">request a new payment method</Link>.
                     </p>
                 </div>
             </div>
