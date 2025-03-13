@@ -815,6 +815,121 @@
 //     return useContext(BalanceContext);
 // };
 
+// // BalanceContext.jsx
+// import React, {
+//     createContext,
+//     useState,
+//     useEffect,
+//     useCallback,
+//     useContext,
+// } from 'react';
+// import axios from 'axios';
+// import { useAuth } from '../../auth/AuthContext'; // Import the auth context
+
+
+// const BalanceContext = createContext();
+
+// export const BalanceProvider = ({ children }) => {
+//     const [currentBalance, setCurrentBalance] = useState(0);
+//     const [totalSpent, setTotalSpent] = useState(0); // Add totalSpent state
+//     const [loading, setLoading] = useState(true);
+//     const [error, setError] = useState(null);
+//     const [refreshCount, setRefreshCount] = useState(0); // Use a counter
+//     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+//     const { accessToken } = useAuth(); // Access the accessToken from AuthContext
+
+
+//     const fetchBalance = useCallback(async () => {
+//         if (!accessToken) {
+//             console.log("Token not found, or user is not logged in.");
+//             setLoading(false);
+//             return;
+//         }
+
+//         try {
+//             setLoading(true);
+//             setError(null);
+
+//             const headers = { Authorization: `Bearer ${accessToken}` };
+
+//             // **1. Fetch local and Cryptomus payments (history)**
+//             const paymentHistoryResponse = await axios.get(`${API_BASE_URL}/payment/history`, { headers });
+//             // Handle cases where paymentHistoryResponse.data is not an array
+//             const payments = Array.isArray(paymentHistoryResponse.data) ? paymentHistoryResponse.data : [];
+//             const totalPayments = payments.reduce((total, payment) => {
+//                 if (payment.status === "paid") {
+//                     const amount = parseFloat(payment.amount || 0);
+//                     return total + amount;
+//                 }
+//                 return total;
+//             }, 0);
+//             // **2. Fetch orders**
+//             const ordersResponse = await axios.get(`${API_BASE_URL}/auth/orders`, { headers });
+//             // Handle cases where ordersResponse.data is not an array
+//             const orders = Array.isArray(ordersResponse.data) ? ordersResponse.data : [];
+
+//             const calculatedTotalSpent = orders.reduce((total, order) => { // Calculate totalSpent here
+//                 if (["Pending", "In Progress", "Partial", "Completed"].includes(order.status)) {
+//                     return total + parseFloat(order.calculatedPrice || 0);
+//                 }
+//                 return total;
+//             }, 0);
+
+//             setTotalSpent(calculatedTotalSpent >= 0 ? calculatedTotalSpent : 0); // Set totalSpent state
+
+//             // **3. Calculate balance**
+//             const calculatedBalance = totalPayments - calculatedTotalSpent;
+
+//             setCurrentBalance(calculatedBalance >= 0 ? calculatedBalance : 0);
+
+//         } catch (apiError) {
+//             console.error('Error fetching data:', apiError);
+//             setError(apiError.message || 'Error fetching current balance');
+//             setCurrentBalance(0);
+//             setTotalSpent(0); // Reset totalSpent on error as well.
+//         } finally {
+//             setLoading(false);
+//         }
+//     }, [API_BASE_URL, accessToken]);
+
+//     useEffect(() => {
+//         if (accessToken) { // Only fetch when accessToken is available
+//             fetchBalance();
+//         } else {
+//             // Possibly reset balance if token is removed (logout scenario)
+//             setCurrentBalance(0);
+//             setTotalSpent(0);
+//             setLoading(false);
+//             setError(null);
+//         }
+//     }, [accessToken, fetchBalance, refreshCount]); // Include refreshCount
+
+//     const refreshBalance = () => {
+//         setRefreshCount(prev => prev + 1); // Increment the counter
+//     };
+
+//     const value = {
+//         currentBalance,
+//         setCurrentBalance,
+//         totalSpent, // Include totalSpent in the context value
+//         loading,
+//         error,
+//         refreshBalance,
+//     };
+
+//     return (
+//         <BalanceContext.Provider value={value}>
+//             {children}
+//         </BalanceContext.Provider>
+//     );
+// };
+
+// export const useBalance = () => {
+//     return useContext(BalanceContext);
+// };
+
+
 // BalanceContext.jsx
 import React, {
     createContext,
@@ -822,101 +937,82 @@ import React, {
     useEffect,
     useCallback,
     useContext,
+    useMemo,
 } from 'react';
 import axios from 'axios';
-import { useAuth } from '../../auth/AuthContext'; // Import the auth context
-
+import { useAuth } from '../../auth/AuthContext';
 
 const BalanceContext = createContext();
 
 export const BalanceProvider = ({ children }) => {
-    const [currentBalance, setCurrentBalance] = useState(0);
-    const [totalSpent, setTotalSpent] = useState(0); // Add totalSpent state
-    const [loading, setLoading] = useState(true);
+    const [dashboardData, setDashboardData] = useState({
+        currentBalance: 0,
+        totalSpent: 0,
+        orders: [],
+    });
+    const [loading, setLoading] = useState(false); // Initialize as false, loading starts on first fetch
     const [error, setError] = useState(null);
-    const [refreshCount, setRefreshCount] = useState(0); // Use a counter
+    const [refreshCount, setRefreshCount] = useState(0);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const { accessToken } = useAuth();
 
-    const { accessToken } = useAuth(); // Access the accessToken from AuthContext
-
-
-    const fetchBalance = useCallback(async () => {
+    const fetchData = useCallback(async () => {
         if (!accessToken) {
             console.log("Token not found, or user is not logged in.");
-            setLoading(false);
+            setLoading(false); // Stop loading if no token
             return;
         }
 
+        setLoading(true);
+        setError(null);
         try {
-            setLoading(true);
-            setError(null);
-
             const headers = { Authorization: `Bearer ${accessToken}` };
+            const [paymentHistoryResponse, ordersResponse] = await Promise.all([
+                axios.get(`${API_BASE_URL}/payment/history`, { headers }),
+                axios.get(`${API_BASE_URL}/auth/orders`, { headers }),
+            ]);
 
-            // **1. Fetch local and Cryptomus payments (history)**
-            const paymentHistoryResponse = await axios.get(`${API_BASE_URL}/payment/history`, { headers });
-            // Handle cases where paymentHistoryResponse.data is not an array
             const payments = Array.isArray(paymentHistoryResponse.data) ? paymentHistoryResponse.data : [];
-            const totalPayments = payments.reduce((total, payment) => {
-                if (payment.status === "paid") {
-                    const amount = parseFloat(payment.amount || 0);
-                    return total + amount;
-                }
-                return total;
-            }, 0);
-            // **2. Fetch orders**
-            const ordersResponse = await axios.get(`${API_BASE_URL}/auth/orders`, { headers });
-            // Handle cases where ordersResponse.data is not an array
+            const totalPayments = payments.reduce((total, payment) => (payment.status === "paid" ? total + parseFloat(payment.amount || 0) : total), 0);
+
             const orders = Array.isArray(ordersResponse.data) ? ordersResponse.data : [];
-
-            const calculatedTotalSpent = orders.reduce((total, order) => { // Calculate totalSpent here
-                if (["Pending", "In Progress", "Partial", "Completed"].includes(order.status)) {
-                    return total + parseFloat(order.calculatedPrice || 0);
-                }
-                return total;
-            }, 0);
-
-            setTotalSpent(calculatedTotalSpent >= 0 ? calculatedTotalSpent : 0); // Set totalSpent state
-
-            // **3. Calculate balance**
+            const calculatedTotalSpent = orders.reduce((total, order) => (["Pending", "In Progress", "Partial", "Completed"].includes(order.status) ? total + parseFloat(order.calculatedPrice || 0) : total), 0);
             const calculatedBalance = totalPayments - calculatedTotalSpent;
 
-            setCurrentBalance(calculatedBalance >= 0 ? calculatedBalance : 0);
-
+            setDashboardData({
+                currentBalance: Math.max(0, calculatedBalance), // Ensure balance is not negative
+                totalSpent: Math.max(0, calculatedTotalSpent), // Ensure spent is not negative
+                orders: orders,
+            });
         } catch (apiError) {
-            console.error('Error fetching data:', apiError);
-            setError(apiError.message || 'Error fetching current balance');
-            setCurrentBalance(0);
-            setTotalSpent(0); // Reset totalSpent on error as well.
+            console.error('Error fetching dashboard data:', apiError);
+            setError(apiError.message || 'Error fetching dashboard data');
+            setDashboardData({ currentBalance: 0, totalSpent: 0, orders: [] });
         } finally {
             setLoading(false);
         }
     }, [API_BASE_URL, accessToken]);
 
     useEffect(() => {
-        if (accessToken) { // Only fetch when accessToken is available
-            fetchBalance();
+        if (accessToken) {
+            fetchData();
         } else {
-            // Possibly reset balance if token is removed (logout scenario)
-            setCurrentBalance(0);
-            setTotalSpent(0);
+            setDashboardData({ currentBalance: 0, totalSpent: 0, orders: [] });
             setLoading(false);
             setError(null);
         }
-    }, [accessToken, fetchBalance, refreshCount]); // Include refreshCount
+    }, [accessToken, fetchData, refreshCount]);
 
-    const refreshBalance = () => {
-        setRefreshCount(prev => prev + 1); // Increment the counter
-    };
+    const refreshBalance = useCallback(() => {
+        setRefreshCount(prev => prev + 1);
+    }, []);
 
-    const value = {
-        currentBalance,
-        setCurrentBalance,
-        totalSpent, // Include totalSpent in the context value
+    const value = useMemo(() => ({
+        ...dashboardData,
         loading,
         error,
         refreshBalance,
-    };
+    }), [dashboardData, loading, error, refreshBalance]); // Memoize context value
 
     return (
         <BalanceContext.Provider value={value}>

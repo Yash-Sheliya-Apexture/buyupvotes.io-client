@@ -932,7 +932,7 @@ export const AuthProvider = ({ children }) => {
                 const initialRefreshToken = TokenService.getRefreshToken();
 
                 if (!currentAccessToken && !initialRefreshToken) {
-                    console.log("checkAuthStatus: No initial tokens found.");
+                    // console.log("checkAuthStatus: No initial tokens found.");
                     clearAuthData();
                     setLoading(false);
                     return;
