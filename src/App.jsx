@@ -333,7 +333,6 @@ const App = () => {
                 <AuthProvider>
                     {/* Wrap Routes with GoogleOAuthProvider */}
                     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-                        {/* Wrap everything inside Analytics and SpeedInsights */}
                         <Analytics />
                         <SpeedInsights />
                         <Suspense fallback={
