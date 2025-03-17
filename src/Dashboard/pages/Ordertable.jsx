@@ -3,8 +3,7 @@ import Data from "../../assets/Images/nodata.svg"; // No data icon
 import { FiSearch } from "react-icons/fi";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-
-const CommentTable = () => {
+const Ordertable = () => {
   const [activeTab, setActiveTab] = useState("All");
   const [tableData, setTableData] = useState([]); // state for table data
   const [searchQuery, setSearchQuery] = useState(""); // New search state
@@ -19,8 +18,6 @@ const CommentTable = () => {
     (currentPage - 1) * rowsPerPage,
     currentPage * rowsPerPage
   );
-
-  
 
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -50,19 +47,25 @@ const CommentTable = () => {
     },
     {
       label: "In Progress",
-      count: 1,
+      count: 2,
       color: "bg-[#22C55E29] text-[#118D57]",
       colors: "bg-[#22C55E] text-white",
     },
     {
       label: "Completed",
-      count: 0,
+      count: 3,
       color: "bg-[#22C55E29] text-[#118D57]",
       colors: "bg-[#22C55E] text-white",
     },
     {
+      label: "Partial",
+      count: 1,
+      color: "bg-[#919EAB29] text-para-color",
+      colors: "bg-sub-color text-white",
+    },
+    {
       label: "Canceled",
-      count: 0,
+      count: 2,
       color: "bg-[#FF563029] text-[#B71D18]",
       colors: "bg-light-orange text-white",
     },
@@ -79,12 +82,68 @@ const CommentTable = () => {
       status: "In Progress",
     },
     {
+      orderNumber: "102",
+      details: "Samsung Universe 9",
+      progress: "100%",
+      date: "2024-12-04",
+      totalVotes: 200,
+      status: "Completed",
+    },
+    {
       orderNumber: "103",
       details: "OppoF19",
       progress: "25%",
       date: "2024-12-03",
       totalVotes: 50,
       status: "Pending",
+    },
+    {
+      orderNumber: "104",
+      details: "Huawei P30",
+      progress: "0%",
+      date: "2024-12-02",
+      totalVotes: 0,
+      status: "Canceled",
+    },
+    {
+      orderNumber: "105",
+      details: "MacBook Pro",
+      progress: "75%",
+      date: "2024-12-01",
+      totalVotes: 150,
+      status: "In Progress",
+    },
+    {
+      orderNumber: "106",
+      details: "Microsoft Surface Laptop 4",
+      progress: "100%",
+      date: "2024-11-30",
+      totalVotes: 300,
+      status: "Completed",
+    },
+    {
+      orderNumber: "107",
+      details: "Infinix Book",
+      progress: "50%",
+      date: "2024-11-29",
+      totalVotes: 100,
+      status: "Partial",
+    },
+    {
+      orderNumber: "108",
+      details: "HP Pavilion 15-DK1056W",
+      progress: "0%",
+      date: "2024-11-28",
+      totalVotes: 0,
+      status: "Canceled",
+    },
+    {
+      orderNumber: "109",
+      details: "RealmeXT",
+      progress: "100%",
+      date: "2024-11-27",
+      totalVotes: 500,
+      status: "Completed",
     },
     {
       orderNumber: "110",
@@ -215,11 +274,7 @@ const CommentTable = () => {
       {/* Order Result */}
       <div className="py-2">
         <h1 className="text-sub-color">
-<<<<<<< HEAD
           <span className="font-black text-sub-color">{tableData.length}</span>
-=======
-          <span className="text-sub-color font-bold">{tableData.length}</span>
->>>>>>> client
           {tableData.length === 1 ? " Result found" : " Results found"}
           {activeTab !== "All" && (
             <span className="ml-2 font-normal text-sub-color">
@@ -266,7 +321,7 @@ const CommentTable = () => {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
               aria-hidden="true"
               role="img"
               viewBox="0 0 24 24"
@@ -278,7 +333,7 @@ const CommentTable = () => {
               ></path>
               <path
                 fill="currentColor"
-                fillRule="evenodd"
+                fill-rule="evenodd"
                 d="M11.596 22h.808c2.783 0 4.174 0 5.08-.886c.904-.886.996-2.339 1.181-5.245l.267-4.188c.1-1.577.15-2.366-.303-2.865c-.454-.5-1.22-.5-2.753-.5H8.124c-1.533 0-2.3 0-2.753.5s-.404 1.288-.303 2.865l.267 4.188c.185 2.906.277 4.36 1.182 5.245c.905.886 2.296.886 5.079.886m-1.35-9.811c-.04-.434-.408-.75-.82-.707c-.413.043-.713.43-.672.864l.5 5.263c.04.434.408.75.82.707c.413-.043.713-.43.672-.864zm4.329-.707c.412.043.713.43.671.864l-.5 5.263c-.04.434-.409.75-.82.707c-.413-.043-.713-.43-.672-.864l.5-5.263c.04-.434.409-.75.82-.707"
                 clip-rule="evenodd"
               ></path>
@@ -296,11 +351,11 @@ const CommentTable = () => {
           <thead className="text-xs font-medium uppercase bg-gray-100 text-sub-color">
             <tr className="border-b">
               <th className="px-4 py-3 text-left">Order #</th>
-              <th className="px-4 py-3 text-left">Massage</th>
-              <th className="px-4 py-3 text-left">Quantity</th>
-              <th className="px-4 py-3 text-left">Date</th>
-              <th className="px-4 py-3 text-left">Status</th>
               <th className="px-4 py-3 text-left">Details</th>
+              <th className="px-4 py-3 text-left">Progress</th>
+              <th className="px-4 py-3 text-left">Date</th>
+              <th className="px-4 py-3 text-left">Total Votes</th>
+              <th className="px-4 py-3 text-left">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -389,4 +444,4 @@ const CommentTable = () => {
   );
 };
 
-export default CommentTable;
+export default Ordertable;
