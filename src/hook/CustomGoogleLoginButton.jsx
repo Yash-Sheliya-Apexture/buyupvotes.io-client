@@ -9,6 +9,7 @@ function CustomGoogleLoginButton({ onSuccess, onError ,clientId}) {
     onError: onError,     // Pass the onError callback from parent
     flow: 'auth-code',    // You can keep 'auth-code' if you intend to use authorization code flow
     clientId: clientId, //  <----  clientId prop is used here
+    redirect_uri: window.location.origin, // <--- ADD THIS LINE
   });
 
   return (
