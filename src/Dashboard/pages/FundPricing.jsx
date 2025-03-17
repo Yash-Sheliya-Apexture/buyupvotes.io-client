@@ -1,15 +1,51 @@
+<<<<<<< HEAD
 import { useState } from "react";
+=======
+// import React from "react";
+// import Pricing from "../../Components/Pricing";
+// import Customize_Payment from "../components/Customize_Payment";
+// import ContactBtn from "../../Components/ContactBtn";
+// import BreadcrumbHeader from "../../Components/BreadcrumbHeader";
+
+// const FundPricing = () => {
+//   const breadcrumbs = [
+//     { label: "Dashboard", link: "/dashboard" },
+//     { label: "Pricing" },
+//   ];
+//   return (
+//     <>
+//       <div>
+//         <BreadcrumbHeader title="Pricing" breadcrumbs={breadcrumbs} />
+//         {/* <Pricing /> */}
+//         <Customize_Payment />
+//         {/* <ContactBtn
+//           headingBeforeText="We’re Here to Help—Contact"
+//           headingGradientText="Us Today!"
+//           buttonText="Contact"
+//           linkTo="/quote"
+//         /> */}
+//       </div>
+//     </>
+//   );
+// };
+
+// export default FundPricing;
+
+
+
+>>>>>>> client
 import React from "react";
-import Pricing from "../../Components/Pricing";
-import { CiCreditCard1 } from "react-icons/ci";
-import { MdCurrencyBitcoin } from "react-icons/md";
-import { Link } from "react-router-dom";
-import payment_logos from "../../assets/Images/payment_logos.png";
+import Customize_Payment from "../components/Customize_Payment";
+import BreadcrumbHeader from "../../Components/BreadcrumbHeader";
+import FundPricingTopbar from "../components/FundPricing/FundPricingTopbar";
 
 const FundPricing = () => {
-  const [selectedTab, setSelectedTab] = useState("creditCard");
-
+  const breadcrumbs = [
+    { label: "Dashboard", link: "/dashboard" },
+    { label: "Pricing" },
+  ];
   return (
+<<<<<<< HEAD
     <div className="container mx-auto">
       <Pricing />
 
@@ -131,6 +167,13 @@ const FundPricing = () => {
         </div>
       </div>
     </div>
+=======
+    <>
+      <BreadcrumbHeader title="Pricing" breadcrumbs={breadcrumbs} />
+      <FundPricingTopbar />
+      <Customize_Payment />
+    </>
+>>>>>>> client
   );
 };
 

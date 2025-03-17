@@ -2,34 +2,148 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Lato";
+font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
   font-weight: 100;
-  src: url("./assets/fonts/Lato-Thin.ttf") format("truetype");
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Thin.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Lato";
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-ThinItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-ExtraLight.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-ExtraLightItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
   font-weight: 300;
-  src: url("./assets/fonts/Lato-Light.ttf") format("truetype");
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Light.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Lato";
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-LightItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
   font-weight: 400;
-  src: url("./assets/fonts/Lato-Regular.ttf") format("truetype");
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Regular.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Lato";
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-MediumItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-SemiBoldItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
   font-weight: 700;
-  src: url("./assets/fonts/Lato-Bold.ttf") format("truetype");
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Bold.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Lato";
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-BoldItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-ExtraBold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "InterDisplay";
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-ExtraBoldItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "InterDisplay";
+  font-style: normal;
   font-weight: 900;
-  src: url("./assets/fonts/Lato-Black.ttf") format("truetype");
+  font-display: swap;
+  src: url("./assets/fonts/InterDisplay-Black.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BasierSquare";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./assets/fonts/BasierSquareRegular.woff") format("woff");
 }
 
 * {
@@ -38,14 +152,65 @@
   box-sizing: border-box;
   text-decoration: none;
 }
-/* 
-.container {
-  @apply px-0 py-0 mx-auto max-w-7xl;
-} */
+
+.underline-hover {
+  @apply text-[#FF5700] font-bold relative;
+}
+
+.underline-hover::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: #ff5700;
+  transition: width 0.2s ease-in-out;
+}
+
+.underline-hover:hover::after {
+  width: 100%;
+}
 
 /* Apply Urbanist font globally */
 body {
-  @apply font-LatoFont;
+  @apply font-InterDisplay;
+  height: 100vh;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0px 16px;
+}
+
+/* Custom horizontal scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background-color: #b4b4b4;
+  /* Color of the scrollbar thumb */
+  border-radius: 1px;
+  /* Rounded corners for the thumb */
+  transition: all 0.3s ease-in-out;
+  /* Animation for hover effect */
+}
+
+/* Scrollbar track (the background part of the scrollbar) */
+::-webkit-scrollbar-track {
+  background-color: #e9e9e9;
+  /* Make track background transparent */
+}
+
+.heading {
+  @apply font-semibold lg:text-[32px] text-medium;
+}
+
+.para {
+  @apply text-xs font-medium text-gray-700 lg:text-small;
 }
 
 /* Icon-Set */
@@ -64,23 +229,235 @@ body {
 /* Background Image */
 
 .background-image {
-  background-image: url(./assets/Images/background..jpg);
+  background-image: url(./assets/Images/Background.jpg);
   background-size: cover;
   background-position: center;
   min-height: 100vh;
 }
 
-/* .bg-blue {
-  background-image: url(./assets/Images/blue-background.png);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-} */
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInTop {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 1s ease-out;
+}
+
+.animate-slide-in-top {
+  animation: fadeInTop 1.5s ease-out;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+}
+
+/* Tooltip Animation */
+
+@keyframes tooltipAppear {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(5px);
+  }
+}
+
+.tooltip-custom {
+  animation: tooltipAppear 0.5s ease-in-out forwards;
+  background-color: rgb(17, 24, 35) !important;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 6px !important;
+  text-transform: capitalize;
+}
+
+/* Table-css */
+tooltip-custom .table-main thead tr th {
+  padding: 4px 24px;
+  background-color: #f4f6f8;
+  color: #2d2624;
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: capitalize;
+  white-space: nowrap;
+  text-align: left;
+}
+
+/* pop animation */
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-pop {
+  animation: pop 0.4s ease-in-out;
+}
+
+/* logo Animation */
+
+.animated-logo {
+  position: relative;
+  color: #ff5700;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 0.4rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.animated-logo::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  color: #fff;
+  font-weight: 900;
+  text-transform: uppercase;
+  overflow: hidden;
+  -webkit-text-stroke: 4px #ff5700;
+  border-right: 2px solid #ff5700;
+  animation: reveal-text 2s ease-in-out both;
+}
+
+/* Animation Keyframes */
+@keyframes reveal-text {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+#root input:focus {
+  border: 1px solid #000;
+  box-shadow: none;
+  outline: none;
+}
+
+textarea:focus {
+  border: 1px solid #000;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Button Animation */
+.mybtn {
+  position: relative;
+  padding: 6px 35px;
+  border-radius: 20px;
+  border: 1px solid #ff5600;
+  font-size: 16px;
+  letter-spacing: 2px;
+  background: transparent;
+  color: #ff5600;
+  overflow: hidden;
+  box-shadow: 0 0 0 0 transparent;
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
+  font-family: "InterDisplay", monospace;
+  font-weight: 500;
+}
+
+.mybtn:hover {
+  background: #ff5600;
+  color: #fff;
+  box-shadow: #ff5630 0px 0px 2px 1px;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}
+
+.mybtn:hover::before {
+  -webkit-animation: sh02 0.5s 0s linear;
+  -moz-animation: sh02 0.5s 0s linear;
+  animation: sh02 0.5s 0s linear;
+}
+
+.mybtn::before {
+  content: "";
+  display: block;
+  width: 0px;
+  height: 86%;
+  position: absolute;
+  top: 10%;
+  left: 0%;
+  opacity: 0;
+  background: #fff;
+  box-shadow: 0 0 30px 30px #fff;
+  -webkit-transform: skewX(-20deg);
+  -moz-transform: skewX(-20deg);
+  -ms-transform: skewX(-20deg);
+  -o-transform: skewX(-20deg);
+  transform: skewX(-20deg);
+}
+
+@keyframes sh02 {
+  from {
+    opacity: 0;
+    left: 0%;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    left: 100%;
+  }
+}
+
+.mybtn:active {
+  box-shadow: 0 0 0 0 transparent;
+  -webkit-transition: box-shadow 0.5s ease-in;
+  -moz-transition: box-shadow 0.5s ease-in;
+  transition: box-shadow 0.5s ease-in;
+}
 
 @media (max-width: 992px) {
   .logo {
     display: none;
   }
+
   .slide-image {
     display: none;
   }
@@ -90,32 +467,51 @@ body {
   -webkit-text-stroke: 2.5px;
 }
 
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
 /* Rocket Animation */
 
 @keyframes float {
-  0%,
-  100% {
-    transform: translateY(-1rem);
+
+  0% {
+    transform: translateY(-1.5rem);
   }
-  50% {
-    transform: translateY(1rem);
+
+  100% {
+    transform: translateY(1.5rem);
   }
 }
+
 .animate-float {
-  animation: float 4s ease-in infinite;
+  animation: float 2s ease-in-out infinite alternate-reverse;
 }
 
 /* Small Rocket animation */
 
 @keyframes Rocket {
+
   0%,
   100% {
-    transform: translateY(-1.5px);
+    transform: translateY(0.5px);
   }
+
   50% {
     transform: translateY(4px);
   }
 }
+
 .animate-rocket {
   animation: Rocket 2s ease-in infinite;
 }
@@ -127,6 +523,64 @@ body {
   height: 100%;
 }
 
+@media (max-width: 1024px) {
+  .swiper {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .Contact-Main .contact .sub-content {
+    flex-wrap: wrap;
+  }
+
+  /* Tabs Section - Horizontal Scrolling */
+  .tabs-scrollable {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    justify-content: flex-start;
+    /* Ensure tabs start from the left */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+  }
+
+  /* Table Section - Horizontal Scrolling */
+  .table-scrollable {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .table-main thead tr th {
+    font-size: 14px;
+  }
+}
+
+.input-group {
+  position: relative;
+}
+
+.user-label {
+  position: absolute;
+  left: 15px;
+  color: #2d2624;
+  pointer-events: none;
+  transform: translateY(0.5rem);
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input:focus~.user-label,
+.input:valid~.user-label {
+  transform: translateY(-50%) scale(0.8);
+  background-color: #fff;
+  padding: 0 0.5em;
+  font-size: 20px;
+  color: #2d2624;
+}
+
 .swiper-slide {
   text-align: center;
   font-size: 18px;
@@ -134,44 +588,171 @@ body {
 }
 
 .swiper-pagination-bullet {
-  background-color: #ffaa00 !important;
+  background-color: #fc8d4d !important;
   width: 10px !important;
   height: 10px !important;
 }
 
 .swiper-pagination-bullet-active {
-  border: 1px solid #edc061;
-  background-color: #fff;
+  border: 1px solid #ff5700;
+  background-color: #ff5700 !important;
 }
 
 /* Custom scrollbar styles */
 
 .custom-scrollbar {
-  scrollbar-width: none; /* Firefox support */
+  scrollbar-width: none;
+  /* Firefox support */
   scrollbar-color: #c1c8c9;
 }
 
 /* Hide scrollbar */
 .no-scrollbar::-webkit-scrollbar {
-  display: none; /* Hide scrollbar in WebKit-based browsers */
+  display: none;
+  /* Hide scrollbar in WebKit-based browsers */
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
+
 .custom-scroll::-webkit-scrollbar {
-  width: 5px; /* Width of the scrollbar */
+  width: 5px;
+  /* Width of the scrollbar */
+  height: 5px;
 }
 
 /* Scrollbar track */
 .custom-scroll::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1); /* Track background */
-  border-radius: 10px; /* Round the track */
+  background: rgba(0, 0, 0, 0.1);
+  /* Track background */
+  border-radius: 10px;
+  /* Round the track */
 }
 
 /* Scrollbar thumb */
 .custom-scroll::-webkit-scrollbar-thumb {
-  background: #C1C7C8; /* Color of the thumb */
-  border-radius: 10px; /* Round the thumb */
+  background: #c1c7c8;
+  /* Color of the thumb */
+  border-radius: 10px;
+  /* Round the thumb */
+}
+
+
+/* Add animation for smooth fade-in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+.animate-slide-out {
+  animation: slideOut 0.5s ease-out forwards;
+}
+
+.round {
+  border-radius: 20px 20px 0px 0px;
+}
+
+.round1 {
+  border-radius: 0px 0px 20px 20px;
+}
+
+.contact .sub-content {
+  z-index: 2;
+  display: flex;
+  position: relative;
+  border-radius: 2.25rem;
+}
+
+.search-input:focus {
+  /* Or whatever class you give your input */
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.animate-tada {
+  animation: tada 1.5s ease-in-out infinite;
+}
+
+@keyframes tada {
+  0% {
+    transform: scaleZ(1)
+  }
+
+  10%,
+  20% {
+    transform: scaleZ(.95) rotate3d(0, 0, 1, -10deg)
+  }
+
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scaleZ(1) rotate3d(0, 0, 1, 10deg)
+  }
+
+  40%,
+  60%,
+  80% {
+    transform: rotate3d(0, 0, 1, -10deg)
+  }
+
+  to {
+    transform: scaleZ(1)
+  }
+}
+
+
+.tooltip-slide-in {
+  animation: slideIn 0.3s ease-out forwards;
+  transform-origin: left center;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(30px);
+    opacity: 1;
+  }
 }

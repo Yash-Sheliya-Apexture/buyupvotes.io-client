@@ -1,165 +1,172 @@
-import React, { useState } from "react";
-import logo from "../../assets/Images/logo.png";
-import { Link } from "react-router-dom";
-import { BsBarChartFill } from "react-icons/bs";
-import { PiSpeedometerFill } from "react-icons/pi";
-import { IoMdChatboxes } from "react-icons/io";
+import React, { useState, useEffect } from "react";
+import logo from "../../assets/Images/Logo.png";
+import { Link, useLocation } from "react-router-dom";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { FaListCheck } from "react-icons/fa6";
 import { IoIosChatboxes } from "react-icons/io";
-import { HiCurrencyEuro } from "react-icons/hi";
-import { FaCartShopping } from "react-icons/fa6";
-import { MdContactPage } from "react-icons/md";
-import { IoTv } from "react-icons/io5";
-import { MdContacts } from "react-icons/md";
-import { RiAccountBoxFill } from "react-icons/ri";
-import { GoFileDirectoryFill } from "react-icons/go";
-import { FiMenu, FiX } from "react-icons/fi";
-import { FaAngleLeft } from "react-icons/fa6";
+import { IoWalletOutline } from "react-icons/io5";
+import { IoDocumentTextOutline } from "react-icons/io5";
+import { IoCallOutline } from "react-icons/io5";
+import { IoSettingsOutline } from "react-icons/io5";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import logo1 from "../../assets/Images/logo-mini.png";
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
-const SideBar = () => {
-  const [activeMenu, setActiveMenu] = useState("dashboard"); // State for active menu
-  const [isSidebarOpen, setSidebarOpen] = useState(false); // State for sidebar visibility
+const SideBar = ({ isSidebarVisible, toggleSidebarVisibility }) => {
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [isSidebarExpanded, setSidebarExpanded] = useState(true);
+  const location = useLocation();
 
+  useEffect(() => {
+    const currentMenu = menuItems.find(
+        (item) => item.link === location.pathname
+    );
+    if (currentMenu) {
+        setActiveMenu(currentMenu.id);
+    }
+}, [location.pathname]);
 
   const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
+    setSidebarExpanded(!isSidebarExpanded);
+  };
+
+  const handleMenuItemClick = (menuId) => {
+    setActiveMenu(menuId);
+    if (window.innerWidth < 992) {
+      toggleSidebarVisibility(false);
+    }
   };
 
   const menuItems = [
     {
-      id: "dashboard",
-      icon: <PiSpeedometerFill />,
+      id: "Dashboard",
+      icon: <LuLayoutDashboard />,
       label: "Dashboard",
       link: "/dashboard",
     },
     {
       id: "Order Upvotes",
-      icon: <BsBarChartFill />,
-      label: "Order Upvotes",
-      link: "/UpvoteOrder",
-    },
-    {
-      id: "Orders Create",
-      icon: <IoMdChatboxes />,
-      label: "Order Comments",
-      link: "/OrderComment",
-    },
-    {
-      id: "Order messages",
-      icon: <IoIosChatboxes />,
-      label: "Order Direct Messages",
-      link: "/notifications",
+      icon: <FaListCheck />,
+      label: "New Order",
+      link: "/dashboard/upvoteorder",
     },
     {
       id: "Add Funds",
-      icon: <HiCurrencyEuro />,
-      label: "Add Funds-Princing",
-      link: "/FundPrice",
+      icon: <IoWalletOutline />,
+      label: "Add Funds",
+      link: "/dashboard/pricing",
     },
     {
-      id: "Raddit Accounts",
-      icon: <FaCartShopping />,
-      label: "Buy Raddit Accounts",
-      link: "/signup",
+      id: "FAQs",
+      icon: <IoDocumentTextOutline />,
+      label: "FAQs",
+      link: "/dashboard/faqs",
     },
     {
-      id: "faqs",
-      icon: <MdContactPage />,
-      label: "FAQ'S",
-      link: "/password",
-    },
-    { id: "OTP", icon: <GoFileDirectoryFill />, label: "Blogs", link: "/otp" },
-    {
-      id: "API",
-      icon: <IoTv />,
-      label: "API (New)",
-      link: "/settings",
+      id: "Blogs Data",
+      icon: <IoDocumentTextOutline />,
+      label: "Blogs",
+      link: "/dashboard/post",
     },
     {
       id: "Contact",
-      icon: <MdContacts />,
+      icon: <IoCallOutline />,
       label: "Contact Us",
-      link: "/settings",
+      link: "/dashboard/contactus",
     },
     {
       id: "Account",
-      icon: <RiAccountBoxFill />,
-      label: "Account",
-      link: "/settings",
+      icon: <IoSettingsOutline />,
+      label: "Account Settings",
+      link: "/dashboard/account",
     },
   ];
 
+  const sidebarClasses = `fixed xl:relative z-50 h-screen transition-all duration-300 bg-white border-r border-gray-100
+                           ${isSidebarExpanded ? 'w-72' : 'w-20'}
+                           ${isSidebarVisible ? 'left-0' : '-left-72 xl:left-0'}`;
+
   return (
     <>
-      {/* Hamburger Menu for Small Screens */}
-      <div className="lg:hidden p-4 bg-white flex items-center">
-        <div>
-          <img src={logo} alt="Logo" className="w-10 h-10 hidden" />
-        </div>
-        <button onClick={toggleSidebar}>
-          {isSidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-        </button>
-      </div>
+      {isSidebarVisible && (
+        <div className="fixed inset-0 z-40 bg-black bg-opacity-45 backdrop-blur-sm xl:hidden" onClick={toggleSidebarVisibility}></div>
+      )}
 
-      {/* Sidebar */}
-      <section
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-dashed border-gray-300 transform ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 lg:translate-x-0 lg:static lg:block h-screen`}
-      >
-        <div className="flex items-center justify-between p-3">
-          <div>
-            <img src={logo} alt="Logo" />
+      <section className={sidebarClasses}>
+        <div className="relative">
+          <div className={`flex items-center h-[82.6px] border-b p-4  ${isSidebarExpanded ? 'justify-between' : 'justify-center'}`}>
+            <Link to="/" className="flex items-center">
+              {isSidebarExpanded ? (
+                <img src={logo} alt="Expanded Logo" className="h-8 transition-all duration-300" />
+              ) : (
+                <img src={logo1} alt="Collapsed Logo" className="h-10 transition-all duration-300" />
+              )}
+
+            </Link>
           </div>
+          <button
+            onClick={toggleSidebar}
+            className="absolute top-1/2 -right-3 bg-white p-1 -translate-y-1/2 size-7 hidden cursor-pointer border rounded-full xl:block"
+          >
+            {isSidebarExpanded ? (
+              <FaAngleLeft className="text-gray-500" />
+            ) : (
+              <FaAngleRight className="text-gray-500" />
+            )}
+          </button>
         </div>
 
-        <div className="absolute top-10 -right-2.5 p-1 border rounded-full backdrop-blur-sm lg:block hidden cursor-pointer">
-          <FaAngleLeft className="size-2.5 text-gray-500" />
-        </div>
-
-        <div>
-          <ul className="flex flex-col space-y-2.5">
-            {menuItems.map((item) => (
+        <div className="h-[calc(100%-82.59px)] overflow-y-auto custom-scroll flex flex-col justify-between">
+          <ul className="space-y-3 p-4 ">
+            {menuItems.map(item => (
               <li
                 key={item.id}
-                className={`relative group rounded-base cursor-pointer ${
-                  activeMenu === item.id
-                    ? "bg-side-color text-main-color font-bold" // Active menu styles
-                    : "text-active hover:bg-background-active" // Inactive menu styles
-                }`}
-                onClick={() => setActiveMenu(item.id)} // Set active menu on click
+                className={`group cursor-pointer rounded-xl  flex items-center ${activeMenu === item.id ? 'bg-main-color text-white' : 'text-gray-700 hover:bg-main-color/15 hover:text-main-color'} transition-colors duration-200`} onClick={() => handleMenuItemClick(item.id)}
               >
-                <Link
-                  to={item.link}
-                  className="w-full px-2.5 py-2.5 flex justify-start items-center transition-colors duration-200"
-                >
-                  <span className="mr-4 text-basic">{item.icon}</span>
-                  <span className="text-small">{item.label}</span>
+                <Link to={item.link} className={`w-full flex items-center gap-4 py-3 h-12 px-4 ${isSidebarExpanded ? "" : "justify-center"}`} data-tooltip-id={`${item.id}-tooltip`} data-tooltip-content={item.label}>
+                  <span className="text-2xl">{item.icon}</span>
+                  {isSidebarExpanded && <span className="text-lg font-medium text-nowrap">{item.label}</span>}
                 </Link>
-                <div
-                  className={`absolute left-0 top-0 h-full w-1 ${
-                    activeMenu === item.id
-                      ? "bg-main-color scale-y-100"
-                      : "bg-transparent scale-y-0"
-                  } transition-all duration-300`}
-                ></div>
+                {
+                  !isSidebarExpanded && (
+                    <Tooltip
+                        id={`${item.id}-tooltip`}
+                        place="right"
+                        effect="solid"
+                        className="custom-tooltip"
+                    />
+                  )
+                }
+
               </li>
             ))}
           </ul>
-          <div className="py-2">
-            <button className="w-full p-1.5 hover:shadow-Sidebar rounded-full border border-main-color">
-              Add Funds
-            </button>
-          </div>
+
+          {isSidebarExpanded && (
+            <div className="p-5 mt-4 border-t">
+              <Link
+                to="/dashboard/pricing"
+                className="block px-5 py-3 bg-[#FF5500] text-white rounded-xl font-medium text-center hover:bg-[#D64100] transition-colors duration-200"
+              >
+                Add Funds
+              </Link>
+            </div>
+          )}
         </div>
       </section>
-
-      {/* Overlay for Small Screens */}
-      {isSidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black opacity-50 lg:hidden"
-          onClick={toggleSidebar}
-        ></div>
-      )}
+       <style>
+        {`
+          .custom-tooltip {
+            border-radius: 0.5rem; /* Example rounded corners */
+            font-size: 12px; /* Example text size - 14px */
+            padding: 0.5rem 0.75rem; /* Example padding - 8px top/bottom, 12px left/right */
+            background-color: #333; /* Example background color */
+            color: #fff; /* Example text color */
+            font-weight: bold;
+          }
+        `}
+      </style>
     </>
   );
 };

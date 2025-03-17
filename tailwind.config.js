@@ -1,10 +1,14 @@
+const flowbite = require("flowbite-react/tailwind");
+
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  mode: "jit", // Ensure JIT mode is enabled
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", flowbite.content()],
   theme: {
     extend: {
       fontFamily: {
-        LatoFont: ["Lato", "serif"],
+        InterDisplay: ["InterDisplay", "sans-serif"],
+        BasierSquare: ["Basiersquare", "sans-serif"],
       },
       screens: {
         xs: { min: "320px" },
@@ -12,7 +16,14 @@ export default {
       boxShadow: {
         Sidebar: "0px 0px 12px 5px #00000036",
         base: "0px 2px 5px 1px #ff8700",
-        btnShadow: "#FF5630 0px 0px 2px 1px",
+        btnShadow: "#FF5630 0px 0px 3px 1px",
+        newShadow: "#22C55E 0px 0px 3px 1px",
+        redShadow: "#F05252 0px 0px 3px 1px",
+        main: "rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -2px;",
+        blackshadow: "#000 0px 0px 1px 1px",
+        header: "0 2px 16px 0 #10182814",
+        plan: "0 10px 12px 0 #ececec99",
+        plan_tab: "1px solid #d1d5db"
       },
       colors: {
         "main-color": "#FF5700",
@@ -30,6 +41,11 @@ export default {
         "gray-light": "#F4F6F8",
         "light-red": "#B71D18",
         "border-color": "#e5e7eb",
+        "brown-hover": "#919eab14",
+        "primary": "#1B1D22",
+      },
+      lineHeight: {
+        20: "70px",
       },
       borderWidth: {
         1.5: "1.5px",
@@ -38,17 +54,21 @@ export default {
         xxs: "12px",
         xs: "14px",
         small: "16px",
+        medium: "18px",
         base: "20px",
         basic: "24px",
         large: "30px",
+        xlarge: "35px",
+        largest: "60px",
       },
       borderRadius: {
         base: "4px",
         large: "30px",
         small: "20px",
         medium: "10px",
+        xlarge: "40px",
       },
     },
   },
-  plugins: [require("tailwind-scrollbar")],
+  plugins: [require("tailwind-scrollbar"), flowbite.plugin()],
 };

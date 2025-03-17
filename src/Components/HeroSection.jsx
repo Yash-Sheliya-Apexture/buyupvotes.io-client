@@ -1,87 +1,359 @@
-import React, { useEffect, useState } from "react";
-import image1 from "../assets/Images/slide13.png";
-import image2 from "../assets/Images/slide2.png";
-import { FaUpRightFromSquare } from "react-icons/fa6";
+// import React, { useMemo } from "react";
+// import { Link } from "react-router-dom";
+// import images from "../assets/websiteImages/index";
+// import { useAuth } from "../auth/AuthContextWeb";
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+// import "./HeroSection.css";
+// import { FaReddit } from "react-icons/fa";
+// import GradientHeading from "./GradientHeading";
+
+// const sliderSettings = {
+//   dots: false,
+//   infinite: true,
+//   speed: 6000,
+//   slidesToShow: 2,
+//   slidesToScroll: 1,
+//   autoplay: true,
+//   autoplaySpeed: 0,
+//   cssEase: "linear",
+//   arrows: false,
+//   pauseOnHover: false,
+//   variableWidth: true,
+//   centerMode: true,
+//   centerPadding: "0px",
+//   ltl: true,
+// };
+
+// const HeroSection = () => {
+//   const { user, loading } = useAuth();
+
+//   const listItems = useMemo(
+//     () => [
+//       <span key="redditIcon1" className="text-gray-600">
+//         <FaReddit className="mx-3 lg:size-12 size-8 text-main-color" />
+//       </span>,
+//       "Get trending by sending instant upvotes to any post or comment",
+//       <span key="redditIcon2" className="text-gray-600">
+//         <FaReddit className="mx-3 lg:size-12 size-8 text-main-color" />
+//       </span>,
+//       "Take control of comments on your posts by sending upvotes and downvotes",
+//     ],
+//     []
+//   );
+
+//   return (
+//     <section className="hero-section relative -mt-24 overflow-hidden">
+//       <div className="pt-20 pb-14">
+//         <div className="absolute inset-0">
+//           <img
+//             src={images.overlay_1}
+//             className="object-cover w-full min-w-full min-h-full"
+//             alt=""
+//           />
+//         </div>
+//         {/* Hero Content */}
+//         <div className="container">
+//           <div className="pt-[100px] z-10 relative">
+//             <div className="flex justify-center">
+//               <div className="flex flex-col items-center justify-center max-w-full lg:w-[750px] text-center">
+//                 <GradientHeading
+//                   tag="h1"
+//                   beforeText="Boost Your Reddit"
+//                   gradientText="Upvotes."
+//                   beforeSpanClassName="font-bold"
+//                   textSize="text-5xl md:text-7xl lg:text-[100px]"
+//                   tracking="tracking-[-3px]"
+//                   className="mb-10"
+//                 />
+
+//                 <p className="mb-8 font-BasierSquare text-sub-color font-medium text-lg lg:text-2xl">
+//                   Gain real engagement and grow your online audience quickly
+//                   with our proven strategies and tools.
+//                 </p>
+
+//                 <div className="flex flex-row items-center justify-center gap-5 lg:justify-start">
+//                   {user ? (
+//                     <Link to="/dashboard">
+//                       <button className="flex items-center justify-center gap-2 px-10 md:py-4 py-2 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
+//                         Dashboard
+//                       </button>
+//                     </Link>
+//                   ) : (
+//                     <Link to="/signin">
+//                       <button className="flex items-center justify-center gap-2 px-10 md:py-4 py-2 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
+//                         Get Started Now
+//                       </button>
+//                     </Link>
+//                   )}
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//         <div className="pt-4 lg:pt-14">
+//           <div className="p-8 overflow-hidden bg-white rounded-3xl">
+//             <Slider {...sliderSettings}>
+//               {listItems.map((item, index) => (
+//                 <div key={index}>
+//                   <div className="flex gap-3 lg:text-2xl text-basic font-BasierSquare font-medium flex-nowrap">
+//                     {typeof item === "string" ? (
+//                       <li className="list-none">{item}</li>
+//                     ) : (
+//                       item
+//                     )}
+//                   </div>
+//                 </div>
+//               ))}
+//             </Slider>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default HeroSection;
+
+
+// import React, { useMemo } from "react";
+// import { Link } from "react-router-dom";
+// import images from "../assets/websiteImages/index";
+// import { useAuth } from "../auth/AuthContext";
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+// import "./HeroSection.css";
+// import { FaReddit } from "react-icons/fa";
+// import GradientHeading from "./GradientHeading";
+
+// const sliderSettings = {
+//     dots: false,
+//     infinite: true,
+//     speed: 6000,
+//     slidesToShow: 2,
+//     slidesToScroll: 1,
+//     autoplay: true,
+//     autoplaySpeed: 0,
+//     cssEase: "linear",
+//     arrows: false,
+//     pauseOnHover: false,
+//     variableWidth: true,
+//     centerMode: true,
+//     centerPadding: "0px",
+//     ltl: true,
+// };
+
+// const HeroSection = () => {
+//     const { user, loading } = useAuth();
+
+//     const listItems = useMemo(
+//         () => [
+//             <span key="redditIcon1" className="text-gray-600">
+//                 <FaReddit className="mx-3 lg:size-12 size-8 text-main-color" />
+//             </span>,
+//             "Get trending by sending instant upvotes to any post or comment",
+//             <span key="redditIcon2" className="text-gray-600">
+//                 <FaReddit className="mx-3 lg:size-12 size-8 text-main-color" />
+//             </span>,
+//             "Take control of comments on your posts by sending upvotes and downvotes",
+//         ],
+//         []
+//     );
+
+//     return (
+//         <section className="hero-section relative -mt-24 overflow-hidden">
+//             <div className="pt-20 pb-14">
+//                 <div className="absolute inset-0">
+//                     <img
+//                         src={images.overlay_1}
+//                         className="object-cover w-full min-w-full min-h-full"
+//                         alt=""
+//                     />
+//                 </div>
+//                 {/* Hero Content */}
+//                 <div className="container">
+//                     <div className="pt-[100px] z-10 relative">
+//                         <div className="flex justify-center">
+//                             <div className="flex flex-col items-center justify-center max-w-full lg:w-[750px] text-center">
+//                                 <GradientHeading
+//                                     tag="h1"
+//                                     beforeText="Boost Your Reddit"
+//                                     gradientText="Upvotes."
+//                                     beforeSpanClassName="font-bold"
+//                                     textSize="text-5xl md:text-7xl lg:text-[100px]"
+//                                     tracking="tracking-[-3px]"
+//                                     className="mb-10"
+//                                 />
+
+//                                 <p className="mb-8 font-BasierSquare text-sub-color font-medium text-lg lg:text-2xl">
+//                                     Gain real engagement and grow your online audience quickly
+//                                     with our proven strategies and tools.
+//                                 </p>
+
+//                                 <div className="flex flex-row items-center justify-center gap-5 lg:justify-start">
+//                                     {user ? (
+//                                         <Link to="/dashboard">
+//                                             <button className="flex items-center justify-center gap-2 px-10 md:py-4 py-2 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
+//                                                 Dashboard
+//                                             </button>
+//                                         </Link>
+//                                     ) : (
+//                                         <Link to="/signin">
+//                                             <button className="flex items-center justify-center gap-2 px-10 md:py-4 py-2 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
+//                                                 Get Started Now
+//                                             </button>
+//                                         </Link>
+//                                     )}
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//                 <div className="pt-4 lg:pt-14">
+//                     <div className="p-8 overflow-hidden bg-white rounded-3xl">
+//                         <Slider {...sliderSettings}>
+//                             {listItems.map((item, index) => (
+//                                 <div key={index}>
+//                                     <div className="flex gap-3 lg:text-2xl text-basic font-BasierSquare font-medium flex-nowrap">
+//                                         {typeof item === "string" ? (
+//                                             <li className="list-none">{item}</li>
+//                                         ) : (
+//                                             item
+//                                         )}
+//                                     </div>
+//                                 </div>
+//                             ))}
+//                         </Slider>
+//                     </div>
+//                 </div>
+//             </div>
+//         </section>
+//     );
+// };
+
+// export default HeroSection;
+
+
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
+import images from "../assets/websiteImages/index";
+import { useAuth } from "../auth/AuthContext";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./HeroSection.css";
+import { FaReddit } from "react-icons/fa";
+import GradientHeading from "./GradientHeading";
+
+const sliderSettings = {
+  dots: false,
+  infinite: true,
+  speed: 6000,
+  slidesToShow: 2,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 0,
+  cssEase: "linear",
+  arrows: false,
+  pauseOnHover: false,
+  variableWidth: true,
+  centerMode: true,
+  centerPadding: "0px",
+  ltl: true,
+};
 
 const HeroSection = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
+  const auth = useAuth(); // Get the entire auth context
+  const { user, loading } = auth || {};
 
-  useEffect(() => {
-    // Check if there's a token or user info in localStorage to determine login status
-    const authToken = localStorage.getItem("authToken"); // or localStorage.getItem("user");
-    if (authToken) {
-      setIsLoggedIn(true); // If token exists, user is logged in
-    } else {
-      setIsLoggedIn(false); // If no token, user is not logged in
-    }
-  }, []);
+  const listItems = useMemo(
+    () => [
+      <span key="redditIcon1" className="text-gray-600">
+        <FaReddit className="mx-3 lg:size-12 size-8 text-main-color" />
+      </span>,
+      "Go viral now; send instant upvotes to your posts.",
+      <span key="redditIcon2" className="text-gray-600">
+        <FaReddit className="mx-3 lg:size-12 size-8 text-main-color" />
+      </span>,
+      "Make your comments popular with instant upvotes.",
+      <span key="redditIcon2" className="text-gray-600">
+        <FaReddit className="mx-3 lg:size-12 size-8 text-main-color" />
+      </span>,
+      "Control post comments using upvotes for visibility.",
+      <span key="redditIcon2" className="text-gray-600">
+        <FaReddit className="mx-3 lg:size-12 size-8 text-main-color" />
+      </span>,
+      "Get your posts trending and seen by more people.",
+    ],
+    []
+  );
 
   return (
-    <section className="">
-      <div className="flex items-center justify-center h-screen p-6 bg-gradient-to-b from-white to-gray-100 lg:pb-0 pb-60">
-        <div className="flex flex-col items-center lg:flex-row max-w-7xl lg:items-start">
-          <div className="lg:w-[50%] space-y-8 mt-56 lg:mt-28">
-            <h1 className="font-black tracking-[12px] text-4xl text-center lg:text-6xl text-transparent text-stroke bg-clip-text bg-gradient-to-tl from-[#FF5E00] to-[#FF9D00]">
-              Buy Reddit Upvotes
-            </h1>
-            <p className="text-[20px] text-[#FF5A04] font-bold text-center">
-              Boost your posts, dominate your conversion
-            </p>
-            <div className="flex flex-col items-center space-y-2">
-              <p className="flex items-center text-[14px] lg:text-[16px] font-medium text-[#2d2624]">
-                <span className="lg:w-2 lg:h-2 h-1.5 w-1.5 bg-[#2d2624] rounded-full mr-3"></span>
-                Get trending by sending instant upvotes to any post or comments.
-              </p>
-              <p className="flex items-center text-[14px] lg:text-[16px] font-medium text-[#2d2624]">
-                <span className="lg:w-2 lg:h-2 h-1.5 w-1.5 bg-[#2d2624] rounded-full mr-3"></span>
-                Take control of comments on your posts by upvotes and downvotes
-              </p>
-            </div>
-            <div className="flex flex-col items-center justify-center pt-5 space-y-1">
-              {isLoggedIn ? (
-                // If user is logged in, show Dashboard
-                <Link
-                  to="/dashboard"
-                  className="px-8 py-1.5 text-[rgb(255,87,0)] border border-solid font-bold border-[rgb(255,87,0)] rounded-full hover:bg-orange-500 hover:text-white transition"
-                >
-                  Dashboard
-                </Link>
-              ) : (
-                <>
-                  <Link
-                    to="/signin"
-                    className="px-20 py-1.5 text-[rgb(255,87,0)] border border-solid font-bold border-[rgb(255,87,0)] rounded-full hover:bg-orange-500 hover:text-white transition"
-                  >
-                    Sign-In
-                  </Link>
-                  <Link
-                    to="/signup"
-                    className="text-[#2d2624] font-bold rounded-full flex items-center transition-all hover:border-white"
-                  >
-                    Sign up
-                    <FaUpRightFromSquare className="ml-1" />
-                  </Link>
-                </>
-              )}
-            </div>
-          </div>
+    <section className="hero-section relative -mt-24 overflow-hidden">
+      <div className="pt-20 md:pb-14 pb-0">
+        <div className="absolute inset-0">
+          <img
+            src={images.overlay_1}
+            className="object-cover w-full min-w-full min-h-full"
+            alt=""
+          />
+        </div>
+        {/* Hero Content */}
+        <div className="container">
+          <div className="pt-[100px] z-10 relative">
+            <div className="flex justify-center">
+              <div className="flex flex-col items-center justify-center max-w-full lg:w-[750px] text-center">
+                <GradientHeading
+                  tag="h1"
+                  beforeText="Boost Your Reddit"
+                  gradientText="Upvotes."
+                  beforeSpanClassName="font-bold"
+                  textSize="text-5xl md:text-7xl lg:text-[100px]"
+                  tracking="tracking-[-3px]"
+                  className="mb-10"
+                />
 
-          <div className="lg:w-[50%] lg:mt-0 relative hidden lg:block">
-            <div className="flex flex-row space-y-6">
-              <div className="flex mt-10">
-                <img
-                  src={image1}
-                  alt="Example 1"
-                  className="w-[20%] -skew-x-[26deg]"
-                />
-                <img
-                  src={image2}
-                  alt="Example 2"
-                  className="w-[40%] h-auto -skew-x-[26deg]"
-                />
+                <p className="mb-8 font-BasierSquare text-sub-color font-medium text-lg lg:text-2xl">
+                  Gain real engagement and grow your online audience quickly
+                  with our proven strategies and tools.
+                </p>
+
+                <div className="flex flex-row items-center justify-center gap-5 lg:justify-start">
+                  {loading ? null : auth?.user ? ( // Check if auth is defined and then user
+                    <Link to="/dashboard">
+                      <button className="flex items-center justify-center gap-2 px-10 md:py-4 py-2 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
+                        Dashboard
+                      </button>
+                    </Link>
+                  ) : (
+                    <Link to="/signin">
+                      <button className="flex items-center justify-center gap-2 px-10 md:py-4 py-2 text-xl font-medium text-white transition-colors duration-300 border-2 bg-main-color rounded-xl hover:bg-orange-600 w-60 border-main-color hover:border-orange-600">
+                        Get Started Now
+                      </button>
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="pt-4 lg:pt-14">
+          <div className="p-8 overflow-hidden bg-white rounded-3xl">
+            <Slider {...sliderSettings}>
+              {listItems.map((item, index) => (
+                <div key={index}>
+                  <div className="flex gap-3 lg:text-2xl text-basic font-BasierSquare font-medium flex-nowrap">
+                    {typeof item === "string" ? (
+                      <li className="list-none">{item}</li>
+                    ) : (
+                      item
+                    )}
+                  </div>
+                </div>
+              ))}
+            </Slider>
           </div>
         </div>
       </div>
