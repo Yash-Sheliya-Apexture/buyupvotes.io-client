@@ -313,7 +313,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'; // Import GoogleOAuth
 
 // Vercel Analytics and Speed Insights Imports
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from "@vercel/speed-insights/react"; // Correct import for React/Vite
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 const App = () => {
     const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID; // Get Google Client ID from env
