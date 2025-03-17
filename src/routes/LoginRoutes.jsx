@@ -102,7 +102,6 @@ import RedirectIfLoggedIn from "./RedirectIfLoggedIn";
 import ForgotPassword from "../Pages/ForgotPassword";
 import Newpassword from "../Pages/Newpassword";
 import Error404 from "../Dashboard/pages/Error404"; // Import the Error404 component
-import { FaSpinner } from "react-icons/fa"; // Import spinner
 
 const LogRoute = () => {
   return (
@@ -116,7 +115,11 @@ const LogRoute = () => {
             path="signin"
             element={
               <RedirectIfLoggedIn>
-                <React.Suspense fallback={<div className="flex items-center justify-center h-full"><FaSpinner className="text-2xl animate-spin text-gray-500" /></div>}>
+                <React.Suspense fallback={
+                  <div className="flex justify-center items-center h-screen">
+                    <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
+                  </div>
+                }>
                   <Sign_In />
                 </React.Suspense>
               </RedirectIfLoggedIn>
@@ -126,7 +129,11 @@ const LogRoute = () => {
             path="signup"
             element={
               <RedirectIfLoggedIn>
-                <React.Suspense fallback={<div className="flex items-center justify-center h-full"><FaSpinner className="text-2xl animate-spin text-gray-500" /></div>}>
+                <React.Suspense fallback={
+                  <div className="flex justify-center items-center h-screen">
+                    <div className="w-16 h-16 border-t-4 border-solid rounded-full border-main-color animate-spin"></div>
+                  </div>
+                }>
                   <Sign_Up />
                 </React.Suspense>
               </RedirectIfLoggedIn>
