@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaAngleDown } from "react-icons/fa6";
-import Ordertable from "./Ordertable";
-=======
 // import React, { useState, useEffect } from "react";
 // import Ordertable from "../components/OrderTable/OrderTable";
 // import Breadcrumb from "../components/Breadcrumb";
@@ -4789,7 +4783,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { FaSpinner } from "react-icons/fa";
 import { TbMessageFilled } from "react-icons/tb";
 import Ordertable from "../components/OrderTable/OrderTable";
->>>>>>> client
 import Breadcrumb from "../components/Breadcrumb";
 import Dropdown from "../components/Dropdown";
 import InputField from "../components/InputField";
@@ -4798,25 +4791,6 @@ import { debounce } from 'lodash'; // Import debounce from lodash
 import useMySpent from "../context/useMySpent";
 
 const UpvoteOrder = () => {
-<<<<<<< HEAD
-  // Consolidated form state
-  const [formData, setFormData] = useState({
-    service: "",
-    speed: "",
-    link: "",
-    quantity: "",
-  });
-
-  // Consolidated error state
-  const [errors, setErrors] = useState({
-    service: "",
-    speed: "",
-    link: "",
-    quantity: "",
-  });
-
-  const [successMessage, setSuccessMessage] = useState("");
-=======
     const [formData, setFormData] = useState({
         category: "Post",
         service: "",
@@ -4842,32 +4816,8 @@ const UpvoteOrder = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isLoading, setIsLoading] = useState(false); // Added loading state
->>>>>>> client
 
 
-<<<<<<< HEAD
-  const validateRedditLink = (url) => {
-    const redditRegex =
-      /^(https?:\/\/)?(www\.)?(reddit\.com|old\.reddit\.com)\/[a-zA-Z0-9_/.-]+$/;
-    return redditRegex.test(url);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-
-    if (name === "link" && value && !validateRedditLink(value)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        link: "Invalid Reddit link. Example: https://www.reddit.com/r/subreddit/",
-      }));
-    } else if (name === "link") {
-      setErrors((prevErrors) => ({ ...prevErrors, link: "" }));
-    }
-=======
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const token = TokenService.getToken();
     const { currentBalance, loading: balanceLoading, error: balanceErrorHook, refreshBalance, setCurrentBalance } = useBalance();
@@ -4897,7 +4847,6 @@ const UpvoteOrder = () => {
             default: return {};
         }
     }, [formData.category]);
->>>>>>> client
 
     const serviceDescriptions = useMemo(() => ({
         "Random Post": { description: "<b>Quality:</b> Very HQ<br>Details:<br>🚀 Exclusive server, fastest on the market!<br>⚠ Only Subreddit posts are accepted<br>✅ Daily database refresh!<br>✅ Real Accounts<br>✅ Old accounts with high karma will upvote!<br>✏ Example link: https://www.reddit.com/r/FREE/comments/14e21zd/free_20_giftcard/<br>🔊 Notice link contains comments and 1 post id 14e21zd<br>✅ Upvotes sent manually from aged Accounts with High Karma." },
@@ -4908,100 +4857,6 @@ const UpvoteOrder = () => {
         "Comments Upvotes": { description: "Details for Comments Upvotes service..." },
     }), []);
 
-<<<<<<< HEAD
-  const handleQuantityValidation = (value) => {
-    const numericValue = parseInt(value.trim(), 10);
-    if (value && /^\d+$/.test(value)) {
-      if (numericValue < 5) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          quantity: "Minimum quantity for posts is 5",
-        }));
-      } else if (numericValue > 1000) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          quantity: "Maximum quantity for posts is 1000",
-        }));
-      } else {
-        setErrors((prevErrors) => ({ ...prevErrors, quantity: "" }));
-      }
-    } else if (value === "") {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        quantity: "Quantity is required",
-      }));
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        quantity: "Quantity must be a valid number",
-      }));
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors = {
-      service: formData.service ? "" : "Service is required",
-      speed: formData.speed ? "" : "Speed is required",
-      link: formData.link
-        ? validateRedditLink(formData.link)
-          ? ""
-          : "Invalid Reddit link. Example: https://www.reddit.com/r/subreddit/"
-        : "Link is required",
-      quantity:
-        formData.quantity && /^\d+$/.test(formData.quantity)
-          ? parseInt(formData.quantity, 10) < 5
-            ? "Minimum quantity for posts is 5"
-            : parseInt(formData.quantity, 10) > 1000
-            ? "Maximum quantity for posts is 1000"
-            : ""
-          : "Quantity is required",
-    };
-
-    setErrors(newErrors);
-    return Object.values(newErrors).every((error) => error === "");
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (validateForm()) {
-      // Reset form values
-      setFormData({
-        service: "",
-        speed: "",
-        link: "",
-        quantity: "",
-      });
-
-      // Reset errors
-      setErrors({
-        service: "",
-        speed: "",
-        link: "",
-        quantity: "",
-      });
-
-      try {
-        // Send form data to backend to save to Google Sheets
-        const response = await fetch(`${apiUrl}/api/auth/submit-order`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          setSuccessMessage(data.message); // Set success message
-        } else {
-          setSuccessMessage("There was an error submitting the order.");
-        }
-      } catch (error) {
-        console.error('Error submitting order:', error);
-        setSuccessMessage("There was an error submitting the order.");
-      }
-=======
     // Validation Functions
     const validateRedditLink = (link) => /^https:\/\/(www\.)?reddit\.com\/[a-zA-Z0-9_]/.test(link);
 
@@ -5025,7 +4880,6 @@ const UpvoteOrder = () => {
             default: return "";
         }
     }, [formData.category]);
->>>>>>> client
 
     const calculatePrice = useCallback(() => {
         const quantity = parseInt(formData.quantity || 0, 10);
@@ -5052,23 +4906,9 @@ const UpvoteOrder = () => {
     // Debounce the calculatePrice function
     const debouncedCalculatePrice = useCallback(debounce(calculatePrice, 300), [calculatePrice]);
 
-<<<<<<< HEAD
-  return (
-    <div className="container">
-      {/* Form Content */}
-      <div className="px-6">
-        <h1 className="mb-2 font-bold text-sub-color text-basic">
-          Order Upvotes
-        </h1>
-        <div className="flex items-center space-x-4">
-          <Breadcrumb items={breadcrumbs} />
-        </div>
-      </div>
-=======
     useEffect(() => {
         debouncedCalculatePrice();
     }, [debouncedCalculatePrice]);
->>>>>>> client
 
     // Event Handlers
     const handleBlur = (e) => {
@@ -5112,12 +4952,6 @@ const UpvoteOrder = () => {
         const formIsValid = validateForm();
         setTouched({ category: true, service: true, link: true, quantity: true, comments: true });
 
-<<<<<<< HEAD
-      {/* Order Tables */}
-      <Ordertable />
-    </div>
-  );
-=======
         if (!formIsValid) {
             setIsSubmitting(false);
             setIsLoading(false); // Set loading to false if form is invalid
@@ -5269,7 +5103,6 @@ const UpvoteOrder = () => {
             </section>
         </>
     );
->>>>>>> client
 };
 
 export default UpvoteOrder;

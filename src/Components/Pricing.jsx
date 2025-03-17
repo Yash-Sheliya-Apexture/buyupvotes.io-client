@@ -1453,22 +1453,12 @@ const Pricing = () => {
   }, []);
 
   return (
-<<<<<<< HEAD
-    <section className="container pt-10 mx-auto" id="Pricing">
-      {/* <h1 className="text-center text-[#2d2624] lg:text-[48px] text-[32px] font-black lg:leading-[60px] leading-10">
-        Tiered pricing with <br /> bulk discounts
-      </h1> */}
-      <p className="lg:text-[24px] text-[18px] text-[#2d2624] my-6 text-center font-bold">
-        Choose the perfect tier for your needs
-      </p>
-=======
     <section className="container mx-auto">
       <div className="relative bg-gradient-to-r mt-10 from-main-color to-[#FE674F] rounded-2xl overflow-hidden text-white flex flex-col md:flex-row items-center">
         {/* Left Side - Image */}
         <div className="flex justify-center">
           <img src={Rocket} alt="Rocket" className="animate-float w-5/6" />
         </div>
->>>>>>> client
 
         {/* Right Side - Content */}
         <div className="w-full md:w-1/2 text-center md:text-left mt-8 md:mt-0 space-y-6">
@@ -1502,94 +1492,10 @@ const Pricing = () => {
                     Sign Up
                   </Link>
                 </div>
-<<<<<<< HEAD
-              )}
-              <h3 className="text-[14px] font-bold text-[#919EAB] mb-3">
-                {plan.title}
-              </h3>
-              <p className="text-[20px] font-bold text-[#2D2624] mb-3">
-                {plan.price}
-              </p>
-              <p className="text-[14px] font-bold text-[#A3AEB9] mb-3">
-                {plan.rate}
-              </p>
-              {plan.discount && (
-                <p className="text-[14px] text-[#FF5F0C] font-bold mb-3">
-                  {plan.discount}
-                </p>
-              )}
-              <hr className="mb-3 border-t border-t-gray-300" />
-              <ul className="space-y-0">
-                {plan.features.map((feature, i) => (
-                  <li key={i} className="flex p-2">
-                    <span className="mr-2 text-green-500">✔</span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Tablet/Small Screen Layout */}
-      {/* Tablet/Small Screen Layout */}
-      <div className="block lg:hidden">
-        <div className="flex items-center justify-center pb-8 space-x-4 overflow-x-auto md:space-x-12">
-          {pricingPlans.map((plan, index) => (
-            <button
-              key={index}
-              className={`py-2 text-[16px] font-bold transition-all ease-in duration-200
-        ${
-          selectedPlan === plan
-            ? "text-[#FF5700] border-b-2 border-[#FF5700]"
-            : "bg-transparent text-[#2D2624] border-b-2 border-transparent hover:border-[#FF5700] hover:text-[#FF5700]"
-        }
-      `}
-              onClick={() => setSelectedPlan(plan)}
-            >
-              {plan.title}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex items-center justify-center">
-          <div
-            className={`border-4 border-[#FF5700] rounded-[26px] p-6 bg-white shadow-lg md:w-[60%] w-full ${
-              selectedPlan.title === "Standard"
-                ? "border-2 border-[#FF5700]"
-                : ""
-            }`}
-          >
-            <h3 className="text-[14px] font-bold text-[#919EAB] mb-3">
-              {selectedPlan.title}
-            </h3>
-            <p className="text-[20px] font-bold text-[#2D2624] mb-3">
-              {selectedPlan.price}
-            </p>
-            <p className="text-[14px] font-bold text-[#A3AEB9] mb-3">
-              {selectedPlan.rate}
-            </p>
-            {selectedPlan.discount && (
-              <p className="text-[14px] text-[#FF5F0C] font-bold mb-3">
-                {selectedPlan.discount}
-              </p>
-            )}
-            <hr className="mb-3 border-t border-t-gray-300" />
-            <ul className="space-y-2">
-              {selectedPlan.features.map((feature, i) => (
-                <li key={i} className="flex p-2">
-                  <span className="mr-2 text-green-500">✔</span>
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-=======
 
 
               </>
             )}
->>>>>>> client
           </div>
         </div>
       </div>
